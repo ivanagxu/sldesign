@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>SL Design - F1 Monaco</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0a0e17; color: #e2e8f0; min-height: 100vh; overflow: hidden; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        header { background: #1e293b; padding: 0.6rem 1rem; display: flex; align-items: center; gap: 0.8rem; position: relative; z-index: 10; }
+        .back-btn { color: #60a5fa; text-decoration: none; font-size: 1rem; display: flex; align-items: center; gap: 0.3rem; }
+        .back-btn:hover { color: #93c5fd; }
+        .game-title { font-size: 1.1rem; font-weight: 700; color: #ef4444; flex: 1; text-transform: uppercase; letter-spacing: 2px; }
+        .game-title span { color: #60a5fa; }
+
+        #gameCanvas { display: block; margin: 0 auto; }
+
+        /* HUD */
+        .hud { position: fixed; top: 60px; left: 10px; z-index: 5; display: flex; flex-direction: column; gap: 6px; }
+        .hud-item { background: rgba(15,23,42,0.9); border: 1px solid #334155; border-radius: 6px; padding: 6px 10px; font-size: 0.8rem; color: #94a3b8; }
+        .hud-item b { color: #60a5fa; font-size: 0.95rem; }
+        .hud-item.warn b { color: #f59e0b; }
+        .hud-item.danger b { color: #ef4444; }
+
+        .hud-right { position: fixed; top: 60px; right: 10px; z-index: 5; text-align: right; }
+
+        .weather-icon { font-size: 1.2rem; }
+
+        /* Start screen */
+        .overlay-screen {
+            position: fixed; inset: 0; background: rgba(10,14,23,0.95);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 20; gap: 1.2rem;
+        }
+        .overlay-screen h1 { font-size: 2.5rem; color: #ef4444; text-transform: uppercase; letter-spacing: 4px; }
+        .overlay-screen h1 span { color: #60a5fa; }
+        .overlay-screen p { color: #94a3b8; font-size: 0.95rem; }
+
+        .tire-select { display: flex; gap: 0.8rem; margin: 1rem 0; }
+        .tire-btn {
+            padding: 0.8rem 1.5rem; border: 2px solid #334155; border-radius: 8px;
+            background: #1e293b; color: #e2e8f0; cursor: pointer; text-align: center;
+            transition: all 0.2s;
+        }
+        .tire-btn:hover { border-color: #60a5fa; transform: scale(1.05); }
+        .tire-btn.selected { border-color: #60a5fa; background: #1e3a5f; }
+        .tire-btn .tire-icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
+        .tire-btn .tire-name { font-weight: 700; font-size: 0.9rem; }
+        .tire-btn .tire-desc { font-size: 0.7rem; color: #94a3b8; margin-top: 0.2rem; }
+
+        .tire-btn.soft { border-color: #ef4444; }
+        .tire-btn.soft.selected { background: #451a1a; }
+        .tire-btn.medium { border-color: #f59e0b; }
+        .tire-btn.medium.selected { background: #45351a; }
+        .tire-btn.wet { border-color: #3b82f6; }
+        .tire-btn.wet.selected { background: #1a2545; }
+
+        .start-btn {
+            padding: 1rem 3rem; border: none; border-radius: 8px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white; font-size: 1.2rem; font-weight: 700; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 2px; transition: all 0.2s;
+        }
+        .start-btn:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(239,68,68,0.4); }
+
+        /* Lap records */
+        .records { background: rgba(30,41,59,0.95); border: 1px solid #334155; border-radius: 8px; padding: 1rem; margin-top: 1rem; min-width: 300px; }
+        .records h3 { color: #f59e0b; margin-bottom: 0.5rem; font-size: 0.9rem; }
+        .records ol { padding-left: 1.5rem; }
+        .records li { color: #94a3b8; font-size: 0.85rem; padding: 2px 0; }
+        .records li:first-child { color: #f59e0b; font-weight: 700; }
+
+        /* Mobile controls */
+        .mobile-controls {
+            position: fixed; bottom: 10px; left: 10px; right: 10px;
+            display: none; justify-content: space-between; align-items: flex-end;
+            z-index: 10;
+        }
+        .mobile-left, .mobile-right { display: flex; flex-direction: column; gap: 4px; }
+        .m-btn {
+            width: 56px; height: 56px; border: 2px solid #334155; border-radius: 12px;
+            background: rgba(30,41,59,0.8); color: #60a5fa; font-size: 1.3rem;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent;
+        }
+        .m-btn:active { background: #3b82f6; color: white; }
+        .m-btn.accel { border-color: #10b981; color: #10b981; }
+        .m-btn.accel:active { background: #10b981; color: white; }
+        .m-btn.brake { border-color: #ef4444; color: #ef4444; }
+        .m-btn.brake:active { background: #ef4444; color: white; }
+
+        @media (max-width: 768px) {
+            .mobile-controls { display: flex; }
+            .overlay-screen h1 { font-size: 1.5rem; }
+            .tire-select { flex-direction: column; gap: 0.5rem; }
+        }
+
+        .controls-hint { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 5; color: #475569; font-size: 0.75rem; }
+        @media (max-width: 768px) { .controls-hint { display: none; } }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="../games.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+        <div class="game-title">F1 <span>MONACO GP</span></div>
+    </header>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- HUD -->
+    <div class="hud" id="hud" style="display:none;">
+        <div class="hud-item">LAP <b id="hudLap">0/5</b></div>
+        <div class="hud-item">TIME <b id="hudTime">00:00.0</b></div>
+        <div class="hud-item" id="hudBestBox">BEST <b id="hudBest">--:--.--</b></div>
+        <div class="hud-item" id="hudTireBox">TIRE <b id="hudTire">-</b></div>
+        <div class="hud-item" id="hudWearBox">WEAR <b id="hudWear">100%</b></div>
+    </div>
+
+    <div class="hud-right" id="hudRight" style="display:none;">
+        <div class="hud-item"><span class="weather-icon" id="hudWeather">☀️</span> <b id="hudWeatherText">DRY</b></div>
+        <div class="hud-item">POS <b id="hudPos">6/6</b></div>
+    </div>
+
+    <!-- Mobile controls -->
+    <div class="mobile-controls" id="mobileControls">
+        <div class="mobile-left">
+            <button class="m-btn" id="btnLeft"><i class="fas fa-chevron-left"></i></button>
+        </div>
+        <div class="mobile-right">
+            <button class="m-btn accel" id="btnAccel"><i class="fas fa-chevron-up"></i></button>
+            <button class="m-btn brake" id="btnBrake"><i class="fas fa-chevron-down"></i></button>
+            <button class="m-btn" id="btnRight"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <div class="controls-hint">W/↑ 加速  S/↓ 刹车  A/← 左转  D/→ 右转</div>
+
+    <!-- Start screen -->
+    <div class="overlay-screen" id="startScreen">
+        <h1>F1 <span>MONACO GP</span></h1>
+        <p>5 圈计时赛 · 动态天气 · 多车竞技</p>
+        <div style="color:#64748b; font-size:0.8rem;">选择轮胎策略</div>
+        <div class="tire-select">
+            <button class="tire-btn soft" data-tire="soft" onclick="selectTire('soft', this)">
+                <div class="tire-icon" style="color:#ef4444;">🔴</div>
+                <div class="tire-name">SOFT</div>
+                <div class="tire-desc">最快 · 磨损快 · 干地</div>
+            </button>
+            <button class="tire-btn medium selected" data-tire="medium" onclick="selectTire('medium', this)">
+                <div class="tire-icon" style="color:#f59e0b;">🟡</div>
+                <div class="tire-name">MEDIUM</div>
+                <div class="tire-desc">平衡 · 耐久适中</div>
+            </button>
+            <button class="tire-btn wet" data-tire="wet" onclick="selectTire('wet', this)">
+                <div class="tire-icon" style="color:#3b82f6;">🔵</div>
+                <div class="tire-name">WET</div>
+                <div class="tire-desc">湿地专用 · 干地慢</div>
+            </button>
+        </div>
+        <button class="start-btn" onclick="startRace()">START RACE</button>
+        <div class="records" id="records">
+            <h3><i class="fas fa-trophy"></i> 圈速记录</h3>
+            <ol id="recordsList"><li style="color:#647489;">暂无记录</li></ol>
+        </div>
+    </div>
+
+    <!-- Race end screen -->
+    <div class="overlay-screen" id="endScreen" style="display:none;">
+        <h1>RACE <span>COMPLETE</span></h1>
+        <p>最终成绩</p>
+        <div style="font-size:1.5rem; color:#60a5fa; font-weight:700;" id="endTotal">--:--.--</div>
+        <div style="font-size:0.9rem; color:#94a3b8;" id="endPos">第 6 名</div>
+        <button class="start-btn" onclick="backToStart()" style="font-size:1rem; padding:0.8rem 2rem;">返回</button>
+    </div>
+
+    <script>
+    // ==================== TRACK DATA ====================
+    // Monaco-inspired track waypoints (simplified circuit)
+    const TRACK_POINTS = [
+        {x:800,y:400},  // Start/Finish straight
+        {x:850,y:380},  //
+        {x:900,y:360},  //
+        {x:950,y:340},  //
+        {x:1000,y:320}, //
+        {x:1050,y:300}, //
+        {x:1100,y:280}, // Sainte Devote
+        {x:1150,y:260}, //
+        {x:1200,y:240}, //
+        {x:1230,y:220}, //
+        {x:1240,y:200}, // Casino
+        {x:1230,y:170}, //
+        {x:1200,y:140}, // Mirabeau
+        {x:1180,y:120}, //
+        {x:1150,y:100}, //
+        {x:1120,y:90},  // Loews Hairpin
+        {x:1090,y:85},  //
+        {x:1060,y:90},  //
+        {x:1040,y:100}, //
+        {x:1020,y:120}, // Portier
+        {x:1000,y:150}, //
+        {x:980,y:180},  //
+        {x:960,y:220},  // Tunnel approach
+        {x:950,y:260},  //
+        {x:955,y:300},  //
+        {x:960,y:340},  //
+        {x:950,y:380},  // Chicane
+        {x:930,y:400},  //
+        {x:900,y:410},  // Tabac
+        {x:860,y:420},  //
+        {x:820,y:430},  //
+        {x:780,y:440},  //
+        {x:740,y:450},  // Swimming Pool
+        {x:700,y:460},  //
+        {x:660,y:470},  //
+        {x:620,y:480},  //
+        {x:580,y:500},  // Rascasse
+        {x:540,y:520},  //
+        {x:500,y:540},  //
+        {x:460,y:560},  // Anthony Noghes
+        {x:420,y:570},  //
+        {x:380,y:560},  //
+        {x:340,y:540},  //
+        {x:300,y:510},  //
+        {x:280,y:480},  //
+        {x:260,y:450},  //
+        {x:250,y:410},  //
+        {x:245,y:370},  //
+        {x:250,y:330},  //
+        {x:260,y:290},  //
+        {x:280,y:250},  //
+        {x:310,y:220},  //
+        {x:350,y:200},  //
+        {x:400,y:190},  //
+        {x:450,y:185},  //
+        {x:500,y:180},  //
+        {x:550,y:185},  //
+        {x:600,y:200},  //
+        {x:650,y:220},  //
+        {x:700,y:250},  //
+        {x:740,y:280},  //
+        {x:770,y:310},  //
+        {x:800,y:340},  //
+        {x:800,y:400},  // Back to start
+    ];
+
+    // Compute track length and cumulative distance
+    let trackLength = 0;
+    const TRACK_DIST = [0];
+    for (let i = 1; i < TRACK_POINTS.length; i++) {
+        const dx = TRACK_POINTS[i].x - TRACK_POINTS[i-1].x;
+        const dy = TRACK_POINTS[i].y - TRACK_POINTS[i-1].y;
+        trackLength += Math.sqrt(dx*dx + dy*dy);
+        TRACK_DIST.push(trackLength);
+    }
+
+    function getTrackPos(t) {
+        const totalT = (t % 1 + 1) % 1; // normalize 0-1
+        const targetDist = totalT * trackLength;
+        for (let i = 0; i < TRACK_DIST.length - 1; i++) {
+            if (TRACK_DIST[i+1] >= targetDist) {
+                const segLen = TRACK_DIST[i+1] - TRACK_DIST[i];
+                const frac = segLen > 0 ? (targetDist - TRACK_DIST[i]) / segLen : 0;
+                return {
+                    x: TRACK_POINTS[i].x + (TRACK_POINTS[i+1].x - TRACK_POINTS[i].x) * frac,
+                    y: TRACK_POINTS[i].y + (TRACK_POINTS[i+1].y - TRACK_POINTS[i].y) * frac,
+                    idx: i
+                };
+            }
+        }
+        return { x: TRACK_POINTS[0].x, y: TRACK_POINTS[0].y, idx: 0 };
+    }
+
+    function getTrackAngle(t) {
+        const p1 = getTrackPos(t);
+        const p2 = getTrackPos((t + 0.005) % 1);
+        return Math.atan2(p2.y - p1.y, p2.x - p1.x);
+    }
+
+    function getTrackWidth(t) {
+        const totalT = (t % 1 + 1) % 1;
+        const pos = getTrackPos(t);
+        // Narrow sections: Casino, Tunnel, Swimming Pool
+        if (pos.idx >= 7 && pos.idx <= 15) return 50;  // Casino-Mirabeau
+        if (pos.idx >= 23 && pos.idx <= 30) return 55;  // Tunnel
+        if (pos.idx >= 32 && pos.idx <= 38) return 50;  // Pool
+        return 65;
+    }
+
+    // ==================== TIRES ====================
+    const TIRE_PROPS = {
+        soft:   { name: 'SOFT', color: '#ef4444', grip: 1.15, wearRate: 1.8, wetPenalty: 0.55, dryBonus: 1.0 },
+        medium: { name: 'MEDIUM', color: '#f59e0b', grip: 1.0, wearRate: 1.0, wetPenalty: 0.7, dryBonus: 0.85 },
+        wet:    { name: 'WET', color: '#3b82f6', grip: 0.75, wearRate: 0.7, wetPenalty: 1.0, dryBonus: 0.55 },
+    };
+
+    // ==================== WEATHER ====================
+    let weather = { state: 'dry', progress: 0, rainIntensity: 0 };
+    const WEATHER_CYCLE = 180; // seconds for full cycle
+
+    function updateWeather(dt) {
+        weather.progress += dt / WEATHER_CYCLE;
+        if (weather.progress > 1) weather.progress = 0;
+
+        const p = weather.progress;
+        // Dry (0-0.6) -> Rain starting (0.6-0.7) -> Wet (0.7-0.85) -> Dry (0.85-1.0)
+        if (p < 0.6) {
+            weather.state = 'dry';
+            weather.rainIntensity = 0;
+        } else if (p < 0.7) {
+            weather.state = 'rain_start';
+            weather.rainIntensity = (p - 0.6) / 0.1;
+        } else if (p < 0.85) {
+            weather.state = 'wet';
+            weather.rainIntensity = 1;
+        } else {
+            weather.state = 'drying';
+            weather.rainIntensity = 1 - (p - 0.85) / 0.15;
+        }
+    }
+
+    function getTrackGrip() {
+        if (weather.state === 'dry' || weather.state === 'drying' && weather.rainIntensity < 0.3) return 1.0;
+        return 0.5 + weather.rainIntensity * 0.1; // 0.6 at full wet
+    }
+
+    // ==================== GAME STATE ====================
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let selectedTire = 'medium';
+    let gameRunning = false;
+    let raceFinished = false;
+
+    // Player
+    let player = {
+        t: 0, lateral: 0, speed: 0, maxSpeed: 5.5, accel: 0.08, brake: 0.15,
+        lap: 0, lapTime: 0, bestLap: Infinity, totalTime: 0,
+        tireWear: 100, crashed: false, crashTimer: 0, finishTime: 0
+    };
+
+    // AI cars
+    let aiCars = [];
+    const TOTAL_LAPS = 5;
+
+    function initAI() {
+        aiCars = [
+            { t: 0.02, lateral: 0, speed: 4.8, maxSpeed: 5.0, color: '#3b82f6', lap: 0, tire: 'medium', name: 'VER', lapTime: 0, bestLap: Infinity, finishTime: 0 },
+            { t: 0.04, lateral: 0, speed: 4.5, maxSpeed: 4.7, color: '#10b981', lap: 0, tire: 'soft', name: 'NOR', lapTime: 0, bestLap: Infinity, finishTime: 0 },
+            { t: 0.06, lateral: 0, speed: 4.2, maxSpeed: 4.4, color: '#f59e0b', lap: 0, tire: 'medium', name: 'LEC', lapTime: 0, bestLap: Infinity, finishTime: 0 },
+            { t: 0.08, lateral: 0, speed: 4.0, maxSpeed: 4.2, color: '#8b5cf6', lap: 0, tire: 'wet', name: 'HAM', lapTime: 0, bestLap: Infinity, finishTime: 0 },
+            { t: 0.10, lateral: 0, speed: 3.8, maxSpeed: 4.0, color: '#ef4444', lap: 0, tire: 'soft', name: 'SAI', lapTime: 0, bestLap: Infinity, finishTime: 0 },
+        ];
+    }
+
+    // ==================== INPUT ====================
+    let keys = { up: false, down: false, left: false, right: false };
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') { keys.up = true; e.preventDefault(); }
+        if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') { keys.down = true; e.preventDefault(); }
+        if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') { keys.left = true; e.preventDefault(); }
+        if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') { keys.right = true; e.preventDefault(); }
+    });
+    document.addEventListener('keyup', e => {
+        if (e.key === 'ArrowUp' || e.key === 'w') keys.up = false;
+        if (e.key === 'ArrowDown' || e.key === 's') keys.down = false;
+        if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = false;
+        if (e.key === 'ArrowRight' || e.key === 'd') keys.right = false;
+    });
+
+    // Mobile
+    function setupBtn(id, key) {
+        const btn = document.getElementById(id);
+        btn.addEventListener('touchstart', e => { e.preventDefault(); keys[key] = true; });
+        btn.addEventListener('touchend', e => { e.preventDefault(); keys[key] = false; });
+        btn.addEventListener('mousedown', () => keys[key] = true);
+        btn.addEventListener('mouseup', () => keys[key] = false);
+    }
+    setupBtn('btnLeft', 'left');
+    setupBtn('btnRight', 'right');
+    setupBtn('btnAccel', 'up');
+    setupBtn('btnBrake', 'down');
+
+    // ==================== GAME LOGIC ====================
+    function selectTire(tire, el) {
+        selectedTire = tire;
+        document.querySelectorAll('.tire-btn').forEach(b => b.classList.remove('selected'));
+        el.classList.add('selected');
+    }
+
+    function loadRecords() {
+        const records = JSON.parse(localStorage.getItem('f1MonacoRecords') || '[]');
+        const list = document.getElementById('recordsList');
+        if (records.length === 0) {
+            list.innerHTML = '<li style="color:#647489;">暂无记录</li>';
+        } else {
+            list.innerHTML = records.slice(0, 5).map(r => {
+                const time = formatTime(r.time);
+                return `<li>${time} — ${r.tire}</li>`;
+            }).join('');
+        }
+    }
+
+    function saveRecord(time) {
+        const records = JSON.parse(localStorage.getItem('f1MonacoRecords') || '[]');
+        const tire = TIRE_PROPS[selectedTire].name;
+        records.push({ time, tire, date: Date.now() });
+        records.sort((a, b) => a.time - b.time);
+        localStorage.setItem('f1MonacoRecords', JSON.stringify(records.slice(0, 10)));
+    }
+
+    function startRace() {
+        document.getElementById('startScreen').style.display = 'none';
+        document.getElementById('endScreen').style.display = 'none';
+        document.getElementById('hud').style.display = '';
+        document.getElementById('hudRight').style.display = '';
+
+        player = {
+            t: 0, lateral: 0, speed: 0, maxSpeed: 5.5, accel: 0.08, brake: 0.15,
+            lap: 0, lapTime: 0, bestLap: Infinity, totalTime: 0,
+            tireWear: 100, crashed: false, crashTimer: 0, finishTime: 0
+        };
+        initAI();
+        weather = { state: 'dry', progress: 0, rainIntensity: 0 };
+        gameRunning = true;
+        raceFinished = false;
+        resizeCanvas();
+        requestAnimationFrame(gameLoop);
+    }
+
+    function backToStart() {
+        document.getElementById('endScreen').style.display = 'none';
+        document.getElementById('startScreen').style.display = 'flex';
+        document.getElementById('hud').style.display = 'none';
+        document.getElementById('hudRight').style.display = 'none';
+        loadRecords();
+    }
+
+    function formatTime(ms) {
+        const totalSec = ms / 1000;
+        const min = Math.floor(totalSec / 60);
+        const sec = Math.floor(totalSec % 60);
+        const frac = Math.floor((ms % 1000) / 10);
+        return `${min}:${String(sec).padStart(2,'0')}.${String(frac).padStart(2,'0')}`;
+    }
+
+    // ==================== GAME LOOP ====================
+    let lastTime = 0;
+    function gameLoop(timestamp) {
+        const dt = Math.min((timestamp - lastTime) / 1000, 0.05);
+        lastTime = timestamp;
+
+        if (gameRunning && !raceFinished) {
+            update(dt);
+        }
+        render();
+
+        requestAnimationFrame(gameLoop);
+    }
+
+    function update(dt) {
+        updateWeather(dt);
+
+        const tire = TIRE_PROPS[selectedTire];
+        const trackGrip = getTrackGrip();
+        const tireGrip = tire.grip * trackGrip;
+
+        // Tire wear
+        const wearFactor = tire.wearRate * (1 - player.tireWear / 200);
+        player.tireWear = Math.max(0, player.tireWear - dt * wearFactor * 2);
+
+        // Speed modifiers
+        const wetPenalty = weather.state === 'wet' ? tire.wetPenalty : tire.dryBonus;
+        const wearPenalty = player.tireWear < 20 ? 0.6 : (player.tireWear < 50 ? 0.8 : 1.0);
+        const effectiveMaxSpeed = player.maxSpeed * tireGrip * wetPenalty * wearPenalty;
+
+        if (!player.crashed) {
+            if (keys.up) player.speed = Math.min(player.speed + player.accel * tireGrip, effectiveMaxSpeed);
+            else if (keys.down) player.speed = Math.max(player.speed - player.brake, -2);
+            else player.speed = Math.max(player.speed * 0.98, 0);
+
+            if (keys.left) player.lateral -= 0.008 * tireGrip;
+            if (keys.right) player.lateral += 0.008 * tireGrip;
+            player.lateral = Math.max(-1, Math.min(1, player.lateral)) * 0.95;
+
+            player.t += player.speed / trackLength;
+            if (player.t >= 1) {
+                player.t -= 1;
+                // Lap complete
+                if (player.lapTime > 0 && player.lap > 0) {
+                    if (player.lapTime < player.bestLap) player.bestLap = player.lapTime;
+                    saveRecord(player.lapTime);
+                }
+                player.lap++;
+                player.lapTime = 0;
+                if (player.lap > TOTAL_LAPS) {
+                    raceFinished = true;
+                    player.finishTime = player.totalTime;
+                    endRace();
+                    return;
+                }
+            }
+            player.lapTime += dt * 1000;
+            player.totalTime += dt * 1000;
+        } else {
+            player.crashTimer -= dt;
+            player.speed *= 0.9;
+            if (player.crashTimer <= 0) player.crashed = false;
+        }
+
+        // AI update
+        aiCars.forEach(ai => {
+            const aiTire = TIRE_PROPS[ai.tire];
+            const aiGrip = aiTire.grip * trackGrip;
+            const aiWet = weather.state === 'wet' ? aiTire.wetPenalty : aiTire.dryBonus;
+
+            // AI speed variation
+            ai.speed += (Math.random() - 0.5) * 0.1;
+            ai.speed = Math.max(3.0, Math.min(ai.maxSpeed * aiGrip * aiWet, ai.speed));
+            ai.t += ai.speed / trackLength;
+            if (ai.t >= 1) {
+                ai.t -= 1;
+                ai.lap++;
+                if (ai.lapTime > 0 && ai.lap > 0 && ai.lapTime < ai.bestLap) ai.bestLap = ai.lapTime;
+                ai.lapTime = 0;
+                if (ai.lap > TOTAL_LAPS && !ai.finishTime) ai.finishTime = ai.totalTime || player.totalTime;
+            }
+            ai.lapTime += dt * 1000;
+            if (ai.finishTime) ai.finishTime += dt * 1000;
+        });
+
+        // Collision check
+        if (!player.crashed) {
+            aiCars.forEach(ai => {
+                const dt_norm = Math.abs(player.t - ai.t);
+                const dl = Math.abs(player.lateral - ai.lateral);
+                if (dt_norm < 0.003 && dl < 0.3) {
+                    player.crashed = true;
+                    player.crashTimer = 1.5;
+                    player.speed *= 0.3;
+                    player.lateral = (player.lateral > ai.lateral) ? 0.8 : -0.8;
+                }
+            });
+        }
+
+        // Off-track check
+        if (Math.abs(player.lateral) > 0.9 && !player.crashed) {
+            player.speed *= 0.92; // Grass slows you
+            if (Math.abs(player.lateral) > 1.0) {
+                player.lateral = Math.sign(player.lateral) * 0.95;
+            }
+        }
+
+        // Update HUD
+        updateHUD();
+    }
+
+    function updateHUD() {
+        document.getElementById('hudLap').textContent = `${Math.min(player.lap, TOTAL_LAPS)}/${TOTAL_LAPS}`;
+        document.getElementById('hudTime').textContent = formatTime(player.lapTime);
+        document.getElementById('hudBest').textContent = player.bestLap < Infinity ? formatTime(player.bestLap) : '--:--.--';
+
+        const tire = TIRE_PROPS[selectedTire];
+        const tireEl = document.getElementById('hudTire');
+        tireEl.textContent = tire.name;
+        tireEl.style.color = tire.color;
+
+        const wearEl = document.getElementById('hudWear');
+        wearEl.textContent = `${Math.round(player.tireWear)}%`;
+        const wearBox = document.getElementById('hudWearBox');
+        wearBox.className = 'hud-item' + (player.tireWear < 20 ? ' danger' : player.tireWear < 50 ? ' warn' : '');
+
+        const weatherEl = document.getElementById('hudWeather');
+        const weatherText = document.getElementById('hudWeatherText');
+        if (weather.state === 'dry') { weatherEl.textContent = '☀️'; weatherText.textContent = 'DRY'; }
+        else if (weather.state === 'rain_start') { weatherEl.textContent = '🌦️'; weatherText.textContent = 'RAIN START'; }
+        else if (weather.state === 'wet') { weatherEl.textContent = '🌧️'; weatherText.textContent = 'WET'; }
+        else { weatherEl.textContent = '🌤️'; weatherText.textContent = 'DRYING'; }
+
+        // Position
+        const playerTotal = player.lap + player.t;
+        let pos = 1;
+        aiCars.forEach(ai => { if (ai.lap + ai.t > playerTotal) pos++; });
+        document.getElementById('hudPos').textContent = `${pos}/${aiCars.length + 1}`;
+    }
+
+    function endRace() {
+        gameRunning = false;
+        const playerTotal = player.lap + player.t;
+        let pos = 1;
+        aiCars.forEach(ai => { if (ai.lap + ai.t > playerTotal) pos++; });
+        document.getElementById('endTotal').textContent = formatTime(player.finishTime || player.totalTime);
+        document.getElementById('endPos').textContent = `第 ${pos} 名 / ${aiCars.length + 1}`;
+        setTimeout(() => {
+            document.getElementById('endScreen').style.display = 'flex';
+        }, 500);
+    }
+
+    // ==================== RENDERING ====================
+    let cameraX = 0, cameraY = 0;
+
+    function resizeCanvas() {
+        canvas.width = Math.min(window.innerWidth, 1200);
+        canvas.height = Math.min(window.innerHeight - 50, 800);
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function render() {
+        ctx.fillStyle = '#0a0e17';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        const scale = Math.min(canvas.width / 1400, canvas.height / 800) * 0.85;
+        const cx = canvas.width / 2;
+        const cy = canvas.height / 2;
+
+        // Camera follows player
+        const pPos = getTrackPos(player.t);
+        cameraX += (pPos.x - cameraX) * 0.1;
+        cameraY += (pPos.y - cameraY) * 0.1;
+
+        ctx.save();
+        ctx.translate(cx - cameraX * scale, cy - cameraY * scale);
+        ctx.scale(scale, scale);
+
+        // Draw track surface
+        ctx.strokeStyle = '#334155';
+        ctx.lineWidth = 70;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.beginPath();
+        TRACK_POINTS.forEach((p, i) => {
+            i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+        });
+        ctx.closePath();
+        ctx.stroke();
+
+        // Track white line
+        ctx.strokeStyle = '#475569';
+        ctx.lineWidth = 66;
+        ctx.beginPath();
+        TRACK_POINTS.forEach((p, i) => {
+            i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+        });
+        ctx.closePath();
+        ctx.stroke();
+
+        // Track racing line
+        ctx.strokeStyle = '#1e293b';
+        ctx.lineWidth = 50;
+        ctx.beginPath();
+        TRACK_POINTS.forEach((p, i) => {
+            i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+        });
+        ctx.closePath();
+        ctx.stroke();
+
+        // Start/Finish line
+        const sf = TRACK_POINTS[0];
+        ctx.save();
+        ctx.translate(sf.x, sf.y);
+        const sfAngle = getTrackAngle(0);
+        ctx.rotate(sfAngle + Math.PI / 2);
+        ctx.fillStyle = '#ffffff';
+        for (let r = -30; r < 30; r += 6) {
+            for (let c = 0; c < 2; c++) {
+                ctx.fillStyle = (r + c) % 12 === 0 ? '#fff' : '#000';
+                ctx.fillRect(r, c * 3 - 3, 6, 3);
+            }
+        }
+        ctx.restore();
+
+        // Draw rain
+        if (weather.rainIntensity > 0) {
+            ctx.strokeStyle = `rgba(150,200,255,${weather.rainIntensity * 0.3})`;
+            ctx.lineWidth = 1;
+            for (let i = 0; i < 80; i++) {
+                const rx = cameraX + (Math.random() - 0.5) * canvas.width / scale;
+                const ry = cameraY + (Math.random() - 0.5) * canvas.height / scale;
+                ctx.beginPath();
+                ctx.moveTo(rx, ry);
+                ctx.lineTo(rx - 3, ry + 12);
+                ctx.stroke();
+            }
+        }
+
+        // Draw AI cars
+        aiCars.forEach(ai => {
+            const aiPos = getTrackPos(ai.t);
+            const angle = getTrackAngle(ai.t);
+            ctx.save();
+            ctx.translate(aiPos.x + ai.lateral * 20, aiPos.y);
+            ctx.rotate(angle);
+            drawCar(10, 5, ai.color);
+            ctx.restore();
+
+            // AI name
+            ctx.fillStyle = '#94a3b8';
+            ctx.font = '10px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(ai.name, aiPos.x + ai.lateral * 20, aiPos.y - 12);
+        });
+
+        // Draw player car
+        ctx.save();
+        const angle = getTrackAngle(player.t);
+        ctx.translate(pPos.x + player.lateral * 20, pPos.y);
+        ctx.rotate(angle);
+
+        if (player.crashed) {
+            ctx.globalAlpha = 0.5 + Math.sin(Date.now() / 100) * 0.3;
+        }
+
+        drawCar(12, 6, '#ef4444');
+        ctx.restore();
+
+        // Player name
+        ctx.fillStyle = '#ef4444';
+        ctx.font = 'bold 11px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('YOU', pPos.x + player.lateral * 20, pPos.y - 15);
+
+        ctx.restore();
+
+        // Lap indicator
+        if (!raceFinished) {
+            ctx.fillStyle = '#94a3b8';
+            ctx.font = '12px sans-serif';
+            ctx.textAlign = 'center';
+            if (player.crashed) {
+                ctx.fillStyle = '#ef4444';
+                ctx.fillText('💥 COLLISION! Recovering...', canvas.width / 2, canvas.height - 30);
+            }
+        }
+    }
+
+    function drawCar(w, h, color) {
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(w, 0);
+        ctx.lineTo(-w * 0.7, -h);
+        ctx.lineTo(-w, -h * 0.6);
+        ctx.lineTo(-w, h * 0.6);
+        ctx.lineTo(-w * 0.7, h);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(-w * 0.3, -h * 0.8, w * 0.6, h * 1.6);
+    }
+
+    // Init
+    loadRecords();
+    resizeCanvas();
+    </script>
+</body>
+</html>
