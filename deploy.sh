@@ -11,11 +11,13 @@ SSH_KEY="/home/aiops/.ssh/id_ed25519_github"
 DEPLOY_USER="aiops"
 
 export GIT_SSH_COMMAND="ssh -i $SSH_KEY -o IdentitiesOnly=yes -o StrictHostKeyChecking=no"
-# Git needs HOME set to find ssh keys
 export HOME="/home/$DEPLOY_USER"
 
 echo "=== SL Design Deploy ==="
 echo "Date: $(date '+%Y-%m-%d %H:%M:%S %Z')"
+
+# Ensure safe.directory for any user running this script
+git config --global --add safe.directory "$SITE_DIR" 2>/dev/null || true
 
 # Step 1: Backup current site
 if [ -d "$SITE_DIR" ] && [ "$(ls -A $SITE_DIR)" ]; then
@@ -29,6 +31,9 @@ fi
 if [ -d "$SITE_DIR/.git" ]; then
     echo "[2/4] Pulling latest changes..."
     cd "$SITE_DIR"
+    # Discard local changes (permissions/ownership diffs), pull clean
+    git checkout -- . 2>/dev/null || true
+    git stash --include-untracked 2>/dev/null || true
     git pull origin master
 else
     echo "[2/4] Cloning repository..."
@@ -40,9 +45,6 @@ fi
 echo "[3/4] Setting permissions..."
 chown -R www-data:www-data "$SITE_DIR"
 chmod -R 755 "$SITE_DIR"
-
-# Add safe.directory for git operations (avoid dubious ownership warning)
-git config --global --add safe.directory "$SITE_DIR" 2>/dev/null || true
 
 # Verify key files
 MISSING=0
