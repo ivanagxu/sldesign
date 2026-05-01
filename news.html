@@ -200,32 +200,6 @@
             font-size: 0.95rem;
         }
 
-        /* 分类筛选 */
-        .category-filter {
-            display: flex;
-            justify-content: center;
-            gap: 0.8rem;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
-        }
-
-        .category-btn {
-            padding: 0.4rem 1.2rem;
-            border: 2px solid #DAA520;
-            border-radius: 20px;
-            background: transparent;
-            color: #DAA520;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .category-btn:hover,
-        .category-btn.active {
-            background-color: #DAA520;
-            color: white;
-        }
-
         /* 新闻卡片容器 */
         .news-list {
             max-width: 800px;
@@ -544,13 +518,6 @@
             <p>精选金融与科技新闻 · 每周更新</p>
         </div>
 
-        <!-- 分类筛选 -->
-        <div class="category-filter">
-            <button class="category-btn active" data-category="all">全部</button>
-            <button class="category-btn" data-category="科技">科技</button>
-            <button class="category-btn" data-category="金融">金融</button>
-        </div>
-
         <!-- 新闻列表 -->
         <div class="news-list" id="newsList">
             <div class="loading-spinner" id="loadingSpinner">
@@ -596,40 +563,34 @@
 
     // ========== 新闻加载与渲染 ==========
     const MAX_ARTICLES = 10;
-    let allArticles = [];
-    let currentCategory = 'all';
+        let allArticles = [];
 
-    // 加载新闻索引
-    async function loadNews() {
-        try {
-            const resp = await fetch('news/news-index.json');
-            if (!resp.ok) throw new Error('Failed to load news index');
-            allArticles = await resp.json();
-            renderNews();
-        } catch (err) {
+        // 加载新闻索引
+        async function loadNews() {
+            try {
+                const resp = await fetch('news/news-index.json');
+                if (!resp.ok) throw new Error('Failed to load news index');
+                allArticles = await resp.json();
+                renderNews();
+            } catch (err) {
             console.error('News load error:', err);
             document.getElementById('newsList').innerHTML =
                 '<p style="text-align:center;color:#95a5a6;padding:2rem;">新闻加载失败，请稍后重试</p>';
         }
     }
 
-    // 渲染新闻列表
-    function renderNews() {
-        const container = document.getElementById('newsList');
+        // 渲染新闻列表
+        function renderNews() {
+            const container = document.getElementById('newsList');
 
-        // 按分类筛选
-        let filtered = currentCategory === 'all'
-            ? allArticles
-            : allArticles.filter(a => a.category === currentCategory);
+            // 最多显示 10 篇
+            const hasMore = allArticles.length > MAX_ARTICLES;
+            const visible = allArticles.slice(0, MAX_ARTICLES);
 
-        // 最多显示 10 篇
-        const hasMore = filtered.length > MAX_ARTICLES;
-        const visible = filtered.slice(0, MAX_ARTICLES);
-
-        if (visible.length === 0) {
-            container.innerHTML = '<p style="text-align:center;color:#95a5a6;padding:2rem;">暂无该分类的新闻</p>';
-            return;
-        }
+            if (visible.length === 0) {
+                container.innerHTML = '<p style="text-align:center;color:#95a5a6;padding:2rem;">暂无新闻</p>';
+                return;
+            }
 
         let html = '';
         visible.forEach((article, index) => {
@@ -697,16 +658,6 @@
             body.innerHTML = '<p style="color:#e74c3c;">正文加载失败</p>';
         }
     }
-
-    // 分类筛选
-    document.querySelectorAll('.category-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            currentCategory = this.dataset.category;
-            renderNews();
-        });
-    });
 
     // 工具函数
     function escapeHtml(text) {
