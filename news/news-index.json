@@ -1,0 +1,23 @@
+[
+  {
+    "id": "2025-05-04-nvidia-blackwell",
+    "title": "英伟达发布 Blackwell Ultra GPU，AI 训练性能提升 2.5 倍",
+    "date": "2025-05-04",
+    "category": "科技",
+    "filename": "2025-05-04-nvidia-blackwell.html"
+  },
+  {
+    "id": "2025-05-01-fed-rate",
+    "title": "美联储暗示 2025 年 6 月可能降息，全球股市上涨",
+    "date": "2025-05-01",
+    "category": "金融",
+    "filename": "2025-05-01-fed-rate.html"
+  },
+  {
+    "id": "2025-04-28-apple-m5",
+    "title": "Apple M5 芯片曝光：3nm 工艺 + 16 核 CPU，MacBook Pro 即将升级",
+    "date": "2025-04-28",
+    "category": "科技",
+    "filename": "2025-04-28-apple-m5.html"
+  }
+]
