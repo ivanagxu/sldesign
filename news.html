@@ -181,23 +181,19 @@
         /* 页面标题 */
         .news-header {
             text-align: center;
-            padding: 2rem 0 1.5rem;
+            padding: 1.5rem 0 1rem;
         }
 
-        .news-header h1 {
-            font-size: 2rem;
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
-        }
-
-        .news-header h1 i {
+        .news-clock {
+            font-size: 1.1rem;
             color: #DAA520;
-            margin-right: 0.5rem;
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
         }
 
-        .news-header p {
-            color: #7f8c8d;
-            font-size: 0.95rem;
+        .news-clock i {
+            margin-right: 0.4rem;
         }
 
         /* 新闻卡片容器 */
@@ -459,10 +455,6 @@
                 right: 20px;
             }
 
-            .news-header h1 {
-                font-size: 1.5rem;
-            }
-
             .news-card-header {
                 padding: 1rem;
                 gap: 0.8rem;
@@ -514,8 +506,9 @@
     <!-- 主要内容 -->
     <main class="container">
         <div class="news-header">
-            <h1><i class="fas fa-newspaper"></i> NEWS</h1>
-            <p>精选金融与科技新闻 · 每周更新</p>
+            <div class="news-clock" id="hkClock">
+                <i class="far fa-clock"></i><span id="clockTime">--</span>
+            </div>
         </div>
 
         <!-- 新闻列表 -->
@@ -676,6 +669,31 @@
 
     // 启动
     loadNews();
+
+    // ========== 香港时间实时时钟 ==========
+    function updateClock() {
+        const now = new Date();
+        // 香港时区 UTC+8
+        const options = {
+            timeZone: 'Asia/Hong_Kong',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        };
+        const formatter = new Intl.DateTimeFormat('zh-CN', options);
+        const parts = formatter.formatToParts(now);
+        const get = (type) => parts.find(p => p.type === type)?.value || '';
+
+        const timeStr = `${get('year')}-${get('month')}-${get('day')} ${get('hour')}:${get('minute')}:${get('second')}`;
+        document.getElementById('clockTime').textContent = timeStr;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
     </script>
 </body>
 </html>
