@@ -604,7 +604,7 @@
             const ap = getTrackPos(ai.t);
             ctx.save();
             ctx.translate(ap.x + ai.lat*24, ap.y);
-            ctx.rotate(ai.headAng);
+            ctx.rotate(ai.headAng + Math.PI);
             drawCar(14, 7, ai.color);
             ctx.restore();
             ctx.save();
@@ -620,7 +620,7 @@
         // Player car
         ctx.save();
         ctx.translate(pp.x + player.lat*24, pp.y);
-        ctx.rotate(player.headAng);
+        ctx.rotate(player.headAng + Math.PI);
         if (player.spinning > 0) ctx.globalAlpha = 0.5 + Math.sin(Date.now()/80)*0.3;
         drawCar(16, 8, '#ef4444');
         ctx.restore();
