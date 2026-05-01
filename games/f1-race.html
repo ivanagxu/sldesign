@@ -17,7 +17,6 @@
         body { background: #0a0e17; color: #e2e8f0; min-height: 100vh; overflow: hidden; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
         header { background: #1e293b; padding: 0.5rem 0.8rem; display: flex; align-items: center; gap: 0.8rem; z-index: 10; position: relative; }
         .back-btn { color: #60a5fa; text-decoration: none; font-size: 1.1rem; display: flex; align-items: center; gap: 0.3rem; }
-        .back-btn:hover { color: #93c5fd; }
         .game-title { font-size: 1rem; font-weight: 800; color: #ef4444; flex: 1; text-transform: uppercase; letter-spacing: 3px; }
         .game-title span { color: #60a5fa; }
 
@@ -32,10 +31,34 @@
 
         .hud-right { position: fixed; top: 48px; right: 8px; z-index: 5; text-align: right; pointer-events: none; }
 
-        /* Speed gauge */
         .speed-gauge { position: fixed; bottom: 8px; right: 8px; z-index: 5; text-align: center; pointer-events: none; }
         .speed-gauge .speed-val { font-size: 1.8rem; font-weight: 800; color: #60a5fa; line-height: 1; }
         .speed-gauge .speed-unit { font-size: 0.7rem; color: #64748b; }
+
+        /* ====== FIXED ON-SCREEN CONTROLS (always visible) ====== */
+        .on-screen-controls {
+            position: fixed; bottom: 10px; left: 8px; right: 8px;
+            display: flex; justify-content: space-between; align-items: flex-end;
+            z-index: 10; pointer-events: none;
+        }
+        .ctrl-group { display: flex; gap: 6px; pointer-events: auto; }
+        .ctrl-group.vertical { flex-direction: column; }
+        .ctrl-group.horizontal { flex-direction: row; }
+
+        .ctrl-btn {
+            width: 60px; height: 60px; border: 2px solid #475569; border-radius: 14px;
+            background: rgba(30,41,59,0.85); color: #cbd5e1; font-size: 1.4rem;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent;
+            transition: all 0.08s;
+        }
+        .ctrl-btn:active, .ctrl-btn.pressed {
+            background: #3b82f6; color: white; border-color: #3b82f6; transform: scale(0.92);
+        }
+        .ctrl-btn.accel { border-color: #10b981; color: #10b981; }
+        .ctrl-btn.accel:active, .ctrl-btn.accel.pressed { background: #10b981; color: white; border-color: #10b981; }
+        .ctrl-btn.brake { border-color: #ef4444; color: #ef4444; }
+        .ctrl-btn.brake:active, .ctrl-btn.brake.pressed { background: #ef4444; color: white; border-color: #ef4444; }
 
         /* Overlays */
         .overlay-screen {
@@ -58,7 +81,6 @@
         .tire-btn .tire-icon { font-size: 1.3rem; margin-bottom: 0.2rem; }
         .tire-btn .tire-name { font-weight: 700; font-size: 0.85rem; }
         .tire-btn .tire-desc { font-size: 0.65rem; color: #94a3b8; margin-top: 0.1rem; }
-
         .tire-btn.soft { border-color: #ef4444; }
         .tire-btn.soft.selected { background: #451a1a; border-color: #ef4444; box-shadow: 0 0 12px rgba(239,68,68,0.3); }
         .tire-btn.medium { border-color: #f59e0b; }
@@ -79,35 +101,6 @@
         .records ol { padding-left: 1.2rem; }
         .records li { color: #94a3b8; font-size: 0.8rem; padding: 1px 0; }
         .records li:first-child { color: #f59e0b; font-weight: 700; }
-
-        /* Mobile controls */
-        .mobile-controls {
-            position: fixed; bottom: 10px; left: 8px; right: 8px;
-            display: none; justify-content: space-between; align-items: flex-end;
-            z-index: 10; pointer-events: none;
-        }
-        .mobile-left, .mobile-right { display: flex; flex-direction: column; gap: 5px; pointer-events: auto; }
-        .m-btn {
-            width: 58px; height: 58px; border: 2px solid #475569; border-radius: 14px;
-            background: rgba(30,41,59,0.85); color: #94a3b8; font-size: 1.4rem;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent;
-        }
-        .m-btn:active { background: #3b82f6; color: white; border-color: #3b82f6; transform: scale(0.92); }
-        .m-btn.accel { border-color: #10b981; color: #10b981; }
-        .m-btn.accel:active { background: #10b981; color: white; border-color: #10b981; }
-        .m-btn.brake { border-color: #ef4444; color: #ef4444; }
-        .m-btn.brake:active { background: #ef4444; color: white; border-color: #ef4444; }
-
-        @media (max-width: 768px) {
-            .mobile-controls { display: flex; }
-            .overlay-screen h1 { font-size: 1.3rem; }
-            .tire-select { flex-direction: row; gap: 0.5rem; }
-            .speed-gauge { bottom: 75px; }
-        }
-
-        .controls-hint { position: fixed; bottom: 6px; left: 50%; transform: translateX(-50%); z-index: 5; color: #475569; font-size: 0.7rem; white-space: nowrap; }
-        @media (max-width: 768px) { .controls-hint { display: none; } }
     </style>
 </head>
 <body>
@@ -129,7 +122,7 @@
 
     <div class="hud-right" id="hudRight" style="display:none;">
         <div class="hud-item"><span id="hudWeather">☀️</span> <b id="hudWeatherText">DRY</b></div>
-        <div class="hud-item">POS <b id="hudPos">9/9</b></div>
+        <div class="hud-item">POS <b id="hudPos">10/10</b></div>
     </div>
 
     <div class="speed-gauge" id="speedGauge" style="display:none;">
@@ -137,54 +130,47 @@
         <div class="speed-unit">km/h</div>
     </div>
 
-    <!-- Mobile controls -->
-    <div class="mobile-controls" id="mobileControls">
-        <div class="mobile-left">
-            <button class="m-btn" id="btnLeft"><i class="fas fa-chevron-left"></i></button>
-            <button class="m-btn" id="btnRight"><i class="fas fa-chevron-right"></i></button>
+    <!-- ON-SCREEN CONTROLS (always visible during race) -->
+    <div class="on-screen-controls" id="osc" style="display:none;">
+        <div class="ctrl-group vertical">
+            <button class="ctrl-btn" id="btnLeft"><i class="fas fa-chevron-left"></i></button>
+            <button class="ctrl-btn" id="btnRight"><i class="fas fa-chevron-right"></i></button>
         </div>
-        <div class="mobile-right">
-            <button class="m-btn accel" id="btnAccel"><i class="fas fa-chevron-up"></i></button>
-            <button class="m-btn brake" id="btnBrake"><i class="fas fa-chevron-down"></i></button>
+        <div class="ctrl-group vertical">
+            <button class="ctrl-btn accel" id="btnAccel"><i class="fas fa-chevron-up"></i></button>
+            <button class="ctrl-btn brake" id="btnBrake"><i class="fas fa-chevron-down"></i></button>
         </div>
     </div>
 
-    <div class="controls-hint">W/↑ 加速 | S/↓ 刹车 | A/← 左转 | D/→ 右转 | 入弯过快会打滑！</div>
-
-    <!-- Start screen -->
     <div class="overlay-screen" id="startScreen">
         <h1>F1 <span>MONACO GP</span></h1>
         <p>5 圈计时赛 · 动态天气 · 多轮胎策略 · AI 碰撞</p>
         <div style="color:#64748b; font-size:0.75rem;">选择轮胎策略</div>
         <div class="tire-select">
             <button class="tire-btn soft" data-tire="soft" onclick="selectTire('soft', this)">
-                <div class="tire-icon">🔴</div>
-                <div class="tire-name">SOFT</div>
-                <div class="tire-desc">最快 · 磨损快</div>
+                <div class="tire-icon">🔴</div><div class="tire-name">SOFT</div><div class="tire-desc">最快 · 磨损快</div>
             </button>
             <button class="tire-btn medium selected" data-tire="medium" onclick="selectTire('medium', this)">
-                <div class="tire-icon">🟡</div>
-                <div class="tire-name">MEDIUM</div>
-                <div class="tire-desc">平衡 · 推荐</div>
+                <div class="tire-icon">🟡</div><div class="tire-name">MEDIUM</div><div class="tire-desc">平衡 · 推荐</div>
             </button>
             <button class="tire-btn wet" data-tire="wet" onclick="selectTire('wet', this)">
-                <div class="tire-icon">🔵</div>
-                <div class="tire-name">WET</div>
-                <div class="tire-desc">湿地专用</div>
+                <div class="tire-icon">🔵</div><div class="tire-name">WET</div><div class="tire-desc">湿地专用</div>
             </button>
         </div>
         <button class="start-btn" onclick="startRace()">START RACE</button>
+        <div style="color:#64748b; font-size:0.75rem; margin-top:0.5rem;">
+            <i class="fas fa-keyboard"></i> WASD / 方向键 · 或屏幕按钮控制
+        </div>
         <div class="records" id="records">
             <h3><i class="fas fa-trophy"></i> 圈速记录</h3>
             <ol id="recordsList"><li style="color:#647489;">暂无记录</li></ol>
         </div>
     </div>
 
-    <!-- Race end screen -->
     <div class="overlay-screen" id="endScreen" style="display:none;">
         <h1>RACE <span>COMPLETE</span></h1>
         <div style="font-size:1.8rem; color:#60a5fa; font-weight:800;" id="endTotal">--:--.--</div>
-        <div style="font-size:1rem; color:#94a3b8;" id="endPos">第 9 名</div>
+        <div style="font-size:1rem; color:#94a3b8;" id="endPos">第 10 名</div>
         <div style="font-size:0.8rem; color:#64748b;" id="endBest">最佳圈: --:--.--</div>
         <button class="start-btn" onclick="backToStart()" style="font-size:0.9rem; padding:0.7rem 2rem; margin-top:0.5rem;">返回</button>
     </div>
@@ -200,7 +186,6 @@
         {x:660,y:490},{x:690,y:510},{x:700,y:500},
     ];
 
-    // Precompute
     let trackLen = 0;
     const T_DIST = [0], T_ANG = [], T_CURV = [];
     for (let i = 0; i < TRACK.length; i++) {
@@ -210,11 +195,8 @@
         T_DIST.push(trackLen);
         T_ANG.push(Math.atan2(dy, dx));
     }
-
-    // Curvature
     for (let i = 0; i < TRACK.length; i++) {
-        const a1 = T_ANG[i], a2 = T_ANG[(i+1)%TRACK.length];
-        let d = a2 - a1;
+        let d = T_ANG[(i+1)%TRACK.length] - T_ANG[i];
         while (d > Math.PI) d -= Math.PI*2;
         while (d < -Math.PI) d += Math.PI*2;
         T_CURV.push(Math.abs(d));
@@ -232,26 +214,6 @@
             }
         }
         return { x: TRACK[0].x, y: TRACK[0].y, idx: 0 };
-    }
-
-    function getAngle(t) {
-        t = ((t % 1) + 1) % 1;
-        const d = t * trackLen;
-        for (let i = 0; i < TRACK.length; i++) {
-            if (T_DIST[i+1] >= d) {
-                return T_ANG[i];
-            }
-        }
-        return T_ANG[0];
-    }
-
-    function getCurvature(t) {
-        t = ((t % 1) + 1) % 1;
-        const d = t * trackLen;
-        for (let i = 0; i < TRACK.length; i++) {
-            if (T_DIST[i+1] >= d) return T_CURV[i];
-        }
-        return T_CURV[0];
     }
 
     // ==================== TIRES & WEATHER ====================
@@ -280,9 +242,7 @@
     let selectedTire = 'medium';
     let gameRunning = false, raceFinished = false;
     const TOTAL_LAPS = 5;
-
-    let player = {};
-    let aiCars = [];
+    let player = {}, aiCars = [];
     let keys = { up:false, down:false, left:false, right:false };
     let camX=0, camY=0, camAng=0;
 
@@ -290,47 +250,66 @@
         player = { t:0, lat:0, spd:0, ang:0, headAng:0,
             maxSpd:7.5, accel:0.12, brake:0.18,
             lap:0, lapTime:0, bestLap:1/0, totalTime:0,
-            wear:100, spinning:0, crashed:0, finishTime:0 };
+            wear:100, spinning:0, finishTime:0 };
     }
 
     function initAI() {
-        const names=['VER','NOR','LEC','HAM','SAI','RUS','PIA','ALO','GAS'];
-        const colors=['#3b82f6','#10b981','#f59e0b','#8b5cf6','#ef4444','#06b6d4','#f97316','#14b8a6','#a855f7'];
-        const tires=['medium','soft','medium','wet','soft','medium','soft','wet','medium'];
-        const speeds=[6.8,6.4,6.0,5.6,5.3,5.0,4.7,4.4,4.1];
+        const names=['VER','NOR','LEC','HAM','SAI','RUS','PIA','ALO','GAS','TSU'];
+        const colors=['#3b82f6','#10b981','#f59e0b','#8b5cf6','#ef4444','#06b6d4','#f97316','#14b8a6','#a855f7','#ec4899'];
+        const tires=['medium','soft','medium','wet','soft','medium','soft','wet','medium','soft'];
+        const speeds=[6.8,6.4,6.0,5.6,5.3,5.0,4.7,4.4,4.1,3.8];
         aiCars = [];
-        for (let i=0; i<9; i++) {
-            aiCars.push({ t:0.03+i*0.012, lat:-0.3+Math.random()*0.6, spd:speeds[i], maxSpd:speeds[i],
+        for (let i=0; i<10; i++) {
+            aiCars.push({ t:0.03+i*0.01, lat:-0.3+Math.random()*0.6, spd:speeds[i], maxSpd:speeds[i],
                 ang:0, headAng:0, color:colors[i], tire:tires[i], name:names[i],
                 lap:0, lapTime:0, bestLap:1/0, totalTime:0, spinning:0, finishTime:0 });
         }
     }
 
-    // ==================== INPUT ====================
+    // ==================== INPUT (FIXED) ====================
+    function setKey(k, v) { keys[k]=v; updateBtnState(k,v); }
+
+    // Keyboard
     document.addEventListener('keydown', e => {
         if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d','W','A','S','D'].includes(e.key)) e.preventDefault();
-        if(e.key==='ArrowUp'||e.key==='w'||e.key==='W') keys.up=true;
-        if(e.key==='ArrowDown'||e.key==='s'||e.key==='S') keys.down=true;
-        if(e.key==='ArrowLeft'||e.key==='a'||e.key==='A') keys.left=true;
-        if(e.key==='ArrowRight'||e.key==='d'||e.key==='D') keys.right=true;
+        if(e.key==='ArrowUp'||e.key==='w'||e.key==='W') setKey('up',true);
+        if(e.key==='ArrowDown'||e.key==='s'||e.key==='S') setKey('down',true);
+        if(e.key==='ArrowLeft'||e.key==='a'||e.key==='A') setKey('left',true);
+        if(e.key==='ArrowRight'||e.key==='d'||e.key==='D') setKey('right',true);
     });
     document.addEventListener('keyup', e => {
-        if(e.key==='ArrowUp'||e.key==='w') keys.up=false;
-        if(e.key==='ArrowDown'||e.key==='s') keys.down=false;
-        if(e.key==='ArrowLeft'||e.key==='a') keys.left=false;
-        if(e.key==='ArrowRight'||e.key==='d') keys.right=false;
+        if(e.key==='ArrowUp'||e.key==='w') setKey('up',false);
+        if(e.key==='ArrowDown'||e.key==='s') setKey('down',false);
+        if(e.key==='ArrowLeft'||e.key==='a') setKey('left',false);
+        if(e.key==='ArrowRight'||e.key==='d') setKey('right',false);
     });
 
-    function setupBtn(id, key) {
-        const b = document.getElementById(id);
-        b.addEventListener('touchstart', e => { e.preventDefault(); keys[key]=true; });
-        b.addEventListener('touchend', e => { e.preventDefault(); keys[key]=false; });
-        b.addEventListener('mousedown', () => keys[key]=true);
-        b.addEventListener('mouseup', () => keys[key]=false);
-        b.addEventListener('mouseleave', () => keys[key]=false);
+    // On-screen buttons (touch + mouse)
+    function bindBtn(id, key) {
+        const el = document.getElementById(id);
+        if (!el) return;
+
+        // Touch
+        el.addEventListener('touchstart', e => { e.preventDefault(); e.stopPropagation(); setKey(key, true); }, {passive:false});
+        el.addEventListener('touchend', e => { e.preventDefault(); e.stopPropagation(); setKey(key, false); }, {passive:false});
+        el.addEventListener('touchcancel', e => { setKey(key, false); });
+
+        // Mouse
+        el.addEventListener('mousedown', e => { e.preventDefault(); setKey(key, true); });
+        el.addEventListener('mouseup', e => { setKey(key, false); });
+        el.addEventListener('mouseleave', e => { setKey(key, false); });
     }
-    setupBtn('btnLeft','left'); setupBtn('btnRight','right');
-    setupBtn('btnAccel','up'); setupBtn('btnBrake','down');
+    bindBtn('btnLeft','left'); bindBtn('btnRight','right');
+    bindBtn('btnAccel','up'); bindBtn('btnBrake','down');
+
+    function updateBtnState(key, pressed) {
+        const map = {left:'btnLeft', right:'btnRight', up:'btnAccel', down:'btnBrake'};
+        const el = document.getElementById(map[key]);
+        if (el) {
+            if (pressed) el.classList.add('pressed');
+            else el.classList.remove('pressed');
+        }
+    }
 
     // ==================== GAME ====================
     function selectTire(t, el) {
@@ -364,6 +343,7 @@
         document.getElementById('hud').style.display='';
         document.getElementById('hudRight').style.display='';
         document.getElementById('speedGauge').style.display='';
+        document.getElementById('osc').style.display='flex';
         resetPlayer();
         initAI();
         weather={progress:0, rain:0, state:'dry'};
@@ -376,6 +356,7 @@
 
     function backToStart() {
         document.getElementById('endScreen').style.display='none';
+        document.getElementById('osc').style.display='none';
         document.getElementById('startScreen').style.display='flex';
         document.getElementById('hud').style.display='none';
         document.getElementById('hudRight').style.display='none';
@@ -398,15 +379,13 @@
         const tg = trackGrip();
         const grip = ti.grip * tg;
 
-        // Tire wear
+        // Corner speed check
         const lapCurv = getCurvature(player.t);
-        const cornerGrip = lapCurv * player.spd * player.spd; // centrifugal force
-        const maxCornerSpeed = Math.sqrt(grip / (lapCurv + 0.01)); // safe speed in corner
+        const maxCornerSpeed = Math.sqrt(grip / (lapCurv + 0.01));
 
-        // Check if speeding in corner → spin
         if (player.spd > maxCornerSpeed * 1.3 && lapCurv > 0.1) {
             if (player.spinning <= 0) {
-                player.spinning = 0.8; // spin duration
+                player.spinning = 0.8;
                 player.headAng += (Math.random() > 0.5 ? 1 : -1) * 1.2;
             }
         }
@@ -416,19 +395,17 @@
             player.headAng += dt * 6;
             player.spd *= 0.96;
         } else {
-            player.spinning = 0;
+            // FIXED: Much faster lateral movement
+            const steerSpeed = 0.025 * grip;
+            if (keys.left) player.lat -= steerSpeed;
+            if (keys.right) player.lat += steerSpeed;
 
             if (keys.up) player.spd = Math.min(player.spd + ti.accel * grip, ti.maxSpd * ti.dryMult * (weather.state==='wet'?ti.wetMult:1));
             else if (keys.down) player.spd = Math.max(player.spd - ti.brake, -2);
             else player.spd *= 0.985;
-
-            if (keys.left) player.lat -= 0.012 * grip;
-            if (keys.right) player.lat += 0.012 * grip;
         }
 
         player.lat = Math.max(-1.2, Math.min(1.2, player.lat));
-
-        // Off-track (grass/sand)
         if (Math.abs(player.lat) > 0.85) {
             player.spd *= (1 - 0.05 * (Math.abs(player.lat) - 0.85));
             if (Math.abs(player.lat) > 1.1) player.lat = Math.sign(player.lat) * 1.05;
@@ -479,10 +456,8 @@
                 ai.spd = Math.max(3, Math.min(ai.maxSpd * aiGrip * aiWet, ai.spd));
             }
 
-            // AI lateral - avoid each other
-            ai.lat += (Math.random()-0.5)*0.01;
+            ai.lat += (Math.random()-0.5)*0.008;
             ai.lat = Math.max(-0.8, Math.min(0.8, ai.lat));
-
             ai.t += ai.spd / trackLen;
             if (ai.t >= 1) {
                 ai.t -= 1; ai.lap++;
@@ -494,7 +469,7 @@
             ai.ang = getAngle(ai.t);
             if (ai.spinning <= 0) ai.headAng = ai.ang;
 
-            // Collision with player
+            // Collision
             if (player.spinning <= 0 && ai.spinning <= 0) {
                 const dt2 = Math.abs(player.t - ai.t);
                 const dl = Math.abs(player.lat - ai.lat);
@@ -515,26 +490,21 @@
         document.getElementById('hudLap').textContent = `${Math.min(player.lap,TOTAL_LAPS)}/${TOTAL_LAPS}`;
         document.getElementById('hudTime').textContent = fmt(player.lapTime);
         document.getElementById('hudBest').textContent = player.bestLap<1/0 ? fmt(player.bestLap) : '--:--.--';
-
         const ti = TIRE[selectedTire];
         const te = document.getElementById('hudTire');
         te.textContent = ti.name; te.style.color = ti.color;
-
         const we = document.getElementById('hudWear');
         we.textContent = `${Math.round(player.wear)}%`;
         document.getElementById('hudWearBox').className = 'hud-item' + (player.wear<15?' danger':player.wear<40?' warn':'');
-
         const wi = document.getElementById('hudWeather');
         const wt = document.getElementById('hudWeatherText');
         if(weather.state==='dry'){wi.textContent='☀️';wt.textContent='DRY';}
         else if(weather.state==='rain'){wi.textContent='🌧️';wt.textContent='RAIN';}
         else if(weather.state==='wet'){wi.textContent='🌧️';wt.textContent='WET';}
         else{wi.textContent='🌤️';wt.textContent='DRYING';}
-
         const pTotal = player.lap + player.t;
         let pos=1; aiCars.forEach(a=>{if(a.lap+a.t>pTotal)pos++;});
         document.getElementById('hudPos').textContent = `${pos}/${aiCars.length+1}`;
-
         document.getElementById('speedVal').textContent = Math.round(player.spd * 40);
     }
 
@@ -561,9 +531,8 @@
         ctx.fillStyle='#0a0e17';
         ctx.fillRect(0,0,W,H);
 
-        // Camera: follow player, zoomed in
         const pp = getTrackPos(player.t);
-        const zoom = 3.2; // Big zoom!
+        const zoom = 3.2;
         const tx = pp.x, ty = pp.y;
         camX += (tx-camX)*0.08;
         camY += (ty-camY)*0.08;
@@ -571,40 +540,34 @@
 
         ctx.save();
         ctx.translate(W/2, H/2);
-        ctx.rotate(-camAng + Math.PI/2); // face forward
+        ctx.rotate(-camAng + Math.PI/2);
         ctx.scale(zoom, zoom);
         ctx.translate(-camX, -camY);
 
-        // Grass
         ctx.fillStyle = '#1a2332';
         ctx.fillRect(camX-W/zoom, camY-H/zoom, W/zoom*2, H/zoom*2);
 
-        // Track surface (wider)
         ctx.strokeStyle='#3d4f63'; ctx.lineWidth=72; ctx.lineCap='round'; ctx.lineJoin='round';
         ctx.beginPath();
         TRACK.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));
         ctx.closePath(); ctx.stroke();
 
-        // Track edge white
         ctx.strokeStyle='#6b7c8f'; ctx.lineWidth=68;
         ctx.beginPath();
         TRACK.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));
         ctx.closePath(); ctx.stroke();
 
-        // Racing surface
         ctx.strokeStyle='#2d3748'; ctx.lineWidth=58;
         ctx.beginPath();
         TRACK.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));
         ctx.closePath(); ctx.stroke();
 
-        // Center dashed line
         ctx.strokeStyle='#4a5568'; ctx.lineWidth=2; ctx.setLineDash([8,12]);
         ctx.beginPath();
         TRACK.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));
         ctx.closePath(); ctx.stroke();
         ctx.setLineDash([]);
 
-        // Start/Finish
         ctx.save(); ctx.translate(TRACK[0].x, TRACK[0].y);
         ctx.rotate(T_ANG[0]+Math.PI/2);
         for(let r=-30;r<30;r+=5)for(let c=0;c<2;c++){
@@ -613,7 +576,6 @@
         }
         ctx.restore();
 
-        // Rain
         if(weather.rain>0){
             ctx.strokeStyle=`rgba(150,200,255,${weather.rain*0.2})`; ctx.lineWidth=1;
             for(let i=0;i<60;i++){
@@ -623,7 +585,6 @@
             }
         }
 
-        // AI cars
         aiCars.forEach(ai => {
             const ap = getTrackPos(ai.t);
             ctx.save();
@@ -631,7 +592,6 @@
             ctx.rotate(ai.headAng);
             drawCar(14, 7, ai.color);
             ctx.restore();
-
             ctx.save(); ctx.translate(ap.x+ai.lat*24, ap.y);
             ctx.fillStyle='#e2e8f0'; ctx.font='bold 9px sans-serif'; ctx.textAlign='center';
             ctx.fillText(ai.name, 0, -12);
@@ -639,7 +599,6 @@
             ctx.restore();
         });
 
-        // Player car
         ctx.save();
         ctx.translate(pp.x + player.lat*24, pp.y);
         ctx.rotate(player.headAng);
@@ -647,7 +606,6 @@
         drawCar(16, 8, '#ef4444');
         ctx.restore();
 
-        // Player label
         ctx.save(); ctx.translate(pp.x+player.lat*24, pp.y);
         ctx.fillStyle='#ef4444'; ctx.font='bold 11px sans-serif'; ctx.textAlign='center';
         ctx.fillText('YOU', 0, -16);
@@ -656,7 +614,6 @@
 
         ctx.restore();
 
-        // Off-screen warning
         if(Math.abs(player.lat)>0.85){
             ctx.fillStyle=`rgba(239,68,68,${0.3*Math.abs(player.lat)})`;
             ctx.fillRect(0,0,W,H);
@@ -665,7 +622,6 @@
 
     function drawCar(w, h, color) {
         ctx.save();
-        // Body
         ctx.fillStyle=color;
         ctx.beginPath();
         ctx.moveTo(w, 0);
@@ -677,23 +633,15 @@
         ctx.lineTo(w*0.5, h);
         ctx.closePath();
         ctx.fill();
-
-        // Cockpit
         ctx.fillStyle='#0f172a';
         ctx.fillRect(w*0.1, -h*0.5, w*0.5, h);
-
-        // Front wing
         ctx.fillStyle=color;
         ctx.fillRect(w*0.8, -h*1.1, w*0.15, h*2.2);
-
-        // Rear wing
         ctx.fillStyle='#1e293b';
         ctx.fillRect(-w*0.9, -h*0.6, w*0.2, h*1.2);
-
         ctx.restore();
     }
 
-    // Init
     loadRecords();
     </script>
 </body>
