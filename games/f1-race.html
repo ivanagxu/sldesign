@@ -374,8 +374,8 @@
             player.spd *= 0.96;
         } else {
             player.spinning = 0;
-            if (keys.up) player.spd = Math.min(player.spd + ti.accel * grip, ti.maxSpd * ti.dryMult * (weather.state==='wet' ? ti.wetMult : 1));
-            else if (keys.down) player.spd = Math.max(player.spd - ti.brake, -2);
+            if (keys.up) player.spd = Math.min(player.spd + player.accel * grip, player.maxSpd * ti.dryMult * (weather.state==='wet' ? ti.wetMult : 1));
+            else if (keys.down) player.spd = Math.max(player.spd - player.brake, -2);
             else player.spd *= 0.985;
 
             if (keys.left) player.lat -= 0.012 * grip;
