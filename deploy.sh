@@ -31,9 +31,9 @@ fi
 if [ -d "$SITE_DIR/.git" ]; then
     echo "[2/4] Pulling latest changes..."
     cd "$SITE_DIR"
-    # Discard local changes (permissions/ownership diffs), pull clean
-    git checkout -- . 2>/dev/null || true
-    git stash --include-untracked 2>/dev/null || true
+    # CRITICAL: Never allow local modifications. Always reset to match remote.
+    git reset --hard HEAD 2>/dev/null || true
+    git clean -fd 2>/dev/null || true
     git pull origin master
 else
     echo "[2/4] Cloning repository..."
