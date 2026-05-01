@@ -630,7 +630,8 @@
         } else {
             card.classList.add('expanded');
             // 如果还没加载正文，则加载
-            if (body.querySelector('p')?.textContent === '正在加载正文...') {
+            const placeholder = body.querySelector('p[style*="color:#95a5a6"]');
+            if (placeholder || body.innerHTML.trim() === '') {
                 await loadArticleBody(articleId);
             }
         }
@@ -643,12 +644,13 @@
 
         try {
             const resp = await fetch(`news/${articleId}.html`);
-            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+            if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
             const html = await resp.text();
+            if (!html || html.trim().length === 0) throw new Error('Empty response');
             body.innerHTML = html;
         } catch (err) {
             console.error(`Failed to load article ${articleId}:`, err);
-            body.innerHTML = '<p style="color:#e74c3c;">正文加载失败</p>';
+            body.innerHTML = `<p style="color:#e74c3c;">正文加载失败: ${escapeHtml(err.message)}</p>`;
         }
     }
 
