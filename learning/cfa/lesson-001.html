@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Design - 学习 · CFA · 第 1 课 道德与职业准则导论</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .logo span { color: #e2e8f0; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
+        .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
+        footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
+        .footer-section h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: #60a5fa; }
+        .contact-info { list-style: none; }
+        .contact-info li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .contact-info i { margin-right: 0.8rem; color: #3b82f6; width: 20px; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
+        .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
+
+        .breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #94a3b8; padding: 1rem 0; flex-wrap: wrap; }
+        .breadcrumbs a { color: #10b981; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+        .breadcrumbs .sep { color: #d1d5db; }
+
+        .lesson-header { padding: 1.5rem 0; }
+        .lesson-header .lesson-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+        .lesson-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .badge-module { background: #eff6ff; color: #3b82f6; }
+        .badge-weight { background: #fef3c7; color: #d97706; }
+        .badge-time { background: #ecfdf5; color: #059669; }
+        .lesson-header h1 { font-size: 1.5rem; color: #0f172a; margin-bottom: 0.3rem; }
+        .lesson-header .lesson-subtitle { color: #64748b; font-size: 0.9rem; }
+
+        .content-body { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2rem; margin-bottom: 2rem; }
+
+        .content-body h2 { font-size: 1.3rem; color: #0284c7; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e0f2fe; }
+        .content-body h2:first-child { margin-top: 0; }
+        .content-body h3 { font-size: 1.1rem; color: #0f172a; margin: 1.5rem 0 0.8rem; }
+        .content-body p { margin-bottom: 0.8rem; color: #444; }
+        .content-body ul, .content-body ol { margin: 0.8rem 0; padding-left: 1.5rem; }
+        .content-body li { margin-bottom: 0.4rem; color: #444; }
+        .content-body strong { color: #0f172a; }
+        .content-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        .content-body th, .content-body td { border: 1px solid #e2e8f0; padding: 0.6rem 0.8rem; text-align: left; }
+        .content-body th { background-color: #eff6ff; color: #0284c7; font-weight: 600; }
+        .content-body tr:nth-child(even) { background-color: #f8fafc; }
+
+        .highlight-box { background: #eff6ff; border-left: 4px solid #0284c7; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .highlight-box p { margin: 0; color: #0369a1; }
+
+        .tip-box { background: #ecfdf5; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .tip-box p { margin: 0; color: #047857; }
+
+        .quiz-box { background: #fefce8; border: 2px solid #fde68a; border-radius: 10px; padding: 1.2rem; margin: 1rem 0; }
+        .quiz-box h4 { color: #a16207; margin-bottom: 0.5rem; font-size: 1rem; }
+        .quiz-box p { color: #713f12; margin-bottom: 0.5rem; }
+        .quiz-box .options { margin: 0.5rem 0; }
+        .quiz-box .option { padding: 0.3rem 0; color: #713f12; }
+        .quiz-box .answer { background: rgba(254,252,232,0.8); border-radius: 8px; padding: 0.8rem; margin-top: 0.5rem; cursor: pointer; }
+        .quiz-box .answer summary { color: #0284c7; font-weight: 600; cursor: pointer; }
+        .quiz-box .answer p { margin: 0.3rem 0 0; }
+
+        .scenario-box { background: #f0fdf4; border: 1px solid #86efac; border-radius: 10px; padding: 1.2rem; margin: 1rem 0; }
+        .scenario-box h4 { color: #059669; margin-bottom: 0.5rem; font-size: 1rem; }
+        .scenario-box p { color: #047857; margin-bottom: 0.5rem; }
+        .scenario-box .analysis { background: rgba(240,253,244,0.5); padding: 0.8rem; border-radius: 6px; margin-top: 0.5rem; }
+        .scenario-box .answer-badge { display: inline-block; padding: 0.2rem 0.8rem; border-radius: 6px; font-weight: 700; font-size: 0.9rem; margin-top: 0.5rem; }
+        .answer-badge.wrong { background: #fecaca; color: #dc2626; }
+
+        .summary-box { background: linear-gradient(135deg, #0284c7, #0369a1); color: white; padding: 1.5rem; border-radius: 12px; margin: 2rem 0; }
+        .summary-box h3 { font-size: 1.1rem; margin-bottom: 0.8rem; }
+        .summary-box ul { list-style: none; padding: 0; }
+        .summary-box li { padding: 0.3rem 0; font-size: 0.95rem; opacity: 0.95; }
+        .summary-box li::before { content: '✅ '; }
+
+        .warm-tip { background: #fce7f3; border-left: 4px solid #ec4899; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .warm-tip p { margin: 0; color: #9d174d; }
+
+        .next-lesson { background: #f0f9ff; border: 2px solid #bae6fd; border-radius: 12px; padding: 1.5rem; margin-top: 2rem; display: flex; align-items: center; gap: 1rem; }
+        .next-lesson i { font-size: 1.5rem; color: #0284c7; }
+        .next-lesson-text h3 { font-size: 1rem; color: #0284c7; margin-bottom: 0.2rem; }
+        .next-lesson-text p { font-size: 0.85rem; color: #0369a1; margin: 0; }
+
+        .prev-next-nav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .prev-next-nav a { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.2rem; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; color: #0284c7; font-size: 0.9rem; transition: box-shadow 0.3s ease; }
+        .prev-next-nav a:hover { box-shadow: 0 4px 12px rgba(2,132,199,0.15); }
+        .prev-next-nav a.disabled { opacity: 0.4; pointer-events: none; }
+
+        .score-table { width: 100%; border-collapse: collapse; margin: 1rem 0; max-width: 300px; }
+        .score-table th, .score-table td { border: 1px solid #e2e8f0; padding: 0.4rem 0.6rem; text-align: center; }
+        .score-table th { background-color: #eff6ff; color: #0284c7; }
+
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; align-items: flex-start; }
+            .logo { margin-bottom: 1rem; }
+            nav { width: 100%; }
+            nav ul { flex-direction: column; width: 100%; display: none; }
+            nav ul.show { display: flex; }
+            nav ul li { margin: 0; width: 100%; }
+            nav ul li a { display: block; padding: 0.8rem 0; border-bottom: 1px solid #1e3a5f; }
+            .menu-toggle { display: block; position: absolute; top: 1rem; right: 20px; }
+            .content-body { padding: 1.2rem; }
+            .lesson-header h1 { font-size: 1.3rem; }
+            .footer-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" style="text-decoration:none;">
+                <div class="logo">SL <span>DESIGN</span> PLATFORM</div>
+            </a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="../../index.html"><i class="fas fa-home"></i> HOME</a></li>
+                    <li><a href="../../index.html#exhibition"><i class="fas fa-images"></i> CASES</a></li>
+                    <li><a href="../../news.html"><i class="fas fa-newspaper"></i> NEWS</a></li>
+                    <li><a href="../../games.html"><i class="fas fa-gamepad"></i> GAMES</a></li>
+                    <li><a href="../../learning.html" class="active"><i class="fas fa-graduation-cap"></i> LEARNING</a></li>
+                    <li><a href="../../index.html#contact"><i class="fas fa-address-book"></i> CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../learning.html"><i class="fas fa-graduation-cap"></i> LEARNING</a>
+            <span class="sep">›</span>
+            <a href="../cfa.html">CFA 特许金融分析师</a>
+            <span class="sep">›</span>
+            <span>第 1 课</span>
+        </div>
+
+        <div class="lesson-header">
+            <div class="lesson-meta">
+                <span class="lesson-badge badge-module">CFA 一级 · 道德与职业准则</span>
+                <span class="lesson-badge badge-weight">权重 15-20%</span>
+                <span class="lesson-badge badge-time">约 30 分钟</span>
+            </div>
+            <h1>📖 第 1 课：道德与职业准则 — 导论</h1>
+            <p class="lesson-subtitle">CFA 道德准则六大核心原则 · 客户利益至上 · 情景题入门</p>
+        </div>
+
+        <div class="content-body">
+
+            <div class="highlight-box">
+                <p>🎉 今天是第一课，没有复习内容！直接开始新知识吧。</p>
+            </div>
+
+            <h2>📖 新概念（5 分钟）</h2>
+
+            <h3>什么是 CFA 道德准则？</h3>
+            <p>CFA 协会制定了一套 <strong>《道德与职业行为准则》（Code of Ethics and Standards of Professional Conduct）</strong>，这是 CFA 考试中 <strong>最重要也最容易丢分</strong> 的部分。</p>
+
+            <p><strong>为什么最重要？因为：</strong></p>
+            <ul>
+                <li><strong>权重最高</strong>（15-20%），相当于 36-48 道题</li>
+                <li><strong>有"道德门槛"</strong>：如果这部分不及格，即使总分达标也可能不过</li>
+                <li><strong>实践性强</strong>：考题都是情景题，不是死记硬背</li>
+            </ul>
+
+            <h3>道德准则的六大核心原则</h3>
+            <p>记住这个口诀：<strong>"客户第一，诚信为本"</strong></p>
+
+            <table>
+                <tr><th>序号</th><th>原则</th><th>一句话理解</th></tr>
+                <tr><td>1</td><td><strong>客户利益至上</strong></td><td>客户的钱 > 自己的钱</td></tr>
+                <tr><td>2</td><td><strong>诚信</strong></td><td>不说谎、不欺骗、不误导</td></tr>
+                <tr><td>3</td><td><strong>专业胜任</strong></td><td>不会的事别装会</td></tr>
+                <tr><td>4</td><td><strong>勤勉尽责</strong></td><td>认真做，别敷衍</td></tr>
+                <tr><td>5</td><td><strong>市场公平</strong></td><td>不操纵市场、不内幕交易</td></tr>
+                <tr><td>6</td><td><strong>维护行业声誉</strong></td><td>个人行为 = CFA 行业形象</td></tr>
+            </table>
+
+            <div class="tip-box">
+                <p>💡 <strong>记忆技巧：</strong>把这六条想象成"一个金融从业者的做人底线"——对客户的底线、对自己的底线、对市场的底线。</p>
+            </div>
+
+            <h2>📝 例题解析（7 分钟）</h2>
+
+            <div class="scenario-box">
+                <h4>例题 1：抢跑交易</h4>
+                <p><strong>情景：</strong>张分析师是某基金的基金经理。他发现自己的个人账户可以买入一只股票，这只股票他正准备大量推荐给基金客户。他应该怎么做？</p>
+                <div class="analysis">
+                    <p>✅ 根据"客户利益至上"原则，<strong>客户优先于个人交易</strong></p>
+                    <p>✅ 张分析师必须确保客户的订单先于他个人的订单执行</p>
+                    <p>⚠️ 这叫做 <strong>"Front Running"（抢跑交易）</strong>，是严重违规</p>
+                    <div class="answer-badge wrong">❌ 张分析师不能先于客户买入</div>
+                </div>
+            </div>
+
+            <div class="scenario-box">
+                <h4>例题 2：内幕信息</h4>
+                <p><strong>情景：</strong>李分析师在一次行业会议上听到某公司 CEO 无意中透露了下季度业绩超预期的信息。她可以基于此调整自己的研究报告吗？</p>
+                <div class="analysis">
+                    <p>✅ CEO 无意透露 = <strong>内幕信息</strong></p>
+                    <p>✅ 基于内幕信息做决策 = <strong>内幕交易</strong>，违反"市场公平"原则</p>
+                    <p>⚠️ 即使信息是"无意中"听到的，也不代表你可以用</p>
+                    <div class="answer-badge wrong">❌ 不可以，这是内幕信息</div>
+                </div>
+            </div>
+
+            <h2>🧠 自测练习（3 分钟）</h2>
+
+            <div class="quiz-box">
+                <h4>自测题 1</h4>
+                <p>王经理是一家投行的高级分析师。他的客户是一家养老基金。在给客户做投资推荐时，他应该：</p>
+                <div class="options">
+                    <div class="option">A. 推荐佣金最高的产品，因为投行需要收入</div>
+                    <div class="option">B. 推荐最适合客户风险偏好的产品</div>
+                    <div class="option">C. 推荐自己持仓最多的产品</div>
+                    <div class="option">D. 推荐最近表现最好的产品</div>
+                </div>
+                <details class="answer">
+                    <summary>点击查看答案</summary>
+                    <p><strong>答案：B ✅</strong></p>
+                    <p>解析：根据"客户利益至上"原则，分析师必须以客户的最佳利益为出发点，而不是自己或公司的利益。</p>
+                </details>
+            </div>
+
+            <div class="quiz-box">
+                <h4>自测题 2</h4>
+                <p>赵分析师发现自己的朋友持有某只股票，他正在推荐这只股票给客户。他需要：</p>
+                <div class="options">
+                    <div class="option">A. 不需要披露，这是个人关系</div>
+                    <div class="option">B. 只在客户问起时才披露</div>
+                    <div class="option">C. 主动披露利益冲突</div>
+                    <div class="option">D. 等股票涨了再披露</div>
+                </div>
+                <details class="answer">
+                    <summary>点击查看答案</summary>
+                    <p><strong>答案：C ✅</strong></p>
+                    <p>解析：根据"诚信"和"客户利益至上"原则，分析师必须 <strong>主动披露</strong> 任何可能影响其客观性的利益冲突。</p>
+                </details>
+            </div>
+
+            <div class="quiz-box">
+                <h4>自测题 3</h4>
+                <p>以下哪项行为违反了 CFA 道德准则？</p>
+                <div class="options">
+                    <div class="option">A. 在研究报告中使用公开数据</div>
+                    <div class="option">B. 拒绝基于内幕信息做交易</div>
+                    <div class="option">C. 向客户保证"这只股票一定涨"</div>
+                    <div class="option">D. 定期审查自己的投资决策</div>
+                </div>
+                <details class="answer">
+                    <summary>点击查看答案</summary>
+                    <p><strong>答案：C ✅</strong></p>
+                    <p>解析：CFA 准则明确禁止 <strong>保证收益</strong> 或 <strong>承诺特定回报</strong>。投资有风险，任何"一定涨"的承诺都是误导性的。</p>
+                </details>
+            </div>
+
+            <h2>✅ 今日总结（3 分钟）</h2>
+
+            <div class="summary-box">
+                <h3>你今天学到了：</h3>
+                <ul>
+                    <li>CFA 道德准则的 <strong>六大核心原则</strong></li>
+                    <li><strong>客户利益至上</strong> 是最核心的原则</li>
+                    <li><strong>内幕交易、抢跑交易、保证收益</strong> 都是明确违规</li>
+                </ul>
+            </div>
+
+            <h3>自测成绩记录</h3>
+            <table class="score-table">
+                <tr><th>题号</th><th>题 1</th><th>题 2</th><th>题 3</th></tr>
+                <tr><td>你的答案</td><td></td><td></td><td></td></tr>
+            </table>
+            <p style="color: #64748b; font-size: 0.85rem; margin-top: 0.5rem;">请告诉我你的答案（如：B、C、C），我来批改！</p>
+
+            <div class="next-lesson">
+                <i class="fas fa-arrow-right"></i>
+                <div class="next-lesson-text">
+                    <h3>明日预告：第 2 课 · 道德准则 vs. 职业行为标准</h3>
+                    <p>两者的区别是什么？Code of Ethics 和 Standards of Professional Conduct 有何不同？</p>
+                </div>
+            </div>
+
+            <div class="prev-next-nav">
+                <a href="#" class="disabled"><i class="fas fa-arrow-left"></i> 上一课</a>
+                <a href="../cfa.html"><i class="fas fa-map"></i> CFA 目录</a>
+                <a href="#" class="disabled">下一课 <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="warm-tip">
+            <p>🌴 <strong>Sindy 姐温馨提示：</strong>第一天不用着急，慢慢来。30 分钟够了，做完自测就休息！💕</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
+                    <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 96091469</p></li>
+                    <li><i class="fas fa-envelope"></i> sindylau2010@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/SLdesignPlus" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="contact-info">
+                    <li><a href="../../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
+                    <li><a href="../cfa.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-chart-line"></i> CFA</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 SL Design Platform. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>
