@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Design - 学习 · 钢琴 · 课程总览：90 天大纲</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .logo span { color: #e2e8f0; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
+        .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
+        footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
+        .footer-section h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: #60a5fa; }
+        .contact-info { list-style: none; }
+        .contact-info li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .contact-info i { margin-right: 0.8rem; color: #3b82f6; width: 20px; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
+        .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
+
+        .breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #94a3b8; padding: 1rem 0; flex-wrap: wrap; }
+        .breadcrumbs a { color: #7c3aed; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+        .breadcrumbs .sep { color: #d1d5db; }
+
+        .lesson-header { padding: 1.5rem 0; }
+        .lesson-header .lesson-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+        .lesson-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .badge-overview { background: #f5f3ff; color: #7c3aed; }
+        .lesson-header h1 { font-size: 1.6rem; color: #0f172a; margin-bottom: 0.3rem; }
+        .lesson-header .lesson-subtitle { color: #64748b; font-size: 0.9rem; }
+
+        .content-body { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2rem; margin-bottom: 2rem; }
+
+        .content-body h2 { font-size: 1.3rem; color: #7c3aed; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #ede9fe; }
+        .content-body h2:first-child { margin-top: 0; }
+        .content-body h3 { font-size: 1.1rem; color: #0f172a; margin: 1.5rem 0 0.8rem; }
+        .content-body p { margin-bottom: 0.8rem; color: #444; }
+        .content-body ul, .content-body ol { margin: 0.8rem 0; padding-left: 1.5rem; }
+        .content-body li { margin-bottom: 0.4rem; color: #444; }
+        .content-body strong { color: #0f172a; }
+        .content-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        .content-body th, .content-body td { border: 1px solid #e2e8f0; padding: 0.6rem 0.8rem; text-align: left; }
+        .content-body th { background-color: #f5f3ff; color: #7c3aed; font-weight: 600; }
+        .content-body tr:nth-child(even) { background-color: #f8fafc; }
+
+        .highlight-box { background: #f5f3ff; border-left: 4px solid #7c3aed; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .highlight-box p { margin: 0; color: #5b21b6; }
+
+        .tip-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .tip-box p { margin: 0; color: #92400e; }
+
+        .phase-section { margin-bottom: 2rem; }
+        .phase-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e2e8f0; }
+        .phase-dot { width: 14px; height: 14px; border-radius: 50%; }
+        .phase-header h2 { font-size: 1.1rem; color: #0f172a; }
+        .phase-header span { color: #94a3b8; font-size: 0.85rem; }
+
+        .prev-next-nav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .prev-next-nav a { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.2rem; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; color: #7c3aed; font-size: 0.9rem; transition: box-shadow 0.3s ease; }
+        .prev-next-nav a:hover { box-shadow: 0 4px 12px rgba(124,58,237,0.15); }
+
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; align-items: flex-start; }
+            .logo { margin-bottom: 1rem; }
+            nav { width: 100%; }
+            nav ul { flex-direction: column; width: 100%; display: none; }
+            nav ul.show { display: flex; }
+            nav ul li { margin: 0; width: 100%; }
+            nav ul li a { display: block; padding: 0.8rem 0; border-bottom: 1px solid #1e3a5f; }
+            .menu-toggle { display: block; position: absolute; top: 1rem; right: 20px; }
+            .content-body { padding: 1.2rem; }
+            .lesson-header h1 { font-size: 1.3rem; }
+            .footer-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" style="text-decoration:none;">
+                <div class="logo">SL <span>DESIGN</span> PLATFORM</div>
+            </a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="../../index.html"><i class="fas fa-home"></i> HOME</a></li>
+                    <li><a href="../../index.html#exhibition"><i class="fas fa-images"></i> CASES</a></li>
+                    <li><a href="../../news.html"><i class="fas fa-newspaper"></i> NEWS</a></li>
+                    <li><a href="../../games.html"><i class="fas fa-gamepad"></i> GAMES</a></li>
+                    <li><a href="../../learning.html" class="active"><i class="fas fa-graduation-cap"></i> LEARNING</a></li>
+                    <li><a href="../../index.html#contact"><i class="fas fa-address-book"></i> CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../learning.html"><i class="fas fa-graduation-cap"></i> LEARNING</a>
+            <span class="sep">›</span>
+            <a href="../piano.html">钢琴 · 电钢琴速成</a>
+            <span class="sep">›</span>
+            <span>课程总览</span>
+        </div>
+
+        <div class="lesson-header">
+            <div class="lesson-meta">
+                <span class="lesson-badge badge-overview">课程总览</span>
+            </div>
+            <h1>🎹 零基础电钢琴速成：90 天大纲</h1>
+            <p class="lesson-subtitle">从入门到乐队键盘手 · 5 阶段 30 模块 · 1 学 2 练循环</p>
+        </div>
+
+        <div class="content-body">
+            <h2>📋 课程概览</h2>
+            <table>
+                <tr><th>项目</th><th>详情</th></tr>
+                <tr><td>学习周期</td><td>90 天（约 12-13 周）</td></tr>
+                <tr><td>目标</td><td>掌握电钢琴基础，能熟练阅读和弦谱，完成 3-5 首乐队曲目排练，具备基础即兴能力</td></tr>
+                <tr><td>学习模式</td><td><strong>1 天学习 + 2 天练习</strong>（循环）</td></tr>
+                <tr><td>每日投入</td><td>学习日 60 分钟 / 练习日 45 分钟</td></tr>
+                <tr><td>交付形式</td><td>Markdown 课程文件 + Telegram 发送 + 每日打卡点评</td></tr>
+            </table>
+
+            <h2>🗓️ 学习模式：1 学 2 练循环</h2>
+            <table>
+                <tr><th>周期</th><th>第 1 天（学习）</th><th>第 2 天（练习）</th><th>第 3 天（练习）</th></tr>
+                <tr><td>内容</td><td>新知识讲解 + 基础练习</td><td>复习巩固 + 节奏训练</td><td>曲目应用 + 录音打卡</td></tr>
+                <tr><td>时长</td><td>60 分钟</td><td>45 分钟</td><td>45 分钟</td></tr>
+                <tr><td>AI 角色</td><td>讲师 + 示范</td><td>陪练 + 纠错</td><td>制作人 + 反馈</td></tr>
+                <tr><td>输出</td><td>课程文件 + 作业</td><td>练习记录 + 视频/音频</td><td>录音提交 + 复盘</td></tr>
+            </table>
+
+            <h2>📚 90 天课程大纲（30 个模块）</h2>
+
+            <!-- Phase 1 -->
+            <div class="phase-section">
+                <div class="phase-header">
+                    <div class="phase-dot" style="background:#10b981;"></div>
+                    <h2>Phase 1: 基础构建</h2><span>Days 1-18</span>
+                </div>
+                <p style="margin-bottom:0.8rem;color:#64748b;">目标：掌握正确姿势、识谱、基本音阶与和弦，建立节奏感。</p>
+                <table>
+                    <tr><th>模块</th><th>主题</th><th>核心内容</th></tr>
+                    <tr><td>M1</td><td>乐器认知与姿势</td><td>琴键布局、坐姿、手型、触键力度</td></tr>
+                    <tr><td>M2</td><td>乐理基础（上）</td><td>全音/半音、音名、唱名、五线谱识读</td></tr>
+                    <tr><td>M3</td><td>乐理基础（下）</td><td>节奏型（全/半/四分音符）、节拍器使用</td></tr>
+                    <tr><td>M4</td><td>音阶与指法</td><td>C 大调音阶、正确指法、双手配合</td></tr>
+                    <tr><td>M5</td><td>基础和弦（上）</td><td>大三和弦、小三和弦、原位与转位</td></tr>
+                    <tr><td>M6</td><td>基础和弦（下）</td><td>常用和弦进行（I-IV-V-I）、左手伴奏型</td></tr>
+                </table>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="phase-section">
+                <div class="phase-header">
+                    <div class="phase-dot" style="background:#f59e0b;"></div>
+                    <h2>Phase 2: 和声与节奏</h2><span>Days 19-36</span>
+                </div>
+                <p style="margin-bottom:0.8rem;color:#64748b;">目标：掌握七和弦、复杂节奏型，能独立弹奏流行歌曲伴奏。</p>
+                <table>
+                    <tr><th>模块</th><th>主题</th><th>核心内容</th></tr>
+                    <tr><td>M7</td><td>七和弦世界</td><td>Maj7、Min7、Dom7 的构成与听感</td></tr>
+                    <tr><td>M8</td><td>节奏进阶（上）</td><td>切分音、附点节奏、反拍练习</td></tr>
+                    <tr><td>M9</td><td>节奏进阶（下）</td><td>摇滚/流行/民谣基础节奏型</td></tr>
+                    <tr><td>M10</td><td>左手伴奏模式</td><td>分解和弦、阿尔贝蒂低音、根音 + 五度</td></tr>
+                    <tr><td>M11</td><td>和弦替代与色彩</td><td>Sus4、Add9、挂留和弦的运用</td></tr>
+                    <tr><td>M12</td><td>曲目实战 1</td><td>学习第 1 首完整流行歌曲（简谱/和弦谱）</td></tr>
+                </table>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="phase-section">
+                <div class="phase-header">
+                    <div class="phase-dot" style="background:#f97316;"></div>
+                    <h2>Phase 3: 乐队技能与即兴</h2><span>Days 37-54</span>
+                </div>
+                <p style="margin-bottom:0.8rem;color:#64748b;">目标：学会看 Lead Sheet，掌握 Comping 技巧，开始即兴演奏。</p>
+                <table>
+                    <tr><th>模块</th><th>主题</th><th>核心内容</th></tr>
+                    <tr><td>M13</td><td>乐队键盘手职责</td><td>频段分配、不与吉他/贝斯冲突、动态控制</td></tr>
+                    <tr><td>M14</td><td>读谱与视奏</td><td>Lead Sheet 阅读、和弦标记速读、即兴伴奏</td></tr>
+                    <tr><td>M15</td><td>Comping 技巧</td><td>爵士/流行伴奏织体、节奏切分、留白艺术</td></tr>
+                    <tr><td>M16</td><td>即兴入门（上）</td><td>五声音阶、布鲁斯音阶、安全音选择</td></tr>
+                    <tr><td>M17</td><td>即兴入门（下）</td><td>动机发展、节奏即兴、乐句呼吸</td></tr>
+                    <tr><td>M18</td><td>曲目实战 2</td><td>学习第 2 首歌曲，加入即兴 Solo</td></tr>
+                </table>
+            </div>
+
+            <!-- Phase 4 -->
+            <div class="phase-section">
+                <div class="phase-header">
+                    <div class="phase-dot" style="background:#ef4444;"></div>
+                    <h2>Phase 4: 风格拓展与进阶</h2><span>Days 55-72</span>
+                </div>
+                <p style="margin-bottom:0.8rem;color:#64748b;">目标：接触不同音乐风格，提升技术难度，丰富音色运用。</p>
+                <table>
+                    <tr><th>模块</th><th>主题</th><th>核心内容</th></tr>
+                    <tr><td>M19</td><td>风格探索：Funk/R&B</td><td>16 分音符节奏、Slap 技巧、Groove 练习</td></tr>
+                    <tr><td>M20</td><td>风格探索：Jazz 基础</td><td>ii-V-I 进行、Drop2 和弦、Swing 节奏</td></tr>
+                    <tr><td>M21</td><td>音色与效果器</td><td>Pad、Lead、Piano、Organ 音色切换与分层</td></tr>
+                    <tr><td>M22</td><td>高级和声</td><td>调式互换、副属和弦、色彩和弦应用</td></tr>
+                    <tr><td>M23</td><td>复杂节奏</td><td>三连音、跨小节连线、Polyrhythm 基础</td></tr>
+                    <tr><td>M24</td><td>曲目实战 3</td><td>学习第 3 首歌曲（带前奏/间奏/尾奏）</td></tr>
+                </table>
+            </div>
+
+            <!-- Phase 5 -->
+            <div class="phase-section">
+                <div class="phase-header">
+                    <div class="phase-dot" style="background:#8b5cf6;"></div>
+                    <h2>Phase 5: 演出准备与毕业</h2><span>Days 73-90</span>
+                </div>
+                <p style="margin-bottom:0.8rem;color:#64748b;">目标：完成乐队曲目排练，录制毕业作品，具备接演出能力。</p>
+                <table>
+                    <tr><th>模块</th><th>主题</th><th>核心内容</th></tr>
+                    <tr><td>M25</td><td>乐队合排技巧</td><td>听其他乐器、眼神交流、进/出 cue 点</td></tr>
+                    <tr><td>M26</td><td>现场应对能力</td><td>错音处理、设备故障应急、舞台走位</td></tr>
+                    <tr><td>M27</td><td>曲目实战 4</td><td>学习第 4 首歌曲（完整乐队编配）</td></tr>
+                    <tr><td>M28</td><td>曲目实战 5</td><td>学习第 5 首歌曲（个人独奏/Showcase）</td></tr>
+                    <tr><td>M29</td><td>毕业作品录制</td><td>多轨录音/手机录制、混音基础、作品包装</td></tr>
+                    <tr><td>M30</td><td>毕业典礼</td><td>学习复盘、能力评估、后续进阶路线规划</td></tr>
+                </table>
+            </div>
+
+            <h2>🛠️ 所需设备与工具</h2>
+            <table>
+                <tr><th>类别</th><th>推荐配置</th><th>预算</th><th>说明</th></tr>
+                <tr><td>电钢琴</td><td>Yamaha P-125 / Roland FP-30X</td><td>¥3,000-4,000</td><td>61 键以上，带力度感应，推荐配重</td></tr>
+                <tr><td>耳机</td><td>监听耳机（如 Sony MDR-7506）</td><td>¥500-800</td><td>练习不扰民，听细节</td></tr>
+                <tr><td>谱架</td><td>折叠谱架</td><td>¥50-100</td><td>保持正确坐姿</td></tr>
+                <tr><td>节拍器 App</td><td>Pro Metronome / 自带</td><td>免费</td><td>必备！节奏是乐队核心</td></tr>
+                <tr><td>伴奏 App</td><td>Band-in-a-Box / iReal Pro</td><td>¥100-300</td><td>生成和弦伴奏，练习即兴</td></tr>
+                <tr><td>录音设备</td><td>手机 + 三脚架</td><td>免费</td><td>记录练习，复盘纠错</td></tr>
+            </table>
+
+            <h2>📊 评估与反馈机制</h2>
+            <table>
+                <tr><th>周期</th><th>内容</th><th>形式</th></tr>
+                <tr><td>每日</td><td>练习打卡 + 作业点评</td><td>Telegram 发送录音/视频，AI 点评</td></tr>
+                <tr><td>每周</td><td>周测（节奏/和弦/曲目片段）</td><td>3 分钟限时挑战</td></tr>
+                <tr><td>每月</td><td>月度考核（完整曲目）</td><td>录制完整视频，评估进度</td></tr>
+                <tr><td>毕业</td><td>最终考核（5 首曲目 + 即兴）</td><td>综合评分，颁发结业证书</td></tr>
+            </table>
+
+            <div class="prev-next-nav">
+                <a href="#" class="disabled" style="opacity:0.4;pointer-events:none;"><i class="fas fa-arrow-left"></i> 上一课</a>
+                <a href="../piano.html"><i class="fas fa-map"></i> 钢琴目录</a>
+                <a href="day-01.html">Day 1 · 乐器认知 <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
+                    <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 96091469</p></li>
+                    <li><i class="fas fa-envelope"></i> sindylau2010@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/SLdesignPlus" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="contact-info">
+                    <li><a href="../../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
+                    <li><a href="../piano.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-music"></i> 钢琴</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 SL Design Platform. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>
