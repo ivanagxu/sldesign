@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Design - 学习 · CFA · 课程总览：Level 1 备考大纲</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .logo span { color: #e2e8f0; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
+        .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
+        footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
+        .footer-section h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: #60a5fa; }
+        .contact-info { list-style: none; }
+        .contact-info li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .contact-info i { margin-right: 0.8rem; color: #3b82f6; width: 20px; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
+        .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
+
+        .breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #94a3b8; padding: 1rem 0; flex-wrap: wrap; }
+        .breadcrumbs a { color: #0284c7; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+        .breadcrumbs .sep { color: #d1d5db; }
+
+        .lesson-header { padding: 1.5rem 0; }
+        .lesson-header .lesson-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+        .lesson-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .badge-overview { background: #eff6ff; color: #0284c7; }
+        .lesson-header h1 { font-size: 1.6rem; color: #0f172a; margin-bottom: 0.3rem; }
+        .lesson-header .lesson-subtitle { color: #64748b; font-size: 0.9rem; }
+
+        .content-body { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2rem; margin-bottom: 2rem; }
+
+        .content-body h2 { font-size: 1.3rem; color: #0284c7; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e0f2fe; }
+        .content-body h2:first-child { margin-top: 0; }
+        .content-body h3 { font-size: 1.1rem; color: #0f172a; margin: 1.5rem 0 0.8rem; }
+        .content-body p { margin-bottom: 0.8rem; color: #444; }
+        .content-body ul, .content-body ol { margin: 0.8rem 0; padding-left: 1.5rem; }
+        .content-body li { margin-bottom: 0.4rem; color: #444; }
+        .content-body strong { color: #0f172a; }
+        .content-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        .content-body th, .content-body td { border: 1px solid #e2e8f0; padding: 0.6rem 0.8rem; text-align: left; }
+        .content-body th { background-color: #eff6ff; color: #0284c7; font-weight: 600; }
+        .content-body tr:nth-child(even) { background-color: #f8fafc; }
+
+        .highlight-box { background: #eff6ff; border-left: 4px solid #0284c7; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .highlight-box p { margin: 0; color: #0369a1; }
+
+        .tip-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .tip-box p { margin: 0; color: #92400e; }
+
+        .prev-next-nav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .prev-next-nav a { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.2rem; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; color: #0284c7; font-size: 0.9rem; transition: box-shadow 0.3s ease; }
+        .prev-next-nav a:hover { box-shadow: 0 4px 12px rgba(2,132,199,0.15); }
+
+        .phase-section { margin-bottom: 2rem; }
+        .phase-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e2e8f0; }
+        .phase-dot { width: 14px; height: 14px; border-radius: 50%; }
+        .phase-header h2 { font-size: 1.1rem; color: #0f172a; }
+        .phase-header span { color: #94a3b8; font-size: 0.85rem; }
+
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; align-items: flex-start; }
+            .logo { margin-bottom: 1rem; }
+            nav { width: 100%; }
+            nav ul { flex-direction: column; width: 100%; display: none; }
+            nav ul.show { display: flex; }
+            nav ul li { margin: 0; width: 100%; }
+            nav ul li a { display: block; padding: 0.8rem 0; border-bottom: 1px solid #1e3a5f; }
+            .menu-toggle { display: block; position: absolute; top: 1rem; right: 20px; }
+            .content-body { padding: 1.2rem; }
+            .lesson-header h1 { font-size: 1.3rem; }
+            .footer-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" style="text-decoration:none;">
+                <div class="logo">SL <span>DESIGN</span> PLATFORM</div>
+            </a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="../../index.html"><i class="fas fa-home"></i> HOME</a></li>
+                    <li><a href="../../index.html#exhibition"><i class="fas fa-images"></i> CASES</a></li>
+                    <li><a href="../../news.html"><i class="fas fa-newspaper"></i> NEWS</a></li>
+                    <li><a href="../../games.html"><i class="fas fa-gamepad"></i> GAMES</a></li>
+                    <li><a href="../../learning.html" class="active"><i class="fas fa-graduation-cap"></i> LEARNING</a></li>
+                    <li><a href="../../index.html#contact"><i class="fas fa-address-book"></i> CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../learning.html"><i class="fas fa-graduation-cap"></i> LEARNING</a>
+            <span class="sep">›</span>
+            <a href="../cfa.html">CFA 特许金融分析师</a>
+            <span class="sep">›</span>
+            <span>课程总览</span>
+        </div>
+
+        <div class="lesson-header">
+            <div class="lesson-meta">
+                <span class="lesson-badge badge-overview">课程总览</span>
+            </div>
+            <h1>📊 CFA Level 1 备考大纲</h1>
+            <p class="lesson-subtitle">10 大知识模块 · 560 课时 · 每天 30 分钟 · AI 导师驱动</p>
+        </div>
+
+        <div class="content-body">
+            <h2>📋 课程概述</h2>
+            <p>CFA（特许金融分析师）Level 1 是全球金融行业最具含金量的入门级专业认证。本课程为在职人士设计，每天 30 分钟，系统化覆盖 CFA Level 1 全部十个知识模块，适合零基础起步或有一定金融基础的学习者。</p>
+
+            <h2>📊 基本信息</h2>
+            <table>
+                <tr><th>项目</th><th>详情</th></tr>
+                <tr><td>目标</td><td>通过 CFA Level 1 考试</td></tr>
+                <tr><td>考试形式</td><td>机考，180 道选择题（上下半场各 90 题）</td></tr>
+                <tr><td>考试时长</td><td>4.5 小时（含休息）</td></tr>
+                <tr><td>考试语言</td><td>英文</td></tr>
+                <tr><td>建议备考周期</td><td>约 20 个月（每天 30 分钟）</td></tr>
+                <tr><td>学习模式</td><td>AI 导师授课 + 每日练习 + 阶段考试</td></tr>
+                <tr><td>适合人群</td><td>在职人士、金融从业者、投资爱好者、转行人士</td></tr>
+            </table>
+
+            <h2>📚 十大知识模块与时间分配</h2>
+            <p style="color:#64748b;margin-bottom:0.8rem;">基于 CFA Institute 官方考试权重</p>
+            <table>
+                <tr><th>序号</th><th>模块</th><th>官方权重</th><th>课时</th><th>天数</th></tr>
+                <tr><td>1</td><td><strong>道德与职业准则</strong></td><td>15-20%</td><td>80</td><td>80</td></tr>
+                <tr><td>2</td><td><strong>定量方法</strong></td><td>8-12%</td><td>55</td><td>55</td></tr>
+                <tr><td>3</td><td><strong>经济学</strong></td><td>8-12%</td><td>55</td><td>55</td></tr>
+                <tr><td>4</td><td><strong>财务报表分析</strong></td><td>11-14%</td><td>70</td><td>70</td></tr>
+                <tr><td>5</td><td><strong>公司金融</strong></td><td>7-10%</td><td>45</td><td>45</td></tr>
+                <tr><td>6</td><td><strong>权益投资</strong></td><td>10-12%</td><td>55</td><td>55</td></tr>
+                <tr><td>7</td><td><strong>固定收益</strong></td><td>10-12%</td><td>55</td><td>55</td></tr>
+                <tr><td>8</td><td><strong>衍生品</strong></td><td>5-8%</td><td>35</td><td>35</td></tr>
+                <tr><td>9</td><td><strong>另类投资</strong></td><td>5-8%</td><td>35</td><td>35</td></tr>
+                <tr><td>10</td><td><strong>组合管理</strong></td><td>5-8%</td><td>35</td><td>35</td></tr>
+                <tr><td>—</td><td><strong>综合复习</strong></td><td>—</td><td>45</td><td>45</td></tr>
+                <tr><th>—</th><th><strong>总计</strong></th><th>100%</th><th>560</th><th>560</th></tr>
+            </table>
+
+            <h2>📖 各模块核心内容概览</h2>
+
+            <h3>1. 道德与职业准则</h3>
+            <ul><li>CFA 协会道德规范与职业行为准则</li><li>全球投资业绩标准（GIPS）</li><li>案例判断与分析</li></ul>
+
+            <h3>2. 定量方法</h3>
+            <ul><li>货币时间价值（TVM）</li><li>概率论与统计基础</li><li>假设检验与回归分析</li><li>时间序列分析</li></ul>
+
+            <h3>3. 经济学</h3>
+            <ul><li>微观经济学：供需、市场结构、企业行为</li><li>宏观经济学：GDP、通胀、货币政策、财政政策</li><li>国际贸易与汇率</li></ul>
+
+            <h3>4. 财务报表分析</h3>
+            <ul><li>三大报表：资产负债表、利润表、现金流量表</li><li>财务比率分析与杜邦分析</li><li>存货、长期资产、所得税、负债的会计处理</li><li>财务分析中的常见操纵手法</li></ul>
+
+            <h3>5. 公司金融</h3>
+            <ul><li>资本预算与投资决策</li><li>资本成本（WACC）</li><li>杠杆与资本结构</li><li>股利政策与股份回购</li></ul>
+
+            <h3>6. 权益投资</h3>
+            <ul><li>市场组织与结构</li><li>证券指数与市场有效性</li><li>股票估值模型（DDM、FCF、倍数法）</li></ul>
+
+            <h3>7. 固定收益</h3>
+            <ul><li>债券特征与分类</li><li>债券定价与收益率计算</li><li>利率风险与久期</li><li>信用分析基础</li></ul>
+
+            <h3>8. 衍生品</h3>
+            <ul><li>远期、期货、期权、互换的基本原理</li><li>定价基础与套利</li><li>衍生品在风险管理中的应用</li></ul>
+
+            <h3>9. 另类投资</h3>
+            <ul><li>对冲基金、私募股权、房地产</li><li>大宗商品与基础设施</li><li>另类投资的特点与风险</li></ul>
+
+            <h3>10. 组合管理</h3>
+            <ul><li>现代投资组合理论（MPT）与 CAPM</li><li>风险与收益的衡量</li><li>IPS（投资政策声明）</li><li>行为金融学基础</li></ul>
+
+            <h2>⏰ 每日学习结构（30 分钟）</h2>
+            <table>
+                <tr><th>时间</th><th>环节</th></tr>
+                <tr><td>第 1-5 分钟</td><td>复习昨日知识点（快速回顾）</td></tr>
+                <tr><td>第 6-15 分钟</td><td>新概念讲解（1-2 个核心概念）</td></tr>
+                <tr><td>第 16-22 分钟</td><td>例题解析（2-3 道典型题）</td></tr>
+                <tr><td>第 23-27 分钟</td><td>自测练习（2-3 道选择题）</td></tr>
+                <tr><td>第 28-30 分钟</td><td>总结 + 预告明日内容</td></tr>
+            </table>
+
+            <h2>📅 每周节奏</h2>
+            <table>
+                <tr><th>星期</th><th>内容</th><th>强度</th></tr>
+                <tr><td>周一</td><td>新课</td><td>⭐⭐⭐</td></tr>
+                <tr><td>周二</td><td>新课 + 小练习</td><td>⭐⭐⭐</td></tr>
+                <tr><td>周三</td><td>新课</td><td>⭐⭐⭐</td></tr>
+                <tr><td>周四</td><td>复习 + 错题回顾</td><td>⭐⭐</td></tr>
+                <tr><td>周五</td><td>新课</td><td>⭐⭐⭐</td></tr>
+                <tr><td>周六</td><td>周测（5-10 题）</td><td>⭐⭐</td></tr>
+                <tr><td>周日</td><td><strong>休息</strong></td><td>🌴</td></tr>
+            </table>
+
+            <h2>🎯 进度控制与质量保障</h2>
+            <h3>每日过关标准</h3>
+            <ul>
+                <li>✅ 自测正确率 ≥ 60% → 进入下一课</li>
+                <li>⚠️ 正确率 40-60% → 次日先复习再做新课</li>
+                <li>❌ 正确率 &lt; 40% → 重学本课 + 补充练习</li>
+            </ul>
+            <h3>阶段考试（每 20 课）</h3>
+            <p>10 道选择题，正确率 ≥ 70% 进入下一阶段。未通过 → 复习薄弱点 + 补考。</p>
+            <h3>模拟考试（每模块结束）</h3>
+            <p>30-50 道题，正确率 ≥ 70%，模拟真实考试环境与时间限制。</p>
+
+            <h2>🗺️ 备考里程碑</h2>
+            <table>
+                <tr><th>阶段</th><th>内容</th><th>预计完成</th></tr>
+                <tr><td>第一阶段</td><td>道德 + 定量方法</td><td>第 1-4 个月</td></tr>
+                <tr><td>第二阶段</td><td>经济学 + 财务报表分析</td><td>第 5-9 个月</td></tr>
+                <tr><td>第三阶段</td><td>公司金融 + 权益投资 + 固定收益</td><td>第 10-14 个月</td></tr>
+                <tr><td>第四阶段</td><td>衍生品 + 另类投资 + 组合管理</td><td>第 15-16 个月</td></tr>
+                <tr><td>第五阶段</td><td>综合复习 + 模拟冲刺</td><td>第 17-20 个月</td></tr>
+            </table>
+
+            <h2>📖 推荐教材与资源</h2>
+            <table>
+                <tr><th>资源</th><th>说明</th></tr>
+                <tr><td>CFA Program Curriculum</td><td>官方教材，最权威</td></tr>
+                <tr><td>SchweserNotes</td><td>精编辅导书，适合快速学习</td></tr>
+                <tr><td>CFA Institute 官方样题</td><td>历年真题，必看</td></tr>
+                <tr><td>CFA Institute Ecosystem</td><td>官方在线题库 + 模拟考</td></tr>
+                <tr><td>AI 导师答疑</td><td>针对性讲解与个性化学习路径</td></tr>
+            </table>
+
+            <h2>💡 学习建议</h2>
+            <ul>
+                <li><strong>道德模块尽早开始</strong>——占比最高，且需要反复理解</li>
+                <li><strong>财务报表分析是核心</strong>——内容最多，建议投入充足时间</li>
+                <li><strong>定量方法打好底子</strong>——后续很多模块会用到统计和计算</li>
+                <li><strong>坚持每天学习</strong>——哪怕 30 分钟，连续性比突击更有效</li>
+                <li><strong>善用错题本</strong>——记录易混淆概念和常错题型</li>
+                <li><strong>考前 2 个月进入冲刺</strong>——集中刷真题、模拟考</li>
+                <li><strong>英语是工具不是障碍</strong>——专业术语有固定表达，熟悉即可</li>
+            </ul>
+
+            <div class="prev-next-nav">
+                <a href="#" class="disabled" style="opacity:0.4;pointer-events:none;"><i class="fas fa-arrow-left"></i> 上一课</a>
+                <a href="../cfa.html"><i class="fas fa-map"></i> CFA 目录</a>
+                <a href="lesson-001.html">第 1 课 · 道德与职业准则 <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
+                    <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 98381267</p></li>
+                    <li><i class="fas fa-envelope"></i> ivanxuag@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/SLdesignPlus" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="contact-info">
+                    <li><a href="../../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
+                    <li><a href="../cfa.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-chart-line"></i> CFA</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 SL Design Platform. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>
