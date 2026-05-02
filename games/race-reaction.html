@@ -14,21 +14,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body {
-            background: linear-gradient(180deg, #0f172a 0%, #0a0e17 100%);
-            color: #e2e8f0; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
-            overflow: hidden; height: 100vh; touch-action: manipulation; user-select: none;
-        }
+        body { background: linear-gradient(180deg, #0f172a 0%, #0a0e17 100%); color: #e2e8f0; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; overflow: hidden; height: 100vh; touch-action: manipulation; user-select: none; }
         .game-wrapper { display: flex; flex-direction: column; align-items: center; height: 100vh; padding: 0.5rem; position: relative; }
-
-        /* HUD */
         .hud { position: absolute; top: 0.3rem; left: 0; right: 0; display: flex; justify-content: center; gap: 0.6rem; padding: 0 0.3rem; z-index: 10; }
         .hud-item { background: rgba(15,23,42,0.85); border: 1px solid rgba(59,130,246,0.3); border-radius: 6px; padding: 0.2rem 0.5rem; text-align: center; backdrop-filter: blur(4px); }
         .hud-item .label { color: #94a3b8; font-size: 0.55rem; text-transform: uppercase; }
         .hud-item .value { color: #60a5fa; font-weight: 700; font-size: 0.85rem; }
         .back-link { position: absolute; top: 0.3rem; left: 0.3rem; z-index: 10; }
         .back-link a { color: #94a3b8; text-decoration: none; background: rgba(15,23,42,0.85); border: 1px solid rgba(59,130,246,0.2); border-radius: 6px; padding: 0.2rem 0.5rem; font-size: 0.7rem; display: flex; align-items: center; gap: 0.3rem; }
-
         .status-text { font-size: 0.95rem; color: #94a3b8; text-align: center; min-height: 1.5rem; display: flex; align-items: center; justify-content: center; margin: 0.2rem 0; }
         .status-text.red { color: #ef4444; font-weight: 600; }
         .status-text.green { color: #10b981; font-weight: 700; font-size: 1.1rem; }
@@ -36,22 +29,16 @@
         .status-text.result { color: #fbbf24; font-weight: 700; font-size: 1.2rem; }
         .status-text.perfect { color: #10b981; font-weight: 800; font-size: 1.3rem; }
         .big-time { font-size: 1.8rem; font-weight: 800; text-align: center; margin-bottom: 0.2rem; font-variant-numeric: tabular-nums; }
-
-        /* 红绿灯 */
         .light-gantry { display: flex; gap: 0.5rem; justify-content: center; background: rgba(0,0,0,0.5); border: 2px solid #334155; border-radius: 10px; padding: 0.6rem 0.5rem; margin-bottom: 0.3rem; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
         .light-column { display: flex; flex-direction: column; gap: 0.25rem; align-items: center; }
         .light { width: 22px; height: 22px; border-radius: 50%; background: rgba(30,41,59,0.8); border: 2px solid #475569; transition: background 0.08s, box-shadow 0.08s, border-color 0.08s; }
         .light.red { background: #ef4444; border-color: #fca5a5; box-shadow: 0 0 10px rgba(239,68,68,0.8), 0 0 20px rgba(239,68,68,0.4); }
         .light.green { background: #10b981; border-color: #6ee7b7; box-shadow: 0 0 10px rgba(16,185,129,0.8), 0 0 20px rgba(16,185,129,0.4); }
-
-        /* 转速表 */
         .rpm-section { display: flex; flex-direction: column; align-items: center; margin-bottom: 0.3rem; }
-        .rpm-gauge { position: relative; width: 200px; height: 110px; overflow: hidden; }
-        .rpm-gauge canvas { display: block; }
-        .rpm-value { font-size: 1.4rem; font-weight: 800; text-align: center; margin-top: -0.4rem; font-variant-numeric: tabular-nums; }
-        .rpm-label { color: #64748b; font-size: 0.7rem; text-align: center; margin-top: -0.2rem; }
-
-        /* 控制面板 */
+        .rpm-gauge { position: relative; width: 200px; height: 110px; }
+        .rpm-gauge canvas { display: block; width: 100%; height: 100%; }
+        .rpm-value { font-size: 1.3rem; font-weight: 800; text-align: center; margin-top: -0.4rem; font-variant-numeric: tabular-nums; }
+        .rpm-label { color: #64748b; font-size: 0.65rem; text-align: center; margin-top: -0.2rem; }
         .controls { display: flex; gap: 1.2rem; align-items: flex-end; justify-content: center; flex: 1; padding-bottom: 0.8rem; width: 100%; max-width: 360px; }
         .pedal { border-radius: 14px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; transition: transform 0.05s; }
         .pedal::before { content: ''; position: absolute; inset: 5px; border-radius: 11px; border: 2px dashed rgba(255,255,255,0.1); pointer-events: none; }
@@ -59,7 +46,6 @@
         .pedal i { margin-bottom: 0.25rem; transition: color 0.15s; }
         .pedal span { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; transition: color 0.15s; }
         .pedal .status { font-size: 0.55rem; color: #64748b; margin-top: 0.2rem; }
-
         .clutch-pedal { width: 100px; height: 140px; background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%); border: 3px solid #475569; }
         .clutch-pedal i { font-size: 1.8rem; color: #64748b; }
         .clutch-pedal span { color: #64748b; }
@@ -67,16 +53,12 @@
         .clutch-pedal.active i, .clutch-pedal.active span { color: #f59e0b; }
         .clutch-pedal.released { border-color: #10b981; background: linear-gradient(180deg, #064e3b 0%, #022c22 100%); }
         .clutch-pedal.released i, .clutch-pedal.released span { color: #10b981; }
-
         .gas-pedal { width: 100px; height: 180px; background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%); border: 3px solid #475569; }
         .gas-pedal i { font-size: 2rem; color: #64748b; }
         .gas-pedal span { color: #64748b; }
         .gas-pedal.active { border-color: #ef4444; background: linear-gradient(180deg, #7f1d1d 0%, #450a0a 100%); }
         .gas-pedal.active i, .gas-pedal.active span { color: #ef4444; }
-
         .pedal-hint { position: absolute; bottom: 0.3rem; left: 0; right: 0; font-size: 0.65rem; color: #64748b; text-align: center; }
-
-        /* 开始界面 */
         .start-screen { position: absolute; inset: 0; background: rgba(10,14,23,0.96); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 40; backdrop-filter: blur(8px); padding: 1rem; }
         .start-screen h1 { font-size: 1.3rem; color: #e2e8f0; margin-bottom: 0.4rem; }
         .start-screen h1 i { color: #ef4444; }
@@ -86,8 +68,6 @@
         .start-screen .rules li::before { content: '▸ '; color: #3b82f6; }
         .start-btn { background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; border: none; border-radius: 10px; padding: 0.6rem 2rem; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: transform 0.2s, box-shadow 0.3s; }
         .start-btn:hover { transform: scale(1.05); box-shadow: 0 8px 24px rgba(239,68,68,0.4); }
-
-        /* 结果面板 */
         .result-panel { background: rgba(15,23,42,0.95); border: 1px solid rgba(59,130,246,0.4); border-radius: 14px; padding: 1rem; text-align: center; max-width: 340px; width: 90%; backdrop-filter: blur(8px); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 30; display: none; max-height: 90vh; overflow-y: auto; }
         .result-panel.show { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
@@ -117,13 +97,11 @@
         .history-row .perfect-badge { font-size: 0.5rem; padding: 0.05rem 0.25rem; background: #10b981; color: white; border-radius: 3px; }
         .retry-btn { background: linear-gradient(135deg, #3b82f6, #1e40af); color: white; border: none; border-radius: 8px; padding: 0.5rem 1.6rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: transform 0.2s; }
         .retry-btn:hover { transform: scale(1.05); }
-        @keyframes shake { 0%,100% { transform: translate(-50%,-50%); } 20% { transform: translate(calc(-50% - 5px),-50%); } 40% { transform: translate(calc(-50% + 5px),-50%); } 60% { transform: translate(calc(-50% - 3px),-50%); } 80% { transform: translate(calc(-50% + 3px),-50%); } }
-        .result-panel.shaking { animation: shake 0.4s; }
         @media (max-width: 400px) {
             .light { width: 18px; height: 18px; }
             .light-gantry { gap: 0.3rem; padding: 0.4rem 0.3rem; }
             .rpm-gauge { width: 170px; height: 95px; }
-            .rpm-value { font-size: 1.2rem; }
+            .rpm-value { font-size: 1.1rem; }
             .clutch-pedal { width: 85px; height: 120px; }
             .gas-pedal { width: 85px; height: 155px; }
             .controls { gap: 0.8rem; }
@@ -184,261 +162,168 @@
     </div>
 
     <script>
-        const TOTAL_ATTEMPTS = 5;
-        const COLS = 5;
-        const LIGHTS_PER_COL = 4;
-        const LIT_ROWS = 2;
-        const MIN_COL_DELAY = 800, MAX_COL_DELAY = 1600;
-        const GREEN_DELAY_MIN = 1000, GREEN_DELAY_MAX = 1600;
-        const PERFECT_MIN = 6800, PERFECT_MAX = 7200;
-        const MAX_RPM = 8000, IDLE_RPM = 800;
-        const RPM_UP = 350, RPM_DOWN = 200;
+        const TOTAL = 5, COLS = 5, LIT = 2;
+        const MIN_D = 800, MAX_D = 1600, G_MIN = 1000, G_MAX = 1600;
+        const P_MIN = 6800, P_MAX = 7200, MAX_RPM = 12000, IDLE = 800;
+        const UP = 11200, DOWN = 800;
 
-        let attempt = 0, results = [], perfectCount = 0, greenTime = 0;
-        let phase = 'idle', colTimeouts = [], greenTimeout = null;
-        let currentRPM = IDLE_RPM, clutchEngaged = false, gasPressed = false;
-        let lastFrame = 0, clutchReleased = false, launchDetected = false;
-        let clutchReleaseTime = 0;
+        let attempt = 0, results = [], perfects = 0, greenTime = 0;
+        let phase = 'idle', cT = [], gT = null;
+        let rpm = IDLE, clutch = false, gas = false;
+        let lastT = 0, released = false, launched = false, relTime = 0;
 
-        const gantry = document.getElementById('gantry');
-        const bigTime = document.getElementById('bigTime');
-        const statusText = document.getElementById('statusText');
-        const roundDisplay = document.getElementById('roundDisplay');
-        const currentDisplay = document.getElementById('currentDisplay');
-        const perfectDisplay = document.getElementById('perfectDisplay');
-        const clutchPedal = document.getElementById('clutchPedal');
-        const gasPedal = document.getElementById('gasPedal');
-        const clutchStatus = document.getElementById('clutchStatus');
-        const gasStatus = document.getElementById('gasStatus');
-        const pedalHint = document.getElementById('pedalHint');
-        const startScreen = document.getElementById('startScreen');
-        const resultPanel = document.getElementById('resultPanel');
-        const rpmCanvas = document.getElementById('rpmCanvas');
-        const rpmCtx = rpmCanvas.getContext('2d');
-        const rpmValueEl = document.getElementById('rpmValue');
+        const $ = id => document.getElementById(id);
+        const bigTime = $('bigTime'), statusText = $('statusText'), roundDisp = $('roundDisplay'),
+              curDisp = $('currentDisplay'), perfDisp = $('perfectDisplay'),
+              clutchPedal = $('clutchPedal'), gasPedal = $('gasPedal'),
+              clutchStatus = $('clutchStatus'), gasStatus = $('gasStatus'),
+              pedalHint = $('pedalHint'), resultPanel = $('resultPanel');
 
         // 红绿灯
-        const columns = [];
-        function buildGantry() {
-            gantry.innerHTML = ''; columns.length = 0;
+        const cols = [];
+        (function buildGantry() {
+            const g = $('gantry'); g.innerHTML = ''; cols.length = 0;
             for (let c = 0; c < COLS; c++) {
                 const col = document.createElement('div'); col.className = 'light-column';
-                const lights = [];
-                for (let r = 0; r < LIGHTS_PER_COL; r++) { const l = document.createElement('div'); l.className = 'light'; col.appendChild(l); lights.push(l); }
-                gantry.appendChild(col); columns.push(lights);
+                const ls = [];
+                for (let r = 0; r < 4; r++) { const l = document.createElement('div'); l.className = 'light'; col.appendChild(l); ls.push(l); }
+                g.appendChild(col); cols.push(ls);
             }
-        }
-        buildGantry();
-        function setColumnRed(c) { for (let r = LIGHTS_PER_COL - LIT_ROWS; r < LIGHTS_PER_COL; r++) columns[c][r].classList.add('red'); }
-        function setAllGreen() { for (let c = 0; c < COLS; c++) for (let r = LIGHTS_PER_COL - LIT_ROWS; r < LIGHTS_PER_COL; r++) { columns[c][r].classList.remove('red'); columns[c][r].classList.add('green'); } }
-        function clearLights() { for (let c = 0; c < COLS; c++) for (let r = 0; r < LIGHTS_PER_COL; r++) columns[c][r].className = 'light'; }
+        })();
+        function setRed(c) { for (let r = 4 - LIT; r < 4; r++) cols[c][r].classList.add('red'); }
+        function setGreen() { for (let c = 0; c < COLS; c++) for (let r = 4 - LIT; r < 4; r++) { cols[c][r].classList.remove('red'); cols[c][r].classList.add('green'); } }
+        function clearLights() { for (let c = 0; c < COLS; c++) for (let r = 0; r < 4; r++) cols[c][r].className = 'light'; }
 
         // 转速表
-        function drawRPM(rpm) {
-            const W = rpmCanvas.width, H = rpmCanvas.height, cx = W / 2, cy = H - 5, R = H - 10;
-            rpmCtx.clearRect(0, 0, W, H);
-            // 背景
-            rpmCtx.beginPath(); rpmCtx.arc(cx, cy, R, Math.PI, 2 * Math.PI);
-            rpmCtx.strokeStyle = '#1e293b'; rpmCtx.lineWidth = 12; rpmCtx.lineCap = 'round'; rpmCtx.stroke();
-            // 刻度
-            for (let i = 0; i <= 8; i++) {
-                const a = Math.PI + (i / 8) * Math.PI;
-                rpmCtx.beginPath(); rpmCtx.moveTo(cx + Math.cos(a) * (R - 18), cy + Math.sin(a) * (R - 18));
-                rpmCtx.lineTo(cx + Math.cos(a) * (R - 8), cy + Math.sin(a) * (R - 8));
-                rpmCtx.strokeStyle = '#64748b'; rpmCtx.lineWidth = 1; rpmCtx.stroke();
-                if (i > 0 && i < 8) {
-                    const tR = R - 28; rpmCtx.fillStyle = '#94a3b8'; rpmCtx.font = '8px sans-serif';
-                    rpmCtx.textAlign = 'center'; rpmCtx.textBaseline = 'middle';
-                    rpmCtx.fillText(i, cx + Math.cos(a) * tR, cy + Math.sin(a) * tR);
-                }
+        const rc = $('rpmCanvas'), rx = rc.getContext('2d'), rv = $('rpmValue');
+        function drawRPM(r) {
+            const W = rc.width, H = rc.height, cx = W/2, cy = H-5, R = H-10;
+            rx.clearRect(0,0,W,H);
+            rx.beginPath(); rx.arc(cx,cy,R,Math.PI,2*Math.PI);
+            rx.strokeStyle='#1e293b'; rx.lineWidth=12; rx.lineCap='round'; rx.stroke();
+            for (let i=0;i<=12;i++) {
+                const a=Math.PI+(i/12)*Math.PI;
+                rx.beginPath(); rx.moveTo(cx+Math.cos(a)*(R-18),cy+Math.sin(a)*(R-18));
+                rx.lineTo(cx+Math.cos(a)*(R-8),cy+Math.sin(a)*(R-8));
+                rx.strokeStyle='#64748b'; rx.lineWidth=1; rx.stroke();
+                if (i>0&&i<12) { const tR=R-28; rx.fillStyle='#94a3b8'; rx.font='8px sans-serif'; rx.textAlign='center'; rx.textBaseline='middle'; rx.fillText(i,cx+Math.cos(a)*tR,cy+Math.sin(a)*tR); }
             }
-            // 完美区间
-            const pS = Math.PI + (6.8 / 8) * Math.PI, pE = Math.PI + (7.2 / 8) * Math.PI;
-            rpmCtx.beginPath(); rpmCtx.arc(cx, cy, R, pS, pE);
-            rpmCtx.strokeStyle = 'rgba(16,185,129,0.5)'; rpmCtx.lineWidth = 12; rpmCtx.lineCap = 'round'; rpmCtx.stroke();
-            // 进度
-            const rpmAngle = Math.PI + Math.min(rpm / MAX_RPM, 1) * Math.PI;
-            let col;
-            if (rpm >= PERFECT_MIN && rpm <= PERFECT_MAX) col = '#10b981';
-            else if (rpm > 7500) col = '#ef4444';
-            else if (rpm >= PERFECT_MAX) col = '#f59e0b';
-            else col = '#3b82f6';
-            if (rpm > IDLE_RPM) {
-                rpmCtx.beginPath(); rpmCtx.arc(cx, cy, R, Math.PI, rpmAngle);
-                rpmCtx.strokeStyle = col; rpmCtx.lineWidth = 12; rpmCtx.lineCap = 'round'; rpmCtx.stroke();
-            }
-            // 指针
-            rpmCtx.beginPath(); rpmCtx.moveTo(cx, cy);
-            rpmCtx.lineTo(cx + Math.cos(rpmAngle) * (R - 22), cy + Math.sin(rpmAngle) * (R - 22));
-            rpmCtx.strokeStyle = '#e2e8f0'; rpmCtx.lineWidth = 2; rpmCtx.lineCap = 'round'; rpmCtx.stroke();
-            rpmCtx.beginPath(); rpmCtx.arc(cx, cy, 3, 0, Math.PI * 2); rpmCtx.fillStyle = '#e2e8f0'; rpmCtx.fill();
-            rpmValueEl.textContent = Math.round(rpm) + ' RPM';
-            rpmValueEl.style.color = (rpm >= PERFECT_MIN && rpm <= PERFECT_MAX) ? '#10b981' : rpm > 7500 ? '#ef4444' : '#e2e8f0';
+            const pS=Math.PI+(6.8/12)*Math.PI, pE=Math.PI+(7.2/12)*Math.PI;
+            rx.beginPath(); rx.arc(cx,cy,R,pS,pE);
+            rx.strokeStyle='rgba(16,185,129,0.5)'; rx.lineWidth=12; rx.lineCap='round'; rx.stroke();
+            const aR=Math.PI+Math.min(r/MAX_RPM,1)*Math.PI;
+            let col = (r>=P_MIN&&r<=P_MAX)?'#10b981':r>7500?'#ef4444':r>=P_MAX?'#f59e0b':'#3b82f6';
+            if (r>IDLE) { rx.beginPath(); rx.arc(cx,cy,R,Math.PI,aR); rx.strokeStyle=col; rx.lineWidth=12; rx.lineCap='round'; rx.stroke(); }
+            rx.beginPath(); rx.moveTo(cx,cy);
+            rx.lineTo(cx+Math.cos(aR)*(R-22),cy+Math.sin(aR)*(R-22));
+            rx.strokeStyle='#e2e8f0'; rx.lineWidth=2; rx.lineCap='round'; rx.stroke();
+            rx.beginPath(); rx.arc(cx,cy,3,0,Math.PI*2); rx.fillStyle='#e2e8f0'; rx.fill();
+            rv.textContent=Math.round(r)+' RPM';
+            rv.style.color=(r>=P_MIN&&r<=P_MAX)?'#10b981':r>7500?'#ef4444':'#e2e8f0';
         }
 
         function rpmLoop(ts) {
-            const dt = lastFrame ? (ts - lastFrame) / 1000 : 0; lastFrame = ts;
-            if (phase !== 'idle' && phase !== 'done') {
-                currentRPM = gasPressed ? Math.min(MAX_RPM, currentRPM + RPM_UP * dt) : Math.max(IDLE_RPM, currentRPM - RPM_DOWN * dt);
-            }
-            drawRPM(currentRPM);
-            requestAnimationFrame(rpmLoop);
+            const dt=lastT?(ts-lastT)/1000:0; lastT=ts;
+            if (phase!=='idle'&&phase!=='done') rpm=gas?Math.min(MAX_RPM,rpm+UP*dt):Math.max(IDLE,rpm-DOWN*dt);
+            drawRPM(rpm); requestAnimationFrame(rpmLoop);
         }
 
-        // 踏板
         function setClutch(on) {
-            clutchEngaged = on;
-            clutchPedal.classList.toggle('active', on);
-            clutchPedal.classList.toggle('released', !on);
-            clutchStatus.textContent = on ? '按住中' : '已松开';
-            if (!on && phase === 'green' && !launchDetected) {
-                clutchReleased = true; clutchReleaseTime = performance.now(); checkLaunch();
-            } else if (!on && (phase === 'sequencing' || phase === 'allRed') && !launchDetected) {
-                results.push({ time: 0, success: false, falseStart: true, perfect: false, rpm: 0 });
-                bigTime.textContent = '抢跑！'; bigTime.style.color = '#f59e0b';
-                statusText.textContent = '⚠️ 提前松离合！'; statusText.className = 'status-text false-start';
-                currentDisplay.textContent = '❌'; pedalHint.textContent = '抢跑了！等下一轮';
-                phase = 'result'; setTimeout(() => nextAttempt(), 1500);
+            clutch=on;
+            clutchPedal.classList.toggle('active',on);
+            clutchPedal.classList.toggle('released',!on);
+            clutchStatus.textContent=on?'按住中':'已松开';
+            if (!on&&phase==='green'&&!launched) { released=true; relTime=performance.now(); check(); }
+            else if (!on&&(phase==='sequencing'||phase==='allRed')&&!launched) {
+                results.push({time:0,ok:false,fs:true,perf:false,rpm:0});
+                bigTime.textContent='抢跑！'; bigTime.style.color='#f59e0b';
+                statusText.textContent='⚠️ 提前松离合！'; statusText.className='status-text false-start';
+                curDisp.textContent='❌'; pedalHint.textContent='抢跑了！等下一轮';
+                phase='result'; setTimeout(next,1500);
             }
         }
         function setGas(on) {
-            gasPressed = on; gasPedal.classList.toggle('active', on);
-            gasStatus.textContent = on ? '踩下中' : '松开';
-            if (on && phase === 'green' && clutchReleased && !launchDetected) checkLaunch();
+            gas=on; gasPedal.classList.toggle('active',on);
+            gasStatus.textContent=on?'踩下中':'松开';
+            if (on&&phase==='green'&&released&&!launched) check();
         }
 
-        clutchPedal.addEventListener('mousedown', e => { e.preventDefault(); setClutch(true); });
-        clutchPedal.addEventListener('touchstart', e => { e.preventDefault(); setClutch(true); }, { passive: false });
-        clutchPedal.addEventListener('mouseup', () => setClutch(false));
-        clutchPedal.addEventListener('mouseleave', () => clutchEngaged && setClutch(false));
-        clutchPedal.addEventListener('touchend', () => setClutch(false));
-        gasPedal.addEventListener('mousedown', e => { e.preventDefault(); setGas(true); });
-        gasPedal.addEventListener('touchstart', e => { e.preventDefault(); setGas(true); }, { passive: false });
-        gasPedal.addEventListener('mouseup', () => setGas(false));
-        gasPedal.addEventListener('mouseleave', () => gasPressed && setGas(false));
-        gasPedal.addEventListener('touchend', () => setGas(false));
+        function bindPedal(el,setFn) {
+            el.addEventListener('mousedown',e=>{e.preventDefault();setFn(true);});
+            el.addEventListener('touchstart',e=>{e.preventDefault();setFn(true);},{passive:false});
+            el.addEventListener('mouseup',()=>setFn(false));
+            el.addEventListener('mouseleave',()=>{if(el===clutchPedal?clutch:gas)setFn(false);});
+            el.addEventListener('touchend',()=>setFn(false));
+        }
+        bindPedal(clutchPedal,setClutch);
+        bindPedal(gasPedal,setGas);
+        window.addEventListener('keydown',e=>{if(!e.repeat){if('az'.includes(e.key.toLowerCase()))setClutch(true);if(' d'.includes(e.key)||e.key==='ArrowUp')setGas(true);}});
+        window.addEventListener('keyup',e=>{if('az'.includes(e.key.toLowerCase()))setClutch(false);if(' d'.includes(e.key)||e.key==='ArrowUp')setGas(false);});
 
-        window.addEventListener('keydown', e => { if (!e.repeat) { if ('az'.includes(e.key.toLowerCase())) setClutch(true); if (' d'.includes(e.key) || e.key === 'ArrowUp') setGas(true); } });
-        window.addEventListener('keyup', e => { if ('az'.includes(e.key.toLowerCase())) setClutch(false); if (' d'.includes(e.key) || e.key === 'ArrowUp') setGas(false); });
-
-        function checkLaunch() {
-            if (clutchReleased && gasPressed && !launchDetected && phase === 'green') {
-                launchDetected = true;
-                const rt = Math.round(clutchReleaseTime - greenTime);
-                const perf = currentRPM >= PERFECT_MIN && currentRPM <= PERFECT_MAX;
-                results.push({ time: rt, success: true, falseStart: false, perfect: perf, rpm: Math.round(currentRPM) });
-                if (perf) {
-                    perfectCount++; perfectDisplay.textContent = perfectCount;
-                    bigTime.textContent = rt + 'ms 🏆'; bigTime.style.color = '#10b981';
-                    statusText.textContent = '🏆 完美起步！'; statusText.className = 'status-text perfect';
-                } else {
-                    bigTime.textContent = rt + 'ms'; bigTime.style.color = rt < 300 ? '#3b82f6' : '#f59e0b';
-                    statusText.textContent = `+${rt}ms`; statusText.className = 'status-text result';
-                }
-                currentDisplay.textContent = rt + 'ms';
-                pedalHint.textContent = perf ? '完美转速！' : `转速 ${Math.round(currentRPM)} RPM`;
-                phase = 'result'; setTimeout(() => nextAttempt(), 1200);
+        function check() {
+            if (released&&gas&&!launched&&phase==='green') {
+                launched=true;
+                const rt=Math.round(relTime-greenTime);
+                const perf=rpm>=P_MIN&&rpm<=P_MAX;
+                results.push({time:rt,ok:true,fs:false,perf,rpm:Math.round(rpm)});
+                if (perf) { perfects++; perfDisp.textContent=perfects; bigTime.textContent=rt+'ms 🏆'; bigTime.style.color='#10b981'; statusText.textContent='🏆 完美起步！'; statusText.className='status-text perfect'; }
+                else { bigTime.textContent=rt+'ms'; bigTime.style.color=rt<300?'#3b82f6':'#f59e0b'; statusText.textContent=`+${rt}ms`; statusText.className='status-text result'; }
+                curDisp.textContent=rt+'ms'; pedalHint.textContent=perf?'完美转速！':`转速 ${Math.round(rpm)} RPM`;
+                phase='result'; setTimeout(next,1200);
             }
         }
+        setInterval(()=>{if(phase==='green'&&!launched&&released)check();},50);
+        function clearT(){cT.forEach(t=>clearTimeout(t));cT=[];clearTimeout(gT);}
 
-        setInterval(() => { if (phase === 'green' && !launchDetected && clutchReleased) checkLaunch(); }, 50);
-        function clearAllTimeouts() { colTimeouts.forEach(t => clearTimeout(t)); colTimeouts = []; clearTimeout(greenTimeout); }
+        $('startBtn').onclick=()=>{$('startScreen').style.display='none';reset();};
+        $('retryBtn').onclick=reset;
 
-        document.getElementById('startBtn').addEventListener('click', startGame);
-        document.getElementById('retryBtn').addEventListener('click', resetGame);
-
-        function startGame() { startScreen.style.display = 'none'; resetGame(); }
-        function resetGame() {
-            attempt = 0; results = []; perfectCount = 0; phase = 'idle';
-            launchDetected = false; clutchReleased = false; currentRPM = IDLE_RPM;
-            gasPressed = false; clutchEngaged = false;
-            gasPedal.classList.remove('active'); clutchPedal.classList.remove('active', 'released');
-            clutchStatus.textContent = '按住离合'; gasStatus.textContent = '踩油门';
-            clearAllTimeouts(); clearLights(); resultPanel.classList.remove('show');
-            bigTime.textContent = '--'; bigTime.style.color = '#e2e8f0';
-            currentDisplay.textContent = '--'; perfectDisplay.textContent = '0';
-            pedalHint.textContent = '绿灯时松离合 + 踩油门出发！';
-            statusText.textContent = '准备出发'; statusText.className = 'status-text';
-            roundDisplay.textContent = `0 / ${TOTAL_ATTEMPTS}`;
-            setTimeout(() => nextAttempt(), 1200);
+        function reset() {
+            attempt=0;results=[];perfects=0;phase='idle';launched=false;released=false;rpm=IDLE;gas=false;clutch=false;
+            gasPedal.classList.remove('active');clutchPedal.classList.remove('active','released');
+            clutchStatus.textContent='按住离合';gasStatus.textContent='踩油门';
+            clearT();clearLights();resultPanel.classList.remove('show');
+            bigTime.textContent='--';bigTime.style.color='#e2e8f0';curDisp.textContent='--';perfDisp.textContent='0';
+            pedalHint.textContent='绿灯时松离合 + 踩油门出发！';statusText.textContent='准备出发';statusText.className='status-text';roundDisp.textContent='0 / 5';
+            setTimeout(next,1200);
         }
-        function nextAttempt() {
-            if (attempt >= TOTAL_ATTEMPTS) { showResults(); return; }
-            attempt++; clearAllTimeouts(); clearLights(); launchDetected = false;
-            clutchReleased = false; currentRPM = IDLE_RPM; gasPressed = false;
-            gasPedal.classList.remove('active'); gasStatus.textContent = '踩油门';
-            roundDisplay.textContent = `${attempt} / ${TOTAL_ATTEMPTS}`;
-            currentDisplay.textContent = '--'; bigTime.textContent = '--'; bigTime.style.color = '#e2e8f0';
-            pedalHint.textContent = '按住离合，踩油门拉转速...';
-            phase = 'sequencing'; statusText.textContent = '亮灯中...'; statusText.className = 'status-text red';
-            let delay = 300;
-            for (let c = 0; c < COLS; c++) {
-                const t = setTimeout(() => {
-                    setColumnRed(c); statusText.textContent = `第 ${c + 1} 排亮`;
-                    if (c === COLS - 1) {
-                        phase = 'allRed'; statusText.textContent = '等待绿灯...';
-                        pedalHint.textContent = '保持离合，转速拉到 7000...';
-                        greenTimeout = setTimeout(() => {
-                            setAllGreen(); greenTime = performance.now(); phase = 'green';
-                            statusText.textContent = '🟢 GO! 松离合！'; statusText.className = 'status-text green';
-                            pedalHint.textContent = '松开离合 + 保持油门！'; bigTime.textContent = '...';
-                        }, GREEN_DELAY_MIN + Math.random() * (GREEN_DELAY_MAX - GREEN_DELAY_MIN));
-                    }
-                }, delay);
-                colTimeouts.push(t);
-                delay += MIN_COL_DELAY + Math.random() * (MAX_COL_DELAY - MIN_COL_DELAY);
-            }
+        function next() {
+            if (attempt>=TOTAL){showResults();return;}
+            attempt++;clearT();clearLights();launched=false;released=false;rpm=IDLE;gas=false;
+            gasPedal.classList.remove('active');gasStatus.textContent='踩油门';
+            roundDisp.textContent=`${attempt} / 5`;curDisp.textContent='--';bigTime.textContent='--';bigTime.style.color='#e2e8f0';
+            pedalHint.textContent='按住离合，踩油门拉转速...';
+            phase='sequencing';statusText.textContent='亮灯中...';statusText.className='status-text red';
+            let d=300;
+            for (let c=0;c<COLS;c++){const t=setTimeout(()=>{
+                setRed(c);statusText.textContent=`第 ${c+1} 排亮`;
+                if(c===COLS-1){phase='allRed';statusText.textContent='等待绿灯...';pedalHint.textContent='保持离合，转速拉到 7000...';
+                    gT=setTimeout(()=>{setGreen();greenTime=performance.now();phase='green';statusText.textContent='🟢 GO! 松离合！';statusText.className='status-text green';pedalHint.textContent='松开离合 + 保持油门！';bigTime.textContent='...';},G_MIN+Math.random()*(G_MAX-G_MIN));}
+            },d);cT.push(t);d+=MIN_D+Math.random()*(MAX_D-MIN_D);}
         }
 
         function showResults() {
-            phase = 'done'; clearLights(); clearAllTimeouts();
-            const valid = results.filter(r => r.success);
-            const avg = valid.length ? Math.round(valid.reduce((s, r) => s + r.time, 0) / valid.length) : 0;
-            const fast = valid.length ? Math.min(...valid.map(r => r.time)) : 0;
-            const slow = valid.length ? Math.max(...valid.map(r => r.time)) : 0;
-            const rate = Math.round((valid.length / results.length) * 100);
-            document.getElementById('avgResult').textContent = avg + 'ms';
-            document.getElementById('fastResult').textContent = fast + 'ms';
-            document.getElementById('perfectResult').textContent = perfectCount + ' / 5';
-            document.getElementById('successResult').textContent = rate + '%';
-            ['avgResult', 'fastResult'].forEach(id => {
-                const el = document.getElementById(id), v = parseInt(el.textContent);
-                el.className = 'value ' + (v < 250 ? 'excellent' : v < 400 ? 'good' : 'avg');
-            });
-            const rating = document.getElementById('rating');
-            const rankText = document.getElementById('rankText');
-            const rankDesc = document.getElementById('rankDesc');
-            if (avg < 250 && perfectCount >= 3 && rate === 100) {
-                rating.style.background = 'rgba(16,185,129,0.15)'; rating.style.border = '1px solid rgba(16,185,129,0.4)';
-                rankText.style.color = '#10b981'; rankText.textContent = '🏆 F1 世界冠军'; rankDesc.textContent = '完美转速 + 闪电反应，职业级！';
-            } else if (avg < 300 && perfectCount >= 2 && rate >= 80) {
-                rating.style.background = 'rgba(59,130,246,0.15)'; rating.style.border = '1px solid rgba(59,130,246,0.4)';
-                rankText.style.color = '#3b82f6'; rankText.textContent = '⚡ 优秀车手'; rankDesc.textContent = '反应快 + 转速控制精准！';
-            } else if (avg < 400 && rate >= 60) {
-                rating.style.background = 'rgba(245,158,11,0.15)'; rating.style.border = '1px solid rgba(245,158,11,0.4)';
-                rankText.style.color = '#f59e0b'; rankText.textContent = '👍 正常水平'; rankDesc.textContent = '普通人反应，多练转速控制。';
-            } else {
-                rating.style.background = 'rgba(239,68,68,0.15)'; rating.style.border = '1px solid rgba(239,68,68,0.4)';
-                rankText.style.color = '#ef4444'; rankText.textContent = '🐢 新手司机'; rankDesc.textContent = '多练习离合和油门的配合！';
-            }
-            const hl = document.getElementById('historyList'); hl.innerHTML = '';
-            results.forEach((r, i) => {
-                const row = document.createElement('div'); row.className = 'history-row';
-                row.innerHTML = `<span class="round-num">#${i + 1}</span>`;
-                if (r.falseStart) {
-                    row.innerHTML += `<span class="ms false-start">抢跑</span><div class="history-bar"><div class="history-bar-fill" style="width:100%;background:#ef4444;"></div></div>`;
-                } else if (r.success) {
-                    const cls = r.time < 250 ? 'good' : r.time < 400 ? 'normal' : 'slow';
-                    const fcls = r.time < 250 ? 'fast' : r.time < 400 ? 'normal' : 'slow';
-                    const pct = Math.min(100, (r.time / 600) * 100);
-                    let extra = r.perfect ? ' <span class="perfect-badge">完美</span>' : '';
-                    row.innerHTML += `<span class="ms ${cls}">${r.time}ms${extra}</span><div class="history-bar"><div class="history-bar-fill ${fcls}" style="width:${pct}%;"></div></div>`;
-                }
-                hl.appendChild(row);
-            });
-            resultPanel.classList.add('show'); statusText.textContent = '测试完成！'; statusText.className = 'status-text';
-            bigTime.textContent = avg + 'ms'; bigTime.style.color = '#fbbf24';
-            currentDisplay.textContent = '完成'; pedalHint.textContent = '点击"再来"重测';
+            phase='done';clearLights();clearT();
+            const v=results.filter(r=>r.ok);
+            const avg=v.length?Math.round(v.reduce((s,r)=>s+r.time,0)/v.length):0;
+            const fast=v.length?Math.min(...v.map(r=>r.time)):0;
+            const slow=v.length?Math.max(...v.map(r=>r.time)):0;
+            const rate=Math.round((v.length/results.length)*100);
+            $('avgResult').textContent=avg+'ms';$('fastResult').textContent=fast+'ms';
+            $('perfectResult').textContent=perfects+' / 5';$('successResult').textContent=rate+'%';
+            ['avgResult','fastResult'].forEach(id=>{const e=$(id),n=parseInt(e.textContent);e.className='value'+(n<250?' excellent':n<400?' good':' avg');});
+            const rt=$('rating'),rk=$('rankText'),rd=$('rankDesc');
+            if(avg<250&&perfects>=3&&rate===100){rt.style.background='rgba(16,185,129,0.15)';rt.style.border='1px solid rgba(16,185,129,0.4)';rk.style.color='#10b981';rk.textContent='🏆 F1 世界冠军';rd.textContent='完美转速 + 闪电反应，职业级！';}
+            else if(avg<300&&perfects>=2&&rate>=80){rt.style.background='rgba(59,130,246,0.15)';rt.style.border='1px solid rgba(59,130,246,0.4)';rk.style.color='#3b82f6';rk.textContent='⚡ 优秀车手';rd.textContent='反应快 + 转速控制精准！';}
+            else if(avg<400&&rate>=60){rt.style.background='rgba(245,158,11,0.15)';rt.style.border='1px solid rgba(245,158,11,0.4)';rk.style.color='#f59e0b';rk.textContent='👍 正常水平';rd.textContent='普通人反应，多练转速控制。';}
+            else{rt.style.background='rgba(239,68,68,0.15)';rt.style.border='1px solid rgba(239,68,68,0.4)';rk.style.color='#ef4444';rk.textContent='🐢 新手司机';rd.textContent='多练习离合和油门的配合！';}
+            const hl=$('historyList');hl.innerHTML='';
+            results.forEach((r,i)=>{const row=document.createElement('div');row.className='history-row';row.innerHTML=`<span class="round-num">#${i+1}</span>`;
+                if(r.fs)row.innerHTML+=`<span class="ms false-start">抢跑</span><div class="history-bar"><div class="history-bar-fill" style="width:100%;background:#ef4444;"></div></div>`;
+                else if(r.ok){const cls=r.time<250?'good':r.time<400?'normal':'slow',fcls=r.time<250?'fast':r.time<400?'normal':'slow',pct=Math.min(100,(r.time/600)*100);
+                row.innerHTML+=`<span class="ms ${cls}">${r.time}ms${r.perfect?' <span class="perfect-badge">完美</span>':''}</span><div class="history-bar"><div class="history-bar-fill ${fcls}" style="width:${pct}%;"></div></div>`;}
+                hl.appendChild(row);});
+            resultPanel.classList.add('show');statusText.textContent='测试完成！';statusText.className='status-text';bigTime.textContent=avg+'ms';bigTime.style.color='#fbbf24';curDisp.textContent='完成';pedalHint.textContent='点击"再来"重测';
         }
 
         requestAnimationFrame(rpmLoop);
