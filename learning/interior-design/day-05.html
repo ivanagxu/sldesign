@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Design - 学习 · 室内设计 · Day 5 材料选择与搭配</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .logo span { color: #e2e8f0; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
+        .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
+        footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
+        .footer-section h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: #60a5fa; }
+        .contact-info { list-style: none; }
+        .contact-info li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .contact-info i { margin-right: 0.8rem; color: #3b82f6; width: 20px; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
+        .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
+
+        .breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #94a3b8; padding: 1rem 0; flex-wrap: wrap; }
+        .breadcrumbs a { color: #10b981; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+        .breadcrumbs .sep { color: #d1d5db; }
+
+        .lesson-header { padding: 1.5rem 0; }
+        .lesson-header .lesson-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+        .lesson-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .badge-stage { background: #ecfdf5; color: #059669; }
+        .badge-week { background: #eff6ff; color: #3b82f6; }
+        .badge-day { background: #fef3c7; color: #d97706; }
+        .lesson-header h1 { font-size: 1.6rem; color: #0f172a; margin-bottom: 0.3rem; }
+        .lesson-header .lesson-subtitle { color: #64748b; font-size: 0.9rem; }
+
+        .content-body { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2rem; margin-bottom: 2rem; }
+
+        .lesson-objectives { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+        .lesson-objectives h3 { color: #059669; font-size: 1rem; margin-bottom: 0.5rem; }
+        .lesson-objectives ul { list-style: none; padding: 0; margin: 0; }
+        .lesson-objectives li { color: #047857; padding: 0.2rem 0; font-size: 0.9rem; }
+        .lesson-objectives li::before { content: '✅ '; }
+
+        .content-body h2 { font-size: 1.3rem; color: #059669; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #d1fae5; }
+        .content-body h2:first-child { margin-top: 0; }
+        .content-body h3 { font-size: 1.1rem; color: #0f172a; margin: 1.5rem 0 0.8rem; }
+        .content-body h4 { font-size: 1rem; color: #0f172a; margin: 1.2rem 0 0.6rem; }
+        .content-body p { margin-bottom: 0.8rem; color: #444; }
+        .content-body ul, .content-body ol { margin: 0.8rem 0; padding-left: 1.5rem; }
+        .content-body li { margin-bottom: 0.4rem; color: #444; }
+        .content-body strong { color: #0f172a; }
+        .content-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        .content-body th, .content-body td { border: 1px solid #e2e8f0; padding: 0.6rem 0.8rem; text-align: left; }
+        .content-body th { background-color: #f0fdf4; color: #059669; font-weight: 600; }
+        .content-body tr:nth-child(even) { background-color: #f8fafc; }
+
+        .highlight-box { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .highlight-box p { margin: 0; color: #047857; }
+
+        .tip-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .tip-box p { margin: 0; color: #92400e; }
+
+        .warn-box { background: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .warn-box p { margin: 0; color: #991b1b; }
+
+        .case-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+        .case-box h4 { color: #0f172a; font-size: 1rem; margin-bottom: 0.8rem; }
+
+        .task-box { background: #eff6ff; border: 2px solid #93c5fd; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+        .task-box h4 { color: #1e40af; margin-bottom: 0.5rem; }
+        .task-box p { color: #1e40af; margin: 0; }
+
+        .next-lesson { background: #f0fdf4; border: 2px solid #86efac; border-radius: 12px; padding: 1.5rem; margin-top: 2rem; display: flex; align-items: center; gap: 1rem; }
+        .next-lesson i { font-size: 1.5rem; color: #059669; }
+        .next-lesson-text h3 { font-size: 1rem; color: #059669; margin-bottom: 0.2rem; }
+        .next-lesson-text p { font-size: 0.85rem; color: #047857; margin: 0; }
+
+        .prev-next-nav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .prev-next-nav a { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.2rem; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; color: #059669; font-size: 0.9rem; transition: box-shadow 0.3s ease; }
+        .prev-next-nav a:hover { box-shadow: 0 4px 12px rgba(16,185,129,0.15); }
+
+        .color-swatch { display: inline-block; width: 16px; height: 16px; border-radius: 3px; vertical-align: middle; margin-right: 4px; border: 1px solid #e2e8f0; }
+
+        .budget-table { margin: 1rem 0; }
+        .budget-table th { background-color: #fef3c7; color: #92400e; }
+
+        .material-plan { background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+        .material-plan strong { color: #059669; }
+
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; align-items: flex-start; }
+            .logo { margin-bottom: 1rem; }
+            nav { width: 100%; }
+            nav ul { flex-direction: column; width: 100%; display: none; }
+            nav ul.show { display: flex; }
+            nav ul li { margin: 0; width: 100%; }
+            nav ul li a { display: block; padding: 0.8rem 0; border-bottom: 1px solid #1e3a5f; }
+            .menu-toggle { display: block; position: absolute; top: 1rem; right: 20px; }
+            .content-body { padding: 1.2rem; }
+            .lesson-header h1 { font-size: 1.3rem; }
+            .footer-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" style="text-decoration:none;">
+                <div class="logo">SL <span>DESIGN</span> PLATFORM</div>
+            </a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="../../index.html"><i class="fas fa-home"></i> HOME</a></li>
+                    <li><a href="../../index.html#exhibition"><i class="fas fa-images"></i> CASES</a></li>
+                    <li><a href="../../news.html"><i class="fas fa-newspaper"></i> NEWS</a></li>
+                    <li><a href="../../games.html"><i class="fas fa-gamepad"></i> GAMES</a></li>
+                    <li><a href="../../learning.html" class="active"><i class="fas fa-graduation-cap"></i> LEARNING</a></li>
+                    <li><a href="../../index.html#contact"><i class="fas fa-address-book"></i> CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../learning.html"><i class="fas fa-graduation-cap"></i> LEARNING</a>
+            <span class="sep">›</span>
+            <a href="../interior-design.html">室内设计</a>
+            <span class="sep">›</span>
+            <span>Day 5 · 材料选择与搭配</span>
+        </div>
+
+        <div class="lesson-header">
+            <div class="lesson-meta">
+                <span class="lesson-badge badge-stage">入门</span>
+                <span class="lesson-badge badge-week">Week 1</span>
+                <span class="lesson-badge badge-day">Day 5</span>
+            </div>
+            <h1>🧱 材料选择与搭配</h1>
+            <p class="lesson-subtitle">地面/墙面/顶面材料全对比 · 搭配 5 大法则 · 37㎡ 材料清单</p>
+        </div>
+
+        <div class="content-body">
+            <div class="lesson-objectives">
+                <h3>🎯 学习目标</h3>
+                <ul>
+                    <li>识别常见装修材料的特性和适用场景</li>
+                    <li>根据预算和功能需求选择合适的材料</li>
+                    <li>掌握材料搭配的基本原则，避免翻车</li>
+                    <li>为 37㎡ 户型制定材料清单</li>
+                </ul>
+            </div>
+
+            <h2>一、装修材料分类体系</h2>
+            <div class="ergo-diagram">
+                <h3>装修材料全景图</h3>
+                <div class="section"><strong>【主材】直接决定视觉效果和使用体验</strong><br>地面材料 · 墙面材料 · 顶面材料 · 门窗 · 橱柜衣柜</div>
+                <div class="section"><strong>【辅材】隐蔽但决定质量和寿命</strong><br>水电材料 · 防水材料 · 粘接材料 · 龙骨板材</div>
+                <div class="section" style="margin-top:1rem;"><strong>⚠️ 原则：主材看效果，辅材看质量</strong><br>（主材可以省，辅材不能省！）</div>
+            </div>
+
+            <h2>二、地面材料对比</h2>
+            <table>
+                <tr><th>材料类型</th><th>价格 (元/㎡)</th><th>优点</th><th>缺点</th><th>适用空间</th></tr>
+                <tr><td>实木地板</td><td>300-800+</td><td>脚感好、环保</td><td>怕水、需保养</td><td>卧室、书房</td></tr>
+                <tr><td>复合地板</td><td>100-300</td><td>性价比高、耐磨</td><td>脚感一般</td><td>客厅、卧室</td></tr>
+                <tr><td>强化地板</td><td>60-150</td><td>便宜、耐磨</td><td>脚感硬、环保一般</td><td>预算紧张</td></tr>
+                <tr><td>瓷砖</td><td>80-400</td><td>防水、耐磨</td><td>脚感冷、硬</td><td>厨卫、阳台</td></tr>
+                <tr><td>SPC 石塑地板</td><td>80-200</td><td>防水、安装快</td><td>质感一般</td><td>旧房改造</td></tr>
+            </table>
+
+            <h3>37㎡ 地面推荐方案</h3>
+            <div class="material-plan">
+                <strong>方案 A（性价比）：</strong>客厅+卧室 复合地板 150 元/㎡ · 厨卫瓷砖 120 元/㎡ · 总预算约 5000-6000 元<br>
+                <strong>方案 B（舒适）：</strong>客厅+卧室 实木复合地板 300 元/㎡ · 厨卫品牌瓷砖 200 元/㎡ · 总预算约 9000-11000 元<br>
+                <strong>方案 C（旧房快装）：</strong>全屋 SPC 石塑地板 120 元/㎡ · 厨卫瓷砖 · 总预算约 5000-6000 元
+            </div>
+
+            <h2>三、墙面材料对比</h2>
+            <table>
+                <tr><th>材料类型</th><th>价格 (元/㎡)</th><th>优点</th><th>缺点</th><th>适用空间</th></tr>
+                <tr><td>乳胶漆</td><td>30-80</td><td>便宜、环保、颜色多</td><td>质感一般</td><td>全屋</td></tr>
+                <tr><td>壁纸</td><td>50-200</td><td>图案丰富、质感好</td><td>怕潮、寿命短</td><td>卧室、背景墙</td></tr>
+                <tr><td>墙布</td><td>80-300</td><td>质感好、无缝</td><td>价格高、怕潮</td><td>卧室、客厅</td></tr>
+                <tr><td>护墙板</td><td>200-600+</td><td>高档、隔音</td><td>价格高、占空间</td><td>背景墙</td></tr>
+                <tr><td>微水泥</td><td>300-800+</td><td>整体感强、防水</td><td>施工要求高</td><td>厨卫、工业风</td></tr>
+            </table>
+            <div class="highlight-box"><p><strong>37㎡ 推荐（简约实用）：</strong>全屋乳胶漆（白色/浅灰色） + 客厅背景墙局部护墙板/拼色 · 总预算约 3000-4000 元</p></div>
+
+            <h2>四、材料搭配黄金法则</h2>
+            <div class="ergo-diagram">
+                <h3>材料搭配 5 大原则</h3>
+                <div class="section"><strong>1️⃣ 色彩统一：</strong>主色不超过 3 种（墙/地/家具） · 同色系最安全</div>
+                <div class="section"><strong>2️⃣ 质感协调：</strong>粗糙 + 光滑 = 有层次 · 木质感可中和任何材质</div>
+                <div class="section"><strong>3️⃣ 风格一致：</strong>选定一种风格贯穿全屋</div>
+                <div class="section"><strong>4️⃣ 功能优先：</strong>湿区防水第一 · 高频耐磨第一 · 休息区舒适第一</div>
+                <div class="section"><strong>5️⃣ 预算分配：</strong>隐蔽工程 30%（不能省） · 高频使用 40%（选好的） · 装饰性 30%（可省）</div>
+            </div>
+
+            <h2>五、常见翻车案例</h2>
+            <table>
+                <tr><th>翻车类型</th><th>错误做法</th><th>正确做法</th></tr>
+                <tr><td>颜色翻车</td><td>墙白 + 地黄 + 门红 = 调色盘</td><td>墙白 + 地浅木 + 门白 = 统一</td></tr>
+                <tr><td>质感翻车</td><td>亮面砖 + 亮面柜 = 反光灾难</td><td>哑光砖 + 肤感柜 = 高级</td></tr>
+                <tr><td>风格翻车</td><td>欧式灯 + 北欧沙发 = 四不像</td><td>选定一种风格贯穿全屋</td></tr>
+                <tr><td>尺寸翻车</td><td>小客厅放 L 型大沙发</td><td>量好尺寸再买，留足空间</td></tr>
+                <tr><td>预算翻车</td><td>买便宜货后期升级 = 超支</td><td>先定总预算，按优先级分配</td></tr>
+            </table>
+
+            <h2>六、37㎡ 户型材料清单示例</h2>
+            <h3>地面材料</h3>
+            <table class="budget-table">
+                <tr><th>项目</th><th>材料</th><th>面积</th><th>单价</th><th>小计</th></tr>
+                <tr><td>客厅+卧室</td><td>复合地板（浅橡木色）</td><td>25㎡</td><td>150 元/㎡</td><td>¥3,750</td></tr>
+                <tr><td>厨房</td><td>防滑瓷砖 300×300mm</td><td>3㎡</td><td>120 元/㎡</td><td>¥360</td></tr>
+                <tr><td>卫生间</td><td>防滑瓷砖 300×300mm</td><td>2.7㎡</td><td>120 元/㎡</td><td>¥324</td></tr>
+                <tr><td>阳台</td><td>木纹砖</td><td>2㎡</td><td>100 元/㎡</td><td>¥200</td></tr>
+                <tr><td>安装+踢脚线</td><td></td><td></td><td></td><td>¥1,025</td></tr>
+                <tr><th>地面总计</th><th></th><th></th><th></th><th>约 ¥6,021</th></tr>
+            </table>
+
+            <h3>墙面材料</h3>
+            <table class="budget-table">
+                <tr><th>项目</th><th>材料</th><th>面积</th><th>单价</th><th>小计</th></tr>
+                <tr><td>全屋墙面</td><td>乳胶漆（白/浅灰）</td><td>80㎡</td><td>40 元/㎡</td><td>¥3,200</td></tr>
+                <tr><td>客厅背景墙</td><td>乳胶漆拼色（深灰）</td><td>8㎡</td><td>50 元/㎡</td><td>¥400</td></tr>
+                <tr><th>墙面总计</th><th></th><th></th><th></th><th>约 ¥3,600</th></tr>
+            </table>
+
+            <h3>顶面材料</h3>
+            <table class="budget-table">
+                <tr><th>项目</th><th>材料</th><th>面积</th><th>单价</th><th>小计</th></tr>
+                <tr><td>客厅+卧室</td><td>石膏板平顶</td><td>30㎡</td><td>120 元/㎡</td><td>¥3,600</td></tr>
+                <tr><td>厨卫</td><td>铝扣板集成吊顶</td><td>6㎡</td><td>150 元/㎡</td><td>¥900</td></tr>
+                <tr><th>顶面总计</th><th></th><th></th><th></th><th>约 ¥4,500</th></tr>
+            </table>
+
+            <h3>主材总预算汇总</h3>
+            <table>
+                <tr><th>项目</th><th>预算（元）</th><th>占比</th></tr>
+                <tr><td>地面材料</td><td>6,021</td><td>43%</td></tr>
+                <tr><td>墙面材料</td><td>3,600</td><td>26%</td></tr>
+                <tr><td>顶面材料</td><td>4,500</td><td>31%</td></tr>
+                <tr><th>总计</th><th>14,121</th><th>100%</th></tr>
+            </table>
+
+            <h2>七、环保等级参考</h2>
+            <table>
+                <tr><th>等级</th><th>甲醛释放量</th><th>适用场景</th></tr>
+                <tr><td><strong>E0 级</strong></td><td>≤0.05mg/m³</td><td>儿童房、卧室（推荐）</td></tr>
+                <tr><td><strong>E1 级</strong></td><td>≤0.124mg/m³</td><td>全屋可用（国标）</td></tr>
+                <tr><td><strong>ENF 级</strong></td><td>≤0.025mg/m³</td><td>最高标准，价格高</td></tr>
+            </table>
+            <div class="tip-box"><p>💡 <strong>建议：</strong>卧室和儿童房至少 E0 级，其他区域 E1 级即可。</p></div>
+
+            <h2>八、📝 今日作业</h2>
+            <div class="task-box">
+                <h4>任务 1：确定风格定位</h4>
+                <p>选择你的风格偏好：□ 北欧简约 □ 现代简约 □ 日式原木 □ 工业风 □ 其他，说明理由</p>
+            </div>
+            <div class="task-box">
+                <h4>任务 2：填写材料清单</h4>
+                <p>为 37㎡ 户型填写地面/墙面/顶面材料清单及预算</p>
+            </div>
+            <div class="task-box">
+                <h4>任务 3：搭配自检</h4>
+                <p>检查：主色 ≤ 3 种 · 湿区防水达标 · 高频区耐磨 · 总预算可控</p>
+            </div>
+
+            <div class="prev-next-nav">
+                <a href="day-04.html"><i class="fas fa-arrow-left"></i> Day 4 · 照明设计</a>
+                <a href="overview.html"><i class="fas fa-map"></i> 学习方案</a>
+                <a href="#" class="disabled" style="opacity:0.4;pointer-events:none;">Day 6 · 色彩搭配 <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="next-lesson">
+                <i class="fas fa-arrow-right"></i>
+                <div class="next-lesson-text">
+                    <h3>明日预告：Day 6 · 色彩搭配进阶</h3>
+                    <p>色彩心理学基础 · 小户型显大配色技巧 · 37㎡ 配色方案实战</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
+                    <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 96091469</p></li>
+                    <li><i class="fas fa-envelope"></i> sindylau2010@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/SLdesignPlus" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="contact-info">
+                    <li><a href="../../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
+                    <li><a href="../interior-design.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-couch"></i> 室内设计</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 SL Design Platform. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>
