@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Design - 学习 · 钢琴 · Day 2 乐理基础上</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .logo span { color: #e2e8f0; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
+        .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
+        footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
+        .footer-section h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: #60a5fa; }
+        .contact-info { list-style: none; }
+        .contact-info li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .contact-info i { margin-right: 0.8rem; color: #3b82f6; width: 20px; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
+        .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
+
+        .breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #94a3b8; padding: 1rem 0; flex-wrap: wrap; }
+        .breadcrumbs a { color: #7c3aed; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+        .breadcrumbs .sep { color: #d1d5db; }
+
+        .lesson-header { padding: 1.5rem 0; }
+        .lesson-header .lesson-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+        .lesson-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .badge-phase { background: #ecfdf5; color: #059669; }
+        .badge-module { background: #eff6ff; color: #3b82f6; }
+        .badge-day { background: #fef3c7; color: #d97706; }
+        .lesson-header h1 { font-size: 1.6rem; color: #0f172a; margin-bottom: 0.3rem; }
+        .lesson-header .lesson-subtitle { color: #64748b; font-size: 0.9rem; }
+
+        .content-body { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2rem; margin-bottom: 2rem; }
+
+        .lesson-objectives { background: #f5f3ff; border-left: 4px solid #7c3aed; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+        .lesson-objectives h3 { color: #7c3aed; font-size: 1rem; margin-bottom: 0.5rem; }
+        .lesson-objectives ul { list-style: none; padding: 0; margin: 0; }
+        .lesson-objectives li { color: #5b21b6; padding: 0.2rem 0; font-size: 0.9rem; }
+        .lesson-objectives li::before { content: '✅ '; }
+
+        .content-body h2 { font-size: 1.3rem; color: #7c3aed; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #ede9fe; }
+        .content-body h2:first-child { margin-top: 0; }
+        .content-body h3 { font-size: 1.1rem; color: #0f172a; margin: 1.5rem 0 0.8rem; }
+        .content-body h4 { font-size: 1rem; color: #0f172a; margin: 1.2rem 0 0.6rem; }
+        .content-body p { margin-bottom: 0.8rem; color: #444; }
+        .content-body ul, .content-body ol { margin: 0.8rem 0; padding-left: 1.5rem; }
+        .content-body li { margin-bottom: 0.4rem; color: #444; }
+        .content-body strong { color: #0f172a; }
+        .content-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        .content-body th, .content-body td { border: 1px solid #e2e8f0; padding: 0.6rem 0.8rem; text-align: left; }
+        .content-body th { background-color: #f5f3ff; color: #7c3aed; font-weight: 600; }
+        .content-body tr:nth-child(even) { background-color: #f8fafc; }
+
+        .highlight-box { background: #f5f3ff; border-left: 4px solid #7c3aed; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .highlight-box p { margin: 0; color: #5b21b6; }
+
+        .tip-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .tip-box p { margin: 0; color: #92400e; }
+
+        .warn-box { background: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .warn-box p { margin: 0; color: #991b1b; }
+
+        .ergo-diagram { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; text-align: center; margin: 1.5rem 0; }
+        .ergo-diagram h3 { color: #7c3aed; margin-bottom: 1.5rem; font-size: 1.2rem; }
+        .ergo-diagram .section { text-align: left; margin: 0.8rem 0; }
+        .ergo-diagram .section strong { color: #7c3aed; }
+
+        .case-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+        .case-box h4 { color: #0f172a; font-size: 1rem; margin-bottom: 0.8rem; }
+
+        .task-box { background: #eff6ff; border: 2px solid #93c5fd; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+        .task-box h4 { color: #1e40af; margin-bottom: 0.5rem; }
+        .task-box p { color: #1e40af; margin: 0; }
+
+        .homework-box { background: linear-gradient(135deg, #7c3aed, #6d28d9); color: white; padding: 1.5rem; border-radius: 12px; margin: 2rem 0; }
+        .homework-box h3 { font-size: 1.1rem; margin-bottom: 0.8rem; }
+        .homework-box ul { list-style: none; padding: 0; }
+        .homework-box li { padding: 0.3rem 0; font-size: 0.95rem; opacity: 0.95; }
+        .homework-box li::before { content: '▸ '; }
+
+        .next-lesson { background: #f5f3ff; border: 2px solid #c4b5fd; border-radius: 12px; padding: 1.5rem; margin-top: 2rem; display: flex; align-items: center; gap: 1rem; }
+        .next-lesson i { font-size: 1.5rem; color: #7c3aed; }
+        .next-lesson-text h3 { font-size: 1rem; color: #7c3aed; margin-bottom: 0.2rem; }
+        .next-lesson-text p { font-size: 0.85rem; color: #5b21b6; margin: 0; }
+
+        .prev-next-nav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .prev-next-nav a { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.2rem; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; color: #7c3aed; font-size: 0.9rem; transition: box-shadow 0.3s ease; }
+        .prev-next-nav a:hover { box-shadow: 0 4px 12px rgba(124,58,237,0.15); }
+
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; align-items: flex-start; }
+            .logo { margin-bottom: 1rem; }
+            nav { width: 100%; }
+            nav ul { flex-direction: column; width: 100%; display: none; }
+            nav ul.show { display: flex; }
+            nav ul li { margin: 0; width: 100%; }
+            nav ul li a { display: block; padding: 0.8rem 0; border-bottom: 1px solid #1e3a5f; }
+            .menu-toggle { display: block; position: absolute; top: 1rem; right: 20px; }
+            .content-body { padding: 1.2rem; }
+            .lesson-header h1 { font-size: 1.3rem; }
+            .footer-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" style="text-decoration:none;">
+                <div class="logo">SL <span>DESIGN</span> PLATFORM</div>
+            </a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="../../index.html"><i class="fas fa-home"></i> HOME</a></li>
+                    <li><a href="../../index.html#exhibition"><i class="fas fa-images"></i> CASES</a></li>
+                    <li><a href="../../news.html"><i class="fas fa-newspaper"></i> NEWS</a></li>
+                    <li><a href="../../games.html"><i class="fas fa-gamepad"></i> GAMES</a></li>
+                    <li><a href="../../learning.html" class="active"><i class="fas fa-graduation-cap"></i> LEARNING</a></li>
+                    <li><a href="../../index.html#contact"><i class="fas fa-address-book"></i> CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../learning.html"><i class="fas fa-graduation-cap"></i> LEARNING</a>
+            <span class="sep">›</span>
+            <a href="../piano.html">钢琴 · 电钢琴速成</a>
+            <span class="sep">›</span>
+            <span>Day 2 · 乐理基础（上）</span>
+        </div>
+
+        <div class="lesson-header">
+            <div class="lesson-meta">
+                <span class="lesson-badge badge-phase">Phase 1 · 基础构建</span>
+                <span class="lesson-badge badge-module">M2</span>
+                <span class="lesson-badge badge-day">Day 2</span>
+            </div>
+            <h1>🎵 乐理基础（上）</h1>
+            <p class="lesson-subtitle">全音/半音 · 12 音名 · 唱名对应 · 五线谱入门 · 60 分钟</p>
+        </div>
+
+        <div class="content-body">
+            <div class="lesson-objectives">
+                <h3>🎯 学习目标</h3>
+                <ul>
+                    <li>区分全音和半音，在键盘上找到任意半音/全音关系</li>
+                    <li>说出 12 个音名（含升降号），理解等音概念</li>
+                    <li>将唱名（Do Re Mi）与音名（C D E）对应</li>
+                    <li>识读高音谱号五线谱上的 C4-G5 音符</li>
+                </ul>
+            </div>
+
+            <h2>一、知识讲解（20 分钟）</h2>
+
+            <h3>1.1 全音与半音 — 音乐的"最小单位"</h3>
+            <p><strong>半音（Semitone）：</strong>键盘上相邻两个键之间的最小音程距离。</p>
+            <div class="ergo-diagram">
+                <h3>半音/全音关系</h3>
+                <div class="section"><strong>全音 = 2 个半音</strong></div>
+                <div class="section">C → C# = 半音 · C → D = 全音（跳过 C#）</div>
+                <div class="section" style="margin-top:0.5rem;"><strong>⚠️ 关键：E→F 和 B→C 之间是半音</strong><br>其余白键相邻之间都是全音</div>
+            </div>
+
+            <h3>1.2 音名体系 — 12 个音的"身份证"</h3>
+            <p><strong>7 个基本音名（白键）：</strong>C D E F G A B（对应 Do Re Mi Fa Sol La Si）</p>
+            <p><strong>5 个变化音名（黑键）：</strong>C#/Db · D#/Eb · F#/Gb · G#/Ab · A#/Bb</p>
+
+            <h4>升降号规则</h4>
+            <table>
+                <tr><th>符号</th><th>名称</th><th>含义</th><th>示例</th></tr>
+                <tr><td><strong>♯</strong> (sharp)</td><td>升号</td><td>升高半音</td><td>C# = C 升高半音</td></tr>
+                <tr><td><strong>♭</strong> (flat)</td><td>降号</td><td>降低半音</td><td>Db = D 降低半音</td></tr>
+                <tr><td><strong>♮</strong> (natural)</td><td>还原号</td><td>还原为基本音</td><td>C♮ = C</td></tr>
+            </table>
+
+            <div class="highlight-box">
+                <p>📝 <strong>等音：</strong>同一个音有两个名字。C# = Db · D# = Eb · F# = Gb · G# = Ab · A# = Bb</p>
+            </div>
+
+            <h3>1.3 唱名体系 — Do Re Mi 与音名的对应</h3>
+            <p><strong>固定唱名法（Fixed-Do）：</strong>C=Do · D=Re · E=Mi · F=Fa · G=Sol · A=La · B=Si(Ti)</p>
+            <div class="highlight-box">
+                <p>📝 <strong>记忆口诀：</strong>Do Re Mi Fa Sol La Si — C D E F G A B<br>按字母顺序一一对应，永远不会变。</p>
+            </div>
+
+            <h3>C 大调音阶（全全半全全全半）</h3>
+            <table>
+                <tr><th>音名</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>A</th><th>B</th><th>C</th></tr>
+                <tr><td>唱名</td><td>Do</td><td>Re</td><td>Mi</td><td>Fa</td><td>Sol</td><td>La</td><td>Si</td><td>Do</td></tr>
+                <tr><td>音程</td><td></td><td>全</td><td>全</td><td>半</td><td>全</td><td>全</td><td>全</td><td>半</td></tr>
+            </table>
+            <div class="warn-box"><p>⚠️ <strong>重要：</strong>"全全半全全全半"公式是所有大调音阶的基础！</p></div>
+
+            <h3>1.4 五线谱入门 — 高音谱号</h3>
+            <div class="ergo-diagram">
+                <h3>高音谱号 (Treble Clef)</h3>
+                <div class="section"><strong>线（从下到上）：</strong>E G B D F（Mi Sol Si Re Fa）</div>
+                <div class="section"><strong>间（从下到上）：</strong>F A C E（Fa La Do Mi）</div>
+                <div class="section" style="margin-top:0.5rem;"><strong>记忆口诀：</strong><br>线：Every Good Boy Deserves Fudge · 间：FACE（脸）</div>
+            </div>
+
+            <h2>二、案例拆解（10 分钟）</h2>
+
+            <h3>为什么乐理是乐队键盘手的"地图"？</h3>
+            <div class="case-box">
+                <h4>场景：乐队排练</h4>
+                <p>吉他手说："这段用 Am 和弦。"贝斯手说："我走 A 根音。"鼓手说："从第 5 小节进。"</p>
+                <p><strong>不懂乐理：</strong>😵 他们在说什么？<br><strong>懂乐理：</strong>😊 秒懂，立刻找到 Am 和弦位置。</p>
+            </div>
+
+            <h2>三、实操任务（25 分钟）</h2>
+
+            <div class="task-box">
+                <h4>任务 1：半音/全音找音（5 分钟）</h4>
+                <p>在键盘上弹奏 C→D · E→F · G→A# · B→C · F→F# · C→Eb，判断每个是半音还是全音。</p>
+            </div>
+
+            <div class="task-box">
+                <h4>任务 2：音名速记（5 分钟）</h4>
+                <p>在纸上画一个八度的 12 个音，标注音名：C → C# → D → D# → E → F → F# → G → G# → A → A# → B → C。遮住右半边，默写出来。</p>
+            </div>
+
+            <div class="task-box">
+                <h4>任务 3：五线谱识读（10 分钟）</h4>
+                <p>画出高音谱号 + 五线谱，标注 E4(第一线) · G4(第二线) · B4(第三线) · D5(第四线) · F5(第五线) · F4(第一间) · A4(第二间) · C5(第三间) · E5(第四间) · 中央 C(下加一线)。然后在键盘上找到这些音，逐个弹奏确认。</p>
+            </div>
+
+            <div class="task-box">
+                <h4>任务 4：C 大调音阶弹奏（5 分钟）</h4>
+                <p>用右手在键盘上弹奏 C 大调音阶：C D E F G A B C。每个音间隔均匀，感受"全全半全全全半"的音程关系。</p>
+            </div>
+
+            <h2>四、📝 今日作业</h2>
+            <div class="homework-box">
+                <h3>请提交以下内容：</h3>
+                <ul>
+                    <li>任务 1 的音程判断结果</li>
+                    <li>任务 2 的 12 音默写照片</li>
+                    <li>任务 3 的五线谱标注照片</li>
+                    <li>任务 4 的 C 大调音阶弹奏录音</li>
+                </ul>
+                <p style="margin-top: 0.8rem; opacity: 0.85; font-size: 0.85rem;">完成作业后，我会给你专业点评和纠正建议！</p>
+            </div>
+
+            <div class="prev-next-nav">
+                <a href="day-01.html"><i class="fas fa-arrow-left"></i> Day 1 · 乐器认知</a>
+                <a href="overview.html"><i class="fas fa-map"></i> 课程大纲</a>
+                <a href="#" class="disabled" style="opacity:0.4;pointer-events:none;">Day 3 · 节奏基础 <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="next-lesson">
+                <i class="fas fa-arrow-right"></i>
+                <div class="next-lesson-text">
+                    <h3>明日预告：Day 3 · 乐理基础（下）</h3>
+                    <p>节奏型（全音符/二分音符/四分音符） · 节拍器使用</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
+                    <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 96091469</p></li>
+                    <li><i class="fas fa-envelope"></i> sindylau2010@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/SLdesignPlus" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="contact-info">
+                    <li><a href="../../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
+                    <li><a href="../piano.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-music"></i> 钢琴</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 SL Design Platform. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>
