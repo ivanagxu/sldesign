@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>SL Design - 赛车出发反应</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            background: linear-gradient(180deg, #0f172a 0%, #0a0e17 100%);
+            color: #e2e8f0;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            overflow: hidden; height: 100vh;
+            touch-action: manipulation; user-select: none;
+        }
+
+        .game-wrapper {
+            display: flex; flex-direction: column; align-items: center;
+            height: 100vh; padding: 1rem; position: relative;
+        }
+
+        /* HUD */
+        .hud {
+            position: absolute; top: 0.5rem; left: 0; right: 0;
+            display: flex; justify-content: center; gap: 1rem; padding: 0 0.5rem;
+        }
+        .hud-item {
+            background: rgba(15,23,42,0.85); border: 1px solid rgba(59,130,246,0.3);
+            border-radius: 8px; padding: 0.3rem 0.8rem; text-align: center; backdrop-filter: blur(4px);
+        }
+        .hud-item .label { color: #94a3b8; font-size: 0.65rem; text-transform: uppercase; }
+        .hud-item .value { color: #60a5fa; font-weight: 700; font-size: 1rem; }
+
+        /* 返回 */
+        .back-link { position: absolute; top: 0.5rem; left: 0.5rem; }
+        .back-link a {
+            color: #94a3b8; text-decoration: none; background: rgba(15,23,42,0.85);
+            border: 1px solid rgba(59,130,246,0.2); border-radius: 8px;
+            padding: 0.3rem 0.7rem; font-size: 0.75rem; display: flex; align-items: center; gap: 0.3rem;
+        }
+
+        /* 状态提示 */
+        .status-text {
+            font-size: 1.1rem; color: #94a3b8; text-align: center;
+            min-height: 2rem; display: flex; align-items: center; justify-content: center;
+            margin: 0.5rem 0;
+        }
+        .status-text.red { color: #ef4444; font-weight: 600; }
+        .status-text.green { color: #10b981; font-weight: 700; font-size: 1.3rem; }
+        .status-text.false-start { color: #f59e0b; font-weight: 600; }
+        .status-text.result { color: #fbbf24; font-weight: 700; font-size: 1.5rem; }
+
+        /* 反应时间大字 */
+        .big-time {
+            font-size: 2.5rem; font-weight: 800; text-align: center;
+            margin-bottom: 0.3rem; font-variant-numeric: tabular-nums;
+        }
+
+        /* ========== 红绿灯架 ========== */
+        .light-gantry {
+            display: flex; gap: 0.8rem; justify-content: center;
+            background: rgba(0,0,0,0.5); border: 2px solid #334155;
+            border-radius: 16px; padding: 1rem 0.8rem; margin-bottom: 0.8rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        .light-column {
+            display: flex; flex-direction: column; gap: 0.4rem; align-items: center;
+        }
+
+        .light {
+            width: 28px; height: 28px; border-radius: 50%;
+            background: rgba(30,41,59,0.8); border: 2px solid #475569;
+            transition: background 0.08s, box-shadow 0.08s, border-color 0.08s;
+        }
+
+        /* 红灯 */
+        .light.red {
+            background: #ef4444; border-color: #fca5a5;
+            box-shadow: 0 0 15px rgba(239,68,68,0.8), 0 0 30px rgba(239,68,68,0.4);
+        }
+
+        /* 绿灯 */
+        .light.green {
+            background: #10b981; border-color: #6ee7b7;
+            box-shadow: 0 0 15px rgba(16,185,129,0.8), 0 0 30px rgba(16,185,129,0.4);
+        }
+
+        /* ========== 油门踏板 ========== */
+        .pedal-area {
+            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            width: 100%; max-width: 260px;
+        }
+
+        .gas-pedal {
+            width: 160px; height: 220px; border-radius: 20px;
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            border: 3px solid #475569; cursor: pointer;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: transform 0.05s, border-color 0.15s, background 0.15s;
+            position: relative; overflow: hidden;
+        }
+        .gas-pedal::before {
+            content: ''; position: absolute; inset: 8px; border-radius: 14px;
+            border: 2px dashed #334155;
+        }
+        .gas-pedal i { font-size: 2.5rem; color: #64748b; margin-bottom: 0.5rem; transition: color 0.15s; }
+        .gas-pedal span { font-size: 1rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 2px; transition: color 0.15s; }
+
+        .gas-pedal:active, .gas-pedal.pressed {
+            transform: scale(0.95);
+            border-color: #10b981;
+            background: linear-gradient(180deg, #064e3b 0%, #022c22 100%);
+        }
+        .gas-pedal:active i, .gas-pedal.pressed i { color: #10b981; }
+        .gas-pedal:active span, .gas-pedal.pressed span { color: #10b981; }
+
+        .gas-pedal.false-start-pedal {
+            border-color: #f59e0b !important;
+            background: linear-gradient(180deg, #78350f 0%, #451a03 100%) !important;
+        }
+        .gas-pedal.false-start-pedal i, .gas-pedal.false-start-pedal span { color: #f59e0b !important; }
+
+        .pedal-hint {
+            font-size: 0.8rem; color: #64748b; margin-top: 0.5rem; text-align: center;
+        }
+
+        /* 开始界面 */
+        .start-screen {
+            position: absolute; inset: 0; background: rgba(10,14,23,0.96);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 40; backdrop-filter: blur(8px); padding: 1rem;
+        }
+        .start-screen h1 { font-size: 1.6rem; color: #e2e8f0; margin-bottom: 0.5rem; }
+        .start-screen h1 i { color: #ef4444; }
+        .start-screen .subtitle { color: #94a3b8; font-size: 0.85rem; margin-bottom: 1.5rem; text-align: center; }
+        .start-screen .rules {
+            color: #94a3b8; font-size: 0.8rem; text-align: left; margin-bottom: 1.5rem;
+            background: rgba(30,41,59,0.6); border-radius: 12px; padding: 1rem; max-width: 320px; width: 100%;
+        }
+        .start-screen .rules li { margin-bottom: 0.4rem; list-style: none; }
+        .start-screen .rules li::before { content: '▸ '; color: #3b82f6; }
+        .start-btn {
+            background: linear-gradient(135deg, #ef4444, #b91c1c); color: white;
+            border: none; border-radius: 12px; padding: 0.9rem 2.5rem; font-size: 1.1rem;
+            font-weight: 600; cursor: pointer; transition: transform 0.2s, box-shadow 0.3s;
+        }
+        .start-btn:hover { transform: scale(1.05); box-shadow: 0 8px 24px rgba(239,68,68,0.4); }
+
+        /* 结果面板 */
+        .result-panel {
+            background: rgba(15,23,42,0.95); border: 1px solid rgba(59,130,246,0.4);
+            border-radius: 16px; padding: 1.5rem; text-align: center;
+            max-width: 380px; width: 90%; backdrop-filter: blur(8px);
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            z-index: 30; display: none;
+        }
+        .result-panel.show { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+
+        .result-panel h2 { font-size: 1.2rem; margin-bottom: 1rem; }
+        .result-panel h2 i { color: #fbbf24; }
+
+        .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1rem; }
+        .result-card { background: rgba(30,41,59,0.8); border-radius: 8px; padding: 0.6rem; }
+        .result-card .label { color: #94a3b8; font-size: 0.65rem; text-transform: uppercase; }
+        .result-card .value { font-size: 1.2rem; font-weight: 700; margin-top: 0.2rem; }
+        .result-card .value.excellent { color: #10b981; }
+        .result-card .value.good { color: #3b82f6; }
+        .result-card .value.avg { color: #f59e0b; }
+
+        .rating { padding: 0.8rem; border-radius: 10px; margin-bottom: 1rem; }
+        .rating .rank { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.2rem; }
+        .rating .desc { color: #94a3b8; font-size: 0.8rem; }
+
+        .history { margin-bottom: 1rem; text-align: left; }
+        .history-title { color: #94a3b8; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 0.4rem; }
+        .history-row { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; margin-bottom: 0.2rem; }
+        .history-row .round-num { color: #64748b; width: 28px; text-align: right; }
+        .history-row .ms { flex: 1; font-weight: 600; }
+        .history-row .ms.good { color: #10b981; }
+        .history-row .ms.normal { color: #3b82f6; }
+        .history-row .ms.slow { color: #f59e0b; }
+        .history-row .ms.false-start { color: #ef4444; }
+        .history-bar { height: 5px; background: rgba(51,65,85,0.5); border-radius: 3px; flex: 2; overflow: hidden; }
+        .history-bar-fill { height: 100%; border-radius: 3px; }
+        .history-bar-fill.fast { background: #10b981; }
+        .history-bar-fill.normal { background: #3b82f6; }
+        .history-bar-fill.slow { background: #f59e0b; }
+
+        .retry-btn {
+            background: linear-gradient(135deg, #3b82f6, #1e40af); color: white;
+            border: none; border-radius: 10px; padding: 0.7rem 2rem; font-size: 0.95rem;
+            font-weight: 600; cursor: pointer; transition: transform 0.2s;
+        }
+        .retry-btn:hover { transform: scale(1.05); }
+
+        /* 震动动画（抢跑） */
+        @keyframes shake {
+            0%, 100% { transform: translateX(-50%); }
+            25% { transform: translateX(calc(-50% - 6px)); }
+            50% { transform: translateX(calc(-50% + 6px)); }
+            75% { transform: translateX(calc(-50% - 4px)); }
+        }
+        .result-panel.shaking { animation: shake 0.4s; }
+
+        @media (max-width: 400px) {
+            .light { width: 22px; height: 22px; }
+            .light-gantry { gap: 0.5rem; padding: 0.8rem 0.5rem; }
+            .gas-pedal { width: 130px; height: 180px; }
+            .gas-pedal i { font-size: 2rem; }
+            .big-time { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-wrapper">
+        <div class="hud">
+            <div class="hud-item">
+                <div class="label">回合</div>
+                <div class="value" id="roundDisplay">0 / 5</div>
+            </div>
+            <div class="hud-item">
+                <div class="label">当前</div>
+                <div class="value" id="currentDisplay">--</div>
+            </div>
+        </div>
+
+        <div class="back-link"><a href="../games.html"><i class="fas fa-arrow-left"></i> 返回</a></div>
+
+        <div class="big-time" id="bigTime">--</div>
+        <div class="status-text" id="statusText">准备出发</div>
+
+        <!-- 5 排 × 4 个红绿灯 -->
+        <div class="light-gantry" id="gantry">
+            <!-- 由 JS 动态生成 -->
+        </div>
+
+        <!-- 油门踏板 -->
+        <div class="pedal-area">
+            <div class="gas-pedal" id="gasPedal">
+                <i class="fas fa-gauge-high"></i>
+                <span>GAS</span>
+            </div>
+            <div class="pedal-hint" id="pedalHint">灯变绿后踩油门！</div>
+        </div>
+
+        <!-- 开始界面 -->
+        <div class="start-screen" id="startScreen">
+            <h1><i class="fas fa-flag-checkered"></i> 赛车出发反应</h1>
+            <p class="subtitle">模拟 F1 发车灯光，测试你的起步反应！</p>
+            <ul class="rules">
+                <li>5 排红绿灯从左到右依次亮起（红灯）</li>
+                <li>每排间隔约 1.3 秒（随机）</li>
+                <li>5 排全亮后，等待约 1.3 秒全部转绿</li>
+                <li>绿灯亮后尽快踩油门！</li>
+                <li>共 5 次尝试，计算平均反应速度</li>
+            </ul>
+            <button class="start-btn" id="startBtn">开始测试</button>
+        </div>
+
+        <!-- 结果面板 -->
+        <div class="result-panel" id="resultPanel">
+            <h2><i class="fas fa-trophy"></i> 测试完成</h2>
+            <div class="result-grid">
+                <div class="result-card">
+                    <div class="label">平均反应</div>
+                    <div class="value" id="avgResult">--</div>
+                </div>
+                <div class="result-card">
+                    <div class="label">最快反应</div>
+                    <div class="value" id="fastResult">--</div>
+                </div>
+                <div class="result-card">
+                    <div class="label">最慢反应</div>
+                    <div class="value" id="slowResult">--</div>
+                </div>
+                <div class="result-card">
+                    <div class="label">成功率</div>
+                    <div class="value" id="successResult">--</div>
+                </div>
+            </div>
+            <div class="rating" id="rating">
+                <div class="rank" id="rankText">--</div>
+                <div class="desc" id="rankDesc">--</div>
+            </div>
+            <div class="history">
+                <div class="history-title">详细记录</div>
+                <div id="historyList"></div>
+            </div>
+            <button class="retry-btn" id="retryBtn"><i class="fas fa-redo"></i> 再来</button>
+        </div>
+    </div>
+
+    <script>
+        // ========== 配置 ==========
+        const TOTAL_ATTEMPTS = 5;
+        const LIGHTS_PER_COL = 4;
+        const COLS = 5;
+        const LIT_ROWS = 2; // 只亮下面 2 个灯
+        const MIN_COL_DELAY = 800;
+        const MAX_COL_DELAY = 1600;
+        const GREEN_DELAY_MIN = 1000;
+        const GREEN_DELAY_MAX = 1600;
+
+        // ========== 状态 ==========
+        let attempt = 0;
+        let results = []; // {time, success, falseStart}
+        let greenTime = 0;
+        let phase = 'idle'; // idle | sequencing | allRed | green | done | result
+        let colTimeouts = [];
+        let greenTimeout = null;
+
+        // ========== DOM ==========
+        const gantry = document.getElementById('gantry');
+        const bigTime = document.getElementById('bigTime');
+        const statusText = document.getElementById('statusText');
+        const roundDisplay = document.getElementById('roundDisplay');
+        const currentDisplay = document.getElementById('currentDisplay');
+        const gasPedal = document.getElementById('gasPedal');
+        const pedalHint = document.getElementById('pedalHint');
+        const startScreen = document.getElementById('startScreen');
+        const resultPanel = document.getElementById('resultPanel');
+
+        // ========== 生成红绿灯 ==========
+        const columns = [];
+        function buildGantry() {
+            gantry.innerHTML = '';
+            columns.length = 0;
+            for (let c = 0; c < COLS; c++) {
+                const col = document.createElement('div');
+                col.className = 'light-column';
+                const lights = [];
+                for (let r = 0; r < LIGHTS_PER_COL; r++) {
+                    const light = document.createElement('div');
+                    light.className = 'light';
+                    col.appendChild(light);
+                    lights.push(light);
+                }
+                gantry.appendChild(col);
+                columns.push(lights);
+            }
+        }
+        buildGantry();
+
+        function setColumnRed(colIdx) {
+            for (let r = LIGHTS_PER_COL - LIT_ROWS; r < LIGHTS_PER_COL; r++) {
+                columns[colIdx][r].classList.add('red');
+            }
+        }
+
+        function setAllGreen() {
+            for (let c = 0; c < COLS; c++) {
+                for (let r = LIGHTS_PER_COL - LIT_ROWS; r < LIGHTS_PER_COL; r++) {
+                    columns[c][r].classList.remove('red');
+                    columns[c][r].classList.add('green');
+                }
+            }
+        }
+
+        function clearAllLights() {
+            for (let c = 0; c < COLS; c++) {
+                for (let r = 0; r < LIGHTS_PER_COL; r++) {
+                    columns[c][r].className = 'light';
+                }
+            }
+        }
+
+        // ========== 事件 ==========
+        document.getElementById('startBtn').addEventListener('click', startGame);
+        document.getElementById('retryBtn').addEventListener('click', resetGame);
+
+        function pressGas() {
+            if (phase === 'green') {
+                const time = Math.round(performance.now() - greenTime);
+                results.push({ time, success: true, falseStart: false });
+                bigTime.textContent = time + 'ms';
+                bigTime.style.color = time < 250 ? '#10b981' : time < 400 ? '#3b82f6' : '#f59e0b';
+                statusText.textContent = `+${time}ms`;
+                statusText.className = 'status-text result';
+                currentDisplay.textContent = time + 'ms';
+                phase = 'result';
+                setTimeout(() => nextAttempt(), 1200);
+            } else if (phase === 'sequencing' || phase === 'allRed') {
+                // 抢跑！
+                clearAllTimeouts();
+                results.push({ time: 0, success: false, falseStart: true });
+                bigTime.textContent = '抢跑！';
+                bigTime.style.color = '#f59e0b';
+                statusText.textContent = '⚠️ 抢跑！等绿灯！';
+                statusText.className = 'status-text false-start';
+                currentDisplay.textContent = '❌';
+                gasPedal.classList.add('false-start-pedal');
+                pedalHint.textContent = '抢跑了！等下一轮';
+                phase = 'result';
+                setTimeout(() => {
+                    gasPedal.classList.remove('false-start-pedal');
+                    nextAttempt();
+                }, 1500);
+            }
+        }
+
+        gasPedal.addEventListener('mousedown', (e) => { e.preventDefault(); pressGas(); });
+        gasPedal.addEventListener('touchstart', (e) => { e.preventDefault(); pressGas(); }, { passive: false });
+
+        function clearAllTimeouts() {
+            colTimeouts.forEach(t => clearTimeout(t));
+            colTimeouts = [];
+            clearTimeout(greenTimeout);
+        }
+
+        // ========== 游戏流程 ==========
+        function startGame() {
+            startScreen.style.display = 'none';
+            resetGame();
+        }
+
+        function resetGame() {
+            attempt = 0;
+            results = [];
+            phase = 'idle';
+            clearAllTimeouts();
+            clearAllLights();
+            resultPanel.classList.remove('show');
+            bigTime.textContent = '--';
+            bigTime.style.color = '#e2e8f0';
+            currentDisplay.textContent = '--';
+            pedalHint.textContent = '灯变绿后踩油门！';
+            statusText.textContent = '准备出发';
+            statusText.className = 'status-text';
+            roundDisplay.textContent = `0 / ${TOTAL_ATTEMPTS}`;
+
+            setTimeout(() => nextAttempt(), 1200);
+        }
+
+        function nextAttempt() {
+            if (attempt >= TOTAL_ATTEMPTS) {
+                showResults();
+                return;
+            }
+
+            attempt++;
+            clearAllTimeouts();
+            clearAllLights();
+            roundDisplay.textContent = `${attempt} / ${TOTAL_ATTEMPTS}`;
+            currentDisplay.textContent = '--';
+            bigTime.textContent = '--';
+            bigTime.style.color = '#e2e8f0';
+            pedalHint.textContent = '等待亮灯...';
+
+            // Phase: sequencing - light up columns one by one
+            phase = 'sequencing';
+            statusText.textContent = '亮灯中...';
+            statusText.className = 'status-text red';
+
+            // Light first column immediately-ish
+            let delay = 300;
+            for (let c = 0; c < COLS; c++) {
+                const t = setTimeout(() => {
+                    setColumnRed(c);
+                    statusText.textContent = `第 ${c + 1} 排亮`;
+
+                    if (c === COLS - 1) {
+                        // All columns lit
+                        phase = 'allRed';
+                        statusText.textContent = '等待绿灯...';
+
+                        // Random delay before green
+                        const greenDelay = GREEN_DELAY_MIN + Math.random() * (GREEN_DELAY_MAX - GREEN_DELAY_MIN);
+                        greenTimeout = setTimeout(() => {
+                            setAllGreen();
+                            greenTime = performance.now();
+                            phase = 'green';
+                            statusText.textContent = '🟢 GO! GO! GO!';
+                            statusText.className = 'status-text green';
+                            pedalHint.textContent = '踩油门！！！';
+                            bigTime.textContent = '...';
+                        }, greenDelay);
+                    }
+                }, delay);
+                colTimeouts.push(t);
+                delay += MIN_COL_DELAY + Math.random() * (MAX_COL_DELAY - MIN_COL_DELAY);
+            }
+        }
+
+        // ========== 结果 ==========
+        function showResults() {
+            phase = 'done';
+            clearAllLights();
+            clearAllTimeouts();
+
+            const validResults = results.filter(r => r.success);
+            const avgTime = validResults.length > 0
+                ? Math.round(validResults.reduce((s, r) => s + r.time, 0) / validResults.length)
+                : 0;
+            const fastTime = validResults.length > 0 ? Math.min(...validResults.map(r => r.time)) : 0;
+            const slowTime = validResults.length > 0 ? Math.max(...validResults.map(r => r.time)) : 0;
+            const successRate = Math.round((validResults.length / results.length) * 100);
+
+            document.getElementById('avgResult').textContent = avgTime + 'ms';
+            document.getElementById('fastResult').textContent = fastTime + 'ms';
+            document.getElementById('slowResult').textContent = slowTime + 'ms';
+            document.getElementById('successResult').textContent = successRate + '%';
+
+            // Colors
+            ['avgResult', 'fastResult', 'slowResult'].forEach(id => {
+                const el = document.getElementById(id);
+                const val = parseInt(el.textContent);
+                el.className = 'value ' + (val < 250 ? 'excellent' : val < 400 ? 'good' : 'avg');
+            });
+
+            // Rating
+            const rating = document.getElementById('rating');
+            const rankText = document.getElementById('rankText');
+            const rankDesc = document.getElementById('rankDesc');
+
+            if (avgTime < 200 && successRate === 100) {
+                rating.style.background = 'rgba(16,185,129,0.15)';
+                rating.style.border = '1px solid rgba(16,185,129,0.4)';
+                rankText.style.color = '#10b981';
+                rankText.textContent = '🏆 F1 车手级别';
+                rankDesc.textContent = '你的起步反应可以参加职业赛车了！';
+            } else if (avgTime < 280 && successRate >= 80) {
+                rating.style.background = 'rgba(59,130,246,0.15)';
+                rating.style.border = '1px solid rgba(59,130,246,0.4)';
+                rankText.style.color = '#3b82f6';
+                rankText.textContent = '⚡ 优秀车手';
+                rankDesc.textContent = '反应速度非常快，超过 90% 的人！';
+            } else if (avgTime < 400 && successRate >= 60) {
+                rating.style.background = 'rgba(245,158,11,0.15)';
+                rating.style.border = '1px solid rgba(245,158,11,0.4)';
+                rankText.style.color = '#f59e0b';
+                rankText.textContent = '👍 正常水平';
+                rankDesc.textContent = '普通人的反应速度，多练可以更快。';
+            } else {
+                rating.style.background = 'rgba(239,68,68,0.15)';
+                rating.style.border = '1px solid rgba(239,68,68,0.4)';
+                rankText.style.color = '#ef4444';
+                rankText.textContent = '🐢 新手司机';
+                rankDesc.textContent = '需要多练习！注意等绿灯再踩。';
+            }
+
+            // History
+            const historyList = document.getElementById('historyList');
+            historyList.innerHTML = '';
+            results.forEach((r, i) => {
+                const row = document.createElement('div');
+                row.className = 'history-row';
+                row.innerHTML = `<span class="round-num">#${i + 1}</span>`;
+
+                if (r.falseStart) {
+                    row.innerHTML += `<span class="ms false-start">抢跑</span>`;
+                    row.innerHTML += `<div class="history-bar"><div class="history-bar-fill" style="width:100%;background:#ef4444;"></div></div>`;
+                } else if (r.success) {
+                    const cls = r.time < 250 ? 'good' : r.time < 400 ? 'normal' : 'slow';
+                    const fillCls = r.time < 250 ? 'fast' : r.time < 400 ? 'normal' : 'slow';
+                    const pct = Math.min(100, (r.time / 600) * 100);
+                    row.innerHTML += `<span class="ms ${cls}">${r.time}ms</span>`;
+                    row.innerHTML += `<div class="history-bar"><div class="history-bar-fill ${fillCls}" style="width:${pct}%;"></div></div>`;
+                }
+
+                historyList.appendChild(row);
+            });
+
+            resultPanel.classList.add('show');
+            statusText.textContent = '测试完成！';
+            statusText.className = 'status-text';
+            bigTime.textContent = avgTime + 'ms';
+            bigTime.style.color = '#fbbf24';
+            currentDisplay.textContent = '完成';
+            pedalHint.textContent = '点击"再来"重测';
+        }
+    </script>
+</body>
+</html>
