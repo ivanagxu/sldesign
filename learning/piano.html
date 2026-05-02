@@ -50,9 +50,14 @@
         .chapter-info h3 { font-size: 1rem; color: #0f172a; margin-bottom: 0.2rem; }
         .chapter-info p { font-size: 0.8rem; color: #94a3b8; }
         .chapter-arrow { color: #d1d5db; font-size: 1rem; transition: color 0.3s ease, transform 0.2s ease; }
-        .chapter-item:hover .chapter-arrow { color: #10b981; transform: translateX(3px); }
-        .coming-soon { text-align: center; padding: 3rem; color: #94a3b8; }
-        .coming-soon i { font-size: 3rem; margin-bottom: 1rem; color: #d1d5db; }
+        .chapter-item:hover .chapter-arrow { color: #7c3aed; transform: translateX(3px); }
+        .phase-section { margin-bottom: 2rem; }
+        .phase-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e2e8f0; }
+        .phase-dot { width: 14px; height: 14px; border-radius: 50%; }
+        .phase-header h2 { font-size: 1.1rem; color: #0f172a; }
+        .phase-header span { color: #94a3b8; font-size: 0.85rem; }
+        .coming-soon { text-align: center; padding: 2rem; color: #94a3b8; background: white; border-radius: 10px; margin-top: 1rem; }
+        .coming-soon i { font-size: 2rem; margin-bottom: 0.5rem; color: #d1d5db; }
         .coming-soon p { font-size: 0.95rem; }
         @media (max-width: 768px) {
             .nav-container { flex-direction: column; align-items: flex-start; }
@@ -100,9 +105,30 @@
             </div>
         </div>
         <div class="chapter-list">
-            <div class="coming-soon">
-                <i class="fas fa-book-open"></i>
-                <p>章节内容筹备中，敬请期待...</p>
+            <div class="phase-section">
+                <div class="phase-header">
+                    <div class="phase-dot" style="background:#10b981;"></div>
+                    <h2>Phase 1 · 基础构建</h2><span>Day 1-18</span>
+                </div>
+                <a href="piano/overview.html" class="chapter-item" style="background:#f5f3ff; border:1px solid #c4b5fd;">
+                    <div class="chapter-num" style="background:#7c3aed; width:100%; border-radius:8px; height:auto; padding:0.5rem;"><i class="fas fa-map"></i> 查看完整课程大纲</div>
+                </a>
+                <a href="piano/day-01.html" class="chapter-item">
+                    <div class="chapter-num">1</div>
+                    <div class="chapter-info">
+                        <h3>Day 1 · 乐器认知与正确姿势</h3>
+                        <p>61 键键盘布局 · 找 C 音 · 坐姿手型 · 触键力度</p>
+                    </div>
+                    <i class="fas fa-chevron-right chapter-arrow"></i>
+                </a>
+                <a href="piano/day-02.html" class="chapter-item">
+                    <div class="chapter-num">2</div>
+                    <div class="chapter-info">
+                        <h3>Day 2 · 乐理基础（上）</h3>
+                        <p>全音/半音 · 12 音名 · 唱名对应 · 五线谱入门</p>
+                    </div>
+                    <i class="fas fa-chevron-right chapter-arrow"></i>
+                </a>
             </div>
         </div>
     </main>
