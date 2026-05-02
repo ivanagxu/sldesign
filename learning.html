@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SL Design - Games</title>
+    <title>SL Design - 学习</title>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
     <script>
@@ -43,27 +43,27 @@
         .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
         .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
 
-        /* ========== 游戏页面专属样式 ========== */
-        .games-header {
+        /* ========== 学习页面专属样式 ========== */
+        .learning-header {
             text-align: center;
             padding: 2rem 0 1rem;
         }
-        .games-header h1 {
+        .learning-header h1 {
             font-size: 2rem;
             color: #0f172a;
             margin-bottom: 0.5rem;
         }
-        .games-header h1 i { color: #3b82f6; margin-right: 0.5rem; }
-        .games-header p { color: #64748b; font-size: 0.95rem; }
+        .learning-header h1 i { color: #10b981; margin-right: 0.5rem; }
+        .learning-header p { color: #64748b; font-size: 0.95rem; }
 
-        .games-grid {
+        .topics-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
             margin-top: 1.5rem;
         }
 
-        .game-card {
+        .topic-card {
             background: white;
             border-radius: 12px;
             overflow: hidden;
@@ -74,13 +74,12 @@
             color: inherit;
             display: block;
         }
-        .game-card:hover {
+        .topic-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(59,130,246,0.2);
+            box-shadow: 0 8px 24px rgba(16,185,129,0.2);
         }
 
-        .game-card-icon {
-            background: linear-gradient(135deg, #3b82f6, #1e3a5f);
+        .topic-card-icon {
             height: 140px;
             display: flex;
             align-items: center;
@@ -89,18 +88,24 @@
             color: white;
         }
 
-        .game-card-body { padding: 1.2rem; }
-        .game-card-body h3 { font-size: 1.1rem; color: #0f172a; margin-bottom: 0.4rem; }
-        .game-card-body p { font-size: 0.85rem; color: #64748b; margin-bottom: 0.8rem; }
+        .topic-card-body { padding: 1.2rem; }
+        .topic-card-body h3 { font-size: 1.1rem; color: #0f172a; margin-bottom: 0.4rem; }
+        .topic-card-body p { font-size: 0.85rem; color: #64748b; margin-bottom: 0.8rem; }
 
-        .game-tag {
+        .topic-tag {
             display: inline-block;
             padding: 0.2rem 0.6rem;
             border-radius: 4px;
             font-size: 0.7rem;
             font-weight: 600;
-            background-color: #eff6ff;
-            color: #3b82f6;
+            background-color: #ecfdf5;
+            color: #10b981;
+        }
+
+        .chapter-count {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-left: 0.4rem;
         }
 
         /* 移动端 */
@@ -113,7 +118,7 @@
             nav ul li { margin: 0; width: 100%; }
             nav ul li a { display: block; padding: 0.8rem 0; border-bottom: 1px solid #1e3a5f; }
             .menu-toggle { display: block; position: absolute; top: 1rem; right: 20px; }
-            .games-header h1 { font-size: 1.5rem; }
+            .learning-header h1 { font-size: 1.5rem; }
             .footer-container { grid-template-columns: 1fr; }
         }
     </style>
@@ -132,8 +137,8 @@
                     <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
                     <li><a href="index.html#exhibition"><i class="fas fa-images"></i> CASES</a></li>
                     <li><a href="news.html"><i class="fas fa-newspaper"></i> NEWS</a></li>
-                    <li><a href="games.html" class="active"><i class="fas fa-gamepad"></i> GAMES</a></li>
-                    <li><a href="learning.html"><i class="fas fa-graduation-cap"></i> LEARNING</a></li>
+                    <li><a href="games.html"><i class="fas fa-gamepad"></i> GAMES</a></li>
+                    <li><a href="learning.html" class="active"><i class="fas fa-graduation-cap"></i> LEARNING</a></li>
                     <li><a href="index.html#contact"><i class="fas fa-address-book"></i> CONTACT</a></li>
                 </ul>
             </nav>
@@ -141,28 +146,45 @@
     </header>
 
     <main class="container">
-        <div class="games-header">
-            <h1><i class="fas fa-gamepad"></i> GAMES</h1>
-            <p>休闲娱乐 · 纯前端实现 · 即开即玩</p>
+        <div class="learning-header">
+            <h1><i class="fas fa-graduation-cap"></i> LEARNING</h1>
+            <p>系统学习 · 循序渐进 · 持续更新</p>
         </div>
 
-        <div class="games-grid">
-            <a href="games/f1-race.html" class="game-card">
-                <div class="game-card-icon" style="background: linear-gradient(135deg, #ef4444, #991b1b);"><i class="fas fa-flag-checkered"></i></div>
-                <div class="game-card-body">
-                    <h3>F1 Monaco GP</h3>
-                    <p>摩纳哥赛道计时赛，5圈竞技，动态天气变化，多轮胎策略，AI对手碰撞！</p>
-                    <span class="game-tag">竞速</span>
-                    <span class="game-tag">策略</span>
+        <div class="topics-grid">
+            <a href="learning/interior-design.html" class="topic-card">
+                <div class="topic-card-icon" style="background: linear-gradient(135deg, #059669, #047857);">
+                    <i class="fas fa-couch"></i>
+                </div>
+                <div class="topic-card-body">
+                    <h3>室内设计 <span class="chapter-count"></span></h3>
+                    <p>从基础理论到实战案例，系统掌握空间规划、色彩搭配、材料选择等核心技能。</p>
+                    <span class="topic-tag">设计</span>
+                    <span class="topic-tag">空间规划</span>
                 </div>
             </a>
-            <a href="games/snake.html" class="game-card">
-                <div class="game-card-icon"><i class="fas fa-worm"></i></div>
-                <div class="game-card-body">
-                    <h3>贪吃蛇</h3>
-                    <p>经典复古游戏，控制蛇移动方向吃食物得分，越来越长越来越快！</p>
-                    <span class="game-tag">经典</span>
-                    <span class="game-tag">单人</span>
+
+            <a href="learning/piano.html" class="topic-card">
+                <div class="topic-card-icon" style="background: linear-gradient(135deg, #7c3aed, #6d28d9);">
+                    <i class="fas fa-music"></i>
+                </div>
+                <div class="topic-card-body">
+                    <h3>钢琴 <span class="chapter-count"></span></h3>
+                    <p>从基础指法到乐曲演奏，循序渐进学习钢琴技巧与乐理知识。</p>
+                    <span class="topic-tag">音乐</span>
+                    <span class="topic-tag">演奏</span>
+                </div>
+            </a>
+
+            <a href="learning/cfa.html" class="topic-card">
+                <div class="topic-card-icon" style="background: linear-gradient(135deg, #0284c7, #0369a1);">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="topic-card-body">
+                    <h3>CFA 特许金融分析师 <span class="chapter-count"></span></h3>
+                    <p>覆盖 CFA 三级考试内容：伦理、量化分析、资产估值、投资组合管理等。</p>
+                    <span class="topic-tag">金融</span>
+                    <span class="topic-tag">认证</span>
                 </div>
             </a>
         </div>
@@ -175,7 +197,7 @@
                 <ul class="contact-info">
                     <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
                     <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 96091469</p></li>
-                    <li><i class="fas fa-envelope"></i> sindylau2010@gmail.com</li>
+                    <li><i class="fas fa-envelope"></i> sindyllau2010@gmail.com</li>
                     <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
                 </ul>
                 <div class="social-links">
@@ -188,6 +210,7 @@
                     <li><a href="index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="news.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-newspaper"></i> News</a></li>
                     <li><a href="games.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-gamepad"></i> Games</a></li>
+                    <li><a href="learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
                 </ul>
             </div>
         </div>

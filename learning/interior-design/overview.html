@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Design - 学习 · 室内设计 · 学习方案</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .logo span { color: #e2e8f0; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
+        .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
+        footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
+        .footer-section h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: #60a5fa; }
+        .contact-info { list-style: none; }
+        .contact-info li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .contact-info i { margin-right: 0.8rem; color: #3b82f6; width: 20px; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
+        .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
+
+        /* ========== 课程页面样式 ========== */
+        .breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #94a3b8; padding: 1rem 0; flex-wrap: wrap; }
+        .breadcrumbs a { color: #10b981; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+        .breadcrumbs .sep { color: #d1d5db; }
+
+        .course-header { padding: 1.5rem 0; display: flex; align-items: center; gap: 1.2rem; }
+        .course-icon { width: 56px; height: 56px; border-radius: 14px; background: linear-gradient(135deg, #059669, #047857); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; flex-shrink: 0; }
+        .course-header-text h1 { font-size: 1.6rem; color: #0f172a; }
+        .course-header-text p { color: #64748b; font-size: 0.9rem; margin-top: 0.2rem; }
+
+        .content-body { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2rem; margin-bottom: 2rem; }
+
+        .content-body h2 { font-size: 1.3rem; color: #059669; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #d1fae5; }
+        .content-body h2:first-child { margin-top: 0; }
+        .content-body h3 { font-size: 1.1rem; color: #0f172a; margin: 1.5rem 0 0.8rem; }
+        .content-body p { margin-bottom: 0.8rem; color: #444; }
+        .content-body ul, .content-body ol { margin: 0.8rem 0; padding-left: 1.5rem; }
+        .content-body li { margin-bottom: 0.4rem; color: #444; }
+        .content-body strong { color: #0f172a; }
+
+        .content-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        .content-body th, .content-body td { border: 1px solid #e2e8f0; padding: 0.6rem 0.8rem; text-align: left; }
+        .content-body th { background-color: #f0fdf4; color: #059669; font-weight: 600; }
+        .content-body tr:nth-child(even) { background-color: #f8fafc; }
+
+        .highlight-box { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .highlight-box p { margin: 0; color: #047857; }
+
+        .stage-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.2rem; margin: 1rem 0; }
+        .stage-card h3 { margin-top: 0; color: #059669; display: flex; align-items: center; gap: 0.5rem; }
+        .stage-card .stage-badge { display: inline-block; background: #059669; color: white; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+
+        .timeline-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+        .timeline-item { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; }
+        .timeline-item .week { font-size: 0.75rem; color: #10b981; font-weight: 700; text-transform: uppercase; margin-bottom: 0.3rem; }
+        .timeline-item h4 { font-size: 0.95rem; color: #0f172a; margin-bottom: 0.4rem; }
+        .timeline-item p { font-size: 0.8rem; color: #64748b; margin: 0; }
+
+        .next-lesson { background: linear-gradient(135deg, #059669, #047857); color: white; padding: 1.5rem; border-radius: 12px; margin-top: 2rem; display: flex; align-items: center; gap: 1rem; }
+        .next-lesson i { font-size: 2rem; }
+        .next-lesson-text h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
+        .next-lesson-text p { font-size: 0.85rem; opacity: 0.9; margin: 0; }
+
+        .daily-structure { background: #f0fdf4; border: 2px solid #86efac; border-radius: 10px; padding: 1.2rem; margin: 1rem 0; }
+        .daily-structure .time-block { display: flex; align-items: flex-start; gap: 0.8rem; margin: 0.6rem 0; }
+        .daily-structure .time-label { background: #059669; color: white; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+        .daily-structure .time-content { font-size: 0.9rem; color: #047857; }
+
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; align-items: flex-start; }
+            .logo { margin-bottom: 1rem; }
+            nav { width: 100%; }
+            nav ul { flex-direction: column; width: 100%; display: none; }
+            nav ul.show { display: flex; }
+            nav ul li { margin: 0; width: 100%; }
+            nav ul li a { display: block; padding: 0.8rem 0; border-bottom: 1px solid #1e3a5f; }
+            .menu-toggle { display: block; position: absolute; top: 1rem; right: 20px; }
+            .content-body { padding: 1.2rem; }
+            .course-header { flex-direction: column; align-items: flex-start; }
+            .timeline-grid { grid-template-columns: 1fr; }
+            .footer-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" style="text-decoration:none;">
+                <div class="logo">SL <span>DESIGN</span> PLATFORM</div>
+            </a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="../../index.html"><i class="fas fa-home"></i> HOME</a></li>
+                    <li><a href="../../index.html#exhibition"><i class="fas fa-images"></i> CASES</a></li>
+                    <li><a href="../../news.html"><i class="fas fa-newspaper"></i> NEWS</a></li>
+                    <li><a href="../../games.html"><i class="fas fa-gamepad"></i> GAMES</a></li>
+                    <li><a href="../../learning.html" class="active"><i class="fas fa-graduation-cap"></i> LEARNING</a></li>
+                    <li><a href="../../index.html#contact"><i class="fas fa-address-book"></i> CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../learning.html"><i class="fas fa-graduation-cap"></i> LEARNING</a>
+            <span class="sep">›</span>
+            <a href="../interior-design.html">室内设计</a>
+            <span class="sep">›</span>
+            <span>学习方案</span>
+        </div>
+
+        <div class="course-header">
+            <div class="course-icon"><i class="fas fa-map"></i></div>
+            <div class="course-header-text">
+                <h1>住宅室内设计 · 系统学习方案</h1>
+                <p>28 周 · 196 小时 · 从零到独立接单</p>
+            </div>
+        </div>
+
+        <div class="content-body">
+            <div class="highlight-box">
+                <p><strong>🎯 终极目标：</strong>能够独立完成一套住宅设计全流程，包括：需求分析 → 平面布局 → 风格定义 → 材料选择 → 灯光设计 → 预算控制 → 落地指导</p>
+            </div>
+
+            <h2>👤 学习者画像</h2>
+            <table>
+                <tr><th>维度</th><th>描述</th></tr>
+                <tr><td>职业背景</td><td>工薪族，非设计专业</td></tr>
+                <tr><td>可用时间</td><td>每日 1 小时</td></tr>
+                <tr><td>学习重点</td><td>偏实用、可落地、可用于副业接单</td></tr>
+                <tr><td>期望成果</td><td>布局、风格、材料、预算、落地全流程能力</td></tr>
+            </table>
+
+            <h2>📊 能力拆解</h2>
+            <table>
+                <tr><th>能力维度</th><th>具体能力</th><th>目标水平</th></tr>
+                <tr><td>空间规划</td><td>户型分析、动线设计、功能分区</td><td>独立完成 60-120㎡ 住宅布局</td></tr>
+                <tr><td>收纳系统</td><td>柜体设计、储物规划、空间利用</td><td>设计全屋收纳方案</td></tr>
+                <tr><td>灯光设计</td><td>主灯/无主灯、功能照明、氛围营造</td><td>完成全屋灯光布局</td></tr>
+                <tr><td>软装搭配</td><td>色彩搭配、家具选型、材质协调</td><td>输出软装方案</td></tr>
+                <tr><td>材料认知</td><td>主材/辅材、性能对比、价格区间</td><td>选材建议符合预算</td></tr>
+                <tr><td>预算控制</td><td>成本估算、报价单、增项预防</td><td>误差控制在 ±10%</td></tr>
+                <tr><td>客户沟通</td><td>需求挖掘、方案汇报、变更管理</td><td>可独立对接客户</td></tr>
+                <tr><td>工具使用</td><td>CAD/SketchUp/AI 设计工具</td><td>能出效果图/施工图</td></tr>
+            </table>
+
+            <h2>📅 时间规划</h2>
+            <table>
+                <tr><th>阶段</th><th>周期</th><th>累计时间</th><th>目标</th></tr>
+                <tr><td>入门</td><td>4 周</td><td>28 小时</td><td>设计基础 + 住宅认知</td></tr>
+                <tr><td>进阶</td><td>8 周</td><td>56 小时</td><td>空间规划 + 家庭需求</td></tr>
+                <tr><td>实战</td><td>8 周</td><td>56 小时</td><td>完整住宅项目</td></tr>
+                <tr><td>专项</td><td>8 周</td><td>56 小时</td><td>收纳/灯光/软装/施工/预算</td></tr>
+                <tr><td><strong>总计</strong></td><td><strong>28 周</strong></td><td><strong>196 小时</strong></td><td><strong>可独立接单</strong></td></tr>
+            </table>
+
+            <h2>🏗️ 四阶段培养体系</h2>
+
+            <div class="stage-card">
+                <h3><span class="stage-badge">阶段一</span> 入门（4 周）</h3>
+                <p>目标：建立设计基础认知，理解住宅设计核心逻辑。能分析户型优缺点，提出基础改造建议。</p>
+                <div class="timeline-grid">
+                    <div class="timeline-item"><div class="week">Week 1</div><h4>设计思维入门</h4><p>设计原则、人体工学、住宅类型</p></div>
+                    <div class="timeline-item"><div class="week">Week 2</div><h4>户型分析</h4><p>朝向、采光、通风、承重墙</p></div>
+                    <div class="timeline-item"><div class="week">Week 3</div><h4>功能分区</h4><p>动静分区、公私分区、干湿分区</p></div>
+                    <div class="timeline-item"><div class="week">Week 4</div><h4>风格认知</h4><p>现代/北欧/日式/中式/美式特点</p></div>
+                </div>
+            </div>
+
+            <div class="stage-card">
+                <h3><span class="stage-badge">阶段二</span> 进阶（8 周）</h3>
+                <p>目标：掌握空间规划方法，理解家庭需求与设计的关系。能独立完成两居室/三居室布局方案。</p>
+                <div class="timeline-grid">
+                    <div class="timeline-item"><div class="week">Week 5-6</div><h4>客厅设计</h4><p>沙发摆放、电视距离、收纳整合</p></div>
+                    <div class="timeline-item"><div class="week">Week 7-8</div><h4>卧室设计</h4><p>床的朝向、衣柜布局、隐私保护</p></div>
+                    <div class="timeline-item"><div class="week">Week 9-10</div><h4>厨房设计</h4><p>洗切炒顺序、储物规划、电器嵌入</p></div>
+                    <div class="timeline-item"><div class="week">Week 11-12</div><h4>卫生间设计</h4><p>干湿分离、淋浴/浴缸、台盆布局</p></div>
+                </div>
+            </div>
+
+            <div class="stage-card">
+                <h3><span class="stage-badge">阶段三</span> 实战（8 周）</h3>
+                <p>目标：完成完整住宅设计项目，全流程实践。输出 1-2 套完整住宅设计方案（含效果图/预算）。</p>
+                <table>
+                    <tr><th>项目</th><th>面积</th><th>户型</th><th>交付物</th></tr>
+                    <tr><td>项目 1</td><td>60㎡</td><td>两居室</td><td>平面图 + 效果图 + 预算</td></tr>
+                    <tr><td>项目 2</td><td>90㎡</td><td>三居室</td><td>平面图 + 效果图 + 预算 + 材料表</td></tr>
+                </table>
+            </div>
+
+            <div class="stage-card">
+                <h3><span class="stage-badge">阶段四</span> 专项（8 周）</h3>
+                <p>目标：深化专项能力，具备接单能力，可独立对接客户并交付方案。</p>
+                <div class="timeline-grid">
+                    <div class="timeline-item"><div class="week">Week 21-22</div><h4>收纳系统</h4><p>柜体尺寸、分类逻辑、隐藏式收纳</p></div>
+                    <div class="timeline-item"><div class="week">Week 23-24</div><h4>灯光设计</h4><p>色温、照度、主灯/无主灯</p></div>
+                    <div class="timeline-item"><div class="week">Week 25-26</div><h4>软装搭配</h4><p>色彩、材质、家具选型</p></div>
+                    <div class="timeline-item"><div class="week">Week 27-28</div><h4>预算 + 施工</h4><p>报价单、增项预防、验收标准</p></div>
+                </div>
+            </div>
+
+            <h2>⏰ 每日 1 小时训练结构</h2>
+            <div class="daily-structure">
+                <div class="time-block"><span class="time-label">10 分钟</span><span class="time-content"><strong>知识讲解</strong> — 围绕住宅真实问题，图文/短视频讲解</span></div>
+                <div class="time-block"><span class="time-label">20 分钟</span><span class="time-content"><strong>案例拆解</strong> — 真实住宅案例，AI 引导分析 + 提问</span></div>
+                <div class="time-block"><span class="time-label">20 分钟</span><span class="time-content"><strong>实操任务</strong> — 住宅场景任务，动手 + AI 实时指导</span></div>
+                <div class="time-block"><span class="time-label">10 分钟</span><span class="time-content"><strong>点评优化</strong> — 专业设计师级反馈，指出问题 + 改进建议</span></div>
+            </div>
+
+            <h2>📈 考核机制</h2>
+            <table>
+                <tr><th>类型</th><th>频率</th><th>形式</th><th>评分维度</th></tr>
+                <tr><td>日测</td><td>每日</td><td>实操任务完成度</td><td>完成质量、用时</td></tr>
+                <tr><td>周测</td><td>每周日</td><td>小项目测试</td><td>功能性、动线、美观</td></tr>
+                <tr><td>阶段考</td><td>每阶段结束</td><td>完整方案</td><td>全流程能力</td></tr>
+                <tr><td>模拟客户</td><td>实战阶段</td><td>角色扮演</td><td>沟通、方案、报价</td></tr>
+            </table>
+
+            <h2>💰 副业能力训练</h2>
+            <table>
+                <tr><th>服务类型</th><th>价格区间</th><th>说明</th></tr>
+                <tr><td>纯设计</td><td>80-200 元/㎡</td><td>含平面图 + 效果图</td></tr>
+                <tr><td>设计 + 跟踪</td><td>150-300 元/㎡</td><td>含施工指导</td></tr>
+                <tr><td>全案设计</td><td>300-500 元/㎡</td><td>含软装 + 采购</td></tr>
+                <tr><td>单空间设计</td><td>500-2000 元/间</td><td>客厅/卧室等</td></tr>
+            </table>
+
+            <h2>📖 推荐书单</h2>
+            <table>
+                <tr><th>书籍</th><th>作者</th><th>阶段</th></tr>
+                <tr><td>《住宅设计解剖书》</td><td>增田奏</td><td>入门</td></tr>
+                <tr><td>《小家，越住越大》</td><td>逯薇</td><td>入门</td></tr>
+                <tr><td>《室内设计资料集》</td><td>张绮曼</td><td>进阶</td></tr>
+                <tr><td>《照明设计终极指南》</td><td>弗朗西斯</td><td>专项</td></tr>
+                <tr><td>《收纳大师》</td><td>近藤麻理惠</td><td>专项</td></tr>
+            </table>
+
+            <div class="next-lesson">
+                <i class="fas fa-arrow-right"></i>
+                <div class="next-lesson-text">
+                    <h3>开始第一课</h3>
+                    <p>Day 1: 什么是好设计 — 建立设计评判标准</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
+                    <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 96091469</p></li>
+                    <li><i class="fas fa-envelope"></i> sindylau2010@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/SLdesignPlus" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="contact-info">
+                    <li><a href="../../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
+                    <li><a href="../interior-design.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-couch"></i> 室内设计</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 SL Design Platform. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

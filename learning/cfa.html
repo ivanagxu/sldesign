@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SL Design - Games</title>
-    <!-- Google tag (gtag.js) -->
+    <title>SL Design - 学习 · CFA 特许金融分析师</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -14,12 +13,9 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ========== 复用主站样式 ========== */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
         body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-
-        /* 导航栏 */
         header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
         .nav-container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
@@ -29,8 +25,6 @@
         nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
         nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
         .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
-
-        /* 页脚 */
         footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
         .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
         .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
@@ -42,68 +36,24 @@
         .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
         .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
         .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
-
-        /* ========== 游戏页面专属样式 ========== */
-        .games-header {
-            text-align: center;
-            padding: 2rem 0 1rem;
-        }
-        .games-header h1 {
-            font-size: 2rem;
-            color: #0f172a;
-            margin-bottom: 0.5rem;
-        }
-        .games-header h1 i { color: #3b82f6; margin-right: 0.5rem; }
-        .games-header p { color: #64748b; font-size: 0.95rem; }
-
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .game-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-        .game-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(59,130,246,0.2);
-        }
-
-        .game-card-icon {
-            background: linear-gradient(135deg, #3b82f6, #1e3a5f);
-            height: 140px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.5rem;
-            color: white;
-        }
-
-        .game-card-body { padding: 1.2rem; }
-        .game-card-body h3 { font-size: 1.1rem; color: #0f172a; margin-bottom: 0.4rem; }
-        .game-card-body p { font-size: 0.85rem; color: #64748b; margin-bottom: 0.8rem; }
-
-        .game-tag {
-            display: inline-block;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            background-color: #eff6ff;
-            color: #3b82f6;
-        }
-
-        /* 移动端 */
+        .topic-header { padding: 2rem 0 1rem; display: flex; align-items: center; gap: 1rem; }
+        .topic-icon { width: 64px; height: 64px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; flex-shrink: 0; }
+        .topic-header-text h1 { font-size: 1.8rem; color: #0f172a; }
+        .topic-header-text p { color: #64748b; font-size: 0.95rem; margin-top: 0.2rem; }
+        .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #10b981; text-decoration: none; font-size: 0.9rem; margin-bottom: 1rem; padding: 0.5rem 0; }
+        .back-link:hover { color: #047857; }
+        .chapter-list { max-width: 800px; margin: 1rem auto; }
+        .chapter-item { background: white; border-radius: 10px; margin-bottom: 0.8rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: box-shadow 0.3s ease, transform 0.2s ease; text-decoration: none; color: inherit; display: block; padding: 1rem 1.2rem; display: flex; align-items: center; gap: 1rem; }
+        .chapter-item:hover { box-shadow: 0 4px 16px rgba(16,185,129,0.15); transform: translateX(4px); }
+        .chapter-num { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #10b981, #047857); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+        .chapter-info { flex: 1; }
+        .chapter-info h3 { font-size: 1rem; color: #0f172a; margin-bottom: 0.2rem; }
+        .chapter-info p { font-size: 0.8rem; color: #94a3b8; }
+        .chapter-arrow { color: #d1d5db; font-size: 1rem; transition: color 0.3s ease, transform 0.2s ease; }
+        .chapter-item:hover .chapter-arrow { color: #10b981; transform: translateX(3px); }
+        .coming-soon { text-align: center; padding: 3rem; color: #94a3b8; }
+        .coming-soon i { font-size: 3rem; margin-bottom: 1rem; color: #d1d5db; }
+        .coming-soon p { font-size: 0.95rem; }
         @media (max-width: 768px) {
             .nav-container { flex-direction: column; align-items: flex-start; }
             .logo { margin-bottom: 1rem; }
@@ -113,7 +63,7 @@
             nav ul li { margin: 0; width: 100%; }
             nav ul li a { display: block; padding: 0.8rem 0; border-bottom: 1px solid #1e3a5f; }
             .menu-toggle { display: block; position: absolute; top: 1rem; right: 20px; }
-            .games-header h1 { font-size: 1.5rem; }
+            .topic-header-text h1 { font-size: 1.4rem; }
             .footer-container { grid-template-columns: 1fr; }
         }
     </style>
@@ -121,50 +71,39 @@
 <body>
     <header>
         <div class="container nav-container">
-            <a href="index.html" style="text-decoration:none;">
+            <a href="../index.html" style="text-decoration:none;">
                 <div class="logo">SL <span>DESIGN</span> PLATFORM</div>
             </a>
-            <button class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </button>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
             <nav>
                 <ul id="navMenu">
-                    <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
-                    <li><a href="index.html#exhibition"><i class="fas fa-images"></i> CASES</a></li>
-                    <li><a href="news.html"><i class="fas fa-newspaper"></i> NEWS</a></li>
-                    <li><a href="games.html" class="active"><i class="fas fa-gamepad"></i> GAMES</a></li>
-                    <li><a href="learning.html"><i class="fas fa-graduation-cap"></i> LEARNING</a></li>
-                    <li><a href="index.html#contact"><i class="fas fa-address-book"></i> CONTACT</a></li>
+                    <li><a href="../index.html"><i class="fas fa-home"></i> HOME</a></li>
+                    <li><a href="../index.html#exhibition"><i class="fas fa-images"></i> CASES</a></li>
+                    <li><a href="../news.html"><i class="fas fa-newspaper"></i> NEWS</a></li>
+                    <li><a href="../games.html"><i class="fas fa-gamepad"></i> GAMES</a></li>
+                    <li><a href="../learning.html" class="active"><i class="fas fa-graduation-cap"></i> LEARNING</a></li>
+                    <li><a href="../index.html#contact"><i class="fas fa-address-book"></i> CONTACT</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main class="container">
-        <div class="games-header">
-            <h1><i class="fas fa-gamepad"></i> GAMES</h1>
-            <p>休闲娱乐 · 纯前端实现 · 即开即玩</p>
+        <a href="../learning.html" class="back-link"><i class="fas fa-arrow-left"></i> 返回学习模块</a>
+        <div class="topic-header">
+            <div class="topic-icon" style="background: linear-gradient(135deg, #0284c7, #0369a1);">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="topic-header-text">
+                <h1>CFA 特许金融分析师</h1>
+                <p>覆盖 CFA 三级考试：伦理、量化分析、资产估值、投资组合管理</p>
+            </div>
         </div>
-
-        <div class="games-grid">
-            <a href="games/f1-race.html" class="game-card">
-                <div class="game-card-icon" style="background: linear-gradient(135deg, #ef4444, #991b1b);"><i class="fas fa-flag-checkered"></i></div>
-                <div class="game-card-body">
-                    <h3>F1 Monaco GP</h3>
-                    <p>摩纳哥赛道计时赛，5圈竞技，动态天气变化，多轮胎策略，AI对手碰撞！</p>
-                    <span class="game-tag">竞速</span>
-                    <span class="game-tag">策略</span>
-                </div>
-            </a>
-            <a href="games/snake.html" class="game-card">
-                <div class="game-card-icon"><i class="fas fa-worm"></i></div>
-                <div class="game-card-body">
-                    <h3>贪吃蛇</h3>
-                    <p>经典复古游戏，控制蛇移动方向吃食物得分，越来越长越来越快！</p>
-                    <span class="game-tag">经典</span>
-                    <span class="game-tag">单人</span>
-                </div>
-            </a>
+        <div class="chapter-list">
+            <div class="coming-soon">
+                <i class="fas fa-book-open"></i>
+                <p>章节内容筹备中，敬请期待...</p>
+            </div>
         </div>
     </main>
 
@@ -185,9 +124,8 @@
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul class="contact-info">
-                    <li><a href="index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="news.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-newspaper"></i> News</a></li>
-                    <li><a href="games.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-gamepad"></i> Games</a></li>
+                    <li><a href="../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
                 </ul>
             </div>
         </div>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Design - 学习 · 室内设计 · Day 1 什么是好设计</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .logo span { color: #e2e8f0; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
+        .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
+        footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
+        .footer-section h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: #60a5fa; }
+        .contact-info { list-style: none; }
+        .contact-info li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .contact-info i { margin-right: 0.8rem; color: #3b82f6; width: 20px; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
+        .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
+
+        /* ========== 课程页面样式 ========== */
+        .breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #94a3b8; padding: 1rem 0; flex-wrap: wrap; }
+        .breadcrumbs a { color: #10b981; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+        .breadcrumbs .sep { color: #d1d5db; }
+
+        .lesson-header { padding: 1.5rem 0; }
+        .lesson-header .lesson-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+        .lesson-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .badge-stage { background: #ecfdf5; color: #059669; }
+        .badge-week { background: #eff6ff; color: #3b82f6; }
+        .badge-day { background: #fef3c7; color: #d97706; }
+        .lesson-header h1 { font-size: 1.6rem; color: #0f172a; margin-bottom: 0.3rem; }
+        .lesson-header .lesson-subtitle { color: #64748b; font-size: 0.9rem; }
+
+        .content-body { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2rem; margin-bottom: 2rem; }
+
+        .lesson-objectives { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+        .lesson-objectives h3 { color: #059669; font-size: 1rem; margin-bottom: 0.5rem; }
+        .lesson-objectives ul { list-style: none; padding: 0; margin: 0; }
+        .lesson-objectives li { color: #047857; padding: 0.2rem 0; font-size: 0.9rem; }
+        .lesson-objectives li::before { content: '✅ '; }
+
+        .content-body h2 { font-size: 1.3rem; color: #059669; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #d1fae5; }
+        .content-body h2:first-child { margin-top: 0; }
+        .content-body h3 { font-size: 1.1rem; color: #0f172a; margin: 1.5rem 0 0.8rem; }
+        .content-body p { margin-bottom: 0.8rem; color: #444; }
+        .content-body ul, .content-body ol { margin: 0.8rem 0; padding-left: 1.5rem; }
+        .content-body li { margin-bottom: 0.4rem; color: #444; }
+        .content-body strong { color: #0f172a; }
+        .content-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        .content-body th, .content-body td { border: 1px solid #e2e8f0; padding: 0.6rem 0.8rem; text-align: left; }
+        .content-body th { background-color: #f0fdf4; color: #059669; font-weight: 600; }
+        .content-body tr:nth-child(even) { background-color: #f8fafc; }
+
+        .triangle-diagram { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; text-align: center; margin: 1.5rem 0; }
+        .triangle-diagram h3 { color: #059669; margin-bottom: 1.5rem; font-size: 1.2rem; }
+        .triangle-diagram .formula { font-size: 1.1rem; color: #0f172a; font-weight: 600; margin-top: 1rem; }
+        .triangle-diagram .formula span { color: #059669; }
+
+        .case-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+        .case-box h4 { color: #0f172a; font-size: 1rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
+        .case-box .space-item { margin: 0.8rem 0; }
+        .case-box .space-item strong { color: #059669; }
+
+        .task-box { background: #eff6ff; border: 2px solid #93c5fd; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+        .task-box h4 { color: #1e40af; margin-bottom: 0.5rem; }
+        .task-box p { color: #1e40af; margin: 0; }
+
+        .homework-box { background: linear-gradient(135deg, #059669, #047857); color: white; padding: 1.5rem; border-radius: 12px; margin: 2rem 0; }
+        .homework-box h3 { font-size: 1.1rem; margin-bottom: 0.8rem; }
+        .homework-box ul { list-style: none; padding: 0; }
+        .homework-box li { padding: 0.3rem 0; font-size: 0.95rem; opacity: 0.95; }
+        .homework-box li::before { content: '▸ '; }
+
+        .next-lesson { background: #f0fdf4; border: 2px solid #86efac; border-radius: 12px; padding: 1.5rem; margin-top: 2rem; display: flex; align-items: center; gap: 1rem; }
+        .next-lesson i { font-size: 1.5rem; color: #059669; }
+        .next-lesson-text h3 { font-size: 1rem; color: #059669; margin-bottom: 0.2rem; }
+        .next-lesson-text p { font-size: 0.85rem; color: #047857; margin: 0; }
+
+        .comparison-table { margin: 1rem 0; }
+        .comparison-table table { border-collapse: collapse; width: 100%; }
+        .comparison-table th { background: #0f172a; color: #e2e8f0; }
+        .comparison-table td { border: 1px solid #e2e8f0; padding: 0.6rem 0.8rem; }
+
+        .checklist { list-style: none; padding: 0; }
+        .checklist li { padding: 0.3rem 0; color: #444; }
+        .checklist li::before { content: '✅ '; }
+        .checklist li.negative::before { content: '❌ '; }
+
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; align-items: flex-start; }
+            .logo { margin-bottom: 1rem; }
+            nav { width: 100%; }
+            nav ul { flex-direction: column; width: 100%; display: none; }
+            nav ul.show { display: flex; }
+            nav ul li { margin: 0; width: 100%; }
+            nav ul li a { display: block; padding: 0.8rem 0; border-bottom: 1px solid #1e3a5f; }
+            .menu-toggle { display: block; position: absolute; top: 1rem; right: 20px; }
+            .content-body { padding: 1.2rem; }
+            .lesson-header h1 { font-size: 1.3rem; }
+            .triangle-diagram { padding: 1.2rem; }
+            .footer-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" style="text-decoration:none;">
+                <div class="logo">SL <span>DESIGN</span> PLATFORM</div>
+            </a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="../../index.html"><i class="fas fa-home"></i> HOME</a></li>
+                    <li><a href="../../index.html#exhibition"><i class="fas fa-images"></i> CASES</a></li>
+                    <li><a href="../../news.html"><i class="fas fa-newspaper"></i> NEWS</a></li>
+                    <li><a href="../../games.html"><i class="fas fa-gamepad"></i> GAMES</a></li>
+                    <li><a href="../../learning.html" class="active"><i class="fas fa-graduation-cap"></i> LEARNING</a></li>
+                    <li><a href="../../index.html#contact"><i class="fas fa-address-book"></i> CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../learning.html"><i class="fas fa-graduation-cap"></i> LEARNING</a>
+            <span class="sep">›</span>
+            <a href="../interior-design.html">室内设计</a>
+            <span class="sep">›</span>
+            <span>Day 1 · 什么是好设计</span>
+        </div>
+
+        <div class="lesson-header">
+            <div class="lesson-meta">
+                <span class="lesson-badge badge-stage">入门</span>
+                <span class="lesson-badge badge-week">Week 1</span>
+                <span class="lesson-badge badge-day">Day 1</span>
+            </div>
+            <h1>📖 什么是好设计</h1>
+            <p class="lesson-subtitle">建立设计评判标准 · 60 分钟</p>
+        </div>
+
+        <div class="content-body">
+            <div class="lesson-objectives">
+                <h3>🎯 学习目标</h3>
+                <ul>
+                    <li>说出好设计的 3 个核心标准</li>
+                    <li>用专业眼光评估一个空间</li>
+                    <li>建立设计师思维框架</li>
+                </ul>
+            </div>
+
+            <h2>一、知识讲解（10 分钟）</h2>
+            <h3>好设计的 3 个标准 — "好设计金三角"</h3>
+
+            <div class="triangle-diagram">
+                <h3>🔺 好设计金三角</h3>
+                <p style="font-size: 1.5rem; margin: 1rem 0;">
+                    功能 (Function)<br>
+                    ↙&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↘<br>
+                    美观 (Form) —— 经济 (Cost)
+                </p>
+                <div class="formula">好设计 = <span>功能 ✅</span> × <span>美观 ✅</span> × <span>经济 ✅</span><br><small>（三者缺一不可）</small></div>
+            </div>
+
+            <h3>功能 (Function) — 好不好用</h3>
+            <table>
+                <tr><th>维度</th><th>说明</th><th>案例</th></tr>
+                <tr><td>动线流畅</td><td>日常活动路径是否顺畅</td><td>厨房洗切炒顺序</td></tr>
+                <tr><td>尺度合理</td><td>家具尺寸是否符合人体工学</td><td>沙发到电视距离</td></tr>
+                <tr><td>收纳充足</td><td>物品是否有合适位置</td><td>衣物/厨具/杂物</td></tr>
+                <tr><td>采光通风</td><td>自然光/空气流通</td><td>窗户位置/大小</td></tr>
+            </table>
+            <p><strong>评判标准：</strong></p>
+            <ul class="checklist">
+                <li>动线无交叉、无折返</li>
+                <li>家具尺度符合人体工学</li>
+                <li>收纳容量 = 物品量 × 1.2（留 20% 余量）</li>
+                <li>采光充足、通风顺畅</li>
+            </ul>
+
+            <h3>美观 (Form) — 好不好看</h3>
+            <table>
+                <tr><th>维度</th><th>说明</th><th>案例</th></tr>
+                <tr><td>比例协调</td><td>空间/家具比例是否和谐</td><td>大客厅配小沙发 ❌</td></tr>
+                <tr><td>色彩统一</td><td>颜色搭配是否协调</td><td>不超过 3 种主色</td></tr>
+                <tr><td>风格一致</td><td>设计语言是否统一</td><td>北欧 + 中式 ❌</td></tr>
+                <tr><td>细节精致</td><td>收口/过渡是否精细</td><td>踢脚线/吊顶</td></tr>
+            </table>
+            <p><strong>评判标准：</strong></p>
+            <ul class="checklist">
+                <li>家具尺寸与空间比例协调</li>
+                <li>主色不超过 3 种，辅色不超过 2 种</li>
+                <li>风格统一，无违和元素</li>
+                <li>收口精细，无粗糙处理</li>
+            </ul>
+
+            <h3>经济 (Cost) — 值不值得</h3>
+            <table>
+                <tr><th>维度</th><th>说明</th><th>案例</th></tr>
+                <tr><td>预算可控</td><td>总造价是否在预算内</td><td>37㎡ 硬装 5-8 万</td></tr>
+                <tr><td>材料合理</td><td>选材是否性价比最优</td><td>不必追求进口</td></tr>
+                <tr><td>维护成本低</td><td>后期是否好打理</td><td>避免复杂吊顶</td></tr>
+                <tr><td>耐久性好</td><td>是否经得起时间考验</td><td>隐蔽工程不省钱</td></tr>
+            </table>
+
+            <h3>设计师思维 vs 普通人思维</h3>
+            <table>
+                <tr><th>维度</th><th>普通人</th><th>设计师</th></tr>
+                <tr><td>关注点</td><td>"好不好看"</td><td>"好不好用 + 好看 + 值得"</td></tr>
+                <tr><td>尺度感</td><td>"大概这么大"</td><td>"长 3.6m × 宽 2.8m × 高 2.7m"</td></tr>
+                <tr><td>问题识别</td><td>"感觉不太对"</td><td>"动线交叉 / 收纳不足 / 采光差"</td></tr>
+                <tr><td>解决方案</td><td>"换个沙发试试"</td><td>"调整布局 / 增加收纳 / 改善采光"</td></tr>
+            </table>
+
+            <div class="highlight-box">
+                <p>💡 <strong>从今天起，你要用设计师的眼光看空间！</strong>不仅看"好不好看"，更要看"好不好用"和"值不值得"。</p>
+            </div>
+
+            <h2>二、案例拆解（20 分钟）</h2>
+            <h3>37㎡ 老破小改造前后对比</h3>
+
+            <div class="case-box">
+                <h4>🏚️ 改造前 — 问题清单</h4>
+                <div class="space-item"><strong>入户：</strong>无玄关，开门见厅；鞋子堆在门口；无挂钩，外套随手扔沙发</div>
+                <div class="space-item"><strong>客厅：</strong>老式大沙发占 2.4 米；茶几太大；电视柜占整面墙；空间压抑、收纳不足</div>
+                <div class="space-item"><strong>卧室：</strong>衣柜容量小；无床头柜，衣服堆床上；收纳不足、动线受阻</div>
+                <div class="space-item"><strong>厨房：</strong>L 型布局但洗切炒顺序混乱；吊柜缺失，锅具堆台面</div>
+                <div class="space-item"><strong>卫生间：</strong>无干湿分离；马桶正对门；洗漱台仅 60cm</div>
+            </div>
+
+            <div class="case-box" style="border-color: #86efac; background: #f0fdf4;">
+                <h4>✨ 改造后 — 解决方案</h4>
+                <div class="space-item"><strong>入户：</strong>定制玄关柜（深 35cm），底部留空 15cm 放常穿鞋，镜面柜门视觉扩大</div>
+                <div class="space-item"><strong>客厅：</strong>双人位沙发（1.8 米），小圆几（直径 60cm，可移动），整墙白色收纳柜，视觉扩大 30%</div>
+                <div class="space-item"><strong>卧室：</strong>床居中放置，定制到顶衣柜（容量 3 倍），床头壁灯节省空间</div>
+                <div class="space-item"><strong>厨房：</strong>U 型布局（洗切炒顺序合理），吊柜 + 地柜，台面下嵌入洗碗机</div>
+                <div class="space-item"><strong>卫生间：</strong>干湿分离（淋浴房 90×90cm），马桶侧置，80cm 洗漱台 + 镜柜</div>
+            </div>
+
+            <h3>改造要点总结</h3>
+            <table>
+                <tr><th>空间</th><th>改造前问题</th><th>改造策略</th><th>改造效果</th></tr>
+                <tr><td>入户</td><td>无玄关、杂乱</td><td>定制玄关柜 + 镜面</td><td>收纳 + 视觉扩大</td></tr>
+                <tr><td>客厅</td><td>压抑、收纳不足</td><td>整墙收纳 + 浅色</td><td>视觉扩大 30%</td></tr>
+                <tr><td>卧室</td><td>收纳不足</td><td>到顶衣柜 + 壁灯</td><td>容量 3 倍</td></tr>
+                <tr><td>厨房</td><td>动线乱、收纳少</td><td>U 型布局 + 吊柜</td><td>操作顺畅</td></tr>
+                <tr><td>卫生间</td><td>潮湿、冲突</td><td>干湿分离 + 镜柜</td><td>可同时使用</td></tr>
+            </table>
+
+            <h2>三、实操任务（20 分钟）</h2>
+
+            <div class="task-box">
+                <h4>步骤 1：测量基础数据</h4>
+                <p>用尺子或手机 App 测量你家各空间的长×宽×高，记录沙发、茶几、床、衣柜等关键家具尺寸。</p>
+            </div>
+
+            <div class="task-box">
+                <h4>步骤 2：好设计评估</h4>
+                <p>用"好设计金三角"评估你家，每个维度 1-5 分：</p>
+            </div>
+
+            <table>
+                <tr><th colspan="2">功能评估（1-5 分）</th></tr>
+                <tr><td>动线流畅</td><td>⭐️ ___ / 5</td></tr>
+                <tr><td>尺度合理</td><td>⭐️ ___ / 5</td></tr>
+                <tr><td>收纳充足</td><td>⭐️ ___ / 5</td></tr>
+                <tr><td>采光通风</td><td>⭐️ ___ / 5</td></tr>
+                <tr><td><strong>功能总分</strong></td><td><strong>___ / 20</strong></td></tr>
+                <tr><th colspan="2">美观评估（1-5 分）</th></tr>
+                <tr><td>比例协调</td><td>⭐️ ___ / 5</td></tr>
+                <tr><td>色彩统一</td><td>⭐️ ___ / 5</td></tr>
+                <tr><td>风格一致</td><td>⭐️ ___ / 5</td></tr>
+                <tr><td>细节精致</td><td>⭐️ ___ / 5</td></tr>
+                <tr><td><strong>美观总分</strong></td><td><strong>___ / 20</strong></td></tr>
+                <tr><th colspan="2">经济评估（1-5 分）</th></tr>
+                <tr><td>预算可控</td><td>⭐️ ___ / 5</td></tr>
+                <tr><td>材料合理</td><td>⭐️ ___ / 5</td></tr>
+                <tr><td>维护成本低</td><td>⭐️ ___ / 5</td></tr>
+                <tr><td>耐久性好</td><td>⭐️ ___ / 5</td></tr>
+                <tr><td><strong>经济总分</strong></td><td><strong>___ / 20</strong></td></tr>
+                <tr><th colspan="2">总分 ___ / 60</th></tr>
+            </table>
+
+            <div class="task-box">
+                <h4>步骤 3：问题识别</h4>
+                <p>列出最急需改进的 3 个问题，标注影响指数（高/中/低），说明理由。</p>
+            </div>
+
+            <h2>四、📝 作业提交</h2>
+            <div class="homework-box">
+                <h3>请提交以下内容：</h3>
+                <ul>
+                    <li>功能 / 美观 / 经济 各维度评分</li>
+                    <li>总分和评级</li>
+                    <li>最急需改进的 3 个问题</li>
+                </ul>
+                <p style="margin-top: 0.8rem; opacity: 0.85; font-size: 0.85rem;">完成作业后，我会给你专业点评和优化建议！</p>
+            </div>
+
+            <div class="next-lesson">
+                <i class="fas fa-arrow-right"></i>
+                <div class="next-lesson-text">
+                    <h3>明日预告：Day 2 · 人体工学基础</h3>
+                    <p>常用家具尺寸标准 · 人体活动空间需求 · 户型尺寸优化技巧</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
+                    <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 96091469</p></li>
+                    <li><i class="fas fa-envelope"></i> sindylau2010@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/SLdesignPlus" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="contact-info">
+                    <li><a href="../../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
+                    <li><a href="../interior-design.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-couch"></i> 室内设计</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 SL Design Platform. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

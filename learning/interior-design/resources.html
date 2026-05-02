@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Design - 学习 · 室内设计 · 教材资源</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .logo span { color: #e2e8f0; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
+        .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
+        footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
+        .footer-section h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: #60a5fa; }
+        .contact-info { list-style: none; }
+        .contact-info li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .contact-info i { margin-right: 0.8rem; color: #3b82f6; width: 20px; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
+        .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
+
+        .breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #94a3b8; padding: 1rem 0; flex-wrap: wrap; }
+        .breadcrumbs a { color: #10b981; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+        .breadcrumbs .sep { color: #d1d5db; }
+        .course-header { padding: 1.5rem 0; display: flex; align-items: center; gap: 1.2rem; }
+        .course-icon { width: 56px; height: 56px; border-radius: 14px; background: linear-gradient(135deg, #059669, #047857); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; flex-shrink: 0; }
+        .course-header-text h1 { font-size: 1.6rem; color: #0f172a; }
+        .course-header-text p { color: #64748b; font-size: 0.9rem; margin-top: 0.2rem; }
+        .content-body { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2rem; margin-bottom: 2rem; }
+        .content-body h2 { font-size: 1.3rem; color: #059669; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #d1fae5; }
+        .content-body h2:first-child { margin-top: 0; }
+        .content-body h3 { font-size: 1.1rem; color: #0f172a; margin: 1.5rem 0 0.8rem; }
+        .content-body p { margin-bottom: 0.8rem; color: #444; }
+        .content-body ul, .content-body ol { margin: 0.8rem 0; padding-left: 1.5rem; }
+        .content-body li { margin-bottom: 0.4rem; color: #444; }
+        .content-body strong { color: #0f172a; }
+        .content-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        .content-body th, .content-body td { border: 1px solid #e2e8f0; padding: 0.6rem 0.8rem; text-align: left; }
+        .content-body th { background-color: #f0fdf4; color: #059669; font-weight: 600; }
+        .content-body tr:nth-child(even) { background-color: #f8fafc; }
+        .highlight-box { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .highlight-box p { margin: 0; color: #047857; }
+        .budget-card { background: #f0fdf4; border: 2px solid #86efac; border-radius: 10px; padding: 1.2rem; margin: 1rem 0; }
+        .budget-card h3 { margin-top: 0; color: #059669; }
+        .budget-total { font-size: 1.2rem; font-weight: 700; color: #059669; margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px dashed #86efac; }
+        .price-tag { background: #fef3c7; color: #92400e; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.85rem; font-weight: 600; }
+        .star { color: #f59e0b; }
+        .platform-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.8rem; margin: 1rem 0; }
+        .platform-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.8rem; text-align: center; }
+        .platform-card i { font-size: 1.5rem; color: #059669; margin-bottom: 0.3rem; }
+        .platform-card h4 { font-size: 0.9rem; color: #0f172a; margin: 0.3rem 0; }
+        .platform-card p { font-size: 0.75rem; color: #64748b; margin: 0; }
+        .resource-link { color: #059669; text-decoration: none; font-weight: 500; }
+        .resource-link:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; align-items: flex-start; }
+            .logo { margin-bottom: 1rem; }
+            nav { width: 100%; }
+            nav ul { flex-direction: column; width: 100%; display: none; }
+            nav ul.show { display: flex; }
+            nav ul li { margin: 0; width: 100%; }
+            nav ul li a { display: block; padding: 0.8rem 0; border-bottom: 1px solid #1e3a5f; }
+            .menu-toggle { display: block; position: absolute; top: 1rem; right: 20px; }
+            .content-body { padding: 1.2rem; }
+            .course-header { flex-direction: column; align-items: flex-start; }
+            .platform-grid { grid-template-columns: 1fr 1fr; }
+            .footer-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" style="text-decoration:none;">
+                <div class="logo">SL <span>DESIGN</span> PLATFORM</div>
+            </a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="../../index.html"><i class="fas fa-home"></i> HOME</a></li>
+                    <li><a href="../../index.html#exhibition"><i class="fas fa-images"></i> CASES</a></li>
+                    <li><a href="../../news.html"><i class="fas fa-newspaper"></i> NEWS</a></li>
+                    <li><a href="../../games.html"><i class="fas fa-gamepad"></i> GAMES</a></li>
+                    <li><a href="../../learning.html" class="active"><i class="fas fa-graduation-cap"></i> LEARNING</a></li>
+                    <li><a href="../../index.html#contact"><i class="fas fa-address-book"></i> CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../learning.html"><i class="fas fa-graduation-cap"></i> LEARNING</a>
+            <span class="sep">›</span>
+            <a href="../interior-design.html">室内设计</a>
+            <span class="sep">›</span>
+            <span>教材资源</span>
+        </div>
+
+        <div class="course-header">
+            <div class="course-icon"><i class="fas fa-book-open"></i></div>
+            <div class="course-header-text">
+                <h1>教材资源清单</h1>
+                <p>核心教材 · 视频课程 · 工具资源 · 灵感平台</p>
+            </div>
+        </div>
+
+        <div class="content-body">
+            <h2>📚 核心教材（必读）</h2>
+            <h3>设计基础类</h3>
+            <table>
+                <tr><th>书名</th><th>作者</th><th>价格</th><th>评分</th><th>优先级</th></tr>
+                <tr><td><strong>《住宅设计解剖书》</strong></td><td>增田奏</td><td><span class="price-tag">¥42</span></td><td>9.0 <span class="star">★</span></td><td>⭐⭐⭐⭐⭐</td></tr>
+                <tr><td><strong>《小家，越住越大》</strong></td><td>逯薇</td><td><span class="price-tag">¥58</span></td><td>8.8 <span class="star">★</span></td><td>⭐⭐⭐⭐⭐</td></tr>
+                <tr><td>《建筑：形式、空间和秩序》</td><td>程大锦</td><td><span class="price-tag">¥90</span></td><td>9.1 <span class="star">★</span></td><td>⭐⭐⭐⭐</td></tr>
+                <tr><td>《设计几何学》</td><td>金伯利·伊拉姆</td><td><span class="price-tag">¥40</span></td><td>7.9 <span class="star">★</span></td><td>⭐⭐⭐</td></tr>
+            </table>
+
+            <h3>空间规划类</h3>
+            <table>
+                <tr><th>书名</th><th>作者</th><th>价格</th><th>优先级</th></tr>
+                <tr><td><strong>《梦想改造家Ⅰ-Ⅲ》</strong></td><td>栏目组</td><td><span class="price-tag">¥49.8/册</span></td><td>⭐⭐⭐⭐⭐</td></tr>
+                <tr><td>《家居设计解剖书》</td><td>家居协会</td><td><span class="price-tag">¥39</span></td><td>⭐⭐⭐⭐</td></tr>
+                <tr><td>《小户型居住方案》</td><td>陈泽宇</td><td><span class="price-tag">¥56</span></td><td>⭐⭐⭐⭐</td></tr>
+            </table>
+
+            <h3>收纳 / 灯光 / 软装 / 材料 / 预算</h3>
+            <table>
+                <tr><th>类别</th><th>推荐书籍</th><th>价格</th></tr>
+                <tr><td>收纳</td><td>《小家，越住越大 2》《住宅收纳设计全书》《收纳大师》</td><td>¥35-58</td></tr>
+                <tr><td>灯光</td><td>《照明设计终极指南》《光环境设计》</td><td>¥68-78</td></tr>
+                <tr><td>软装配色</td><td>《七日掌握设计配色基础》《配色基础原理》</td><td>¥48</td></tr>
+                <tr><td>材料</td><td>《室内装饰材料与应用》《装修材料一本通》</td><td>¥45-65</td></tr>
+                <tr><td>预算施工</td><td>《装修预算一本通》《施工工艺图解》</td><td>¥45-55</td></tr>
+            </table>
+
+            <h2>🎬 视频课程资源</h2>
+            <h3>免费资源</h3>
+            <table>
+                <tr><th>平台</th><th>课程</th><th>讲师</th><th>时长</th></tr>
+                <tr><td>B 站</td><td>住宅设计入门教程</td><td>设计师阿爽</td><td>20 集 × 15 分钟</td></tr>
+                <tr><td>B 站</td><td>小户型改造实战</td><td>梦想改造家官方</td><td>100+ 集</td></tr>
+                <tr><td>YouTube</td><td>Interior Design Basics</td><td>Studio McGee</td><td>30 集 × 10 分钟</td></tr>
+                <tr><td>YouTube</td><td>Space Planning 101</td><td>The Futur</td><td>10 集 × 20 分钟</td></tr>
+            </table>
+
+            <h3>付费课程</h3>
+            <table>
+                <tr><th>平台</th><th>课程</th><th>价格</th><th>时长</th></tr>
+                <tr><td>网易云课堂</td><td>室内设计师系统课</td><td><span class="price-tag">¥299</span></td><td>50 小时</td></tr>
+                <tr><td>腾讯课堂</td><td>家装设计实战班</td><td><span class="price-tag">¥599</span></td><td>80 小时</td></tr>
+                <tr><td>Udemy</td><td>Interior Design Masterclass</td><td><span class="price-tag">$89</span></td><td>40 小时</td></tr>
+            </table>
+
+            <h2>🛠️ 工具学习资源</h2>
+            <table>
+                <tr><th>工具</th><th>资源</th><th>平台</th><th>价格</th></tr>
+                <tr><td rowspan="3">CAD</td><td>《AutoCAD 室内设计制图从入门到精通》</td><td>机械工业出版社</td><td><span class="price-tag">¥59</span></td></tr>
+                <tr><td>CAD 室内设计教程</td><td>B 站</td><td>免费</td></tr>
+                <tr><td>AutoCAD 室内设计师认证课</td><td>腾讯课堂</td><td><span class="price-tag">¥199</span></td></tr>
+                <tr><td rowspan="3">SketchUp</td><td>《SketchUp 室内设计实战》</td><td>清华大学出版社</td><td><span class="price-tag">¥69</span></td></tr>
+                <tr><td>SU 建模入门到精通</td><td>B 站</td><td>免费</td></tr>
+                <tr><td>SketchUp 家装建模课</td><td>网易云课堂</td><td><span class="price-tag">¥159</span></td></tr>
+                <tr><td rowspan="3">酷家乐</td><td>酷家乐学院</td><td>kujiale.com</td><td>免费</td></tr>
+                <tr><td>酷家乐 1 小时上手</td><td>B 站</td><td>免费</td></tr>
+                <tr><td>酷家乐高级渲染课</td><td>腾讯课堂</td><td><span class="price-tag">¥99</span></td></tr>
+            </table>
+
+            <h2>🎨 灵感与案例资源</h2>
+            <div class="platform-grid">
+                <div class="platform-card"><i class="fab fa-pinterest"></i><h4>Pinterest</h4><p>全球最大灵感库</p></div>
+                <div class="platform-card"><i class="fas fa-heart"></i><h4>小红书</h4><p>中国本土案例</p></div>
+                <div class="platform-card"><i class="fas fa-home"></i><h4>好好住</h4><p>真实家庭案例</p></div>
+                <div class="platform-card"><i class="fas fa-globe"></i><h4>Houzz</h4><p>国际高端案例</p></div>
+                <div class="platform-card"><i class="fas fa-building"></i><h4>ArchDaily</h4><p>全球建筑案例</p></div>
+                <div class="platform-card"><i class="fas fa-palette"></i><h4>谷德设计网</h4><p>中文建筑案例</p></div>
+            </div>
+
+            <h2>💰 采购建议</h2>
+            <div class="budget-card">
+                <h3>入门套装（推荐先买）</h3>
+                <ul>
+                    <li>《住宅设计解剖书》 ¥42</li>
+                    <li>《小家，越住越大》 ¥58</li>
+                    <li>《梦想改造家Ⅰ》 ¥49.8</li>
+                    <li>《七日掌握设计配色基础》 ¥48</li>
+                    <li>《小户型居住方案》 ¥56</li>
+                </ul>
+                <div class="budget-total">合计：¥253.8</div>
+            </div>
+
+            <div class="budget-card">
+                <h3>进阶套装</h3>
+                <ul>
+                    <li>《小家，越住越大 2》 ¥58</li>
+                    <li>《住宅收纳设计全书》 ¥45</li>
+                    <li>《照明设计终极指南》 ¥68</li>
+                    <li>《DK 家装设计全书》 ¥198</li>
+                    <li>《装修预算一本通》 ¥45</li>
+                    <li>《施工工艺图解》 ¥55</li>
+                </ul>
+                <div class="budget-total">合计：¥469</div>
+            </div>
+
+            <h2>📦 购书渠道</h2>
+            <table>
+                <tr><th>平台</th><th>优势</th><th>折扣</th></tr>
+                <tr><td>京东</td><td>物流快、正品保证</td><td>满 100-50</td></tr>
+                <tr><td>当当</td><td>图书品类全</td><td>满 200-100</td></tr>
+                <tr><td>淘宝</td><td>价格低、二手书</td><td>5-8 折</td></tr>
+                <tr><td>多抓鱼</td><td>二手书、品相好</td><td>3-5 折</td></tr>
+                <tr><td>微信读书</td><td>电子书、部分免费</td><td>会员 ¥19/月</td></tr>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
+                    <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 96091469</p></li>
+                    <li><i class="fas fa-envelope"></i> sindylau2010@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/SLdesignPlus" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="contact-info">
+                    <li><a href="../../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
+                    <li><a href="../interior-design.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-couch"></i> 室内设计</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 SL Design Platform. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>
