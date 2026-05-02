@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>SL Design - 反应速度测试</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background: #0a0e17; color: #e2e8f0; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; overflow: hidden; height: 100vh; touch-action: manipulation; user-select: none; }
+
+        .game-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; padding: 1rem; position: relative; }
+
+        /* 顶部 HUD */
+        .hud { position: absolute; top: 1rem; left: 0; right: 0; display: flex; justify-content: center; gap: 1.5rem; padding: 0 1rem; pointer-events: none; }
+        .hud-item { background: rgba(15,23,42,0.9); border: 1px solid rgba(59,130,246,0.3); border-radius: 8px; padding: 0.4rem 1rem; text-align: center; backdrop-filter: blur(4px); }
+        .hud-item .label { color: #94a3b8; font-size: 0.7rem; text-transform: uppercase; }
+        .hud-item .value { color: #60a5fa; font-weight: 700; font-size: 1.1rem; }
+
+        /* 返回按钮 */
+        .back-link { position: absolute; top: 1rem; left: 1rem; z-index: 10; }
+        .back-link a { color: #94a3b8; text-decoration: none; background: rgba(15,23,42,0.9); border: 1px solid rgba(59,130,246,0.2); border-radius: 8px; padding: 0.4rem 0.8rem; font-size: 0.8rem; display: flex; align-items: center; gap: 0.4rem; transition: all 0.3s; }
+        .back-link a:hover { color: #60a5fa; border-color: #3b82f6; }
+
+        /* 提示信息 */
+        .prompt { font-size: 1.3rem; color: #94a3b8; text-align: center; min-height: 2.5rem; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; transition: color 0.2s; }
+        .prompt.waiting { color: #ef4444; }
+        .prompt.go { color: #10b981; }
+        .prompt.result { color: #fbbf24; }
+
+        /* 反应时间大数字 */
+        .reaction-time { font-size: 3rem; font-weight: 800; text-align: center; margin-bottom: 0.5rem; font-variant-numeric: tabular-nums; transition: color 0.2s; }
+
+        /* 三角形按钮区域 */
+        .triangle-area { position: relative; width: 320px; height: 300px; margin: 0 auto; }
+
+        .color-btn { position: absolute; width: 100px; height: 100px; border-radius: 50%; border: 4px solid rgba(255,255,255,0.2); cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; font-size: 0; }
+        .color-btn::after { content: ''; width: 60px; height: 60px; border-radius: 50%; transition: all 0.15s; }
+        .color-btn:active { transform: scale(0.92); }
+
+        /* 红色 - 顶部 */
+        .btn-red { top: 0; left: 50%; transform: translateX(-50%); background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.4); }
+        .btn-red::after { background: rgba(239,68,68,0.3); }
+        .btn-red.lit { background: rgba(239,68,68,0.5); border-color: #ef4444; box-shadow: 0 0 40px rgba(239,68,68,0.6), inset 0 0 20px rgba(239,68,68,0.3); }
+        .btn-red.lit::after { background: #ef4444; box-shadow: 0 0 15px #ef4444; }
+
+        /* 蓝色 - 左下 */
+        .btn-blue { bottom: 0; left: 10px; background: rgba(59,130,246,0.15); border-color: rgba(59,130,246,0.4); }
+        .btn-blue::after { background: rgba(59,130,246,0.3); }
+        .btn-blue.lit { background: rgba(59,130,246,0.5); border-color: #3b82f6; box-shadow: 0 0 40px rgba(59,130,246,0.6), inset 0 0 20px rgba(59,130,246,0.3); }
+        .btn-blue.lit::after { background: #3b82f6; box-shadow: 0 0 15px #3b82f6; }
+
+        /* 黄色 - 右下 */
+        .btn-yellow { bottom: 0; right: 10px; background: rgba(245,158,11,0.15); border-color: rgba(245,158,11,0.4); }
+        .btn-yellow::after { background: rgba(245,158,11,0.3); }
+        .btn-yellow.lit { background: rgba(245,158,11,0.5); border-color: #f59e0b; box-shadow: 0 0 40px rgba(245,158,11,0.6), inset 0 0 20px rgba(245,158,11,0.3); }
+        .btn-yellow.lit::after { background: #f59e0b; box-shadow: 0 0 15px #f59e0b; }
+
+        /* 按错闪烁 */
+        .color-btn.wrong { animation: shake 0.3s; }
+        @keyframes shake { 0%,100% { transform: translateX(-50%); } 25% { transform: translateX(calc(-50% - 8px)); } 75% { transform: translateX(calc(-50% + 8px)); } }
+        .btn-blue.wrong { animation: shakeBlue 0.3s; }
+        @keyframes shakeBlue { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+        .btn-yellow.wrong { animation: shakeYellow 0.3s; }
+        @keyframes shakeYellow { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+
+        /* 成绩面板 */
+        .result-panel { background: rgba(15,23,42,0.95); border: 1px solid rgba(59,130,246,0.4); border-radius: 16px; padding: 2rem; text-align: center; max-width: 360px; width: 90%; backdrop-filter: blur(8px); display: none; }
+        .result-panel.show { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        .result-panel h2 { font-size: 1.3rem; color: #e2e8f0; margin-bottom: 1.5rem; }
+        .result-panel h2 i { color: #fbbf24; }
+
+        .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1.5rem; }
+        .result-card { background: rgba(30,41,59,0.8); border-radius: 10px; padding: 0.8rem; }
+        .result-card .label { color: #94a3b8; font-size: 0.7rem; text-transform: uppercase; }
+        .result-card .value { font-size: 1.4rem; font-weight: 700; margin-top: 0.3rem; }
+        .result-card .value.excellent { color: #10b981; }
+        .result-card .value.good { color: #3b82f6; }
+        .result-card .value.avg { color: #f59e0b; }
+
+        /* 评价 */
+        .rating { padding: 1rem; border-radius: 10px; margin-bottom: 1.5rem; }
+        .rating.excellent { background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.4); }
+        .rating.good { background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.4); }
+        .rating.average { background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); }
+        .rating.slow { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.4); }
+        .rating .rank { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .rating.excellent .rank { color: #10b981; }
+        .rating.good .rank { color: #3b82f6; }
+        .rating.average .rank { color: #f59e0b; }
+        .rating.slow .rank { color: #ef4444; }
+        .rating .desc { color: #94a3b8; font-size: 0.85rem; }
+
+        /* 详细记录 */
+        .history { margin-bottom: 1.5rem; }
+        .history-title { color: #94a3b8; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .history-bars { display: flex; flex-direction: column; gap: 0.3rem; }
+        .history-row { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; }
+        .history-row .round-num { color: #64748b; width: 30px; text-align: right; }
+        .history-row .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+        .history-row .dot.red { background: #ef4444; }
+        .history-row .dot.blue { background: #3b82f6; }
+        .history-row .dot.yellow { background: #f59e0b; }
+        .history-bar { flex: 1; height: 6px; background: rgba(51,65,85,0.5); border-radius: 3px; overflow: hidden; }
+        .history-bar-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+        .history-bar-fill.fast { background: #10b981; }
+        .history-bar-fill.normal { background: #f59e0b; }
+        .history-bar-fill.slow { background: #ef4444; }
+        .history-row .ms { color: #e2e8f0; width: 55px; font-weight: 600; }
+
+        .retry-btn { background: linear-gradient(135deg, #3b82f6, #1e40af); color: white; border: none; border-radius: 12px; padding: 0.8rem 2.5rem; font-size: 1rem; font-weight: 600; cursor: pointer; transition: transform 0.2s, box-shadow 0.3s; }
+        .retry-btn:hover { transform: scale(1.05); box-shadow: 0 8px 24px rgba(59,130,246,0.4); }
+        .retry-btn:active { transform: scale(0.98); }
+
+        /* 开始界面 */
+        .start-screen { position: absolute; inset: 0; background: rgba(10,14,23,0.95); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 40; backdrop-filter: blur(8px); padding: 1rem; }
+        .start-screen h1 { font-size: 1.8rem; color: #e2e8f0; margin-bottom: 0.5rem; }
+        .start-screen h1 i { color: #fbbf24; }
+        .start-screen .subtitle { color: #94a3b8; font-size: 0.9rem; margin-bottom: 2rem; text-align: center; max-width: 300px; }
+        .start-screen .rules { color: #64748b; font-size: 0.8rem; text-align: left; margin-bottom: 2rem; background: rgba(30,41,59,0.6); border-radius: 12px; padding: 1.2rem; max-width: 320px; width: 100%; }
+        .start-screen .rules li { margin-bottom: 0.5rem; list-style: none; }
+        .start-screen .rules li::before { content: '• '; color: #3b82f6; }
+        .start-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; border-radius: 12px; padding: 1rem 2.5rem; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: transform 0.2s, box-shadow 0.3s; }
+        .start-btn:hover { transform: scale(1.05); box-shadow: 0 8px 24px rgba(16,185,129,0.4); }
+        .start-btn:active { transform: scale(0.98); }
+
+        @media (max-width: 400px) {
+            .triangle-area { width: 280px; height: 260px; }
+            .color-btn { width: 85px; height: 85px; }
+            .color-btn::after { width: 50px; height: 50px; }
+            .btn-blue { left: 5px; }
+            .btn-yellow { right: 5px; }
+            .reaction-time { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-wrapper">
+        <div class="hud">
+            <div class="hud-item">
+                <div class="label">回合</div>
+                <div class="value" id="roundDisplay">0 / 10</div>
+            </div>
+            <div class="hud-item">
+                <div class="label">当前反应</div>
+                <div class="value" id="currentDisplay">---ms</div>
+            </div>
+        </div>
+
+        <div class="back-link"><a href="../games.html"><i class="fas fa-arrow-left"></i> 返回游戏</a></div>
+
+        <div class="reaction-time" id="reactionTime">--</div>
+        <div class="prompt" id="prompt">准备开始</div>
+
+        <div class="triangle-area" id="triangleArea">
+            <div class="color-btn btn-red" id="btnRed" data-color="red"></div>
+            <div class="color-btn btn-blue" id="btnBlue" data-color="blue"></div>
+            <div class="color-btn btn-yellow" id="btnYellow" data-color="yellow"></div>
+        </div>
+
+        <!-- 结果面板 -->
+        <div class="result-panel" id="resultPanel">
+            <h2><i class="fas fa-trophy"></i> 测试完成！</h2>
+            <div class="result-grid">
+                <div class="result-card">
+                    <div class="label">平均反应</div>
+                    <div class="value" id="avgResult">--</div>
+                </div>
+                <div class="result-card">
+                    <div class="label">最快反应</div>
+                    <div class="value" id="fastResult">--</div>
+                </div>
+                <div class="result-card">
+                    <div class="label">最慢反应</div>
+                    <div class="value" id="slowResult">--</div>
+                </div>
+                <div class="result-card">
+                    <div class="label">正确率</div>
+                    <div class="value" id="accuracyResult">--</div>
+                </div>
+            </div>
+            <div class="rating" id="rating">
+                <div class="rank" id="rankText">--</div>
+                <div class="desc" id="rankDesc">--</div>
+            </div>
+            <div class="history">
+                <div class="history-title">详细记录</div>
+                <div class="history-bars" id="historyBars"></div>
+            </div>
+            <button class="retry-btn" id="retryBtn"><i class="fas fa-redo"></i> 再来一次</button>
+        </div>
+
+        <!-- 开始界面 -->
+        <div class="start-screen" id="startScreen">
+            <h1><i class="fas fa-bolt"></i> 反应速度测试</h1>
+            <p class="subtitle">测试你的反应速度极限，看看你能多快！</p>
+            <ul class="rules">
+                <li>三个按钮随机亮起（红 / 蓝 / 黄）</li>
+                <li>亮起后尽快按下对应按钮</li>
+                <li>共 10 个回合，提前按算失误</li>
+                <li>最终计算平均反应速度</li>
+            </ul>
+            <button class="start-btn" id="startBtn">开始测试</button>
+        </div>
+    </div>
+
+    <script>
+        // ========== 游戏配置 ==========
+        const COLORS = ['red', 'blue', 'yellow'];
+        const TOTAL_ROUNDS = 10;
+        const MIN_DELAY = 800;   // 最小随机延迟
+        const MAX_DELAY = 3000;  // 最大随机延迟
+
+        // ========== 游戏状态 ==========
+        let round = 0;
+        let results = [];     // {time, color, hit}
+        let currentColor = null;
+        let litTime = 0;
+        let gamePhase = 'idle'; // idle | waiting | lit | result | done
+        let litTimeout = null;
+        let canPress = false;
+
+        // ========== DOM ==========
+        const btns = {
+            red: document.getElementById('btnRed'),
+            blue: document.getElementById('btnBlue'),
+            yellow: document.getElementById('btnYellow')
+        };
+        const prompt = document.getElementById('prompt');
+        const reactionTimeEl = document.getElementById('reactionTime');
+        const roundDisplay = document.getElementById('roundDisplay');
+        const currentDisplay = document.getElementById('currentDisplay');
+        const startScreen = document.getElementById('startScreen');
+        const resultPanel = document.getElementById('resultPanel');
+
+        // ========== 事件绑定 ==========
+        document.getElementById('startBtn').addEventListener('click', startGame);
+        document.getElementById('retryBtn').addEventListener('click', resetGame);
+
+        Object.entries(btns).forEach(([color, el]) => {
+            el.addEventListener('mousedown', (e) => { e.preventDefault(); handlePress(color); });
+            el.addEventListener('touchstart', (e) => { e.preventDefault(); handlePress(color); }, { passive: false });
+        });
+
+        // 防止空白区域点击
+        document.getElementById('triangleArea').addEventListener('mousedown', (e) => {
+            if (!e.target.classList.contains('color-btn') && gamePhase === 'lit') {
+                // 点击空白区域忽略
+            }
+        });
+
+        // ========== 游戏逻辑 ==========
+        function startGame() {
+            startScreen.style.display = 'none';
+            resetGame();
+        }
+
+        function resetGame() {
+            round = 0;
+            results = [];
+            gamePhase = 'idle';
+            canPress = false;
+            currentColor = null;
+
+            resultPanel.classList.remove('show');
+            clearAllLit();
+            updateHUD();
+            reactionTimeEl.textContent = '--';
+            reactionTimeEl.style.color = '#e2e8f0';
+
+            // 延迟开始
+            setTimeout(() => nextRound(), 1000);
+        }
+
+        function nextRound() {
+            if (round >= TOTAL_ROUNDS) {
+                showResults();
+                return;
+            }
+
+            round++;
+            clearAllLit();
+            updateHUD();
+            reactionTimeEl.textContent = '--';
+            reactionTimeEl.style.color = '#e2e8f0';
+
+            // 随机延迟
+            const delay = MIN_DELAY + Math.random() * (MAX_DELAY - MIN_DELAY);
+
+            // Phase: waiting (提示等待)
+            gamePhase = 'waiting';
+            prompt.textContent = '等待亮灯...';
+            prompt.className = 'prompt waiting';
+            canPress = false;
+
+            // 随机选颜色
+            currentColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+
+            litTimeout = setTimeout(() => {
+                // Phase: lit
+                gamePhase = 'lit';
+                prompt.textContent = '按！';
+                prompt.className = 'prompt go';
+                canPress = true;
+                litTime = performance.now();
+
+                btns[currentColor].classList.add('lit');
+                reactionTimeEl.textContent = '...';
+            }, delay);
+        }
+
+        function handlePress(color) {
+            if (gamePhase === 'idle' || gamePhase === 'done') return;
+
+            // 提前按（waiting 阶段）
+            if (gamePhase === 'waiting') {
+                clearTimeout(litTimeout);
+                prompt.textContent = '太早了！等灯亮了再按';
+                prompt.className = 'prompt';
+                reactionTimeEl.textContent = '❌';
+                reactionTimeEl.style.color = '#ef4444';
+                results.push({ time: 0, color: currentColor, hit: false, early: true });
+                currentDisplay.textContent = '太早';
+                gamePhase = 'result';
+
+                setTimeout(() => nextRound(), 1000);
+                return;
+            }
+
+            // 已亮了
+            if (gamePhase === 'lit') {
+                if (color === currentColor) {
+                    // 命中！
+                    const time = Math.round(performance.now() - litTime);
+                    results.push({ time, color, hit: true });
+
+                    prompt.textContent = `+${time}ms`;
+                    prompt.className = 'prompt result';
+                    reactionTimeEl.textContent = time + 'ms';
+                    currentDisplay.textContent = time + 'ms';
+
+                    if (time < 250) {
+                        reactionTimeEl.style.color = '#10b981';
+                    } else if (time < 400) {
+                        reactionTimeEl.style.color = '#3b82f6';
+                    } else {
+                        reactionTimeEl.style.color = '#f59e0b';
+                    }
+
+                    // 清除 lit
+                    clearAllLit();
+                    gamePhase = 'result';
+
+                    setTimeout(() => nextRound(), 800);
+                } else {
+                    // 按错了
+                    btns[color].classList.add('wrong');
+                    setTimeout(() => btns[color].classList.remove('wrong'), 300);
+                    prompt.textContent = '按错了！';
+                    prompt.className = 'prompt';
+                    reactionTimeEl.textContent = '❌';
+                    reactionTimeEl.style.color = '#ef4444';
+                    results.push({ time: 0, color: currentColor, hit: false, wrongColor: color });
+                    currentDisplay.textContent = '错误';
+
+                    // 仍然清除 lit
+                    clearAllLit();
+                    gamePhase = 'result';
+
+                    setTimeout(() => nextRound(), 1000);
+                }
+            }
+        }
+
+        function clearAllLit() {
+            Object.values(btns).forEach(b => b.classList.remove('lit'));
+        }
+
+        function updateHUD() {
+            roundDisplay.textContent = `${round} / ${TOTAL_ROUNDS}`;
+        }
+
+        // ========== 结果面板 ==========
+        function showResults() {
+            gamePhase = 'done';
+            clearAllLit();
+
+            const validResults = results.filter(r => r.hit);
+            const avgTime = validResults.length > 0 ? Math.round(validResults.reduce((s, r) => s + r.time, 0) / validResults.length) : 0;
+            const fastTime = validResults.length > 0 ? Math.min(...validResults.map(r => r.time)) : 0;
+            const slowTime = validResults.length > 0 ? Math.max(...validResults.map(r => r.time)) : 0;
+            const accuracy = Math.round((validResults.length / results.length) * 100);
+
+            document.getElementById('avgResult').textContent = avgTime + 'ms';
+            document.getElementById('fastResult').textContent = fastTime + 'ms';
+            document.getElementById('slowResult').textContent = slowTime + 'ms';
+            document.getElementById('accuracyResult').textContent = accuracy + '%';
+
+            // 颜色
+            ['avgResult', 'fastResult', 'slowResult'].forEach(id => {
+                const el = document.getElementById(id);
+                const val = parseInt(el.textContent);
+                el.className = 'value ' + (val < 250 ? 'excellent' : val < 400 ? 'good' : 'avg');
+            });
+
+            // 评价
+            const rating = document.getElementById('rating');
+            const rankText = document.getElementById('rankText');
+            const rankDesc = document.getElementById('rankDesc');
+
+            if (avgTime < 200 && accuracy === 100) {
+                rating.className = 'rating excellent';
+                rankText.textContent = '🏆 闪电侠';
+                rankDesc.textContent = '反应速度超越 95% 的人！神级反应！';
+            } else if (avgTime < 280 && accuracy >= 90) {
+                rating.className = 'rating excellent';
+                rankText.textContent = '⚡ 非常快';
+                rankDesc.textContent = '你的反应速度超过了大多数人！';
+            } else if (avgTime < 400 && accuracy >= 80) {
+                rating.className = 'rating good';
+                rankText.textContent = '👍 不错';
+                rankDesc.textContent = '反应速度在正常范围内，继续加油！';
+            } else if (avgTime < 500) {
+                rating.className = 'rating average';
+                rankText.textContent = '🐢 一般';
+                rankDesc.textContent = '稍微有点慢，多练习可以更快！';
+            } else {
+                rating.className = 'rating slow';
+                rankText.textContent = '😴 需要提高';
+                rankDesc.textContent = '反应速度有待提升，别灰心，多练练！';
+            }
+
+            // 详细记录
+            const historyBars = document.getElementById('historyBars');
+            historyBars.innerHTML = '';
+            results.forEach((r, i) => {
+                const row = document.createElement('div');
+                row.className = 'history-row';
+
+                const num = document.createElement('span');
+                num.className = 'round-num';
+                num.textContent = `#${i + 1}`;
+
+                const dot = document.createElement('span');
+                dot.className = 'dot ' + r.color;
+
+                const bar = document.createElement('div');
+                bar.className = 'history-bar';
+                if (r.hit) {
+                    const fill = document.createElement('div');
+                    fill.className = 'history-bar-fill ' + (r.time < 250 ? 'fast' : r.time < 400 ? 'normal' : 'slow');
+                    const pct = Math.min(100, (r.time / 600) * 100);
+                    fill.style.width = pct + '%';
+                    bar.appendChild(fill);
+                }
+
+                const ms = document.createElement('span');
+                ms.className = 'ms';
+                ms.textContent = r.hit ? r.time + 'ms' : '❌';
+
+                row.appendChild(num);
+                row.appendChild(dot);
+                row.appendChild(bar);
+                row.appendChild(ms);
+                historyBars.appendChild(row);
+            });
+
+            resultPanel.classList.add('show');
+            prompt.textContent = '测试完成！';
+            prompt.className = 'prompt';
+            reactionTimeEl.textContent = avgTime + 'ms';
+            reactionTimeEl.style.color = '#fbbf24';
+            currentDisplay.textContent = '完成';
+        }
+    </script>
+</body>
+</html>
