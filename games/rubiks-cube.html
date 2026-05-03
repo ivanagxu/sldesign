@@ -157,7 +157,7 @@
                 </button>
             </div>
         </div>
-        <div class="hint">拖拽旋转视角 360° • CW/CCW 切换方向 • 箭头按钮旋转魔方面</div>
+        <div class="hint">拖拽旋转视角 360° • 按钮自动适配当前朝向 • CW/CCW 切换方向</div>
         <div id="action-buttons">
             <button class="action-btn" id="scramble-btn">🔀 打乱</button>
             <button class="action-btn" id="reset-btn">↺ 重置</button>
@@ -359,6 +359,46 @@
         return btnFace; // fallback
     }
 
+    // Resolve middle layer button to world axis and filter cubies
+    function resolveMiddleLayer(btnFace) {
+        const camDir = new THREE.Vector3();
+        camera.getWorldDirection(camDir);
+        const camUp = camera.up.clone().normalize();
+        const camRight = new THREE.Vector3().crossVectors(camDir, camUp).normalize();
+
+        // For M: axis perpendicular to screen-right → resolves to L/R axis
+        // For E: axis perpendicular to screen-up → resolves to U/D axis
+        // For S: axis along camera direction → resolves to F/B axis
+        const candidates = {
+            M: [
+                { name: 'M', axis: new THREE.Vector3(1,0,0), screenDot: Math.abs(new THREE.Vector3(1,0,0).dot(camRight)) },
+                { name: 'E', axis: new THREE.Vector3(0,1,0), screenDot: Math.abs(new THREE.Vector3(0,1,0).dot(camRight)) },
+                { name: 'S', axis: new THREE.Vector3(0,0,1), screenDot: Math.abs(new THREE.Vector3(0,0,1).dot(camRight)) },
+            ],
+            E: [
+                { name: 'M', axis: new THREE.Vector3(1,0,0), screenDot: Math.abs(new THREE.Vector3(1,0,0).dot(camUp)) },
+                { name: 'E', axis: new THREE.Vector3(0,1,0), screenDot: Math.abs(new THREE.Vector3(0,1,0).dot(camUp)) },
+                { name: 'S', axis: new THREE.Vector3(0,0,1), screenDot: Math.abs(new THREE.Vector3(0,0,1).dot(camUp)) },
+            ],
+            S: [
+                { name: 'M', axis: new THREE.Vector3(1,0,0), screenDot: Math.abs(new THREE.Vector3(1,0,0).dot(camDir)) },
+                { name: 'E', axis: new THREE.Vector3(0,1,0), screenDot: Math.abs(new THREE.Vector3(0,1,0).dot(camDir)) },
+                { name: 'S', axis: new THREE.Vector3(0,0,1), screenDot: Math.abs(new THREE.Vector3(0,0,1).dot(camDir)) },
+            ],
+        };
+
+        const sorted = candidates[btnFace].sort((a, b) => b.screenDot - a.screenDot);
+        const best = sorted[0];
+
+        // Filter cubies whose position dot(axis) ≈ 0
+        const group = cubies.filter(c => {
+            const p = c.group.position;
+            return Math.abs(p.dot(best.axis)) < 0.1;
+        });
+
+        return { face: btnFace, axis: best.axis, group };
+    }
+
     // Determine rotation direction relative to viewer
     // Returns +1 for CW, -1 for CCW from viewer's perspective
     function viewerDirection(resolvedFace, isCw) {
@@ -370,10 +410,10 @@
         return (isCw === towardCamera) ? 1 : -1;
     }
 
-    function rotateFace(face, animate = true, duration = 300, cw = true, resolvedAxis = null, directionMult = 1) {
+    function rotateFace(face, animate = true, duration = 300, cw = true, resolvedAxis = null, directionMult = 1, groupOverride = null) {
         return new Promise((resolve) => {
             const axis = resolvedAxis || FACE_AXIS[face];
-            const group = getCubiesForFace(face);
+            const group = groupOverride || getCubiesForFace(face);
             if (!group.length) { resolve(); return; }
 
             const angle = cw ? Math.PI/2 : -Math.PI/2;
@@ -452,12 +492,30 @@
     document.querySelectorAll('.arrow-btn[data-face]').forEach(btn => {
         btn.addEventListener('click', async () => {
             if (isAnimating) return;
-            const face = btn.dataset.face;
+            const btnFace = btn.dataset.face;
+            
             const dir = clockwise ? '顺时针' : '逆时针';
-            faceLabel.textContent = FACE_NAMES[face] + ' ' + dir;
             moveCount++;
             document.getElementById('move-count').textContent = moveCount;
-            await rotateFace(face, true, 280, clockwise);
+            
+            // Middle layers (M/E/S) resolve differently
+            if (['M', 'E', 'S'].includes(btnFace)) {
+                const ml = resolveMiddleLayer(btnFace);
+                faceLabel.textContent = btnFace + ' 中层 ' + dir;
+                // For middle layers, direction depends on which way the axis points relative to camera
+                const camDir = new THREE.Vector3();
+                camera.getWorldDirection(camDir);
+                const towardCam = ml.axis.dot(camDir) > 0;
+                const dirMult = (clockwise === towardCam) ? 1 : -1;
+                await rotateFace(btnFace, true, 280, clockwise, ml.axis, dirMult, ml.group);
+            } else {
+                // Outer faces: resolve screen-relative button to world face
+                const resolvedFace = resolveFace(btnFace);
+                const dirMult = viewerDirection(resolvedFace, clockwise);
+                faceLabel.textContent = FACE_NAMES[resolvedFace] + ' ' + dir;
+                const axis = FACE_AXIS[resolvedFace];
+                await rotateFace(resolvedFace, true, 280, clockwise, axis, dirMult);
+            }
             checkWin();
         });
     });
