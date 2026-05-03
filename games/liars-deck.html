@@ -461,14 +461,7 @@ function startNewRound() {
 
   // Check win condition: only 1 alive player left
   const alivePlayers = players.filter(p => p.alive);
-  if (alivePlayers.length <= 1) {
-    endGame();
-    return;
-  }
-
-  // Check if all alive players have cards
-  const aliveWithCards = alivePlayers.filter(p => hands[players.indexOf(p)].length > 0);
-  if (aliveWithCards.length < 2) {
+  if (alivePlayers.length === 1) {
     endGame();
     return;
   }
