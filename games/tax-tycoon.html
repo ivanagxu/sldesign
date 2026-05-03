@@ -91,6 +91,11 @@ h1 {
   transition: all 0.3s;
   min-height: 80px;
 }
+.space.landed-on {
+  border-color: #fff !important;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  transform: scale(1.05);
+}
 .space.start { background: linear-gradient(135deg, #27ae60, #2ecc71); border-color: #1e8e4e; }
 .space.tax { background: linear-gradient(135deg, #e74c3c, #c0392b); border-color: #a93226; }
 .space.refund { background: linear-gradient(135deg, #3498db, #2980b9); border-color: #2471a3; }
@@ -469,6 +474,9 @@ function updateTokens() {
   for (let i = 0; i < BOARD_SIZE; i++) {
     const container = document.getElementById(`space-players-${i}`);
     container.innerHTML = '';
+    // Remove highlight from all spaces
+    const space = document.getElementById(`space-${i}`);
+    if (space) space.classList.remove('landed-on');
   }
   
   gameState.players.forEach(player => {
@@ -478,6 +486,14 @@ function updateTokens() {
     token.textContent = player.index + 1;
     container.appendChild(token);
   });
+}
+
+function highlightSpace(pos) {
+  const space = document.getElementById(`space-${pos}`);
+  if (space) {
+    space.classList.add('landed-on');
+    setTimeout(() => space.classList.remove('landed-on'), 200);
+  }
 }
 
 function renderPlayerCards() {
@@ -567,13 +583,21 @@ async function performTurn(player) {
   
   addLog(`🎲 ${player.name} rolled ${dice1} + ${dice2} = ${total}`);
   
-  // Move player
+  // Move player step by step
   const oldPos = player.position;
-  const newPos = (oldPos + total) % BOARD_SIZE;
-  player.position = newPos;
+  const steps = total;
+  
+  for (let i = 1; i <= steps; i++) {
+    player.position = (oldPos + i) % BOARD_SIZE;
+    updateTokens();
+    highlightSpace(player.position);
+    await sleep(250);
+  }
+  
+  const newPos = player.position;
   
   // Check if passed START
-  if (newPos < oldPos) {
+  if (newPos < oldPos && steps > 0) {
     player.chips += PASS_GO_BONUS;
     addLog(`🏁 ${player.name} passed START! +${PASS_GO_BONUS} chips`, 'log-chip');
   }
