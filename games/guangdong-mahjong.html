@@ -495,8 +495,10 @@ function startTurn(pIdx) {
 }
 
 function doDiscard(pIdx, tileIdx) {
-    // 防止重复出牌
-    if (G.gameOver || G.players[pIdx].hand.length <= tileIdx) return;
+    // 多重防护：防止任何情况下重复出牌
+    if (G.gameOver) return;
+    if (G.players[pIdx].hand.length <= tileIdx) return;
+    if (G.players[pIdx].isAI && G.humanPhase !== 'waiting') return;
     
     const p = G.players[pIdx];
     const tile = p.hand.splice(tileIdx, 1)[0];
@@ -843,8 +845,10 @@ function onTileClick(idx) {
     // 只有当处于出牌阶段且轮到自己时才响应
     if (G.humanPhase !== 'select-discard' || G.cur !== 0) return;
 
-    // 双重保险：标记后立即锁定，防止快速点击
+    // 三重保险：立即锁定，防止任何重复出牌
     G.humanPhase = 'waiting';
+    G.discardLocked = true;
+    
     doDiscard(0, idx);
     hideActions();
 }
