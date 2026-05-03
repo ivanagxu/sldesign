@@ -203,6 +203,12 @@
     const roundedGeo = new RoundedBoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, 4, 0.08);
     const bodyMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.4, metalness: 0.05 });
 
+    // Add a solid core cube to fill the center — eliminates the hollow look
+    const coreGeo = new RoundedBoxGeometry(SPACING * 0.98, SPACING * 0.98, SPACING * 0.98, 4, 0.1);
+    const coreMat = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.5, metalness: 0.05 });
+    const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+    cubieGroup.add(coreMesh);
+
     function makeCubie(x, y, z) {
         const group = new THREE.Group();
         group.position.set(x * SPACING, y * SPACING, z * SPACING);
