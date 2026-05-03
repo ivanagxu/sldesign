@@ -624,6 +624,7 @@ function doPong(pIdx, tile, from) {
     if (p.isAI) {
         setTimeout(() => aiDiscard(), 500);
     } else {
+        G.cur = pIdx;
         G.humanPhase = 'select-discard';
         setSt('碰！摸牌后请点击手牌出牌');
     }
@@ -647,6 +648,7 @@ function doChow(pIdx, tile, from, chowTiles) {
     if (p.isAI) {
         setTimeout(() => aiDiscard(), 500);
     } else {
+        G.cur = pIdx;
         G.humanPhase = 'select-discard';
         setSt('吃！请点击手牌出牌');
     }
@@ -679,6 +681,7 @@ function doKong(pIdx, tile, from) {
     if (p.isAI) {
         setTimeout(() => aiDiscard(), 500);
     } else {
+        G.cur = pIdx;
         G.humanPhase = 'select-discard';
         setSt('杠！补牌后请出牌');
     }
