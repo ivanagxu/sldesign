@@ -371,8 +371,10 @@ const SPACES = [
   { name: 'Tax Refund', type: 'refund', icon: '💰' },
   { name: 'Property D', type: 'property', price: 250, rent: 60, icon: '🏡' },
   { name: 'Random', type: 'random', icon: '🎲' },
+  { name: 'Property F', type: 'property', price: 280, rent: 70, icon: '🏘️' },
   { name: 'Salary', type: 'salary', icon: '💵' },
   { name: 'Audit', type: 'audit', icon: '🔍' },
+  { name: 'Tax Refund', type: 'refund', icon: '💰' },
   { name: 'Property E', type: 'property', price: 350, rent: 90, icon: '🏗️' },
   { name: 'Income Tax', type: 'tax', icon: '💸' },
 ];
@@ -384,7 +386,7 @@ const PLAYERS = [
   { name: 'AI Carol', isAI: true, color: '#f39c12' },
 ];
 
-const BOARD_SIZE = 18;
+const BOARD_SIZE = 20;
 const INITIAL_CHIPS = 1000;
 const TOTAL_ROUNDS = 4;
 const SALARY_AMOUNT = 200;
@@ -465,8 +467,8 @@ function getBoardPositions() {
   for (let i = 0; i < 4; i++) positions.push([6, i + 2]);
   // Bottom row (right to left): 10-15
   for (let i = 0; i < 6; i++) positions.push([6 - i, 6]);
-  // Left column (bottom to top): 16-17
-  for (let i = 0; i < 2; i++) positions.push([1, 5 - i]);
+  // Left column (bottom to top): 16-19
+  for (let i = 0; i < 4; i++) positions.push([1, 5 - i]);
   return positions;
 }
 
