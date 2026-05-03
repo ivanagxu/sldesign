@@ -363,6 +363,7 @@ h1 {
     <div class="controls" id="controls">
       <button class="btn btn-play" id="btnPlay" disabled>出牌 (0)</button>
       <button class="btn btn-challenge" id="btnChallenge" style="display:none">🚨 LIAR!</button>
+      <button class="btn btn-play" id="btnPass" style="display:none;background:#555">⏩ 跳過</button>
     </div>
   </div>
 </div>
@@ -537,14 +538,6 @@ function nextAlivePlayer(from) {
   }
   return -1;
 }
-// Find next player who is alive AND still has cards
-function nextValidTurn(from) {
-  for (let i = 1; i <= 4; i++) {
-    const p = (from + i) % 4;
-    if (players[p].alive && hands[p].length > 0) return p;
-  }
-  return -1;
-}
 function isTableCard(c) {
   return c.isJoker || c.rank === tableCard;
 }
@@ -611,7 +604,7 @@ async function playerPlay() {
   render();
 
   // Pass to next player who still has cards
-  const next = nextValidTurn(0);
+  const next = nextAlivePlayer(0);
   if (next === -1) {
     startNewRound();
     return;
@@ -630,9 +623,8 @@ async function playerChallenge() {
 // ---- AI Logic ----
 async function aiTakeTurn(p) {
   if (!gameActive || !players[p].alive) {
-    // Skip dead AI, go to next
     const next = nextAlivePlayer(p);
-    if (next === -1 || checkGameOver()) return;
+    if (next === -1 || checkGameOver()) { if (gameActive) startNewRound(); return; }
     giveTurnTo(next);
     return;
   }
@@ -640,7 +632,18 @@ async function aiTakeTurn(p) {
   processingAI = true;
   render();
 
-  // If there's a current play, AI decides whether to challenge or play
+  // If AI has 0 cards and no current play, auto-pass
+  if (hands[p].length === 0 && !currentPlay) {
+    addLog(`🏅 ${players[p].name} 已無手牌，跳過！`, 'info');
+    await new Promise(r => setTimeout(r, 800));
+    const next = nextAlivePlayer(p);
+    if (next === -1 || checkGameOver()) { if (gameActive) startNewRound(); return; }
+    processingAI = false;
+    giveTurnTo(next);
+    return;
+  }
+
+  // If there's a current play, AI decides whether to challenge or play/pass
   if (currentPlay) {
     const decision = aiDecide(p);
     if (decision === 'challenge') {
@@ -648,16 +651,15 @@ async function aiTakeTurn(p) {
       await resolveChallenge(p, currentPlay.player);
       return;
     }
+    // AI passes challenge, turn goes to next
+    addLog(`👉 ${players[p].name} 選擇跳過`, 'info');
   }
 
-  // AI plays cards
+  // AI plays cards (if has any)
   if (hands[p].length === 0) {
-    addLog(`🏅 ${players[p].name} 已出完牌，跳過！`, 'info');
-    const next = nextValidTurn(p);
-    if (next === -1) {
-      startNewRound();
-      return;
-    }
+    // Already handled above, but fallback
+    const next = nextAlivePlayer(p);
+    if (next === -1 || checkGameOver()) { if (gameActive) startNewRound(); return; }
     processingAI = false;
     giveTurnTo(next);
     return;
@@ -666,7 +668,7 @@ async function aiTakeTurn(p) {
   const cards = aiChooseCards(p);
   if (!cards || cards.length === 0) {
     const next = nextAlivePlayer(p);
-    if (next === -1 || checkGameOver()) return;
+    if (next === -1 || checkGameOver()) { if (gameActive) startNewRound(); return; }
     processingAI = false;
     giveTurnTo(next);
     return;
@@ -688,12 +690,8 @@ async function aiTakeTurn(p) {
 
   render();
 
-  // Pass to next player who still has cards
-  const next = nextValidTurn(p);
-  if (next === -1) {
-    startNewRound();
-    return;
-  }
+  const next = nextAlivePlayer(p);
+  if (next === -1 || checkGameOver()) { if (gameActive) startNewRound(); return; }
 
   processingAI = false;
   setTimeout(() => giveTurnTo(next), 1200);
@@ -775,7 +773,7 @@ async function resolveChallenge(challengerIdx, liarIdx) {
   if (checkGameOver()) { processingAI = false; return; }
 
   // After challenge, turn passes to the next player with cards
-  const nextAfterChallenger = nextValidTurn(challengerIdx);
+  const nextAfterChallenger = nextAlivePlayer(challengerIdx);
   if (nextAfterChallenger === -1) {
     processingAI = false;
     startNewRound();
@@ -987,13 +985,17 @@ function renderPlayArea() {
 function renderControls() {
   const btnPlay = document.getElementById('btnPlay');
   const btnChallenge = document.getElementById('btnChallenge');
+  const btnPass = document.getElementById('btnPass');
 
   btnPlay.textContent = `出牌 (${selectedCards.size})`;
   btnPlay.disabled = !playerTurn || selectedCards.size === 0 || processingAI;
 
-  // Challenge button visible when it's player's turn AND there's a current play from someone else
   const canChallenge = playerTurn && currentPlay && currentPlay.player !== 0;
   btnChallenge.style.display = canChallenge ? '' : 'none';
+
+  // Show Pass button if human has 0 cards and needs to play/pass
+  const canPass = playerTurn && hands[0].length === 0 && !currentPlay;
+  btnPass.style.display = canPass ? '' : 'none';
 }
 
 function addLog(msg, cls) {
@@ -1020,6 +1022,14 @@ function showHitEffect(pIdx) {
 // ---- Event Listeners ----
 document.getElementById('btnPlay').onclick = playerPlay;
 document.getElementById('btnChallenge').onclick = playerChallenge;
+document.getElementById('btnPass').onclick = () => {
+  if (!playerTurn || hands[0].length > 0) return;
+  addLog('👉 你選擇跳過', 'info');
+  playerTurn = false;
+  const next = nextAlivePlayer(0);
+  if (next === -1 || checkGameOver()) { if (gameActive) startNewRound(); return; }
+  giveTurnTo(next);
+};
 
 // ---- Start ----
 startGame();
