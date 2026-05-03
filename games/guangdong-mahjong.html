@@ -509,11 +509,11 @@ function doDiscard(pIdx, tileIdx) {
     render();
     setSt('等待响应...');
 
-    // 加延迟让浏览器渲染，避免瞬间连出多张牌
+    // 出牌后加延迟，让浏览器有时间渲染，再检查响应
     setTimeout(() => {
-        G.discardLocked = false;  // 出牌完成后解锁
+        G.discardLocked = false;
         checkResponses(tile, pIdx);
-    }, pIdx === 0 ? 300 : 200);
+    }, 500);  // 统一延迟，让玩家看清谁出了什么牌
 }
 
 function checkResponses(tile, from) {
