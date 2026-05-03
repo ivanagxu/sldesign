@@ -66,6 +66,11 @@
         .mid-btn:hover { border-color: #f59e0b; }
         .mid-btn span { color: #fbbf24; }
 
+        .dir-btn { width: 72px; height: 42px; font-weight: 700; font-size: 14px; }
+        .dir-btn.active { border-color: #10b981; background: linear-gradient(145deg, #065f46, #064e3b); }
+        .dir-btn.active span, .dir-btn { color: #10b981; }
+        .dir-btn:not(.active) { opacity: 0.5; }
+
         #action-buttons { display: flex; gap: 12px; margin-top: 12px; }
         .action-btn {
             padding: 10px 22px; border: none; border-radius: 10px;
@@ -105,6 +110,11 @@
         <div id="canvas-container"><canvas id="cube-canvas"></canvas></div>
         <div id="face-label"></div>
         <div id="controls">
+            <!-- 方向切换 -->
+            <div class="controls-row" id="dir-buttons">
+                <button class="arrow-btn dir-btn dir-cw active" id="dir-cw" title="顺时针">↻ CW</button>
+                <button class="arrow-btn dir-btn dir-ccw" id="dir-ccw" title="逆时针">↺ CCW</button>
+            </div>
             <!-- 外层 -->
             <div class="controls-row">
                 <button class="arrow-btn" data-face="U" title="顶面顺时针">
@@ -147,7 +157,7 @@
                 </button>
             </div>
         </div>
-        <div class="hint">拖拽旋转视角 360° • 箭头按钮旋转魔方面</div>
+        <div class="hint">拖拽旋转视角 360° • CW/CCW 切换方向 • 箭头按钮旋转魔方面</div>
         <div id="action-buttons">
             <button class="action-btn" id="scramble-btn">🔀 打乱</button>
             <button class="action-btn" id="reset-btn">↺ 重置</button>
@@ -299,19 +309,21 @@
         M: new THREE.Vector3(-1,0,0), E: new THREE.Vector3(0,-1,0), S: new THREE.Vector3(0,0,1),
     };
 
-    let isAnimating = false, moveCount = 0;
+    let isAnimating = false, moveCount = 0, clockwise = true;
 
-    function rotateFace(face, animate = true, duration = 300) {
+    function rotateFace(face, animate = true, duration = 300, cw = true) {
         return new Promise((resolve) => {
             const axis = FACE_AXIS[face];
             const group = getCubiesForFace(face);
             if (!group.length) { resolve(); return; }
 
+            const angle = cw ? Math.PI/2 : -Math.PI/2;
+
             if (!animate) {
                 const pivot = new THREE.Group();
                 cubieGroup.add(pivot);
                 group.forEach(c => { cubieGroup.remove(c.group); pivot.add(c.group); });
-                pivot.rotation.setFromAxisAngle(axis, Math.PI/2);
+                pivot.rotation.setFromAxisAngle(axis, angle);
                 pivot.updateMatrixWorld(true);
                 group.forEach(c => {
                     const wp = new THREE.Vector3(), wq = new THREE.Quaternion();
@@ -334,7 +346,7 @@
             group.forEach(c => { cubieGroup.remove(c.group); pivot.add(c.group); });
 
             const startQ = pivot.quaternion.clone();
-            const targetQ = startQ.clone().multiply(new THREE.Quaternion().setFromAxisAngle(axis, Math.PI/2));
+            const targetQ = startQ.clone().multiply(new THREE.Quaternion().setFromAxisAngle(axis, angle));
             const t0 = performance.now();
 
             function step(now) {
@@ -364,14 +376,28 @@
     }
 
     const faceLabel = document.getElementById('face-label');
-    document.querySelectorAll('.arrow-btn').forEach(btn => {
+
+    // Direction toggle buttons
+    document.getElementById('dir-cw').addEventListener('click', () => {
+        clockwise = true;
+        document.getElementById('dir-cw').classList.add('active');
+        document.getElementById('dir-ccw').classList.remove('active');
+    });
+    document.getElementById('dir-ccw').addEventListener('click', () => {
+        clockwise = false;
+        document.getElementById('dir-ccw').classList.add('active');
+        document.getElementById('dir-cw').classList.remove('active');
+    });
+
+    document.querySelectorAll('.arrow-btn[data-face]').forEach(btn => {
         btn.addEventListener('click', async () => {
             if (isAnimating) return;
             const face = btn.dataset.face;
-            faceLabel.textContent = FACE_NAMES[face];
+            const dir = clockwise ? '顺时针' : '逆时针';
+            faceLabel.textContent = FACE_NAMES[face] + ' ' + dir;
             moveCount++;
             document.getElementById('move-count').textContent = moveCount;
-            await rotateFace(face, true, 280);
+            await rotateFace(face, true, 280, clockwise);
             checkWin();
         });
     });
@@ -386,7 +412,8 @@
         for (let i = 0; i < 20; i++) {
             let f; do { f = faces[Math.floor(Math.random()*9)]; } while (f === last);
             last = f;
-            await rotateFace(f, true, 100);
+            const cw = Math.random() < 0.5;
+            await rotateFace(f, true, 100, cw);
         }
         faceLabel.textContent = '';
     }
