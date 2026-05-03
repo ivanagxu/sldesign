@@ -8,7 +8,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
   font-family: -apple-system, 'Microsoft JhengHei', sans-serif;
-  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+  background: linear-gradient(135deg, #1a0a0a, #2d1515, #1a0a0a);
   color: #fff;
   min-height: 100vh;
   overflow-x: hidden;
@@ -21,33 +21,42 @@ body {
   min-height: 100vh;
   position: relative;
 }
+
+/* --- Title Bar --- */
+.title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
 h1 {
-  text-align: center;
-  font-size: 28px;
-  margin-bottom: 4px;
-  background: linear-gradient(90deg, #ffd700, #ff6b6b);
+  font-size: 22px;
+  background: linear-gradient(90deg, #ff4444, #ffd700);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: none;
 }
-.subtitle {
+.table-card-display {
+  background: rgba(255,68,68,0.2);
+  border: 2px solid #ff4444;
+  border-radius: 12px;
+  padding: 6px 14px;
   text-align: center;
-  font-size: 12px;
-  color: #8899aa;
-  margin-bottom: 12px;
+  font-size: 14px;
 }
+.table-card-display .label { font-size: 10px; color: #aaa; }
+.table-card-display .card { font-size: 22px; font-weight: bold; color: #ff4444; }
 
 /* --- Opponents --- */
 .opponents {
   display: flex;
   justify-content: space-around;
   margin-bottom: 10px;
-  gap: 8px;
+  gap: 6px;
 }
 .opponent {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.06);
   border-radius: 14px;
-  padding: 10px 8px;
+  padding: 10px 6px;
   text-align: center;
   flex: 1;
   position: relative;
@@ -62,65 +71,46 @@ h1 {
   animation: hitShake 0.5s ease;
   background: rgba(255,50,50,0.35);
 }
-.opponent-name {
-  font-size: 13px;
-  font-weight: bold;
-  margin-bottom: 4px;
-}
-.opponent-hp {
-  display: flex;
-  justify-content: center;
-  gap: 3px;
-  margin-bottom: 4px;
-}
-.hp-heart {
-  font-size: 14px;
-  transition: all 0.3s;
-}
-.hp-heart.lost {
-  opacity: 0.2;
+.opponent.dead {
+  opacity: 0.3;
   filter: grayscale(1);
 }
-.opponent-cards-info {
-  font-size: 11px;
-  color: #aabbcc;
-}
-.opponent-claim {
-  font-size: 11px;
-  color: #ffd700;
-  margin-top: 4px;
-  min-height: 16px;
-}
+.opponent-name { font-size: 13px; font-weight: bold; margin-bottom: 2px; }
 
-/* --- Game Info --- */
-.game-info {
-  background: rgba(255,215,0,0.12);
-  border: 1px solid rgba(255,215,0,0.35);
-  border-radius: 14px;
-  padding: 12px;
-  text-align: center;
-  margin-bottom: 12px;
-}
-.challenge-type {
-  font-size: 18px;
+/* Revolver */
+.revolver {
+  font-size: 12px;
+  color: #ff6b6b;
+  margin-bottom: 4px;
   font-weight: bold;
 }
-.challenge-type span {
-  font-size: 24px;
-  vertical-align: middle;
+.revolver-bar {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+  margin-top: 2px;
 }
-.round-info {
-  font-size: 12px;
-  color: #99aabb;
-  margin-top: 4px;
+.chamber {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid #555;
+  background: #333;
+  transition: background 0.3s;
 }
+.chamber.fired { background: #ff4444; border-color: #ff4444; }
+.chamber.live { background: #ffd700; border-color: #ffd700; }
+
+.opponent-cards-info { font-size: 10px; color: #888; }
+.opponent-claim { font-size: 10px; color: #ffd700; margin-top: 4px; min-height: 14px; }
+.opponent-winner { font-size: 10px; color: #4caf50; margin-top: 2px; }
 
 /* --- Play Area --- */
 .play-area {
-  background: rgba(0,0,0,0.25);
+  background: rgba(0,0,0,0.35);
   border-radius: 16px;
-  padding: 14px;
-  min-height: 110px;
+  padding: 16px;
+  min-height: 130px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -130,36 +120,34 @@ h1 {
 }
 .play-cards {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   flex-wrap: wrap;
   justify-content: center;
 }
 .play-card {
-  width: 48px;
-  height: 68px;
-  background: linear-gradient(145deg, #c62828, #b71c1c);
-  border-radius: 6px;
+  width: 50px;
+  height: 72px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
-  color: #ffd700;
-  border: 2px solid #e53935;
-  box-shadow: 2px 3px 8px rgba(0,0,0,0.4);
   animation: dealCard 0.35s ease-out;
+}
+.play-card.facedown {
+  background: linear-gradient(145deg, #8b0000, #5c0000);
+  border: 2px solid #a00;
+  box-shadow: 2px 3px 10px rgba(0,0,0,0.5);
+  font-size: 20px;
+  color: #ffd700;
 }
 .play-card.revealed {
   background: #fff;
-  border-color: #ccc;
+  border: 2px solid #ccc;
   flex-direction: column;
+  box-shadow: 2px 3px 10px rgba(0,0,0,0.3);
 }
-.play-card.revealed .rank {
-  font-size: 18px;
-  font-weight: bold;
-}
-.play-card.revealed .suit {
-  font-size: 14px;
-}
+.play-card.revealed .rank { font-size: 18px; font-weight: bold; }
+.play-card.revealed .suit { font-size: 14px; }
 .play-card.revealed.is-joker {
   background: linear-gradient(135deg, #ff6f00, #ff8f00);
   color: #fff;
@@ -169,11 +157,14 @@ h1 {
   font-size: 13px;
   color: #ffd700;
   margin-top: 10px;
+  text-align: center;
 }
-.play-empty {
-  color: #556677;
-  font-size: 13px;
+.play-count {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 4px;
 }
+.play-empty { color: #556; font-size: 13px; }
 
 /* --- Player Hand --- */
 .player-section {
@@ -207,8 +198,8 @@ h1 {
   align-items: center;
 }
 .card {
-  width: 56px;
-  height: 80px;
+  width: 58px;
+  height: 82px;
   background: linear-gradient(145deg, #f5f5f5, #e0e0e0);
   border-radius: 8px;
   display: flex;
@@ -221,26 +212,13 @@ h1 {
   border: 2px solid #bbb;
   position: relative;
 }
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-}
+.card:hover { transform: translateY(-8px); box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
 .card.selected {
   transform: translateY(-14px);
   border-color: #ffd700;
   box-shadow: 0 0 15px rgba(255,215,0,0.5);
 }
-.card.disabled {
-  opacity: 0.5;
-  pointer-events: none;
-}
-.card .rank {
-  font-size: 20px;
-  font-weight: bold;
-}
-.card .suit {
-  font-size: 16px;
-}
+.card.disabled { opacity: 0.5; pointer-events: none; }
 .card.is-joker {
   background: linear-gradient(135deg, #ff6f00, #e65100);
   color: #fff;
@@ -249,6 +227,8 @@ h1 {
 .card.is-joker .rank { font-size: 14px; }
 .card.red { color: #c62828; }
 .card.black { color: #263238; }
+.card .rank { font-size: 22px; font-weight: bold; }
+.card .suit { font-size: 16px; }
 
 /* --- Controls --- */
 .controls {
@@ -268,26 +248,13 @@ h1 {
   font-family: inherit;
 }
 .btn:active { transform: scale(0.95); }
-.btn-play {
-  background: linear-gradient(135deg, #43a047, #2e7d32);
-  color: #fff;
-}
-.btn-challenge {
-  background: linear-gradient(135deg, #e53935, #c62828);
-  color: #fff;
-}
-.btn:disabled {
-  opacity: 0.4;
-  pointer-events: none;
-}
-.btn-start {
-  background: linear-gradient(135deg, #ffd700, #ff8f00);
-  color: #1a1a2e;
-  padding: 14px 36px;
-  font-size: 18px;
-}
+.btn-play { background: linear-gradient(135deg, #43a047, #2e7d32); color: #fff; }
+.btn-challenge { background: linear-gradient(135deg, #e53935, #b71c1c); color: #fff; }
+.btn:disabled { opacity: 0.4; pointer-events: none; }
+.btn-start { background: linear-gradient(135deg, #ffd700, #ff8f00); color: #1a1a2e; padding: 14px 36px; font-size: 18px; }
+.btn-challenge { animation: pulse 1.2s infinite; }
 
-/* --- Message Log --- */
+/* --- Log --- */
 .log {
   margin-bottom: 12px;
   max-height: 100px;
@@ -296,13 +263,11 @@ h1 {
   color: #99aabb;
   padding: 6px;
 }
-.log p {
-  margin-bottom: 3px;
-  line-height: 1.4;
-}
+.log p { margin-bottom: 3px; line-height: 1.4; }
 .log .damage { color: #ff5252; }
 .log .info { color: #64b5f6; }
 .log .claim { color: #ffd700; }
+.log .reveal { color: #ff9800; }
 
 /* --- Game Over --- */
 .game-over {
@@ -318,14 +283,32 @@ h1 {
   animation: fadeIn 0.5s ease;
 }
 .game-over.show { display: flex; }
-.game-over h2 {
-  font-size: 36px;
-  margin-bottom: 10px;
-}
+.game-over h2 { font-size: 36px; margin-bottom: 10px; }
 .game-over .winner { color: #ffd700; }
 .game-over .loser { color: #ff5252; }
 
-/* --- Animations --- */
+/* --- Shooting Animation --- */
+.shoot-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(180,0,0,0.6);
+  z-index: 90;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.shoot-overlay.show { display: flex; animation: fadeIn 0.2s ease; }
+.shoot-text {
+  font-size: 48px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 30px #ff0000;
+  animation: shootFlash 0.5s ease;
+}
+.shoot-survive { color: #4caf50; }
+.shoot-die { color: #ff0000; }
+
 @keyframes dealCard {
   from { transform: scale(0.5) rotate(-10deg); opacity: 0; }
   to { transform: scale(1) rotate(0); opacity: 1; }
@@ -337,32 +320,33 @@ h1 {
   60% { transform: translateX(-5px); }
   80% { transform: translateX(5px); }
 }
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes pulse {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  50% { transform: scale(1.08); }
 }
-.btn-challenge { animation: pulse 1.2s infinite; }
+@keyframes shootFlash {
+  0% { transform: scale(2); opacity: 0; }
+  50% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
 
-/* Scrollbar */
 .log::-webkit-scrollbar { width: 4px; }
 .log::-webkit-scrollbar-thumb { background: #445; border-radius: 2px; }
 </style>
 </head>
 <body>
 <div class="container">
-  <h1>🃏 Liar's Deck</h1>
-  <div class="subtitle">4人吹牛遊戲 ｜ 3顆❤ 活到最后</div>
+  <div class="title-bar">
+    <h1>🃏 Liar's Deck</h1>
+    <div class="table-card-display">
+      <div class="label">Table Card</div>
+      <div class="card" id="tableCardDisplay">—</div>
+    </div>
+  </div>
+  <div class="subtitle" style="text-align:center;font-size:11px;color:#666;margin-bottom:10px;">左輪手槍 · 1發實彈 · 吹牛求生</div>
 
   <div class="opponents" id="opponents"></div>
-
-  <div class="game-info">
-    <div class="challenge-type" id="challengeType"></div>
-    <div class="round-info" id="roundInfo"></div>
-  </div>
 
   <div class="play-area" id="playArea">
     <div class="play-empty" id="playEmpty">等待第一手出牌...</div>
@@ -373,14 +357,18 @@ h1 {
   <div class="player-section" id="playerSection">
     <div class="player-label">
       <span>👤 你 <span id="playerCardCount"></span></span>
-      <div class="opponent-hp" id="playerHp"></div>
+      <div class="revolver" id="playerRevolver"></div>
     </div>
     <div class="hand" id="hand"></div>
     <div class="controls" id="controls">
       <button class="btn btn-play" id="btnPlay" disabled>出牌 (0)</button>
-      <button class="btn btn-challenge" id="btnChallenge" style="display:none">🚨 質疑！</button>
+      <button class="btn btn-challenge" id="btnChallenge" style="display:none">🚨 LIAR!</button>
     </div>
   </div>
+</div>
+
+<div class="shoot-overlay" id="shootOverlay">
+  <div class="shoot-text" id="shootText"></div>
 </div>
 
 <div class="game-over" id="gameOver">
@@ -391,29 +379,34 @@ h1 {
 
 <script>
 const RANKS = ['Q', 'K', 'A'];
-const SUITS = ['♠', '♥', '♣', '♦'];
-const MAX_HP = 3;
-const HAND_SIZE = 3;
+const WILDCARD = 'J';
+const MAX_CHAMBERS = 6;
+const HAND_SIZE = 5;
 const MAX_PLAY = 3;
 
 let deck = [], players = [], hands = [];
-let challengeRank = '';
-let currentPlay = null; // { player, cards, claim }
+let tableCard = '';
+let currentPlay = null;
 let selectedCards = new Set();
 let roundNumber = 0;
-let turnQueue = []; // AI turns to process
 let gameActive = false;
 let playerTurn = false;
+let processingAI = false;
 
-// ---- Deck ----
+// ---- Deck Creation ----
 function createDeck() {
   let d = [];
-  for (const r of RANKS)
-    for (const s of SUITS)
-      d.push({ rank: r, suit: s, isJoker: false });
-  d.push({ rank: 'Joker', suit: '🌟', isJoker: true });
-  d.push({ rank: 'Joker', suit: '🌟', isJoker: true });
-  return d;
+  // Q×6, K×6, A×6
+  for (const r of RANKS) {
+    for (let i = 0; i < 6; i++) {
+      d.push({ rank: r, suit: '', isJoker: false, id: `${r}_${i}` });
+    }
+  }
+  // J×2 (wildcards)
+  for (let i = 0; i < 2; i++) {
+    d.push({ rank: WILDCARD, suit: '★', isJoker: true, id: `J_${i}` });
+  }
+  return d; // 20 cards total
 }
 
 function shuffle(d) {
@@ -429,10 +422,10 @@ function startGame() {
   document.getElementById('gameOver').classList.remove('show');
   deck = shuffle(createDeck());
   players = [
-    { name: '你', hp: MAX_HP, isHuman: true },
-    { name: 'Alice', hp: MAX_HP, isHuman: false },
-    { name: 'Bob', hp: MAX_HP, isHuman: false },
-    { name: 'Charlie', hp: MAX_HP, isHuman: false }
+    { name: '你', hp: 0, isHuman: true, alive: true, bulletPos: 0 },
+    { name: 'Alice', hp: 0, isHuman: false, alive: true, bulletPos: 0 },
+    { name: 'Bob', hp: 0, isHuman: false, alive: true, bulletPos: 0 },
+    { name: 'Charlie', hp: 0, isHuman: false, alive: true, bulletPos: 0 }
   ];
   hands = [[], [], [], []];
   selectedCards.clear();
@@ -440,13 +433,21 @@ function startGame() {
   currentPlay = null;
   gameActive = true;
   playerTurn = false;
+  processingAI = false;
 
-  // Deal 3 to each (12 cards), 2 left in deck
+  // Assign random bullet positions
+  for (let p = 0; p < 4; p++) {
+    players[p].bulletPos = Math.floor(Math.random() * MAX_CHAMBERS) + 1; // 1-6
+    players[p].hp = 0;
+    players[p].alive = true;
+  }
+
+  // Deal 5 cards each (20 total)
   for (let i = 0; i < HAND_SIZE; i++)
     for (let p = 0; p < 4; p++)
-      hands[p].push(deck.pop());
+      if (deck.length > 0) hands[p].push(deck.pop());
 
-  addLog('🎮 遊戲開始！每人發 ' + HAND_SIZE + ' 張牌', 'info');
+  addLog('🎮 遊戲開始！每人發 5 張牌，左輪已裝彈（1發實彈，位置隨機）', 'info');
   startNewRound();
 }
 
@@ -455,51 +456,81 @@ function startNewRound() {
   roundNumber++;
   currentPlay = null;
   selectedCards.clear();
-  challengeRank = RANKS[Math.floor(Math.random() * RANKS.length)];
+  tableCard = RANKS[Math.floor(Math.random() * RANKS.length)];
 
-  // Refill hands from deck
-  for (let p = 0; p < 4; p++) {
-    while (hands[p].length < HAND_SIZE && deck.length > 0) {
-      hands[p].push(deck.pop());
-    }
-  }
+  document.getElementById('tableCardDisplay').textContent = tableCard;
 
-  document.getElementById('challengeType').innerHTML =
-    `本輪真牌：<span>${challengeRank}</span>`;
-  document.getElementById('roundInfo').textContent =
-    `第 ${roundNumber} 輪 ｜ 牌堆剩 ${deck.length} 張`;
-
-  addLog(`━━━ 第${roundNumber}輪：真牌是 ${challengeRank} ━━━`, 'info');
+  addLog(`━━━ 第${roundNumber}輪：Table 牌是 ${tableCard} ━━━`, 'info');
   document.getElementById('playEmpty').style.display = '';
   document.getElementById('playArea').querySelector('.play-cards')?.remove();
   document.getElementById('playArea').querySelector('.play-claim')?.remove();
+  document.getElementById('playArea').querySelector('.play-count')?.remove();
 
   render();
 
-  // Human goes first each round
+  // Check who goes first (first alive player after previous round's end)
+  // For simplicity, human always starts each round
   playerTurn = true;
+  processingAI = false;
   document.getElementById('btnChallenge').style.display = 'none';
-  addLog('輪到你了！請出牌', 'info');
+  addLog('輪到你了！出 1-3 張牌（聲稱為 ' + tableCard + '）', 'info');
   render();
 }
 
 // ---- Helpers ----
 function cardName(c) {
-  return c.isJoker ? '🃏Joker' : c.rank + c.suit;
+  return c.isJoker ? '🃏Joker' : c.rank;
 }
-function nextPlayer(p) { return (p + 1) % 4; }
-
-function countRankInHand(p, rank) {
-  return hands[p].filter(c => c.rank === rank || c.isJoker).length;
+function cardDisplay(c) {
+  return c.isJoker ? 'J★' : c.rank;
+}
+function nextAlivePlayer(from) {
+  for (let i = 1; i <= 4; i++) {
+    const p = (from + i) % 4;
+    if (players[p].alive) return p;
+  }
+  return -1;
+}
+function isTableCard(c) {
+  return c.isJoker || c.rank === tableCard;
 }
 
-function isTruthCard(c, rank) {
-  return c.isJoker || c.rank === rank;
+function countTableInHand(p) {
+  return hands[p].filter(c => isTableCard(c)).length;
+}
+
+// ---- Shooting ----
+async function triggerShot(playerIdx) {
+  const p = players[playerIdx];
+  p.hp++;
+
+  const overlay = document.getElementById('shootOverlay');
+  const text = document.getElementById('shootText');
+
+  overlay.classList.add('show');
+
+  if (p.hp >= p.bulletPos) {
+    // LETHAL
+    text.className = 'shoot-text shoot-die';
+    text.innerHTML = `💀 ${p.name}<br>中彈！`;
+    p.alive = false;
+    addLog(`💀 ${p.name} 第 ${p.hp} 槍 — 實彈！中彈陣亡！`, 'damage');
+    showHitEffect(playerIdx);
+  } else {
+    // SURVIVE
+    text.className = 'shoot-text shoot-survive';
+    text.innerHTML = `🔫 ${p.name}<br>空槍... (${p.hp}/${MAX_CHAMBERS})`;
+    addLog(`🔫 ${p.name} 第 ${p.hp} 槍 — 空槍！(${p.hp}/${MAX_CHAMBERS})`, 'damage');
+  }
+
+  await new Promise(r => setTimeout(r, 1200));
+  overlay.classList.remove('show');
+  render();
 }
 
 // ---- Player Actions ----
 function toggleCard(idx) {
-  if (!playerTurn || !gameActive) return;
+  if (!playerTurn || !gameActive || processingAI) return;
   if (selectedCards.has(idx)) {
     selectedCards.delete(idx);
   } else if (selectedCards.size < MAX_PLAY) {
@@ -508,136 +539,161 @@ function toggleCard(idx) {
   render();
 }
 
-function playerPlay() {
+async function playerPlay() {
   if (!playerTurn || selectedCards.size === 0) return;
   const cards = [...selectedCards].map(i => hands[0][i]);
-  const claim = challengeRank;
+  currentPlay = { player: 0, cards, claim: tableCard };
 
-  currentPlay = { player: 0, cards, claim };
-
-  // Remove from hand (reverse order to preserve indices)
+  // Remove from hand
   [...selectedCards].sort((a,b) => b-a).forEach(i => hands[0].splice(i, 1));
   selectedCards.clear();
   playerTurn = false;
 
-  addLog(`👤 你出了 ${cards.length} 張牌，聲稱是 ${claim}`, 'claim');
-  addLog(`  → ${cards.map(cardName).join(', ')}`, '');
-
+  addLog(`👤 你出了 ${cards.length} 張牌`, 'claim');
   render();
 
-  // Pass to next AI
-  setTimeout(() => processNextAI(1), 800);
-}
+  // Check if player has no cards left
+  if (hands[0].length === 0) {
+    addLog('👤 你出完了所有牌！等待下家是否質疑...', 'info');
+  }
 
-function playerChallenge() {
-  if (!playerTurn || !currentPlay || currentPlay.player === 0) return;
-  resolveChallenge(0, currentPlay.player);
-}
-
-// ---- AI Logic ----
-function processNextAI(fromPlayer) {
-  if (!gameActive) return;
-
-  const p = fromPlayer;
-
-  // Check if all non-liar players are alive
-  const alive = players.filter((pl, i) => pl.hp > 0);
-  if (alive.length <= 1 && gameActive) {
+  // Pass to next alive AI
+  const next = nextAlivePlayer(0);
+  if (next === -1) {
     endGame();
     return;
   }
 
-  // If this player is dead, skip
-  if (players[p].hp <= 0) {
-    const next = nextPlayer(p);
-    // If we've gone full circle, start new round
-    if (currentPlay === null || next === 0) {
-      // Check if we should start new round
-      if (currentPlay !== null && next === 0) {
-        // Back to human, give them challenge option
-        playerTurn = true;
-        document.getElementById('btnChallenge').style.display = '';
-        render();
-        return;
-      }
-      startNewRound();
+  await new Promise(r => setTimeout(r, 600));
+  processNextAI(next);
+}
+
+async function playerChallenge() {
+  if (!playerTurn || !currentPlay) return;
+  playerTurn = false;
+  processingAI = true;
+  document.getElementById('btnChallenge').style.display = 'none';
+  await resolveChallenge(0, currentPlay.player);
+}
+
+// ---- AI Logic ----
+async function processNextAI(fromPlayer) {
+  if (!gameActive || processingAI) return;
+  processingAI = true;
+
+  const p = fromPlayer;
+
+  // If player is dead, skip
+  if (!players[p].alive) {
+    const next = nextAlivePlayer(p);
+    if (next === -1) { endGame(); return; }
+    if (next === 0) {
+      playerTurn = true;
+      processingAI = false;
+      document.getElementById('btnChallenge').style.display = currentPlay ? '' : 'none';
+      render();
       return;
     }
     setTimeout(() => processNextAI(next), 300);
     return;
   }
 
-  // AI decides: challenge or play
   const decision = aiDecide(p);
 
   if (decision === 'challenge') {
-    resolveChallenge(p, currentPlay.player);
-  } else {
-    // Play cards
-    const cards = decision.cards;
-    const claim = challengeRank;
+    await resolveChallenge(p, currentPlay.player);
+    return;
+  }
 
-    currentPlay = { player: p, cards, claim };
-
-    // Remove from hand
-    for (const c of cards) {
-      const idx = hands[p].findIndex(h => h === c);
-      if (idx >= 0) hands[p].splice(idx, 1);
-    }
-
-    addLog(`🤖 ${players[p].name} 出了 ${cards.length} 張牌，聲稱是 ${claim}`, 'claim');
-    render();
-
-    const next = nextPlayer(p);
-
-    // If next is human, give them the turn
+  // Play cards
+  const cards = decision.cards;
+  if (!cards || cards.length === 0) {
+    // AI has no cards, skip to next
+    const next = nextAlivePlayer(p);
+    if (next === -1) { endGame(); return; }
     if (next === 0) {
       playerTurn = true;
-      document.getElementById('btnChallenge').style.display = '';
+      processingAI = false;
+      document.getElementById('btnChallenge').style.display = currentPlay ? '' : 'none';
       render();
       return;
     }
-
-    // Otherwise continue to next AI
-    setTimeout(() => processNextAI(next), 1000);
+    setTimeout(() => processNextAI(next), 300);
+    return;
   }
+
+  currentPlay = { player: p, cards, claim: tableCard };
+
+  // Remove from hand
+  for (const c of cards) {
+    const idx = hands[p].findIndex(h => h === c);
+    if (idx >= 0) hands[p].splice(idx, 1);
+  }
+
+  addLog(`🤖 ${players[p].name} 出了 ${cards.length} 張牌`, 'claim');
+
+  if (hands[p].length === 0) {
+    addLog(`🤖 ${players[p].name} 出完了所有牌！`, 'info');
+  }
+
+  render();
+
+  const next = nextAlivePlayer(p);
+  if (next === -1) { endGame(); return; }
+
+  // If next is human
+  if (next === 0) {
+    playerTurn = true;
+    processingAI = false;
+    document.getElementById('btnChallenge').style.display = '';
+    render();
+    return;
+  }
+
+  // Continue to next AI
+  await new Promise(r => setTimeout(r, 1000));
+  processNextAI(next);
 }
 
 function aiDecide(p) {
-  // If no play yet (shouldn't happen for AI), must play
   if (!currentPlay) {
-    return { action: 'play', cards: aiChooseCards(p, true) };
+    // Must play
+    return { action: 'play', cards: aiChooseCards(p) };
   }
 
-  // Calculate lie probability
+  // Challenge probability based on number of cards and held table cards
   const numPlayed = currentPlay.cards.length;
-  const held = countRankInHand(p, challengeRank);
-  const possible = Math.min(numPlayed, RANKS.length * SUITS.length + 2 - held);
-  const lieProb = numPlayed > 2 ? 0.75 : (numPlayed === 2 ? 0.5 : 0.3);
-  const adjusted = Math.min(0.9, lieProb + held * 0.1);
+  const held = countTableInHand(p);
 
-  // Challenge if suspicious
-  if (Math.random() < adjusted) {
+  // Base lie probability estimation
+  let lieProb = numPlayed >= 3 ? 0.65 : (numPlayed === 2 ? 0.40 : 0.25);
+  // Adjust: more table cards in hand = more suspicious of others
+  lieProb += held * 0.08;
+  lieProb = Math.min(0.85, lieProb);
+
+  if (Math.random() < lieProb) {
     return 'challenge';
   }
 
-  // Otherwise play cards
   return { action: 'play', cards: aiChooseCards(p) };
 }
 
-function aiChooseCards(p, mustPlay) {
+function aiChooseCards(p) {
   const hand = hands[p];
-  const matching = hand.filter(c => isTruthCard(c, challengeRank));
-  const bluff = Math.random() < 0.25 && matching.length > 0 && hand.length > 1;
+  if (hand.length === 0) return [];
+
+  const matching = hand.filter(c => isTableCard(c));
+  const nonMatching = hand.filter(c => !isTableCard(c));
+
+  // AI mostly tells truth but sometimes bluffs
+  const bluff = Math.random() < 0.25;
 
   if (matching.length > 0 && !bluff) {
     const count = Math.min(MAX_PLAY, matching.length, 1 + Math.floor(Math.random() * 2));
-    const chosen = matching.slice(0, count);
-    return chosen.length > 0 ? chosen : [hand[0]];
+    return matching.slice(0, count);
   }
 
-  // Bluff: play non-matching
-  const nonMatching = hand.filter(c => !isTruthCard(c, challengeRank));
+  // Bluff
   if (nonMatching.length > 0) {
     const count = Math.min(MAX_PLAY, nonMatching.length);
     return nonMatching.slice(0, count);
@@ -645,73 +701,82 @@ function aiChooseCards(p, mustPlay) {
 
   // Must play truth
   if (matching.length > 0) return [matching[0]];
-
-  // Only jokers left
-  return hand.length > 0 ? [hand[0]] : [];
+  return [hand[0]];
 }
 
 // ---- Challenge Resolution ----
-function resolveChallenge(challengerIdx, liarIdx) {
+async function resolveChallenge(challengerIdx, liarIdx) {
   const play = currentPlay;
-  if (!play) return;
+  if (!play) { processingAI = false; return; }
 
-  const allTruth = play.cards.every(c => isTruthCard(c, play.claim));
+  const allTruth = play.cards.every(c => isTableCard(c));
+
+  // Reveal cards
+  addLog(`🚨 ${players[challengerIdx].name} 質疑！開牌：${play.cards.map(c => c.isJoker ? 'Joker★' : c.rank).join(', ')}`, 'reveal');
+
+  // Show revealed cards in play area
+  renderRevealed(play);
+
+  await new Promise(r => setTimeout(r, 800));
 
   if (allTruth) {
-    // Challenge failed -> challenger takes damage
-    players[challengerIdx].hp--;
-    addLog(`🚨 ${players[challengerIdx].name} 質疑失敗！開牌：${play.cards.map(cardName).join(', ')} ✅ 全是 ${play.claim}！`, 'damage');
-    addLog(`💔 ${players[challengerIdx].name} 扣 1 ❤️ (剩 ${players[challengerIdx].hp})`, 'damage');
-    showHitEffect(challengerIdx);
+    // Challenge failed -> challenger takes shot
+    addLog(`✅ 全是 ${tableCard}！質疑失敗！${players[challengerIdx].name} 吃槍！`, 'damage');
+    await triggerShot(challengerIdx);
   } else {
-    // Challenge success -> liar takes damage
-    players[liarIdx].hp--;
-    addLog(`🚨 ${players[challengerIdx].name} 質疑成功！開牌：${play.cards.map(cardName).join(', ')} ❌ 不是 ${play.claim}！`, 'damage');
-    addLog(`💔 ${players[liarIdx].name} 扣 1 ❤️ (剩 ${players[liarIdx].hp})`, 'damage');
-    showHitEffect(liarIdx);
+    // Challenge success -> liar takes shot
+    addLog(`❌ 不是 ${tableCard}！質疑成功！${players[liarIdx].name} 吃槍！`, 'damage');
+    await triggerShot(liarIdx);
   }
 
   currentPlay = null;
   render();
 
   // Check game over
-  if (checkGameOver()) return;
+  if (checkGameOver()) { processingAI = false; return; }
 
-  // Start new round after delay
-  setTimeout(() => {
-    if (gameActive) startNewRound();
-  }, 1500);
+  // Start new round
+  await new Promise(r => setTimeout(r, 1000));
+  if (gameActive) startNewRound();
+  processingAI = false;
 }
 
-function showHitEffect(pIdx) {
-  setTimeout(() => {
-    const el = pIdx === 0
-      ? document.querySelector('.player-section')
-      : document.querySelectorAll('.opponent')[pIdx - 1];
-    if (el) {
-      el.classList.add('hit');
-      setTimeout(() => el.classList.remove('hit'), 600);
+function renderRevealed(play) {
+  const area = document.getElementById('playArea');
+  const existingCards = area.querySelector('.play-cards');
+  if (existingCards) existingCards.remove();
+
+  const cardsDiv = document.createElement('div');
+  cardsDiv.className = 'play-cards';
+
+  play.cards.forEach((card, i) => {
+    const div = document.createElement('div');
+    div.className = 'play-card revealed';
+    div.style.animationDelay = (i * 0.15) + 's';
+
+    if (card.isJoker) {
+      div.classList.add('is-joker');
+      div.innerHTML = `<div class="rank">🌟Joker</div>`;
+    } else {
+      div.innerHTML = `<div class="rank">${card.rank}</div>`;
     }
-  }, 100);
+    cardsDiv.appendChild(div);
+  });
+
+  area.appendChild(cardsDiv);
 }
 
+// ---- Game Over ----
 function checkGameOver() {
-  const eliminated = players.filter(p => p.hp <= 0);
-  const alive = players.filter(p => p.hp > 0);
-
-  if (players[0].hp <= 0) {
-    gameActive = false;
-    showGameOver(false);
-    return true;
-  }
-
-  if (alive.length === 1 && alive[0] === players[0]) {
-    gameActive = false;
-    showGameOver(true);
-    return true;
-  }
+  const alive = players.filter(p => p.alive);
 
   if (alive.length === 1) {
+    gameActive = false;
+    showGameOver(alive[0] === players[0]);
+    return true;
+  }
+
+  if (alive.length === 0) {
     gameActive = false;
     showGameOver(false);
     return true;
@@ -727,11 +792,11 @@ function showGameOver(playerWon) {
 
   if (playerWon) {
     title.innerHTML = '<span class="winner">🏆 你贏了！</span>';
-    msg.textContent = '恭喜！你是最後的贏家！';
+    msg.textContent = '恭喜！你是最後存活的贏家！';
   } else {
-    const winner = players.find(p => p.hp > 0);
-    title.innerHTML = '<span class="loser">💀 你輸了！</span>';
-    msg.textContent = winner ? `${winner.name} 獲勝！` : '遊戲結束';
+    const winner = players.find(p => p.alive);
+    title.innerHTML = '<span class="loser">💀 你陣亡了！</span>';
+    msg.textContent = winner ? `${winner.name} 最後存活！` : '全員陣亡';
   }
 
   overlay.classList.add('show');
@@ -753,28 +818,41 @@ function renderOpponents() {
     const p = players[i];
     const div = document.createElement('div');
     div.className = 'opponent';
+    if (!p.alive) div.classList.add('dead');
+    if (currentPlay && currentPlay.player === i) div.classList.add('active-turn');
 
-    let hpHtml = '';
-    for (let h = 0; h < MAX_HP; h++) {
-      hpHtml += `<span class="hp-heart ${h >= p.hp ? 'lost' : ''}">❤️</span>`;
+    // Revolver display
+    let chamberHtml = '';
+    for (let c = 1; c <= MAX_CHAMBERS; c++) {
+      let cls = 'chamber';
+      if (c <= p.hp) cls += ' fired';
+      if (c === p.bulletPos && p.hp >= p.bulletPos) cls += ' live';
+      chamberHtml += `<div class="${cls}"></div>`;
     }
 
     let claimText = '';
     if (currentPlay && currentPlay.player === i) {
-      claimText = `聲稱 ${currentPlay.claim} ×${currentPlay.cards.length}`;
+      claimText = `出了 ${currentPlay.cards.length} 張`;
+    }
+    let winnerText = '';
+    if (hands[i].length === 0 && p.alive) {
+      winnerText = '🏅 已出完';
     }
 
     div.innerHTML = `
-      <div class="opponent-name">${p.name}</div>
-      <div class="opponent-hp">${hpHtml}</div>
+      <div class="opponent-name">${p.name} ${!p.alive ? '💀' : ''}</div>
+      <div class="revolver">${p.hp}/${MAX_CHAMBERS}</div>
+      <div class="revolver-bar">${chamberHtml}</div>
       <div class="opponent-cards-info">手牌: ${hands[i].length} 張</div>
       <div class="opponent-claim">${claimText}</div>
+      <div class="opponent-winner">${winnerText}</div>
     `;
     container.appendChild(div);
   }
 }
 
 function renderPlayer() {
+  const p = players[0];
   const handEl = document.getElementById('hand');
   handEl.innerHTML = '';
 
@@ -782,14 +860,12 @@ function renderPlayer() {
     const div = document.createElement('div');
     div.className = 'card';
     if (selectedCards.has(idx)) div.classList.add('selected');
-    if (!playerTurn) div.classList.add('disabled');
+    if (!playerTurn || processingAI) div.classList.add('disabled');
     if (card.isJoker) div.classList.add('is-joker');
-    else if (card.suit === '♥' || card.suit === '♦') div.classList.add('red');
-    else div.classList.add('black');
 
     div.innerHTML = `
-      <div class="rank">${card.rank}</div>
-      <div class="suit">${card.suit}</div>
+      <div class="rank">${card.isJoker ? 'J' : card.rank}</div>
+      <div class="suit">${card.isJoker ? '★' : ''}</div>
     `;
     div.onclick = () => toggleCard(idx);
     handEl.appendChild(div);
@@ -797,21 +873,30 @@ function renderPlayer() {
 
   document.getElementById('playerCardCount').textContent = `(${hands[0].length}張)`;
 
-  let hpHtml = '';
-  for (let h = 0; h < MAX_HP; h++) {
-    hpHtml += `<span class="hp-heart ${h >= players[0].hp ? 'lost' : ''}">❤️</span>`;
+  // Player revolver
+  let chamberHtml = '';
+  for (let c = 1; c <= MAX_CHAMBERS; c++) {
+    let cls = 'chamber';
+    if (c <= p.hp) cls += ' fired';
+    if (c === p.bulletPos && p.hp >= p.bulletPos) cls += ' live';
+    chamberHtml += `<div class="${cls}"></div>`;
   }
-  document.getElementById('playerHp').innerHTML = hpHtml;
+  document.getElementById('playerRevolver').innerHTML = `
+    <div>${p.hp}/${MAX_CHAMBERS}</div>
+    <div class="revolver-bar">${chamberHtml}</div>
+  `;
 }
 
 function renderPlayArea() {
   const area = document.getElementById('playArea');
   const existingCards = area.querySelector('.play-cards');
   const existingClaim = area.querySelector('.play-claim');
+  const existingCount = area.querySelector('.play-count');
   const empty = document.getElementById('playEmpty');
 
   if (existingCards) existingCards.remove();
   if (existingClaim) existingClaim.remove();
+  if (existingCount) existingCount.remove();
 
   if (!currentPlay) {
     empty.style.display = '';
@@ -820,35 +905,30 @@ function renderPlayArea() {
 
   empty.style.display = 'none';
 
+  // Face-down cards
   const cardsDiv = document.createElement('div');
   cardsDiv.className = 'play-cards';
-
-  currentPlay.cards.forEach((card, i) => {
+  currentPlay.cards.forEach((_, i) => {
     const div = document.createElement('div');
-    div.className = 'play-card';
+    div.className = 'play-card facedown';
     div.style.animationDelay = (i * 0.1) + 's';
-
-    if (card.isJoker) {
-      div.classList.add('revealed', 'is-joker');
-      div.innerHTML = `<div class="rank">🌟Joker</div>`;
-    } else {
-      div.classList.add('revealed');
-      const isRed = card.suit === '♥' || card.suit === '♦';
-      div.innerHTML = `
-        <div class="rank" style="color:${isRed ? '#c62828' : '#263238'}">${card.rank}</div>
-        <div class="suit" style="color:${isRed ? '#c62828' : '#263238'}">${card.suit}</div>
-      `;
-    }
+    div.textContent = '?';
     cardsDiv.appendChild(div);
   });
+  area.appendChild(cardsDiv);
 
+  // Claim
   const claimDiv = document.createElement('div');
   claimDiv.className = 'play-claim';
   const playerName = players[currentPlay.player].name;
-  claimDiv.textContent = `${playerName} 聲稱：${currentPlay.cards.length} 張 ${currentPlay.claim}`;
-
-  area.appendChild(cardsDiv);
+  claimDiv.textContent = `${playerName} 聲稱：${currentPlay.cards.length} 張 ${tableCard}`;
   area.appendChild(claimDiv);
+
+  // Count hint
+  const countDiv = document.createElement('div');
+  countDiv.className = 'play-count';
+  countDiv.textContent = `（${currentPlay.cards.length} 張牌面朝下）`;
+  area.appendChild(countDiv);
 }
 
 function renderControls() {
@@ -856,7 +936,11 @@ function renderControls() {
   const btnChallenge = document.getElementById('btnChallenge');
 
   btnPlay.textContent = `出牌 (${selectedCards.size})`;
-  btnPlay.disabled = !playerTurn || selectedCards.size === 0 || currentPlay?.player === 0;
+  btnPlay.disabled = !playerTurn || selectedCards.size === 0 || processingAI;
+
+  // Challenge button visible when it's player's turn AND there's a current play from someone else
+  const canChallenge = playerTurn && currentPlay && currentPlay.player !== 0;
+  btnChallenge.style.display = canChallenge ? '' : 'none';
 }
 
 function addLog(msg, cls) {
@@ -866,6 +950,18 @@ function addLog(msg, cls) {
   p.textContent = msg;
   log.appendChild(p);
   log.scrollTop = log.scrollHeight;
+}
+
+function showHitEffect(pIdx) {
+  setTimeout(() => {
+    const el = pIdx === 0
+      ? document.querySelector('.player-section')
+      : document.querySelectorAll('.opponent')[pIdx - 1];
+    if (el) {
+      el.classList.add('hit');
+      setTimeout(() => el.classList.remove('hit'), 600);
+    }
+  }, 100);
 }
 
 // ---- Event Listeners ----
