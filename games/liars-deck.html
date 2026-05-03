@@ -470,19 +470,35 @@ function startNewRound() {
   roundNumber++;
   currentPlay = null;
   selectedCards.clear();
-  tableCard = RANKS[Math.floor(Math.random() * RANKS.length)];
 
+  // Clear all hands and deal new cards to alive players
+  for (let p = 0; p < 4; p++) {
+    hands[p] = [];
+    if (players[p].alive) {
+      for (let i = 0; i < HAND_SIZE; i++) {
+        if (deck.length > 0) {
+          hands[p].push(deck.pop());
+        } else {
+          // Reshuffle if deck empty
+          deck = shuffle(createDeck());
+          hands[p].push(deck.pop());
+        }
+      }
+    }
+  }
+
+  tableCard = RANKS[Math.floor(Math.random() * RANKS.length)];
   document.getElementById('tableCardDisplay').textContent = tableCard;
 
-  addLog(`━━━ 第${roundNumber}輪：Table 牌是 ${tableCard} ━━━`, 'info');
+  addLog(`━━━ 第${roundNumber}輪：Table 牌是 ${tableCard}（手牌重置，子彈狀態保留）━━━`, 'info');
   document.getElementById('playEmpty').style.display = '';
   document.getElementById('playArea').querySelector('.play-cards')?.remove();
   document.getElementById('playArea').querySelector('.play-claim')?.remove();
   document.getElementById('playArea').querySelector('.play-count')?.remove();
 
-  // Find first alive player with cards to start the round
+  // Find first alive player to start the round
   currentTurn = 0;
-  while (!(players[currentTurn].alive && hands[currentTurn].length > 0)) {
+  while (!players[currentTurn].alive) {
     currentTurn = (currentTurn + 1) % 4;
   }
 
@@ -768,17 +784,10 @@ async function resolveChallenge(challengerIdx, liarIdx) {
   // Check game over
   if (checkGameOver()) { processingAI = false; return; }
 
-  // After challenge, turn passes to the next player with cards
-  const nextAfterChallenger = nextAlivePlayer(challengerIdx);
-  if (nextAfterChallenger === -1) {
-    processingAI = false;
-    startNewRound();
-    return;
-  }
-
+  // After someone gets shot, round resets with new cards
   await new Promise(r => setTimeout(r, 1500));
   processingAI = false;
-  giveTurnTo(nextAfterChallenger);
+  startNewRound();
 }
 
 function renderRevealed(play) {
