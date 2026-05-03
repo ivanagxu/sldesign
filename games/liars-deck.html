@@ -457,7 +457,7 @@ function startGame() {
 }
 
 // ---- Round & Game Management ----
-function startNewRound() {
+function startNewRound(startFrom = 0) {
   if (!gameActive) return;
 
   // Check win condition: only 1 alive player left
@@ -479,7 +479,6 @@ function startNewRound() {
         if (deck.length > 0) {
           hands[p].push(deck.pop());
         } else {
-          // Reshuffle if deck empty
           deck = shuffle(createDeck());
           hands[p].push(deck.pop());
         }
@@ -496,10 +495,12 @@ function startNewRound() {
   document.getElementById('playArea').querySelector('.play-claim')?.remove();
   document.getElementById('playArea').querySelector('.play-count')?.remove();
 
-  // Find first alive player to start the round
-  currentTurn = 0;
-  while (!players[currentTurn].alive) {
+  // Find first alive player starting from startFrom
+  currentTurn = startFrom % 4;
+  let safe = 0;
+  while (!players[currentTurn].alive && safe < 4) {
     currentTurn = (currentTurn + 1) % 4;
+    safe++;
   }
 
   render();
@@ -787,7 +788,11 @@ async function resolveChallenge(challengerIdx, liarIdx) {
   // After someone gets shot, round resets with new cards
   await new Promise(r => setTimeout(r, 1500));
   processingAI = false;
-  startNewRound();
+
+  // Challenge success -> challenger starts next round
+  // Challenge fail -> original player starts next round
+  const nextStarter = allTruth ? challengerIdx : liarIdx;
+  startNewRound(nextStarter);
 }
 
 function renderRevealed(play) {

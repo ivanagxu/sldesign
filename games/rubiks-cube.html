@@ -311,19 +311,79 @@
 
     let isAnimating = false, moveCount = 0, clockwise = true;
 
-    function rotateFace(face, animate = true, duration = 300, cw = true) {
+    // Resolve screen-relative button to world-space face based on current camera view
+    function resolveFace(btnFace) {
+        const camDir = new THREE.Vector3();
+        camera.getWorldDirection(camDir);
+        const camUp = camera.up.clone().normalize();
+        const camRight = new THREE.Vector3().crossVectors(camDir, camUp).normalize();
+
+        const faceNormals = {
+            U: new THREE.Vector3(0, 1, 0),
+            D: new THREE.Vector3(0, -1, 0),
+            R: new THREE.Vector3(1, 0, 0),
+            L: new THREE.Vector3(-1, 0, 0),
+            F: new THREE.Vector3(0, 0, 1),
+            B: new THREE.Vector3(0, 0, -1),
+        };
+
+        const project = (v) => ({
+            x: v.dot(camRight),
+            y: v.dot(camUp),
+            z: v.dot(camDir),  // > 0 means facing camera
+        });
+
+        const screen = {};
+        for (const [f, n] of Object.entries(faceNormals)) {
+            screen[f] = project(n);
+        }
+
+        const faces = ['U', 'D', 'R', 'L', 'F', 'B'];
+        const findBest = (scoreFn) => {
+            let best = null, bestScore = -Infinity;
+            for (const f of faces) {
+                const s = scoreFn(screen[f]);
+                if (s > bestScore) { bestScore = s; best = f; }
+            }
+            return best;
+        };
+
+        switch (btnFace) {
+            case 'U': return findBest(s => s.z > 0 ? s.y : -Infinity);
+            case 'D': return findBest(s => s.z > 0 ? -s.y : -Infinity);
+            case 'L': return findBest(s => s.z > 0 ? -s.x : -Infinity);
+            case 'R': return findBest(s => s.z > 0 ? s.x : -Infinity);
+            case 'F': return findBest(s => s.z);
+            case 'B': return findBest(s => -s.z);
+        }
+        return btnFace; // fallback
+    }
+
+    // Determine rotation direction relative to viewer
+    // Returns +1 for CW, -1 for CCW from viewer's perspective
+    function viewerDirection(resolvedFace, isCw) {
+        const camDir = new THREE.Vector3();
+        camera.getWorldDirection(camDir);
+        const faceAxis = FACE_AXIS[resolvedFace];
+        const towardCamera = faceAxis.dot(camDir) < 0;
+        // If face axis points away from camera, CW looks like CCW → flip
+        return (isCw === towardCamera) ? 1 : -1;
+    }
+
+    function rotateFace(face, animate = true, duration = 300, cw = true, resolvedAxis = null, directionMult = 1) {
         return new Promise((resolve) => {
-            const axis = FACE_AXIS[face];
+            const axis = resolvedAxis || FACE_AXIS[face];
             const group = getCubiesForFace(face);
             if (!group.length) { resolve(); return; }
 
             const angle = cw ? Math.PI/2 : -Math.PI/2;
+            const finalAngle = angle * directionMult;
 
             if (!animate) {
                 const pivot = new THREE.Group();
                 cubieGroup.add(pivot);
                 group.forEach(c => { cubieGroup.remove(c.group); pivot.add(c.group); });
-                pivot.rotation.setFromAxisAngle(axis, angle);
+                pivot.rotation.setFromAxisAngle(axis, finalAngle);
                 pivot.updateMatrixWorld(true);
                 group.forEach(c => {
                     const wp = new THREE.Vector3(), wq = new THREE.Quaternion();
@@ -346,7 +406,7 @@
             group.forEach(c => { cubieGroup.remove(c.group); pivot.add(c.group); });
 
             const startQ = pivot.quaternion.clone();
-            const targetQ = startQ.clone().multiply(new THREE.Quaternion().setFromAxisAngle(axis, angle));
+            const targetQ = startQ.clone().multiply(new THREE.Quaternion().setFromAxisAngle(axis, finalAngle));
             const t0 = performance.now();
 
             function step(now) {
