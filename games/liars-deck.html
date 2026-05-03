@@ -392,6 +392,7 @@ let roundNumber = 0;
 let gameActive = false;
 let playerTurn = false;
 let processingAI = false;
+let currentTurn = 0; // which player index is currently taking their turn
 
 // ---- Deck Creation ----
 function createDeck() {
@@ -466,15 +467,38 @@ function startNewRound() {
   document.getElementById('playArea').querySelector('.play-claim')?.remove();
   document.getElementById('playArea').querySelector('.play-count')?.remove();
 
-  render();
+  // Find first alive player to start the round
+  currentTurn = 0;
+  while (!players[currentTurn].alive) {
+    currentTurn = (currentTurn + 1) % 4;
+  }
 
-  // Check who goes first (first alive player after previous round's end)
-  // For simplicity, human always starts each round
-  playerTurn = true;
-  processingAI = false;
-  document.getElementById('btnChallenge').style.display = 'none';
-  addLog('輪到你了！出 1-3 張牌（聲稱為 ' + tableCard + '）', 'info');
   render();
+  giveTurnTo(currentTurn);
+}
+
+// Give turn to a specific player
+function giveTurnTo(pIdx) {
+  currentTurn = pIdx;
+  processingAI = false;
+
+  if (pIdx === 0) {
+    // Human's turn
+    playerTurn = true;
+    document.getElementById('btnChallenge').style.display = currentPlay ? '' : 'none';
+    if (currentPlay) {
+      addLog(`🚨 輪到你了！可以質疑 ${players[currentPlay.player].name} 或出牌`, 'info');
+    } else {
+      addLog('輪到你了！出 1-3 張牌（聲稱為 ' + tableCard + '）', 'info');
+    }
+    render();
+  } else {
+    // AI's turn
+    playerTurn = false;
+    document.getElementById('btnChallenge').style.display = 'none';
+    render();
+    setTimeout(() => aiTakeTurn(pIdx), 800);
+  }
 }
 
 // ---- Helpers ----
@@ -540,36 +564,30 @@ function toggleCard(idx) {
 }
 
 async function playerPlay() {
-  if (!playerTurn || selectedCards.size === 0) return;
+  if (!playerTurn || selectedCards.size === 0 || processingAI) return;
   const cards = [...selectedCards].map(i => hands[0][i]);
   currentPlay = { player: 0, cards, claim: tableCard };
 
   // Remove from hand
   [...selectedCards].sort((a,b) => b-a).forEach(i => hands[0].splice(i, 1));
   selectedCards.clear();
-  playerTurn = false;
 
   addLog(`👤 你出了 ${cards.length} 張牌`, 'claim');
+
+  if (hands[0].length === 0) {
+    addLog('👤 你出完了所有牌！', 'info');
+  }
+
   render();
 
-  // Check if player has no cards left
-  if (hands[0].length === 0) {
-    addLog('👤 你出完了所有牌！等待下家是否質疑...', 'info');
-  }
-
-  // Pass to next alive AI
+  // Pass to next alive player
   const next = nextAlivePlayer(0);
-  if (next === -1) {
-    endGame();
-    return;
-  }
-
-  await new Promise(r => setTimeout(r, 600));
-  processNextAI(next);
+  if (next === -1 || checkGameOver()) return;
+  giveTurnTo(next);
 }
 
 async function playerChallenge() {
-  if (!playerTurn || !currentPlay) return;
+  if (!playerTurn || !currentPlay || processingAI) return;
   playerTurn = false;
   processingAI = true;
   document.getElementById('btnChallenge').style.display = 'none';
@@ -577,48 +595,44 @@ async function playerChallenge() {
 }
 
 // ---- AI Logic ----
-async function processNextAI(fromPlayer) {
-  if (!gameActive || processingAI) return;
+async function aiTakeTurn(p) {
+  if (!gameActive || !players[p].alive) {
+    // Skip dead AI, go to next
+    const next = nextAlivePlayer(p);
+    if (next === -1 || checkGameOver()) return;
+    giveTurnTo(next);
+    return;
+  }
+
   processingAI = true;
+  render();
 
-  const p = fromPlayer;
-
-  // If player is dead, skip
-  if (!players[p].alive) {
-    const next = nextAlivePlayer(p);
-    if (next === -1) { endGame(); return; }
-    if (next === 0) {
-      playerTurn = true;
-      processingAI = false;
-      document.getElementById('btnChallenge').style.display = currentPlay ? '' : 'none';
-      render();
+  // If there's a current play, AI decides whether to challenge or play
+  if (currentPlay) {
+    const decision = aiDecide(p);
+    if (decision === 'challenge') {
+      addLog(`🚨 ${players[p].name} 質疑 ${players[currentPlay.player].name}！`, 'reveal');
+      await resolveChallenge(p, currentPlay.player);
       return;
     }
-    setTimeout(() => processNextAI(next), 300);
+  }
+
+  // AI plays cards
+  if (hands[p].length === 0) {
+    addLog(`🏅 ${players[p].name} 已出完牌，跳過！`, 'info');
+    const next = nextAlivePlayer(p);
+    if (next === -1 || checkGameOver()) return;
+    processingAI = false;
+    giveTurnTo(next);
     return;
   }
 
-  const decision = aiDecide(p);
-
-  if (decision === 'challenge') {
-    await resolveChallenge(p, currentPlay.player);
-    return;
-  }
-
-  // Play cards
-  const cards = decision.cards;
+  const cards = aiChooseCards(p);
   if (!cards || cards.length === 0) {
-    // AI has no cards, skip to next
     const next = nextAlivePlayer(p);
-    if (next === -1) { endGame(); return; }
-    if (next === 0) {
-      playerTurn = true;
-      processingAI = false;
-      document.getElementById('btnChallenge').style.display = currentPlay ? '' : 'none';
-      render();
-      return;
-    }
-    setTimeout(() => processNextAI(next), 300);
+    if (next === -1 || checkGameOver()) return;
+    processingAI = false;
+    giveTurnTo(next);
     return;
   }
 
@@ -633,49 +647,34 @@ async function processNextAI(fromPlayer) {
   addLog(`🤖 ${players[p].name} 出了 ${cards.length} 張牌`, 'claim');
 
   if (hands[p].length === 0) {
-    addLog(`🤖 ${players[p].name} 出完了所有牌！`, 'info');
+    addLog(`🏅 ${players[p].name} 出完了所有牌！`, 'info');
   }
 
   render();
 
+  // Pass to next alive player
   const next = nextAlivePlayer(p);
-  if (next === -1) { endGame(); return; }
+  if (next === -1 || checkGameOver()) return;
 
-  // If next is human
-  if (next === 0) {
-    playerTurn = true;
-    processingAI = false;
-    document.getElementById('btnChallenge').style.display = '';
-    render();
-    return;
-  }
-
-  // Continue to next AI
-  await new Promise(r => setTimeout(r, 1000));
-  processNextAI(next);
+  processingAI = false;
+  giveTurnTo(next);
 }
 
 function aiDecide(p) {
-  if (!currentPlay) {
-    // Must play
-    return { action: 'play', cards: aiChooseCards(p) };
-  }
+  if (!currentPlay) return 'play';
 
-  // Challenge probability based on number of cards and held table cards
   const numPlayed = currentPlay.cards.length;
   const held = countTableInHand(p);
 
-  // Base lie probability estimation
+  // Base lie probability
   let lieProb = numPlayed >= 3 ? 0.65 : (numPlayed === 2 ? 0.40 : 0.25);
-  // Adjust: more table cards in hand = more suspicious of others
   lieProb += held * 0.08;
   lieProb = Math.min(0.85, lieProb);
 
   if (Math.random() < lieProb) {
     return 'challenge';
   }
-
-  return { action: 'play', cards: aiChooseCards(p) };
+  return 'play';
 }
 
 function aiChooseCards(p) {
@@ -685,7 +684,6 @@ function aiChooseCards(p) {
   const matching = hand.filter(c => isTableCard(c));
   const nonMatching = hand.filter(c => !isTableCard(c));
 
-  // AI mostly tells truth but sometimes bluffs
   const bluff = Math.random() < 0.25;
 
   if (matching.length > 0 && !bluff) {
@@ -693,13 +691,11 @@ function aiChooseCards(p) {
     return matching.slice(0, count);
   }
 
-  // Bluff
   if (nonMatching.length > 0) {
     const count = Math.min(MAX_PLAY, nonMatching.length);
     return nonMatching.slice(0, count);
   }
 
-  // Must play truth
   if (matching.length > 0) return [matching[0]];
   return [hand[0]];
 }
@@ -735,10 +731,14 @@ async function resolveChallenge(challengerIdx, liarIdx) {
   // Check game over
   if (checkGameOver()) { processingAI = false; return; }
 
-  // Start new round
-  await new Promise(r => setTimeout(r, 1000));
-  if (gameActive) startNewRound();
+  // After challenge, turn passes to the NEXT player after the challenger
+  // (the one who would have been next after the challenged player's play)
+  const nextAfterChallenger = nextAlivePlayer(challengerIdx);
+  if (nextAfterChallenger === -1 || checkGameOver()) { processingAI = false; return; }
+
+  await new Promise(r => setTimeout(r, 800));
   processingAI = false;
+  giveTurnTo(nextAfterChallenger);
 }
 
 function renderRevealed(play) {
@@ -819,7 +819,7 @@ function renderOpponents() {
     const div = document.createElement('div');
     div.className = 'opponent';
     if (!p.alive) div.classList.add('dead');
-    if (currentPlay && currentPlay.player === i) div.classList.add('active-turn');
+    if (currentTurn === i) div.classList.add('active-turn');
 
     // Revolver display
     let chamberHtml = '';
@@ -833,6 +833,8 @@ function renderOpponents() {
     let claimText = '';
     if (currentPlay && currentPlay.player === i) {
       claimText = `出了 ${currentPlay.cards.length} 張`;
+    } else if (currentTurn === i) {
+      claimText = '🎯 思考中...';
     }
     let winnerText = '';
     if (hands[i].length === 0 && p.alive) {
