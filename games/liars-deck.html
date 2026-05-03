@@ -455,8 +455,24 @@ function startGame() {
   startNewRound();
 }
 
+// ---- Round & Game Management ----
 function startNewRound() {
   if (!gameActive) return;
+
+  // Check win condition: only 1 alive player left
+  const alivePlayers = players.filter(p => p.alive);
+  if (alivePlayers.length <= 1) {
+    endGame();
+    return;
+  }
+
+  // Check if all alive players have cards
+  const aliveWithCards = alivePlayers.filter(p => hands[players.indexOf(p)].length > 0);
+  if (aliveWithCards.length < 2) {
+    endGame();
+    return;
+  }
+
   roundNumber++;
   currentPlay = null;
   selectedCards.clear();
@@ -470,14 +486,24 @@ function startNewRound() {
   document.getElementById('playArea').querySelector('.play-claim')?.remove();
   document.getElementById('playArea').querySelector('.play-count')?.remove();
 
-  // Find first alive player to start the round
+  // Find first alive player with cards to start the round
   currentTurn = 0;
-  while (!players[currentTurn].alive) {
+  while (!(players[currentTurn].alive && hands[currentTurn].length > 0)) {
     currentTurn = (currentTurn + 1) % 4;
   }
 
   render();
   giveTurnTo(currentTurn);
+}
+
+function endGame() {
+  gameActive = false;
+  const alive = players.filter(p => p.alive);
+  if (alive.length === 1) {
+    showGameOver(alive[0] === players[0]);
+  } else {
+    showGameOver(false);
+  }
 }
 
 // Give turn to a specific player
@@ -593,8 +619,8 @@ async function playerPlay() {
 
   // Pass to next player who still has cards
   const next = nextValidTurn(0);
-  if (next === -1 || checkGameOver()) {
-    if (gameActive) startNewRound();
+  if (next === -1) {
+    startNewRound();
     return;
   }
   setTimeout(() => giveTurnTo(next), 1200);
@@ -635,8 +661,8 @@ async function aiTakeTurn(p) {
   if (hands[p].length === 0) {
     addLog(`🏅 ${players[p].name} 已出完牌，跳過！`, 'info');
     const next = nextValidTurn(p);
-    if (next === -1 || checkGameOver()) {
-      if (gameActive) startNewRound();
+    if (next === -1) {
+      startNewRound();
       return;
     }
     processingAI = false;
@@ -671,8 +697,8 @@ async function aiTakeTurn(p) {
 
   // Pass to next player who still has cards
   const next = nextValidTurn(p);
-  if (next === -1 || checkGameOver()) {
-    if (gameActive) startNewRound();
+  if (next === -1) {
+    startNewRound();
     return;
   }
 
@@ -753,9 +779,9 @@ async function resolveChallenge(challengerIdx, liarIdx) {
 
   // After challenge, turn passes to the next player with cards
   const nextAfterChallenger = nextValidTurn(challengerIdx);
-  if (nextAfterChallenger === -1 || checkGameOver()) {
+  if (nextAfterChallenger === -1) {
     processingAI = false;
-    if (gameActive) startNewRound();
+    startNewRound();
     return;
   }
 
