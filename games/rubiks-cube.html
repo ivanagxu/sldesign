@@ -62,6 +62,10 @@
         .arrow-btn:hover svg { stroke: #60a5fa; }
         .spacer { width: 64px; height: 64px; }
 
+        .mid-btn { width: 52px; height: 52px; font-weight: 700; font-size: 16px; border-color: #475569; }
+        .mid-btn:hover { border-color: #f59e0b; }
+        .mid-btn span { color: #fbbf24; }
+
         #action-buttons { display: flex; gap: 12px; margin-top: 12px; }
         .action-btn {
             padding: 10px 22px; border: none; border-radius: 10px;
@@ -101,23 +105,45 @@
         <div id="canvas-container"><canvas id="cube-canvas"></canvas></div>
         <div id="face-label"></div>
         <div id="controls">
+            <!-- 外层 -->
             <div class="controls-row">
-                <button class="arrow-btn" id="btn-up" data-face="U" title="顶面顺时针">
+                <button class="arrow-btn" data-face="U" title="顶面顺时针">
                     <svg viewBox="0 0 32 32"><path d="M16 6 L26 18 L6 18 Z"/></svg>
                 </button>
             </div>
             <div class="controls-row">
-                <button class="arrow-btn" id="btn-left" data-face="L" title="左面顺时针">
+                <button class="arrow-btn" data-face="L" title="左面顺时针">
                     <svg viewBox="0 0 32 32"><path d="M6 16 L18 6 L18 26 Z"/></svg>
                 </button>
                 <div class="spacer"></div>
-                <button class="arrow-btn" id="btn-right" data-face="R" title="右面顺时针">
+                <button class="arrow-btn" data-face="R" title="右面顺时针">
                     <svg viewBox="0 0 32 32"><path d="M26 16 L14 6 L14 26 Z"/></svg>
                 </button>
             </div>
             <div class="controls-row">
-                <button class="arrow-btn" id="btn-down" data-face="D" title="底面顺时针">
+                <button class="arrow-btn" data-face="D" title="底面顺时针">
                     <svg viewBox="0 0 32 32"><path d="M16 26 L26 14 L6 14 Z"/></svg>
+                </button>
+            </div>
+            <!-- 中层 -->
+            <div class="controls-row" style="margin-top: 6px;">
+                <button class="arrow-btn mid-btn" data-face="M" title="M 层 (x 中间层)">
+                    <span>M</span>
+                </button>
+                <button class="arrow-btn mid-btn" data-face="E" title="E 层 (y 中间层)">
+                    <span>E</span>
+                </button>
+                <button class="arrow-btn mid-btn" data-face="S" title="S 层 (z 中间层)">
+                    <span>S</span>
+                </button>
+            </div>
+            <!-- 前后 -->
+            <div class="controls-row">
+                <button class="arrow-btn" data-face="F" title="前面顺时针">
+                    <svg viewBox="0 0 32 32"><path d="M6 10 L20 16 L6 22 Z" transform="rotate(-90 16 16)"/></svg>
+                </button>
+                <button class="arrow-btn" data-face="B" title="后面顺时针">
+                    <svg viewBox="0 0 32 32"><path d="M6 10 L20 16 L6 22 Z" transform="rotate(90 16 16)"/></svg>
                 </button>
             </div>
         </div>
@@ -153,9 +179,10 @@
         B: 0x0051ba, R: 0xc41e3a, L: 0xff5800,
     };
     const FACE_NAMES = {
-        U: '↑ 顶面顺时针', D: '↓ 底面顺时针',
-        L: '← 左面顺时针', R: '→ 右面顺时针',
-        F: '前面顺时针', B: '后面顺时针'
+        U: '↑ 顶面', D: '↓ 底面',
+        L: '← 左面', R: '→ 右面',
+        F: '前面', B: '后面',
+        M: 'M 中层', E: 'E 中层', S: 'S 中层'
     };
 
     const CUBE_SIZE = 0.96;
@@ -245,7 +272,7 @@
 
     for (let x of [-1, 0, 1])
         for (let y of [-1, 0, 1])
-            for (let z of [-1, 1, 0])
+            for (let z of [-1, 0, 1])
                 cubies.push(makeCubie(x, y, z));
 
     function getCubiesForFace(face) {
@@ -258,6 +285,9 @@
                 case 'L': return Math.abs(p.x + SPACING) < 0.1;
                 case 'F': return Math.abs(p.z - SPACING) < 0.1;
                 case 'B': return Math.abs(p.z + SPACING) < 0.1;
+                case 'M': return Math.abs(p.x) < 0.1;   // Middle between L & R
+                case 'E': return Math.abs(p.y) < 0.1;   // Equator between U & D
+                case 'S': return Math.abs(p.z) < 0.1;   // Standing between F & B
             }
         });
     }
@@ -266,6 +296,7 @@
         U: new THREE.Vector3(0,1,0), D: new THREE.Vector3(0,-1,0),
         R: new THREE.Vector3(1,0,0), L: new THREE.Vector3(-1,0,0),
         F: new THREE.Vector3(0,0,1), B: new THREE.Vector3(0,0,-1),
+        M: new THREE.Vector3(-1,0,0), E: new THREE.Vector3(0,-1,0), S: new THREE.Vector3(0,0,1),
     };
 
     let isAnimating = false, moveCount = 0;
@@ -350,12 +381,12 @@
         moveCount = 0;
         document.getElementById('move-count').textContent = '0';
         hideWinMessage();
-        const faces = ['U','D','R','L','F','B'];
+        const faces = ['U','D','R','L','F','B','M','E','S'];
         let last = '';
-        for (let i = 0; i < 12; i++) {
-            let f; do { f = faces[Math.floor(Math.random()*6)]; } while (f === last);
+        for (let i = 0; i < 20; i++) {
+            let f; do { f = faces[Math.floor(Math.random()*9)]; } while (f === last);
             last = f;
-            await rotateFace(f, true, 120);
+            await rotateFace(f, true, 100);
         }
         faceLabel.textContent = '';
     }
@@ -367,7 +398,7 @@
         hideWinMessage();
         cubies.forEach(c => cubieGroup.remove(c.group));
         cubies.length = 0;
-        for (let x of [-1,1]) for (let y of [-1,1]) for (let z of [-1,1])
+        for (let x of [-1,0,1]) for (let y of [-1,0,1]) for (let z of [-1,0,1])
             cubies.push(makeCubie(x, y, z));
     }
 
