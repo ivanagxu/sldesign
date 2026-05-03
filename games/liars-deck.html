@@ -397,10 +397,13 @@ let currentTurn = 0; // which player index is currently taking their turn
 // ---- Deck Creation ----
 function createDeck() {
   let d = [];
-  // Q×6, K×6, A×6
+  // Q×6, K×6, A×6 (with suits)
+  const suits = ['♠', '♥', '♣', '♦'];
+  let suitIdx = 0;
   for (const r of RANKS) {
     for (let i = 0; i < 6; i++) {
-      d.push({ rank: r, suit: '', isJoker: false, id: `${r}_${i}` });
+      d.push({ rank: r, suit: suits[suitIdx % 4], isJoker: false, id: `${r}_${i}` });
+      suitIdx++;
     }
   }
   // J×2 (wildcards)
@@ -708,7 +711,7 @@ async function resolveChallenge(challengerIdx, liarIdx) {
   const allTruth = play.cards.every(c => isTableCard(c));
 
   // Reveal cards
-  addLog(`🚨 ${players[challengerIdx].name} 質疑！開牌：${play.cards.map(c => c.isJoker ? 'Joker★' : c.rank).join(', ')}`, 'reveal');
+  addLog(`🚨 ${players[challengerIdx].name} 質疑！開牌：${play.cards.map(c => c.isJoker ? 'Joker★' : c.rank + c.suit).join(', ')}`, 'reveal');
 
   // Show revealed cards in play area
   renderRevealed(play);
@@ -756,9 +759,10 @@ function renderRevealed(play) {
 
     if (card.isJoker) {
       div.classList.add('is-joker');
-      div.innerHTML = `<div class="rank">🌟Joker</div>`;
+      div.innerHTML = `<div class="rank">🌟</div><div class="suit">Joker</div>`;
     } else {
-      div.innerHTML = `<div class="rank">${card.rank}</div>`;
+      const isRed = card.suit === '♥' || card.suit === '♦';
+      div.innerHTML = `<div class="rank" style="color:${isRed ? '#c62828' : '#263238'}">${card.rank}</div><div class="suit" style="color:${isRed ? '#c62828' : '#263238'}">${card.suit}</div>`;
     }
     cardsDiv.appendChild(div);
   });
@@ -865,10 +869,14 @@ function renderPlayer() {
     if (!playerTurn || processingAI) div.classList.add('disabled');
     if (card.isJoker) div.classList.add('is-joker');
 
-    div.innerHTML = `
-      <div class="rank">${card.isJoker ? 'J' : card.rank}</div>
-      <div class="suit">${card.isJoker ? '★' : ''}</div>
-    `;
+    if (card.isJoker) {
+      div.innerHTML = `<div class="rank">J</div><div class="suit">★</div>`;
+    } else {
+      const isRed = card.suit === '♥' || card.suit === '♦';
+      if (isRed) div.classList.add('red');
+      else div.classList.add('black');
+      div.innerHTML = `<div class="rank">${card.rank}</div><div class="suit">${card.suit}</div>`;
+    }
     div.onclick = () => toggleCard(idx);
     handEl.appendChild(div);
   });
