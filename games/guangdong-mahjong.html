@@ -510,7 +510,10 @@ function doDiscard(pIdx, tileIdx) {
     setSt('等待响应...');
 
     // 加延迟让浏览器渲染，避免瞬间连出多张牌
-    setTimeout(() => checkResponses(tile, pIdx), pIdx === 0 ? 300 : 200);
+    setTimeout(() => {
+        G.discardLocked = false;  // 出牌完成后解锁
+        checkResponses(tile, pIdx);
+    }, pIdx === 0 ? 300 : 200);
 }
 
 function checkResponses(tile, from) {
