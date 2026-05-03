@@ -495,6 +495,9 @@ function startTurn(pIdx) {
 }
 
 function doDiscard(pIdx, tileIdx) {
+    // 防止重复出牌
+    if (G.gameOver || G.players[pIdx].hand.length <= tileIdx) return;
+    
     const p = G.players[pIdx];
     const tile = p.hand.splice(tileIdx, 1)[0];
     G.lastDiscard = { tile, from: pIdx };
@@ -504,8 +507,12 @@ function doDiscard(pIdx, tileIdx) {
     render();
     setSt('等待响应...');
 
-    // 检查其他玩家操作
-    checkResponses(tile, pIdx);
+    // 如果是人类玩家出牌，加延迟让 AI 响应，避免瞬间连出
+    if (pIdx === 0) {
+        setTimeout(() => checkResponses(tile, pIdx), 300);
+    } else {
+        checkResponses(tile, pIdx);
+    }
 }
 
 function checkResponses(tile, from) {
