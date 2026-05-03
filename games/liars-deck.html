@@ -761,6 +761,10 @@ async function resolveChallenge(challengerIdx, liarIdx) {
 
   await new Promise(r => setTimeout(r, 800));
 
+  // Return cards to the player's hand
+  play.cards.forEach(c => hands[liarIdx].push(c));
+  addLog(`🔄 ${players[liarIdx].name} 的牌回到手中`, 'info');
+
   if (allTruth) {
     // Challenge failed -> challenger takes shot
     addLog(`✅ 全是 ${tableCard}！質疑失敗！${players[challengerIdx].name} 吃槍！`, 'damage');
