@@ -500,7 +500,7 @@ function giveTurnTo(pIdx) {
     playerTurn = false;
     document.getElementById('btnChallenge').style.display = 'none';
     render();
-    setTimeout(() => aiTakeTurn(pIdx), 800);
+    setTimeout(() => aiTakeTurn(pIdx), 1500);
   }
 }
 
@@ -586,7 +586,7 @@ async function playerPlay() {
   // Pass to next alive player
   const next = nextAlivePlayer(0);
   if (next === -1 || checkGameOver()) return;
-  giveTurnTo(next);
+  setTimeout(() => giveTurnTo(next), 1200);
 }
 
 async function playerChallenge() {
@@ -660,7 +660,7 @@ async function aiTakeTurn(p) {
   if (next === -1 || checkGameOver()) return;
 
   processingAI = false;
-  giveTurnTo(next);
+  setTimeout(() => giveTurnTo(next), 1200);
 }
 
 function aiDecide(p) {
@@ -739,7 +739,7 @@ async function resolveChallenge(challengerIdx, liarIdx) {
   const nextAfterChallenger = nextAlivePlayer(challengerIdx);
   if (nextAfterChallenger === -1 || checkGameOver()) { processingAI = false; return; }
 
-  await new Promise(r => setTimeout(r, 800));
+  await new Promise(r => setTimeout(r, 1500));
   processingAI = false;
   giveTurnTo(nextAfterChallenger);
 }
