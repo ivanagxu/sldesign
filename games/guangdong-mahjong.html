@@ -841,13 +841,11 @@ function cancelChow() {
 }
 
 function onTileClick(idx) {
-    if (G.gameOver) return;
-    // 只有当处于出牌阶段且轮到自己时才响应
+    if (G.gameOver || G.discardLocked) return;
     if (G.humanPhase !== 'select-discard' || G.cur !== 0) return;
 
-    // 三重保险：立即锁定，防止任何重复出牌
-    G.humanPhase = 'waiting';
     G.discardLocked = true;
+    G.humanPhase = 'waiting';
     
     doDiscard(0, idx);
     hideActions();
