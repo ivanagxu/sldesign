@@ -834,21 +834,12 @@ function cancelChow() {
 }
 
 function onTileClick(idx) {
-    if (G.gameOver || G.humanPhase === 'waiting') return;
-    if (G.cur !== 0) return;
+    if (G.gameOver) return;
+    // 只有当处于出牌阶段且轮到自己时才响应
+    if (G.humanPhase !== 'select-discard' || G.cur !== 0) return;
 
-    if (G.humanPhase === 'select-discard') {
-        // 手牌数量判断: 
-        // 正常摸牌后: 14张 (>13)
-        // 碰后摸牌: 12张 (>11)
-        // 吃后: 11张 (>10)
-        // 杠后摸牌: 11张 (>10)
-        // 最宽松: 只要手牌 > 10 就能出（吃/杠后的情况）
-        if (G.players[0].hand.length > 10) {
-            doDiscard(0, idx);
-            hideActions();
-        }
-    }
+    doDiscard(0, idx);
+    hideActions();
 }
 
 function nextRound() {
