@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>SL Design - Tax Tycoon</title>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-SPNTNEW4GH');
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+  background-color: #0f172a;
+  color: #e2e8f0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+/* 导航栏 */
+header { background-color: #1e293b; padding: 0.8rem 1rem; display: flex; align-items: center; gap: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.3); width: 100%; }
+.back-btn { color: #60a5fa; text-decoration: none; font-size: 1.1rem; display: flex; align-items: center; gap: 0.3rem; }
+.back-btn:hover { color: #93c5fd; }
+.game-title { font-size: 1.2rem; font-weight: 600; color: #3b82f6; flex: 1; }
+h1 {
+  margin: 20px 0 10px;
+  font-size: 2.2em;
+  background: linear-gradient(90deg, #f39c12, #e74c3c, #9b59b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.subtitle { color: #94a3b8; margin-bottom: 15px; font-size: 0.9em; }
+
+.game-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1400px;
+  padding: 0 20px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(6, 80px);
+  grid-template-rows: repeat(6, 80px);
+  gap: 4px;
+  background: #2c3e50;
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  position: relative;
+}
+
+.space {
+  background: #34495e;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65em;
+  text-align: center;
+  padding: 4px;
+  position: relative;
+  border: 2px solid transparent;
+  transition: all 0.3s;
+  min-height: 80px;
+}
+.space.start { background: linear-gradient(135deg, #27ae60, #2ecc71); border-color: #1e8e4e; }
+.space.tax { background: linear-gradient(135deg, #e74c3c, #c0392b); border-color: #a93226; }
+.space.refund { background: linear-gradient(135deg, #3498db, #2980b9); border-color: #2471a3; }
+.space.property { background: linear-gradient(135deg, #9b59b6, #8e44ad); border-color: #7d3c98; }
+.space.salary { background: linear-gradient(135deg, #f1c40f, #f39c12); border-color: #d4ac0d; color: #333; }
+.space.audit { background: linear-gradient(135deg, #e67e22, #d35400); border-color: #ba4a00; }
+.space.random { background: linear-gradient(135deg, #1abc9c, #16a085); border-color: #138d75; }
+.space.jail { background: linear-gradient(135deg, #34495e, #2c3e50); border-color: #7f8c8d; }
+.space.center { background: transparent; border: none; grid-column: 2 / 6; grid-row: 2 / 6; }
+
+.players-on-space {
+  display: flex;
+  gap: 3px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.player-token {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+.token-0 { background: #2ecc71; }
+.token-1 { background: #e74c3c; }
+.token-2 { background: #3498db; }
+.token-3 { background: #f39c12; }
+
+.sidebar {
+  background: rgba(44, 62, 80, 0.9);
+  padding: 20px;
+  border-radius: 15px;
+  min-width: 280px;
+  max-width: 320px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.player-card {
+  background: rgba(52, 73, 94, 0.8);
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border-left: 4px solid;
+  transition: all 0.3s;
+}
+.player-card.active { transform: scale(1.02); box-shadow: 0 0 15px rgba(255,255,255,0.1); }
+.player-card.p0 { border-color: #2ecc71; }
+.player-card.p1 { border-color: #e74c3c; }
+.player-card.p2 { border-color: #3498db; }
+.player-card.p3 { border-color: #f39c12; }
+
+.player-name { font-weight: bold; font-size: 1.1em; margin-bottom: 5px; }
+.player-stats { display: flex; justify-content: space-between; font-size: 0.85em; color: #bbb; }
+.player-chips { color: #f1c40f; font-weight: bold; }
+
+.game-info {
+  margin-top: 15px;
+  padding: 15px;
+  background: rgba(52, 73, 94, 0.8);
+  border-radius: 10px;
+  text-align: center;
+}
+.round-display { font-size: 1.3em; color: #9b59b6; margin-bottom: 8px; }
+.turn-display { font-size: 1.1em; margin-bottom: 10px; }
+
+#roll-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1em;
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: bold;
+}
+#roll-btn:hover:not(:disabled) { transform: scale(1.05); box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4); }
+#roll-btn:disabled { background: #555; cursor: not-allowed; }
+
+.dice-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 15px 0;
+}
+.dice {
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8em;
+  color: #333;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.3s;
+}
+.dice.rolling { animation: roll 0.5s ease-in-out; }
+@keyframes roll {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(90deg) scale(1.1); }
+  50% { transform: rotate(180deg); }
+  75% { transform: rotate(270deg) scale(1.1); }
+}
+
+.event-log {
+  margin-top: 15px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 10px;
+  background: rgba(30, 30, 50, 0.9);
+  border-radius: 10px;
+  font-size: 0.8em;
+}
+.log-entry { padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.log-entry:last-child { border-bottom: none; }
+.log-chip { color: #f1c40f; }
+.log-tax { color: #e74c3c; }
+.log-refund { color: #3498db; }
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+.modal.show { display: flex; }
+.modal-content {
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  max-width: 500px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.modal h2 { margin-bottom: 15px; color: #f39c12; }
+.modal p { margin-bottom: 20px; color: #bbb; line-height: 1.6; }
+.modal-btn {
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 1em;
+  cursor: pointer;
+  margin: 0 5px;
+  transition: all 0.3s;
+}
+.modal-btn:hover { transform: scale(1.05); }
+.modal-btn.primary { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+
+.start-screen {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+.start-screen h1 { font-size: 3em; margin-bottom: 10px; }
+.start-screen p { color: #888; margin-bottom: 30px; max-width: 600px; line-height: 1.6; }
+.start-btn {
+  padding: 15px 40px;
+  font-size: 1.3em;
+  background: linear-gradient(135deg, #f39c12, #e74c3c);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+.start-btn:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(243, 156, 18, 0.4); }
+
+@media (max-width: 900px) {
+  .game-container { flex-direction: column; align-items: center; }
+  .sidebar { min-width: 90%; }
+  .board { transform: scale(0.85); transform-origin: top center; }
+  .start-screen h1 { font-size: 2em; }
+}
+@media (max-width: 600px) {
+  .game-title { font-size: 0.9rem; }
+  .board { transform: scale(0.65); transform-origin: top center; }
+  h1 { font-size: 1.5em; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <a href="../games.html" class="back-btn"><i class="fas fa-arrow-left"></i> 返回游戏</a>
+    <div class="game-title"><i class="fas fa-building-columns"></i> Tax Tycoon</div>
+</header>
+
+<div class="start-screen" id="start-screen">
+  <h1>🏦 Tax Tycoon</h1>
+  <p>
+    Welcome to the ultimate tax board game! Navigate through income taxes, property investments, 
+    audits, and refunds. Start with <strong>1000 chips</strong> and compete against 3 AI players 
+    over <strong>4 rounds</strong>. The player with the most chips at the end wins!
+  </p>
+  <button class="start-btn" onclick="startGame()">🎲 Start Game</button>
+</div>
+
+<h1>🏦 Tax Tycoon</h1>
+<p class="subtitle">Navigate taxes, investments & audits to win!</p>
+
+<div class="game-container">
+  <div class="board" id="board"></div>
+  
+  <div class="sidebar">
+    <div id="player-cards"></div>
+    
+    <div class="game-info">
+      <div class="round-display" id="round-display">Round 1 / 4</div>
+      <div class="turn-display" id="turn-display">Your turn</div>
+      <div class="dice-container">
+        <div class="dice" id="dice1">⚀</div>
+        <div class="dice" id="dice2">⚀</div>
+      </div>
+      <button id="roll-btn" onclick="playerRoll()" disabled>🎲 Roll Dice</button>
+    </div>
+    
+    <div class="event-log" id="event-log">
+      <div class="log-entry">Welcome to Tax Tycoon! Click "Start Game" to begin.</div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="event-modal">
+  <div class="modal-content">
+    <h2 id="modal-title">Event!</h2>
+    <p id="modal-message">Something happened...</p>
+    <div id="modal-actions"></div>
+  </div>
+</div>
+
+<div class="modal" id="end-modal">
+  <div class="modal-content">
+    <h2>🏆 Game Over!</h2>
+    <p id="end-message">Final results...</p>
+    <button class="modal-btn primary" onclick="location.reload()">🔄 Play Again</button>
+  </div>
+</div>
+
+<script>
+const SPACES = [
+  { name: 'START', type: 'start', icon: '🏁' },
+  { name: 'Income Tax', type: 'tax', icon: '💸' },
+  { name: 'Property A', type: 'property', price: 200, rent: 50, icon: '🏠' },
+  { name: 'Tax Refund', type: 'refund', icon: '💰' },
+  { name: 'Salary', type: 'salary', icon: '💵' },
+  { name: 'Random', type: 'random', icon: '🎲' },
+  { name: 'Property B', type: 'property', price: 300, rent: 75, icon: '🏢' },
+  { name: 'Audit', type: 'audit', icon: '🔍' },
+  { name: 'Jail', type: 'jail', icon: '🔒' },
+  { name: 'Property C', type: 'property', price: 400, rent: 100, icon: '🏬' },
+  { name: 'Income Tax', type: 'tax', icon: '💸' },
+  { name: 'Tax Refund', type: 'refund', icon: '💰' },
+  { name: 'Property D', type: 'property', price: 250, rent: 60, icon: '🏡' },
+  { name: 'Random', type: 'random', icon: '🎲' },
+  { name: 'Salary', type: 'salary', icon: '💵' },
+  { name: 'Audit', type: 'audit', icon: '🔍' },
+  { name: 'Property E', type: 'property', price: 350, rent: 90, icon: '🏗️' },
+  { name: 'Income Tax', type: 'tax', icon: '💸' },
+];
+
+const PLAYERS = [
+  { name: 'You (Player)', isAI: false, color: '#2ecc71' },
+  { name: 'AI Alice', isAI: true, color: '#e74c3c' },
+  { name: 'AI Bob', isAI: true, color: '#3498db' },
+  { name: 'AI Carol', isAI: true, color: '#f39c12' },
+];
+
+const BOARD_SIZE = 18;
+const INITIAL_CHIPS = 1000;
+const TOTAL_ROUNDS = 4;
+const SALARY_AMOUNT = 200;
+const PASS_GO_BONUS = 150;
+
+let gameState = {
+  players: [],
+  currentRound: 1,
+  currentPlayer: 0,
+  turnInRound: 0,
+  isProcessing: false,
+  gameOver: false,
+};
+
+function startGame() {
+  document.getElementById('start-screen').style.display = 'none';
+  initGame();
+  renderBoard();
+  renderPlayerCards();
+  updateUI();
+  addLog('🎮 Game started! You have 1000 chips. Good luck!', 'log-chip');
+  setTimeout(() => nextTurn(), 500);
+}
+
+function initGame() {
+  gameState.players = PLAYERS.map((p, i) => ({
+    ...p,
+    index: i,
+    chips: INITIAL_CHIPS,
+    position: 0,
+    properties: [],
+    skipTurn: false,
+  }));
+}
+
+function renderBoard() {
+  const board = document.getElementById('board');
+  board.innerHTML = '';
+  
+  // Map 18 spaces to grid positions (perimeter of 6x6)
+  const positions = getBoardPositions();
+  
+  SPACES.forEach((space, i) => {
+    const div = document.createElement('div');
+    div.className = `space ${space.type}`;
+    div.id = `space-${i}`;
+    div.style.gridColumn = positions[i][0];
+    div.style.gridRow = positions[i][1];
+    
+    div.innerHTML = `
+      <div style="font-size:1.5em">${space.icon}</div>
+      <div style="font-weight:bold;margin-top:2px">${space.name}</div>
+      ${space.price ? `<div style="font-size:0.8em">$${space.price}</div>` : ''}
+      <div class="players-on-space" id="space-players-${i}"></div>
+    `;
+    
+    board.appendChild(div);
+  });
+  
+  // Center info
+  const center = document.createElement('div');
+  center.className = 'space center';
+  center.innerHTML = `
+    <div style="font-size:2em;opacity:0.3">🏦</div>
+    <div style="font-size:1.2em;font-weight:bold;opacity:0.5">TAX TYCOON</div>
+    <div style="font-size:0.8em;opacity:0.4">4 Rounds</div>
+  `;
+  board.appendChild(center);
+  
+  updateTokens();
+}
+
+function getBoardPositions() {
+  const positions = [];
+  // Top row (left to right): 0-5
+  for (let i = 0; i < 6; i++) positions.push([i + 1, 1]);
+  // Right column (top to bottom): 6-9
+  for (let i = 0; i < 4; i++) positions.push([6, i + 2]);
+  // Bottom row (right to left): 10-15
+  for (let i = 0; i < 6; i++) positions.push([6 - i, 6]);
+  // Left column (bottom to top): 16-17
+  for (let i = 0; i < 2; i++) positions.push([1, 5 - i]);
+  return positions;
+}
+
+function updateTokens() {
+  for (let i = 0; i < BOARD_SIZE; i++) {
+    const container = document.getElementById(`space-players-${i}`);
+    container.innerHTML = '';
+  }
+  
+  gameState.players.forEach(player => {
+    const container = document.getElementById(`space-players-${player.position}`);
+    const token = document.createElement('div');
+    token.className = `player-token token-${player.index}`;
+    token.textContent = player.index + 1;
+    container.appendChild(token);
+  });
+}
+
+function renderPlayerCards() {
+  const container = document.getElementById('player-cards');
+  container.innerHTML = '';
+  
+  gameState.players.forEach((player, i) => {
+    const card = document.createElement('div');
+    card.className = `player-card p${i} ${i === gameState.currentPlayer ? 'active' : ''}`;
+    card.id = `player-card-${i}`;
+    
+    const propValue = player.properties.reduce((sum, p) => sum + SPACES[p].price, 0);
+    const totalWorth = player.chips + propValue;
+    
+    card.innerHTML = `
+      <div class="player-name">${player.index === 0 ? '👤' : '🤖'} ${player.name}</div>
+      <div class="player-stats">
+        <span>💰 <span class="player-chips">${player.chips}</span></span>
+        <span>🏠 ${player.properties.length}</span>
+        <span>📊 ${totalWorth}</span>
+      </div>
+    `;
+    
+    container.appendChild(card);
+  });
+}
+
+function updateUI() {
+  document.getElementById('round-display').textContent = `Round ${gameState.currentRound} / ${TOTAL_ROUNDS}`;
+  
+  const currentPlayer = gameState.players[gameState.currentPlayer];
+  document.getElementById('turn-display').textContent = currentPlayer.isAI ? 
+    `🤖 ${currentPlayer.name}'s turn` : '🎲 Your turn!';
+  
+  const rollBtn = document.getElementById('roll-btn');
+  rollBtn.disabled = gameState.isProcessing || currentPlayer.isAI || gameState.gameOver;
+  
+  renderPlayerCards();
+  updateTokens();
+}
+
+async function nextTurn() {
+  if (gameState.gameOver) return;
+  
+  const player = gameState.players[gameState.currentPlayer];
+  
+  if (player.skipTurn) {
+    addLog(`🔒 ${player.name} is in jail, skipping turn!`, 'log-tax');
+    player.skipTurn = false;
+    advancePlayer();
+    return;
+  }
+  
+  if (player.isAI) {
+    gameState.isProcessing = true;
+    updateUI();
+    await sleep(800);
+    await aiTurn(player);
+    gameState.isProcessing = false;
+  } else {
+    document.getElementById('roll-btn').disabled = false;
+    updateUI();
+  }
+}
+
+async function playerRoll() {
+  if (gameState.isProcessing || gameState.gameOver) return;
+  
+  gameState.isProcessing = true;
+  document.getElementById('roll-btn').disabled = true;
+  
+  const player = gameState.players[0];
+  await performTurn(player);
+}
+
+async function aiTurn(player) {
+  await performTurn(player);
+}
+
+async function performTurn(player) {
+  // Roll dice
+  const dice1 = Math.floor(Math.random() * 6) + 1;
+  const dice2 = Math.floor(Math.random() * 6) + 1;
+  const total = dice1 + dice2;
+  
+  await animateDice(dice1, dice2);
+  
+  addLog(`🎲 ${player.name} rolled ${dice1} + ${dice2} = ${total}`);
+  
+  // Move player
+  const oldPos = player.position;
+  const newPos = (oldPos + total) % BOARD_SIZE;
+  player.position = newPos;
+  
+  // Check if passed START
+  if (newPos < oldPos) {
+    player.chips += PASS_GO_BONUS;
+    addLog(`🏁 ${player.name} passed START! +${PASS_GO_BONUS} chips`, 'log-chip');
+  }
+  
+  updateTokens();
+  await sleep(500);
+  
+  // Handle space event
+  await handleSpace(player, newPos);
+  
+  // Advance to next player
+  advancePlayer();
+}
+
+function advancePlayer() {
+  gameState.currentPlayer = (gameState.currentPlayer + 1) % 4;
+  gameState.turnInRound++;
+  
+  if (gameState.turnInRound >= 4) {
+    gameState.currentRound++;
+    gameState.turnInRound = 0;
+    
+    if (gameState.currentRound > TOTAL_ROUNDS) {
+      endGame();
+      return;
+    }
+    
+    addLog(`📅 Round ${gameState.currentRound} begins!`, 'log-chip');
+  }
+  
+  updateUI();
+  setTimeout(() => nextTurn(), 500);
+}
+
+async function handleSpace(player, pos) {
+  const space = SPACES[pos];
+  
+  switch (space.type) {
+    case 'start':
+      player.chips += 100;
+      addLog(`🏁 ${player.name} landed on START! +100 chips`, 'log-chip');
+      break;
+      
+    case 'tax':
+      const taxAmount = Math.floor(player.chips * 0.15);
+      player.chips -= taxAmount;
+      addLog(`💸 ${player.name} pays income tax! -${taxAmount} chips`, 'log-tax');
+      break;
+      
+    case 'refund':
+      const refund = 100 + Math.floor(Math.random() * 150);
+      player.chips += refund;
+      addLog(`💰 ${player.name} gets tax refund! +${refund} chips`, 'log-refund');
+      break;
+      
+    case 'salary':
+      player.chips += SALARY_AMOUNT;
+      addLog(`💵 ${player.name} collects salary! +${SALARY_AMOUNT} chips`, 'log-chip');
+      break;
+      
+    case 'property':
+      await handleProperty(player, pos, space);
+      break;
+      
+    case 'audit':
+      const auditPenalty = 50 + Math.floor(Math.random() * 100);
+      player.chips -= auditPenalty;
+      addLog(`🔍 ${player.name} gets audited! -${auditPenalty} chips`, 'log-tax');
+      break;
+      
+    case 'random':
+      await handleRandom(player);
+      break;
+      
+    case 'jail':
+      player.skipTurn = true;
+      addLog(`🔒 ${player.name} goes to jail! Skip next turn.`, 'log-tax');
+      break;
+  }
+}
+
+async function handleProperty(player, pos, space) {
+  const ownerIndex = gameState.players.findIndex(p => p.properties.includes(pos));
+  
+  if (ownerIndex === -1) {
+    // Property is unowned
+    if (player.chips >= space.price) {
+      if (player.isAI) {
+        // AI buys if they have enough chips
+        player.chips -= space.price;
+        player.properties.push(pos);
+        addLog(`🏠 ${player.name} bought ${space.name} for $${space.price}!`, 'log-tax');
+      } else {
+        // Ask player
+        return new Promise(resolve => {
+          showModal(
+            `Buy ${space.name}?`,
+            `Price: $${space.price}<br>Rent income: $${space.rent}/visit<br>Your chips: ${player.chips}`,
+            [
+              { text: '✅ Buy', class: 'primary', action: () => {
+                player.chips -= space.price;
+                player.properties.push(pos);
+                addLog(`🏠 You bought ${space.name} for $${space.price}!`, 'log-chip');
+                hideModal();
+                resolve();
+              }},
+              { text: '❌ Skip', class: '', action: () => {
+                addLog(`⏭️ You skipped buying ${space.name}.`);
+                hideModal();
+                resolve();
+              }}
+            ]
+          );
+        });
+      }
+    } else {
+      addLog(`💸 ${player.name} can't afford ${space.name} ($${space.price}).`);
+    }
+  } else if (ownerIndex !== player.index) {
+    // Pay rent to owner
+    const rent = space.rent;
+    player.chips -= rent;
+    gameState.players[ownerIndex].chips += rent;
+    addLog(`🏠 ${player.name} pays $${rent} rent to ${gameState.players[ownerIndex].name}!`, 'log-tax');
+  } else {
+    addLog(`🏠 ${player.name} visits their own ${space.name}.`);
+  }
+}
+
+async function handleRandom(player) {
+  const events = [
+    { text: '🎁 Found money on the street!', chips: 50 },
+    { text: '🍀 Lucky day! Tax rebate!', chips: 100 },
+    { text: '💎 Sold old assets!', chips: 150 },
+    { text: '🎰 Casino win!', chips: 200 },
+    { text: '📉 Bad investment!', chips: -100 },
+    { text: '🔧 Car repairs needed!', chips: -75 },
+    { text: '🏥 Medical bill!', chips: -125 },
+    { text: '⚡ Unexpected fine!', chips: -50 },
+  ];
+  
+  const event = events[Math.floor(Math.random() * events.length)];
+  player.chips += event.chips;
+  
+  const cls = event.chips > 0 ? 'log-chip' : 'log-tax';
+  addLog(`${event.text} ${event.chips > 0 ? '+' : ''}${event.chips} chips`, cls);
+}
+
+async function animateDice(d1, d2) {
+  const dice1 = document.getElementById('dice1');
+  const dice2 = document.getElementById('dice2');
+  
+  const diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+  
+  dice1.classList.add('rolling');
+  dice2.classList.add('rolling');
+  
+  // Animate
+  for (let i = 0; i < 8; i++) {
+    dice1.textContent = diceFaces[Math.floor(Math.random() * 6)];
+    dice2.textContent = diceFaces[Math.floor(Math.random() * 6)];
+    await sleep(100);
+  }
+  
+  dice1.textContent = diceFaces[d1 - 1];
+  dice2.textContent = diceFaces[d2 - 1];
+  
+  await sleep(200);
+  dice1.classList.remove('rolling');
+  dice2.classList.remove('rolling');
+}
+
+function showModal(title, message, buttons) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-message').innerHTML = message;
+  
+  const actionsDiv = document.getElementById('modal-actions');
+  actionsDiv.innerHTML = '';
+  
+  buttons.forEach(btn => {
+    const button = document.createElement('button');
+    button.className = `modal-btn ${btn.class}`;
+    button.textContent = btn.text;
+    button.onclick = btn.action;
+    actionsDiv.appendChild(button);
+  });
+  
+  document.getElementById('event-modal').classList.add('show');
+}
+
+function hideModal() {
+  document.getElementById('event-modal').classList.remove('show');
+}
+
+function addLog(message, className = '') {
+  const log = document.getElementById('event-log');
+  const entry = document.createElement('div');
+  entry.className = `log-entry ${className}`;
+  entry.textContent = message;
+  log.insertBefore(entry, log.firstChild);
+  
+  // Keep only last 50 entries
+  while (log.children.length > 50) {
+    log.removeChild(log.lastChild);
+  }
+}
+
+function endGame() {
+  gameState.gameOver = true;
+  
+  // Sort by total worth
+  const sorted = [...gameState.players].sort((a, b) => {
+    const worthA = a.chips + a.properties.reduce((s, p) => s + SPACES[p].price, 0);
+    const worthB = b.chips + b.properties.reduce((s, p) => s + SPACES[p].price, 0);
+    return worthB - worthA;
+  });
+  
+  const winner = sorted[0];
+  const isPlayerWin = winner.index === 0;
+  
+  let resultsHTML = `<strong>${isPlayerWin ? '🎉 Congratulations!' : '😔 Better luck next time!'}</strong><br><br>`;
+  
+  sorted.forEach((player, i) => {
+    const propValue = player.properties.reduce((s, p) => s + SPACES[p].price, 0);
+    const total = player.chips + propValue;
+    const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '  ';
+    resultsHTML += `${medal} <strong>${player.name}</strong>: ${player.chips} chips + ${propValue} property = <strong>${total}</strong><br>`;
+  });
+  
+  document.getElementById('end-message').innerHTML = resultsHTML;
+  document.getElementById('end-modal').classList.add('show');
+  
+  addLog(`🏆 Game Over! Winner: ${winner.name} with ${winner.chips + winner.properties.reduce((s, p) => s + SPACES[p].price, 0)} total worth!`, 'log-chip');
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+</script>
+</body>
+</html>
