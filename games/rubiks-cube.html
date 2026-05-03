@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>二阶魔方 - SL Design Games</title>
+    <title>三阶魔方 - SL Design Games</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -93,7 +93,7 @@
 <body>
     <header>
         <a href="../games.html" class="back-btn"><i class="fas fa-arrow-left"></i> 返回游戏</a>
-        <div class="game-title"><i class="fas fa-cube"></i> 二阶魔方</div>
+        <div class="game-title"><i class="fas fa-cube"></i> 三阶魔方</div>
     </header>
 
     <div id="game-container">
@@ -243,9 +243,9 @@
         return { group, stickers };
     }
 
-    for (let x of [-1, 1])
-        for (let y of [-1, 1])
-            for (let z of [-1, 1])
+    for (let x of [-1, 0, 1])
+        for (let y of [-1, 0, 1])
+            for (let z of [-1, 1, 0])
                 cubies.push(makeCubie(x, y, z));
 
     function getCubiesForFace(face) {
