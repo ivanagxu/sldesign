@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>二阶魔方 - SL Design Games</title>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -16,108 +15,58 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
         body { background: #0f172a; color: #e2e8f0; min-height: 100vh; }
-
-        /* Compact game header */
         header {
-            background: #1e293b;
-            padding: 0.6rem 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
+            background: #1e293b; padding: 0.6rem 1rem;
+            display: flex; align-items: center; gap: 0.8rem;
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         .back-btn {
-            color: #60a5fa;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            background: rgba(59,130,246,0.1);
-            transition: all 0.2s;
-            white-space: nowrap;
+            color: #60a5fa; text-decoration: none; font-size: 0.85rem; font-weight: 600;
+            padding: 0.4rem 0.8rem; border-radius: 6px;
+            background: rgba(59,130,246,0.1); transition: all 0.2s; white-space: nowrap;
         }
         .back-btn:hover { background: rgba(59,130,246,0.25); }
-        .game-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #e2e8f0;
-        }
+        .game-title { font-size: 1.1rem; font-weight: 700; color: #e2e8f0; }
         .game-title i { color: #3b82f6; margin-right: 0.4rem; }
 
-        /* Game container */
         #game-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 1rem 0.5rem;
-            gap: 8px;
+            display: flex; flex-direction: column; align-items: center;
+            padding: 1rem 0.5rem; gap: 8px;
         }
         #canvas-container {
-            width: min(360px, 85vw);
-            height: min(360px, 85vw);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 0 40px rgba(59,130,246,0.15);
+            width: min(400px, 92vw); height: min(400px, 92vw);
+            border-radius: 16px; overflow: hidden;
+            box-shadow: 0 0 50px rgba(59,130,246,0.15);
             background: radial-gradient(circle at 50% 50%, #1e3a5f, #0f172a);
+            cursor: grab;
         }
+        #canvas-container:active { cursor: grabbing; }
         canvas { display: block; }
         .move-count { font-size: 14px; color: #94a3b8; }
         .move-count span { color: #60a5fa; font-weight: 700; }
-        #face-label {
-            font-size: 13px;
-            color: #60a5fa;
-            min-height: 20px;
-        }
+        #face-label { font-size: 13px; color: #60a5fa; min-height: 20px; }
 
-        /* Arrow controls */
-        #controls {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            margin-top: 8px;
-        }
+        #controls { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: 8px; }
         .controls-row { display: flex; gap: 6px; align-items: center; }
         .arrow-btn {
-            width: 64px;
-            height: 64px;
-            border: 2px solid #334155;
-            border-radius: 14px;
-            background: linear-gradient(145deg, #1e293b, #0f172a);
-            color: #94a3b8;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: all 0.15s ease;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
+            width: 64px; height: 64px; border: 2px solid #334155;
+            border-radius: 14px; background: linear-gradient(145deg, #1e293b, #0f172a);
+            color: #94a3b8; cursor: pointer; display: flex;
+            align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.15s ease;
+            user-select: none; -webkit-tap-highlight-color: transparent;
         }
-        .arrow-btn:hover {
-            border-color: #3b82f6;
-            background: linear-gradient(145deg, #1e3a5f, #1e293b);
-            transform: scale(1.05);
-        }
+        .arrow-btn:hover { border-color: #3b82f6; transform: scale(1.05); }
         .arrow-btn:active { transform: scale(0.95); }
-        .arrow-btn svg {
-            width: 32px; height: 32px;
-            fill: none; stroke: #94a3b8;
-            stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
-        }
+        .arrow-btn svg { width: 32px; height: 32px; fill: none; stroke: #94a3b8; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
         .arrow-btn:hover svg { stroke: #60a5fa; }
         .spacer { width: 64px; height: 64px; }
 
-        /* Action buttons */
         #action-buttons { display: flex; gap: 12px; margin-top: 12px; }
         .action-btn {
-            padding: 10px 22px;
-            border: none; border-radius: 10px;
-            font-size: 14px; font-weight: 600;
-            cursor: pointer; transition: all 0.15s ease;
-            text-transform: uppercase; letter-spacing: 1px;
+            padding: 10px 22px; border: none; border-radius: 10px;
+            font-size: 14px; font-weight: 600; cursor: pointer;
+            transition: all 0.15s ease; text-transform: uppercase; letter-spacing: 1px;
         }
         #scramble-btn { background: linear-gradient(145deg, #ef4444, #dc2626); color: #fff; }
         #scramble-btn:hover { box-shadow: 0 4px 20px rgba(239,68,68,0.4); transform: scale(1.05); }
@@ -126,16 +75,11 @@
 
         .hint { font-size: 11px; color: #475569; text-align: center; margin-top: 4px; }
 
-        /* Win message */
         #win-message {
-            position: fixed; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(15,23,42,0.97);
-            padding: 40px 50px; border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 0 60px rgba(16,185,129,0.3);
-            display: none; z-index: 100;
-            border: 1px solid #10b981;
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: rgba(15,23,42,0.97); padding: 40px 50px; border-radius: 20px;
+            text-align: center; box-shadow: 0 0 60px rgba(16,185,129,0.3);
+            display: none; z-index: 100; border: 1px solid #10b981;
         }
         #win-message h2 { font-size: 32px; color: #10b981; margin-bottom: 10px; }
         #win-message p { color: #94a3b8; margin-bottom: 20px; }
@@ -177,7 +121,7 @@
                 </button>
             </div>
         </div>
-        <div class="hint">拖拽旋转视角 • 箭头按钮旋转魔方面</div>
+        <div class="hint">拖拽旋转视角 360° • 箭头按钮旋转魔方面</div>
         <div id="action-buttons">
             <button class="action-btn" id="scramble-btn">🔀 打乱</button>
             <button class="action-btn" id="reset-btn">↺ 重置</button>
@@ -202,6 +146,7 @@
     <script type="module">
     import * as THREE from 'three';
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 
     const FACE_COLORS = {
         U: 0xffffff, D: 0xffd500, F: 0x009e60,
@@ -213,13 +158,14 @@
         F: '前面顺时针', B: '后面顺时针'
     };
 
-    const CUBE_SIZE = 0.9;
+    const CUBE_SIZE = 0.96;
     const SPACING = 1.0;
+    const GAP = SPACING - CUBE_SIZE; // ~0.04 gap between cubies
 
     const canvas = document.getElementById('cube-canvas');
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    const containerSize = Math.min(360, window.innerWidth * 0.85);
+    const containerSize = Math.min(400, window.innerWidth * 0.92);
     renderer.setSize(containerSize, containerSize);
 
     const scene = new THREE.Scene();
@@ -230,62 +176,63 @@
     const controls3d = new OrbitControls(camera, canvas);
     controls3d.enableDamping = true;
     controls3d.dampingFactor = 0.08;
-    controls3d.minDistance = 4;
-    controls3d.maxDistance = 12;
+    controls3d.minDistance = 3;
+    controls3d.maxDistance = 15;
     controls3d.enablePan = false;
+    // Allow full 360 degree rotation — no polar angle limits
+    controls3d.minPolarAngle = 0;
+    controls3d.maxPolarAngle = Math.PI;
 
-    scene.add(new THREE.AmbientLight(0xffffff, 0.6));
-    const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.65));
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
     dirLight.position.set(5, 8, 5);
     scene.add(dirLight);
-    scene.add(new THREE.DirectionalLight(0x8888ff, 0.3).translateX(-3).translateY(-2).translateZ(-4));
+    const fillLight = new THREE.DirectionalLight(0x8888ff, 0.3);
+    fillLight.position.set(-3, -2, -4);
+    scene.add(fillLight);
+    // Top rim light for better depth
+    const rimLight = new THREE.DirectionalLight(0xffffff, 0.2);
+    rimLight.position.set(0, 10, 0);
+    scene.add(rimLight);
 
     const cubies = [];
     const cubieGroup = new THREE.Group();
     scene.add(cubieGroup);
 
+    // Shared rounded geometry for all cubies
+    const roundedGeo = new RoundedBoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, 4, 0.08);
+    const bodyMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.4, metalness: 0.05 });
+
     function makeCubie(x, y, z) {
         const group = new THREE.Group();
         group.position.set(x * SPACING, y * SPACING, z * SPACING);
 
-        const bodyGeo = new THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE);
-        const bodyMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.5, metalness: 0.1 });
-        group.add(new THREE.Mesh(bodyGeo, bodyMat));
+        // Rounded black body — this makes all pieces visually connected
+        const bodyMesh = new THREE.Mesh(roundedGeo, bodyMat);
+        group.add(bodyMesh);
 
-        const stickerGeo = new THREE.PlaneGeometry(CUBE_SIZE * 0.82, CUBE_SIZE * 0.82);
-        const stickerMat = (color) => new THREE.MeshStandardMaterial({ color, roughness: 0.3, metalness: 0.0 });
+        // Colored stickers as slightly larger rounded planes
+        const stickerGeo = new RoundedBoxGeometry(CUBE_SIZE * 0.85, CUBE_SIZE * 0.85, 0.04, 3, 0.06);
         const stickers = [];
 
-        if (x === 1) {
-            const m = new THREE.Mesh(stickerGeo, stickerMat(FACE_COLORS.R));
-            m.position.set(CUBE_SIZE/2+0.005, 0, 0); m.rotation.y = Math.PI/2;
-            group.add(m); stickers.push({ face: 'R', dir: new THREE.Vector3(1,0,0) });
-        }
-        if (x === -1) {
-            const m = new THREE.Mesh(stickerGeo, stickerMat(FACE_COLORS.L));
-            m.position.set(-CUBE_SIZE/2-0.005, 0, 0); m.rotation.y = -Math.PI/2;
-            group.add(m); stickers.push({ face: 'L', dir: new THREE.Vector3(-1,0,0) });
-        }
-        if (y === 1) {
-            const m = new THREE.Mesh(stickerGeo, stickerMat(FACE_COLORS.U));
-            m.position.set(0, CUBE_SIZE/2+0.005, 0); m.rotation.x = -Math.PI/2;
-            group.add(m); stickers.push({ face: 'U', dir: new THREE.Vector3(0,1,0) });
-        }
-        if (y === -1) {
-            const m = new THREE.Mesh(stickerGeo, stickerMat(FACE_COLORS.D));
-            m.position.set(0, -CUBE_SIZE/2-0.005, 0); m.rotation.x = Math.PI/2;
-            group.add(m); stickers.push({ face: 'D', dir: new THREE.Vector3(0,-1,0) });
-        }
-        if (z === 1) {
-            const m = new THREE.Mesh(stickerGeo, stickerMat(FACE_COLORS.F));
-            m.position.set(0, 0, CUBE_SIZE/2+0.005);
-            group.add(m); stickers.push({ face: 'F', dir: new THREE.Vector3(0,0,1) });
-        }
-        if (z === -1) {
-            const m = new THREE.Mesh(stickerGeo, stickerMat(FACE_COLORS.B));
-            m.position.set(0, 0, -CUBE_SIZE/2-0.005); m.rotation.y = Math.PI;
-            group.add(m); stickers.push({ face: 'B', dir: new THREE.Vector3(0,0,-1) });
-        }
+        const addSticker = (face, dir, pos, rot) => {
+            const mat = new THREE.MeshStandardMaterial({
+                color: FACE_COLORS[face], roughness: 0.25, metalness: 0.0
+            });
+            const m = new THREE.Mesh(stickerGeo, mat);
+            m.position.copy(pos);
+            if (rot) m.rotation.set(rot.x || 0, rot.y || 0, rot.z || 0);
+            group.add(m);
+            stickers.push({ face, dir: dir.clone() });
+        };
+
+        const s = CUBE_SIZE / 2 + 0.02;
+        if (x === 1)  addSticker('R', new THREE.Vector3(1,0,0),  new THREE.Vector3(s, 0, 0),   { y: Math.PI/2 });
+        if (x === -1) addSticker('L', new THREE.Vector3(-1,0,0), new THREE.Vector3(-s, 0, 0),  { y: -Math.PI/2 });
+        if (y === 1)  addSticker('U', new THREE.Vector3(0,1,0),  new THREE.Vector3(0, s, 0),   { x: -Math.PI/2 });
+        if (y === -1) addSticker('D', new THREE.Vector3(0,-1,0), new THREE.Vector3(0, -s, 0),  { x: Math.PI/2 });
+        if (z === 1)  addSticker('F', new THREE.Vector3(0,0,1),  new THREE.Vector3(0, 0, s));
+        if (z === -1) addSticker('B', new THREE.Vector3(0,0,-1), new THREE.Vector3(0, 0, -s),  { y: Math.PI });
 
         cubieGroup.add(group);
         return { group, stickers };
@@ -450,7 +397,7 @@
     animate();
 
     window.addEventListener('resize', () => {
-        const s = Math.min(360, window.innerWidth * 0.85);
+        const s = Math.min(400, window.innerWidth * 0.92);
         renderer.setSize(s, s); camera.aspect = 1; camera.updateProjectionMatrix();
     });
 
