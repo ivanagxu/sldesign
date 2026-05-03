@@ -199,13 +199,15 @@
     const cubieGroup = new THREE.Group();
     scene.add(cubieGroup);
 
-    // Shared rounded geometry for all cubies
-    const roundedGeo = new RoundedBoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, 4, 0.08);
+    // Body cubes — slightly inset so inner faces don't show through gaps
+    // This eliminates the "cross planes" look from seeing opposite cubie faces
+    const bodySize = 0.92;
+    const roundedGeo = new RoundedBoxGeometry(bodySize, bodySize, bodySize, 4, 0.05);
     const bodyMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.4, metalness: 0.05 });
 
-    // Add a solid core cube to fill the center — eliminates the hollow look
-    const coreGeo = new RoundedBoxGeometry(SPACING * 0.98, SPACING * 0.98, SPACING * 0.98, 4, 0.1);
-    const coreMat = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.5, metalness: 0.05 });
+    // Tiny dark core to block see-through without creating visible planes
+    const coreGeo = new THREE.SphereGeometry(0.12, 12, 12);
+    const coreMat = new THREE.MeshStandardMaterial({ color: 0x060606, roughness: 0.9 });
     const coreMesh = new THREE.Mesh(coreGeo, coreMat);
     cubieGroup.add(coreMesh);
 
