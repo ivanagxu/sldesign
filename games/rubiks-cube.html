@@ -199,17 +199,14 @@
     const cubieGroup = new THREE.Group();
     scene.add(cubieGroup);
 
-    // Body cubes — slightly inset so inner faces don't show through gaps
-    // This eliminates the "cross planes" look from seeing opposite cubie faces
-    const bodySize = 0.92;
-    const roundedGeo = new RoundedBoxGeometry(bodySize, bodySize, bodySize, 4, 0.05);
+    // Body cubes — large enough to overlap slightly, hiding internal gaps
+    // SPACING = 1.0, so bodySize close to 1.0 means minimal visible gap
+    const bodySize = 0.96;
+    const roundedGeo = new RoundedBoxGeometry(bodySize, bodySize, bodySize, 4, 0.06);
     const bodyMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.4, metalness: 0.05 });
 
-    // Tiny dark core to block see-through without creating visible planes
-    const coreGeo = new THREE.SphereGeometry(0.12, 12, 12);
-    const coreMat = new THREE.MeshStandardMaterial({ color: 0x060606, roughness: 0.9 });
-    const coreMesh = new THREE.Mesh(coreGeo, coreMat);
-    cubieGroup.add(coreMesh);
+    // No core needed — large cubies hide everything
+    // (removed sphere)
 
     function makeCubie(x, y, z) {
         const group = new THREE.Group();
