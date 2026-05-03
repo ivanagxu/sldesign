@@ -605,8 +605,10 @@ function checkResponses(tile, from) {
         }
     }
 
-    // 无响应，轮到下家
-    startTurn((from + 1) % 4);
+    // 无响应，加延迟后轮到下家
+    setTimeout(() => {
+        if (!G.gameOver) startTurn((from + 1) % 4);
+    }, 400);
 }
 
 // ==================== 执行操作 ====================
@@ -845,6 +847,8 @@ function onTileClick(idx) {
     // 只有当处于出牌阶段且轮到自己时才响应
     if (G.humanPhase !== 'select-discard' || G.cur !== 0) return;
 
+    // 双重保险：标记后立即锁定，防止快速点击
+    G.humanPhase = 'waiting';
     doDiscard(0, idx);
     hideActions();
 }
