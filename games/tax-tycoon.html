@@ -48,6 +48,22 @@ h1 {
   padding: 0 20px;
 }
 
+.board-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.board-controls {
+  background: rgba(44, 62, 80, 0.9);
+  padding: 15px 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  width: 100%;
+}
+
 .board {
   display: grid;
   grid-template-columns: repeat(6, 80px);
@@ -266,12 +282,12 @@ h1 {
 @media (max-width: 900px) {
   .game-container { flex-direction: column; align-items: center; }
   .sidebar { min-width: 90%; }
-  .board { transform: scale(0.85); transform-origin: top center; }
+  .board { transform: scale(0.85); transform-origin: center center; }
   .start-screen h1 { font-size: 2em; }
 }
 @media (max-width: 600px) {
   .game-title { font-size: 0.9rem; }
-  .board { transform: scale(0.65); transform-origin: top center; }
+  .board { transform: scale(0.65); transform-origin: center center; }
   h1 { font-size: 1.5em; }
 }
 </style>
@@ -297,12 +313,9 @@ h1 {
 <p class="subtitle">Navigate taxes, investments & audits to win!</p>
 
 <div class="game-container">
-  <div class="board" id="board"></div>
-  
-  <div class="sidebar">
-    <div id="player-cards"></div>
-    
-    <div class="game-info">
+  <div class="board-wrapper">
+    <div class="board" id="board"></div>
+    <div class="board-controls">
       <div class="round-display" id="round-display">Round 1 / 4</div>
       <div class="turn-display" id="turn-display">Your turn</div>
       <div class="dice-container">
@@ -311,7 +324,10 @@ h1 {
       </div>
       <button id="roll-btn" onclick="playerRoll()" disabled>🎲 Roll Dice</button>
     </div>
-    
+  </div>
+  
+  <div class="sidebar">
+    <div id="player-cards"></div>
     <div class="event-log" id="event-log">
       <div class="log-entry">Welcome to Tax Tycoon! Click "Start Game" to begin.</div>
     </div>
