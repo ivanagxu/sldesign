@@ -518,6 +518,14 @@ function nextAlivePlayer(from) {
   }
   return -1;
 }
+// Find next player who is alive AND still has cards
+function nextValidTurn(from) {
+  for (let i = 1; i <= 4; i++) {
+    const p = (from + i) % 4;
+    if (players[p].alive && hands[p].length > 0) return p;
+  }
+  return -1;
+}
 function isTableCard(c) {
   return c.isJoker || c.rank === tableCard;
 }
@@ -583,9 +591,12 @@ async function playerPlay() {
 
   render();
 
-  // Pass to next alive player
-  const next = nextAlivePlayer(0);
-  if (next === -1 || checkGameOver()) return;
+  // Pass to next player who still has cards
+  const next = nextValidTurn(0);
+  if (next === -1 || checkGameOver()) {
+    if (gameActive) startNewRound();
+    return;
+  }
   setTimeout(() => giveTurnTo(next), 1200);
 }
 
@@ -623,8 +634,11 @@ async function aiTakeTurn(p) {
   // AI plays cards
   if (hands[p].length === 0) {
     addLog(`🏅 ${players[p].name} 已出完牌，跳過！`, 'info');
-    const next = nextAlivePlayer(p);
-    if (next === -1 || checkGameOver()) return;
+    const next = nextValidTurn(p);
+    if (next === -1 || checkGameOver()) {
+      if (gameActive) startNewRound();
+      return;
+    }
     processingAI = false;
     giveTurnTo(next);
     return;
@@ -655,9 +669,12 @@ async function aiTakeTurn(p) {
 
   render();
 
-  // Pass to next alive player
-  const next = nextAlivePlayer(p);
-  if (next === -1 || checkGameOver()) return;
+  // Pass to next player who still has cards
+  const next = nextValidTurn(p);
+  if (next === -1 || checkGameOver()) {
+    if (gameActive) startNewRound();
+    return;
+  }
 
   processingAI = false;
   setTimeout(() => giveTurnTo(next), 1200);
@@ -734,10 +751,13 @@ async function resolveChallenge(challengerIdx, liarIdx) {
   // Check game over
   if (checkGameOver()) { processingAI = false; return; }
 
-  // After challenge, turn passes to the NEXT player after the challenger
-  // (the one who would have been next after the challenged player's play)
-  const nextAfterChallenger = nextAlivePlayer(challengerIdx);
-  if (nextAfterChallenger === -1 || checkGameOver()) { processingAI = false; return; }
+  // After challenge, turn passes to the next player with cards
+  const nextAfterChallenger = nextValidTurn(challengerIdx);
+  if (nextAfterChallenger === -1 || checkGameOver()) {
+    processingAI = false;
+    if (gameActive) startNewRound();
+    return;
+  }
 
   await new Promise(r => setTimeout(r, 1500));
   processingAI = false;
