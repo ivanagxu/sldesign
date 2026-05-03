@@ -612,14 +612,20 @@ function doPong(pIdx, tile, from) {
     });
     p.melds.push({ type: 'pong', tiles: [tile, tile, tile] });
     G.lastDiscard = null;
+
+    // 碰后摸一张牌
+    if (G.wall.length > 0) {
+        p.hand.push(G.wall.pop());
+        sortHand(p.hand);
+    }
     render();
-    setSt(NAMES[pIdx] + ' 碰！');
+    setSt(NAMES[pIdx] + ' 碰！摸牌后请出牌');
 
     if (p.isAI) {
         setTimeout(() => aiDiscard(), 500);
     } else {
         G.humanPhase = 'select-discard';
-        setSt('碰！请选择出牌');
+        setSt('碰！摸牌后请点击手牌出牌');
     }
 }
 
@@ -636,13 +642,13 @@ function doChow(pIdx, tile, from, chowTiles) {
     p.melds.push({ type: 'chow', tiles: [...chowTiles] });
     G.lastDiscard = null;
     render();
-    setSt(NAMES[pIdx] + ' 吃！');
+    setSt(NAMES[pIdx] + ' 吃！请选择出牌');
 
     if (p.isAI) {
         setTimeout(() => aiDiscard(), 500);
     } else {
         G.humanPhase = 'select-discard';
-        setSt('吃！请选择出牌');
+        setSt('吃！请点击手牌出牌');
     }
 }
 
@@ -829,8 +835,13 @@ function onTileClick(idx) {
     if (G.cur !== 0) return;
 
     if (G.humanPhase === 'select-discard') {
-        if (G.players[0].hand.length > 13 || G.players[G.cur].hand.length > 13) {
-            // 出牌
+        // 手牌数量判断: 
+        // 正常摸牌后: 14张 (>13)
+        // 碰后摸牌: 12张 (>11)
+        // 吃后: 11张 (>10)
+        // 杠后摸牌: 11张 (>10)
+        // 最宽松: 只要手牌 > 10 就能出（吃/杠后的情况）
+        if (G.players[0].hand.length > 10) {
             doDiscard(0, idx);
             hideActions();
         }
