@@ -507,12 +507,8 @@ function doDiscard(pIdx, tileIdx) {
     render();
     setSt('等待响应...');
 
-    // 如果是人类玩家出牌，加延迟让 AI 响应，避免瞬间连出
-    if (pIdx === 0) {
-        setTimeout(() => checkResponses(tile, pIdx), 300);
-    } else {
-        checkResponses(tile, pIdx);
-    }
+    // 加延迟让浏览器渲染，避免瞬间连出多张牌
+    setTimeout(() => checkResponses(tile, pIdx), pIdx === 0 ? 300 : 200);
 }
 
 function checkResponses(tile, from) {
