@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Design - 学习 · 室内设计 · Day 18 · 📖 Day 18: 家具尺寸与空间比例</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .logo span { color: #e2e8f0; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
+        .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
+        footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
+        .footer-section h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: #60a5fa; }
+        .contact-info { list-style: none; }
+        .contact-info li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .contact-info i { margin-right: 0.8rem; color: #3b82f6; width: 20px; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
+        .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
+
+        .breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #94a3b8; padding: 1rem 0; flex-wrap: wrap; }
+        .breadcrumbs a { color: #10b981; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+        .breadcrumbs .sep { color: #d1d5db; }
+
+        .lesson-header { padding: 1.5rem 0; }
+        .lesson-header .lesson-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+        .lesson-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .badge-stage { background: #ecfdf5; color: #059669; }
+        .badge-week { background: #eff6ff; color: #3b82f6; }
+        .badge-day { background: #fef3c7; color: #d97706; }
+        .lesson-header h1 { font-size: 1.6rem; color: #0f172a; margin-bottom: 0.3rem; }
+        .lesson-header .lesson-subtitle { color: #64748b; font-size: 0.9rem; }
+
+        .content-body { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2rem; margin-bottom: 2rem; }
+
+        .lesson-objectives { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+        .lesson-objectives h3 { color: #059669; font-size: 1rem; margin-bottom: 0.5rem; }
+        .lesson-objectives ul { list-style: none; padding: 0; margin: 0; }
+        .lesson-objectives li { color: #047857; padding: 0.2rem 0; font-size: 0.9rem; }
+        .lesson-objectives li::before { content: '✅ '; }
+
+        .content-body h2 { font-size: 1.3rem; color: #059669; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #d1fae5; }
+        .content-body h2:first-child { margin-top: 0; }
+        .content-body h3 { font-size: 1.1rem; color: #0f172a; margin: 1.5rem 0 0.8rem; }
+        .content-body h4 { font-size: 1rem; color: #0f172a; margin: 1.2rem 0 0.6rem; }
+        .content-body p { margin-bottom: 0.8rem; color: #444; }
+        .content-body ul, .content-body ol { margin: 0.8rem 0; padding-left: 1.5rem; }
+        .content-body li { margin-bottom: 0.4rem; color: #444; }
+        .content-body strong { color: #0f172a; }
+        .content-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        .content-body th, .content-body td { border: 1px solid #e2e8f0; padding: 0.6rem 0.8rem; text-align: left; }
+        .content-body th { background-color: #f0fdf4; color: #059669; font-weight: 600; }
+        .content-body tr:nth-child(even) { background-color: #f8fafc; }
+
+        .highlight-box { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .highlight-box p { margin: 0; color: #047857; }
+
+        .tip-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .tip-box p { margin: 0; color: #92400e; }
+
+        .warning-box { background: #fee2e2; border-left: 4px solid #ef4444; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .warning-box p { margin: 0; color: #b91c1c; }
+
+        pre { background: #f1f5f9; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 1rem 0; }
+        code { background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+        pre code { background: none; padding: 0; }
+
+        .prev-next-nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; flex-wrap: wrap; }
+        .prev-next-nav a { display: inline-flex; align-items: center; gap: 0.4rem; color: #10b981; text-decoration: none; font-weight: 500; padding: 0.6rem 1rem; border-radius: 6px; background: #f0fdf4; transition: all 0.2s; }
+        .prev-next-nav a:hover { background: #d1fae5; color: #047857; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <div class="logo">SL<span>Design</span></div>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../learning.html" class="active">Learning</a></li>
+                    <li><a href="../../news.html">News</a></li>
+                    <li><a href="../../games.html">Games</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a><span class="sep">/</span>
+            <a href="../../learning.html">Learning</a><span class="sep">/</span>
+            <a href="../interior-design.html">室内设计</a><span class="sep">/</span>
+            <span>Day 18</span>
+        </div>
+        <div class="lesson-header">
+            <div class="lesson-meta">
+                <span class="lesson-badge badge-week">Week 3</span>
+                <span class="lesson-badge badge-day">Day 18</span>
+            </div>
+            <h1>📖 Day 18: 家具尺寸与空间比例</h1>
+            <p class="lesson-subtitle">掌握家具尺寸与空间比例的核心法则</p>
+        </div>
+
+        <div class="content-body">
+            <div class="lesson-objectives"><p>学完后你能：
+- ✅ 熟记常用家具的标准尺寸
+- ✅ 计算家具与空间的最佳比例
+- ✅ 避免小户型常见的尺寸错误
+- ✅ 为 37㎡户型选择合适的家具</p>
+<hr /></div>
+            <div class="markdown-body">
+                <hr />
+<h2 id="15">一、知识讲解（15 分钟）</h2>
+<h3 id="11">1.1 为什么尺寸如此重要？</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                    尺寸错误代价                          │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  ❌ 沙发太大 → 客厅拥挤，动线受阻                        │
+│  ❌ 餐桌太小 → 用餐局促，客人难招待                      │
+│  ❌ 床太大 → 卧室无活动空间，压抑                        │
+│  ❌ 衣柜太浅 → 衣服挂不下，浪费空间                      │
+│                                                         │
+│  💡 原则：先定尺寸，再选款式！                           │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<hr />
+<h3 id="12">1.2 客厅家具尺寸标准</h3>
+<table>
+<thead>
+<tr>
+<th>家具</th>
+<th>标准尺寸</th>
+<th>最小尺寸</th>
+<th>37㎡推荐</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>三人沙发</strong></td>
+<td>长 2.1-2.4m × 深 0.9m × 高 0.8m</td>
+<td>长 1.8m</td>
+<td>长 2.0m</td>
+</tr>
+<tr>
+<td><strong>双人沙发</strong></td>
+<td>长 1.5-1.8m × 深 0.9m × 高 0.8m</td>
+<td>长 1.2m</td>
+<td>长 1.5m</td>
+</tr>
+<tr>
+<td><strong>单人沙发</strong></td>
+<td>长 0.8-1.0m × 深 0.9m × 高 0.8m</td>
+<td>长 0.7m</td>
+<td>长 0.8m</td>
+</tr>
+<tr>
+<td><strong>茶几</strong></td>
+<td>长 1.2m × 宽 0.6m × 高 0.45m</td>
+<td>直径 0.5m</td>
+<td>直径 0.6m (圆形)</td>
+</tr>
+<tr>
+<td><strong>电视柜</strong></td>
+<td>长 2.0-2.4m × 深 0.35m × 高 0.4m</td>
+<td>长 1.5m</td>
+<td>长 2.0m (悬空)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键比例：</strong>
+- 沙发长度 ≈ 客厅墙面长度的 2/3
+- 茶几与沙发距离 = 35-45cm（伸腿空间）
+- 电视与沙发距离 = 电视尺寸 × 3（55 寸电视≈4.2m）
+- 主通道宽度 ≥ 60cm（单人通行）</p>
+<hr />
+<h3 id="13">1.3 卧室家具尺寸标准</h3>
+<table>
+<thead>
+<tr>
+<th>家具</th>
+<th>标准尺寸</th>
+<th>最小尺寸</th>
+<th>37㎡推荐</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>双人床</strong></td>
+<td>长 2.0m × 宽 1.8m</td>
+<td>长 2.0m × 宽 1.5m</td>
+<td>1.5m 或 1.8m</td>
+</tr>
+<tr>
+<td><strong>单人床</strong></td>
+<td>长 2.0m × 宽 1.2m</td>
+<td>长 1.9m × 宽 1.0m</td>
+<td>1.2m</td>
+</tr>
+<tr>
+<td><strong>床头柜</strong></td>
+<td>长 0.5m × 深 0.4m × 高 0.5m</td>
+<td>长 0.4m</td>
+<td>0.4m 或壁灯替代</td>
+</tr>
+<tr>
+<td><strong>衣柜</strong></td>
+<td>深 0.6m × 高 2.4m</td>
+<td>深 0.55m</td>
+<td>深 0.6m (到顶)</td>
+</tr>
+<tr>
+<td><strong>梳妆台</strong></td>
+<td>长 1.0m × 深 0.45m × 高 0.75m</td>
+<td>长 0.8m</td>
+<td>0.8m (可兼书桌)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键比例：</strong>
+- 床两侧通道 ≥ 50cm（侧身通行）
+- 床尾通道 ≥ 60cm（正对通行）
+- 衣柜开门空间 = 门宽 + 30cm
+- 床面积 ≤ 卧室面积的 50%</p>
+<hr />
+<h3 id="14">1.4 餐厅家具尺寸标准</h3>
+<table>
+<thead>
+<tr>
+<th>家具</th>
+<th>标准尺寸</th>
+<th>最小尺寸</th>
+<th>37㎡推荐</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>四人餐桌</strong></td>
+<td>长 1.2m × 宽 0.8m</td>
+<td>长 0.9m × 宽 0.7m</td>
+<td>长 1.0m (可伸缩)</td>
+</tr>
+<tr>
+<td><strong>六人餐桌</strong></td>
+<td>长 1.5m × 宽 0.8m</td>
+<td>长 1.2m</td>
+<td>不推荐（太大）</td>
+</tr>
+<tr>
+<td><strong>餐椅</strong></td>
+<td>宽 0.45m × 深 0.45m × 高 0.85m</td>
+<td>宽 0.4m</td>
+<td>宽 0.42m</td>
+</tr>
+<tr>
+<td><strong>吧台椅</strong></td>
+<td>宽 0.4m × 深 0.35m × 高 1.05m</td>
+<td>宽 0.35m</td>
+<td>宽 0.38m</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键比例：</strong>
+- 每人用餐宽度 ≥ 60cm
+- 餐椅与墙面距离 ≥ 75cm（拉出就坐）
+- 餐桌与吊灯距离 = 桌面以上 70-80cm</p>
+<hr />
+<h3 id="15_1">1.5 书房/工作区家具尺寸</h3>
+<table>
+<thead>
+<tr>
+<th>家具</th>
+<th>标准尺寸</th>
+<th>最小尺寸</th>
+<th>37㎡推荐</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>书桌</strong></td>
+<td>长 1.4m × 深 0.7m × 高 0.75m</td>
+<td>长 1.0m × 深 0.5m</td>
+<td>长 1.2m (靠墙)</td>
+</tr>
+<tr>
+<td><strong>书椅</strong></td>
+<td>宽 0.6m × 深 0.6m × 高 1.0m</td>
+<td>宽 0.5m</td>
+<td>宽 0.55m</td>
+</tr>
+<tr>
+<td><strong>书柜</strong></td>
+<td>深 0.3m × 高 2.0m</td>
+<td>深 0.25m</td>
+<td>深 0.3m (到顶)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键比例：</strong>
+- 书桌前活动空间 ≥ 80cm（拉椅 + 起身）
+- 显示器距离眼睛 = 50-70cm
+- 书柜深度 = 标准书籍深度 + 5cm（25-30cm）</p>
+<hr />
+<h3 id="16">1.6 小户型尺寸陷阱（避坑指南）</h3>
+<table>
+<thead>
+<tr>
+<th>陷阱</th>
+<th>错误做法</th>
+<th>正确做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>沙发太大</strong></td>
+<td>买 2.4m 三人沙发</td>
+<td>选 2.0m 双人 + 单人椅</td>
+</tr>
+<tr>
+<td><strong>茶几太占</strong></td>
+<td>1.2m 大茶几</td>
+<td>0.6m 圆几或边几</td>
+</tr>
+<tr>
+<td><strong>床太满</strong></td>
+<td>1.8m 床塞满卧室</td>
+<td>1.5m 床 + 两侧通道</td>
+</tr>
+<tr>
+<td><strong>餐桌固定</strong></td>
+<td>1.5m 固定餐桌</td>
+<td>0.9m 伸缩餐桌</td>
+</tr>
+<tr>
+<td><strong>衣柜不到顶</strong></td>
+<td>2.0m 成品衣柜</td>
+<td>2.7m 定制到顶</td>
+</tr>
+<tr>
+<td><strong>电视柜太深</strong></td>
+<td>0.45m 深柜</td>
+<td>0.35m 悬空柜</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="20">二、案例拆解（20 分钟）</h2>
+<h3 id="21-37m2">2.1 案例：37㎡客厅家具布局对比</h3>
+<hr />
+<p><strong>【错误示范】家具过大</strong></p>
+<pre><code>客厅尺寸：3.2m × 2.8m = 8.96㎡
+
+❌ 家具配置：
+• 沙发：2.4m × 0.9m（占墙面 75%）
+• 茶几：1.2m × 0.7m（太大）
+• 电视柜：2.4m × 0.45m（太深）
+
+【问题分析】
+• 沙发到电视墙距离 = 2.8m - 0.9m - 0.45m = 1.45m ❌（太近）
+• 沙发两侧通道 = (3.2m - 2.4m) / 2 = 0.4m ❌（太窄）
+• 茶几与沙发距离 = 0.3m ❌（伸腿困难）
+• 视觉感受：拥挤、压抑、活动受限
+
+【居住体验】
+&quot;客厅太挤了，走路要侧身，朋友来了坐不开&quot;
+</code></pre>
+<hr />
+<p><strong>【正确示范】比例协调</strong></p>
+<pre><code>客厅尺寸：3.2m × 2.8m = 8.96㎡
+
+✅ 家具配置：
+• 沙发：2.0m × 0.85m（占墙面 62%）
+• 茶几：0.6m 圆形（可移动）
+• 电视柜：2.0m × 0.35m（悬空）
+
+【尺寸验证】
+• 沙发到电视墙距离 = 2.8m - 0.85m - 0.35m = 1.6m ✅（合适）
+• 沙发两侧通道 = (3.2m - 2.0m) / 2 = 0.6m ✅（舒适）
+• 茶几与沙发距离 = 0.4m ✅（伸腿舒适）
+• 视觉感受：通透、舒适、活动自由
+
+【居住体验】
+&quot;客厅看起来比邻居家大，朋友来了也不挤&quot;
+</code></pre>
+<hr />
+<h3 id="22-37m2">2.2 案例：37㎡卧室家具布局对比</h3>
+<hr />
+<p><strong>【错误示范】床太大</strong></p>
+<pre><code>卧室尺寸：2.8m × 2.5m = 7㎡
+
+❌ 家具配置：
+• 床：2.0m × 1.8m（靠墙放）
+• 衣柜：0.6m × 2.0m（平开门）
+
+【问题分析】
+• 床尾通道 = 2.8m - 2.0m = 0.8m ✅（尚可）
+• 床侧通道 = 2.5m - 1.8m = 0.7m ❌（单侧，另一侧靠墙）
+• 衣柜开门空间 = 0.6m + 0.4m = 1.0m ❌（与床冲突）
+• 床面积占比 = 3.6㎡ / 7㎡ = 51% ❌（超 50%）
+
+【居住体验】
+&quot;卧室太满了，衣柜门打不开，整理衣服很别扭&quot;
+</code></pre>
+<hr />
+<p><strong>【正确示范】比例合理</strong></p>
+<pre><code>卧室尺寸：2.8m × 2.5m = 7㎡
+
+✅ 家具配置：
+• 床：2.0m × 1.5m（居中放）
+• 衣柜：0.6m × 2.7m（推拉门，到顶）
+• 床头：壁灯替代床头柜
+
+【尺寸验证】
+• 床尾通道 = 2.8m - 2.0m = 0.8m ✅（舒适）
+• 床侧通道 = (2.5m - 1.5m) / 2 = 0.5m ✅（两侧均 50cm）
+• 衣柜推拉门 = 无需额外空间 ✅
+• 床面积占比 = 3.0㎡ / 7㎡ = 43% ✅（&lt;50%）
+
+【居住体验】
+&quot;卧室刚好，两边都能下床，衣柜容量也够&quot;
+</code></pre>
+<hr />
+<h3 id="23">2.3 尺寸速查表（打印备用）</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                  37㎡户型家具尺寸速查表                   │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│ 【客厅】                                                 │
+│ • 沙发长度 ≤ 墙面 × 2/3  →  3.2m × 2/3 ≈ 2.1m          │
+│ • 茶几直径 ≤ 0.6m（小圆几最佳）                          │
+│ • 电视柜深度 ≤ 0.35m（悬空更轻盈）                       │
+│                                                         │
+│ 【卧室】                                                 │
+│ • 床宽度 ≤ 1.5m（1.8m 太满）                            │
+│ • 床两侧通道 ≥ 0.5m                                     │
+│ • 衣柜必须到顶（容量最大化）                            │
+│                                                         │
+│ 【餐厅】                                                 │
+│ • 餐桌长度 ≤ 1.2m（选伸缩款）                           │
+│ • 餐椅与墙面 ≥ 0.75m                                    │
+│                                                         │
+│ 【通用】                                                 │
+│ • 主通道 ≥ 0.6m                                         │
+│ • 家具前活动区 ≥ 0.8m                                   │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<hr />
+<h2 id="20_1">三、实操任务（20 分钟）</h2>
+<h3 id="31">3.1 任务：测量你家现有家具尺寸</h3>
+<p><strong>请用卷尺测量并记录：</strong></p>
+<hr />
+<p><strong>【步骤 1】客厅测量（5 分钟）</strong></p>
+<pre><code>【空间尺寸】
+• 客厅长 × 宽 × 高 = ____m × ____m × ____m
+• 沙发墙长度 = ____m
+• 电视墙长度 = ____m
+
+【家具尺寸】
+• 沙发：长____m × 深____m × 高____m
+• 茶几：长____m × 宽____m × 高____m
+• 电视柜：长____m × 深____m × 高____m
+
+【通道尺寸】
+• 沙发到电视墙距离 = ____m
+• 沙发两侧通道 = ____m / ____m
+• 主通道宽度 = ____m
+
+【比例评估】
+• 沙发长度 ÷ 沙发墙长度 = ____（理想：0.6-0.7）
+• 床面积 ÷ 卧室面积 = ____（理想：&lt;0.5）
+</code></pre>
+<hr />
+<p><strong>【步骤 2】卧室测量（5 分钟）</strong></p>
+<pre><code>【空间尺寸】
+• 卧室长 × 宽 × 高 = ____m × ____m × ____m
+
+【家具尺寸】
+• 床：长____m × 宽____m
+• 衣柜：深____m × 高____m × 门类型____
+• 床头柜：长____m × 深____m（如有）
+
+【通道尺寸】
+• 床尾通道 = ____m（理想：≥0.6m）
+• 床侧通道 = ____m / ____m（理想：≥0.5m）
+• 衣柜开门空间 = ____m（平开门需≥0.4m）
+
+【比例评估】
+• 床面积 ÷ 卧室面积 = ____（理想：&lt;0.5）
+</code></pre>
+<hr />
+<p><strong>【步骤 3】问题识别（5 分钟）</strong></p>
+<pre><code>【尺寸问题清单】
+□ 沙发太大（长度 &gt; 墙面×2/3）
+□ 茶几太占（长 &gt; 1m 或固定式）
+□ 床太大（宽度 &gt; 1.5m 或面积 &gt;50%）
+□ 衣柜太浅（深度 &lt; 0.55m）
+□ 衣柜不到顶（浪费顶部空间）
+□ 餐桌太大（长度 &gt; 1.2m 且不可伸缩）
+□ 通道太窄（&lt; 0.5m）
+
+【共发现____个问题】
+
+【最急需改进的 3 个】
+1. ____________（影响指数：高/中/低）
+2. ____________（影响指数：高/中/低）
+3. ____________（影响指数：高/中/低）
+</code></pre>
+<hr />
+<p><strong>【步骤 4】改进方案（5 分钟）</strong></p>
+<pre><code>【替换/调整建议】
+
+问题 1：____________
+→ 改进方案：____________
+→ 预期效果：____________
+
+问题 2：____________
+→ 改进方案：____________
+→ 预期效果：____________
+
+问题 3：____________
+→ 改进方案：____________
+→ 预期效果：____________
+
+【预算估算】
+• 沙发更换：¥____（可选：¥3000-8000）
+• 茶几更换：¥____（可选：¥500-2000）
+• 其他：¥____
+• 合计：¥____
+</code></pre>
+<hr />
+<h2 id="_1">四、明日预告</h2>
+<p><strong>Day 19: 灯光与氛围营造</strong></p>
+<ul>
+<li>基础照明/重点照明/氛围照明</li>
+<li>色温选择与空间情绪</li>
+<li>37㎡户型灯光布局方案</li>
+</ul>
+<hr />
+<h2 id="_2">五、今日作业提交</h2>
+<p><strong>请回复 Telegram 消息提交以下内容：</strong></p>
+<ol>
+<li>客厅/卧室家具尺寸测量数据</li>
+<li>发现的尺寸问题数量</li>
+<li>最急需改进的 3 个问题及改进方案</li>
+</ol>
+<p><strong>我会给你专业点评和尺寸优化建议！</strong></p>
+<hr />
+<h2 id="_3">📎 附录：常用家具尺寸速查</h2>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>物品</th>
+<th>标准尺寸 (长×深×高 cm)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>坐具</strong></td>
+<td>三人沙发</td>
+<td>210-240 × 90 × 80</td>
+</tr>
+<tr>
+<td></td>
+<td>双人沙发</td>
+<td>150-180 × 90 × 80</td>
+</tr>
+<tr>
+<td></td>
+<td>单人沙发</td>
+<td>80-100 × 90 × 80</td>
+</tr>
+<tr>
+<td></td>
+<td>餐椅</td>
+<td>45 × 45 × 85</td>
+</tr>
+<tr>
+<td><strong>桌类</strong></td>
+<td>茶几</td>
+<td>60-120 × 40-60 × 45</td>
+</tr>
+<tr>
+<td></td>
+<td>餐桌 (4 人)</td>
+<td>120 × 80 × 75</td>
+</tr>
+<tr>
+<td></td>
+<td>书桌</td>
+<td>120-140 × 60-70 × 75</td>
+</tr>
+<tr>
+<td><strong>卧具</strong></td>
+<td>双人床</td>
+<td>200 × 180 × 50</td>
+</tr>
+<tr>
+<td></td>
+<td>单人床</td>
+<td>200 × 120 × 50</td>
+</tr>
+<tr>
+<td></td>
+<td>床头柜</td>
+<td>50 × 40 × 50</td>
+</tr>
+<tr>
+<td><strong>储物</strong></td>
+<td>衣柜 (平开)</td>
+<td>60 × 240 × 200+</td>
+</tr>
+<tr>
+<td></td>
+<td>衣柜 (推拉)</td>
+<td>60 × 240 × 200+</td>
+</tr>
+<tr>
+<td></td>
+<td>书柜</td>
+<td>30 × 200 × 80-100</td>
+</tr>
+<tr>
+<td></td>
+<td>电视柜</td>
+<td>200-240 × 35 × 40</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>文件生成时间：2026-04-14</em><br />
+<em>下一阶段：等待作业提交 → 点评反馈</em></p>
+            </div>
+            <div class="prev-next-nav">
+                <a href="day-17.html"><i class="fas fa-arrow-left"></i> Day 17</a>
+                <a href="../interior-design.html"><i class="fas fa-list"></i> 课程目录</a>
+                <a href="day-19.html">Day 19 <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
+                    <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 98381267</p></li>
+                    <li><i class="fas fa-envelope"></i> ivanxuag@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/SLdesignPlus" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="contact-info">
+                    <li><a href="../../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
+                    <li><a href="../interior-design.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-couch"></i> 室内设计</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 SL Design Platform. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

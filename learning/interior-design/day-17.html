@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Design - 学习 · 室内设计 · Day 17 · 📖 Day 17: 软装搭配原则</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .logo span { color: #e2e8f0; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
+        .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
+        footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
+        .footer-section h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: #60a5fa; }
+        .contact-info { list-style: none; }
+        .contact-info li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .contact-info i { margin-right: 0.8rem; color: #3b82f6; width: 20px; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
+        .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
+
+        .breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #94a3b8; padding: 1rem 0; flex-wrap: wrap; }
+        .breadcrumbs a { color: #10b981; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+        .breadcrumbs .sep { color: #d1d5db; }
+
+        .lesson-header { padding: 1.5rem 0; }
+        .lesson-header .lesson-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+        .lesson-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .badge-stage { background: #ecfdf5; color: #059669; }
+        .badge-week { background: #eff6ff; color: #3b82f6; }
+        .badge-day { background: #fef3c7; color: #d97706; }
+        .lesson-header h1 { font-size: 1.6rem; color: #0f172a; margin-bottom: 0.3rem; }
+        .lesson-header .lesson-subtitle { color: #64748b; font-size: 0.9rem; }
+
+        .content-body { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2rem; margin-bottom: 2rem; }
+
+        .lesson-objectives { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+        .lesson-objectives h3 { color: #059669; font-size: 1rem; margin-bottom: 0.5rem; }
+        .lesson-objectives ul { list-style: none; padding: 0; margin: 0; }
+        .lesson-objectives li { color: #047857; padding: 0.2rem 0; font-size: 0.9rem; }
+        .lesson-objectives li::before { content: '✅ '; }
+
+        .content-body h2 { font-size: 1.3rem; color: #059669; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #d1fae5; }
+        .content-body h2:first-child { margin-top: 0; }
+        .content-body h3 { font-size: 1.1rem; color: #0f172a; margin: 1.5rem 0 0.8rem; }
+        .content-body h4 { font-size: 1rem; color: #0f172a; margin: 1.2rem 0 0.6rem; }
+        .content-body p { margin-bottom: 0.8rem; color: #444; }
+        .content-body ul, .content-body ol { margin: 0.8rem 0; padding-left: 1.5rem; }
+        .content-body li { margin-bottom: 0.4rem; color: #444; }
+        .content-body strong { color: #0f172a; }
+        .content-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        .content-body th, .content-body td { border: 1px solid #e2e8f0; padding: 0.6rem 0.8rem; text-align: left; }
+        .content-body th { background-color: #f0fdf4; color: #059669; font-weight: 600; }
+        .content-body tr:nth-child(even) { background-color: #f8fafc; }
+
+        .highlight-box { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .highlight-box p { margin: 0; color: #047857; }
+
+        .tip-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .tip-box p { margin: 0; color: #92400e; }
+
+        .warning-box { background: #fee2e2; border-left: 4px solid #ef4444; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .warning-box p { margin: 0; color: #b91c1c; }
+
+        pre { background: #f1f5f9; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 1rem 0; }
+        code { background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+        pre code { background: none; padding: 0; }
+
+        .prev-next-nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; flex-wrap: wrap; }
+        .prev-next-nav a { display: inline-flex; align-items: center; gap: 0.4rem; color: #10b981; text-decoration: none; font-weight: 500; padding: 0.6rem 1rem; border-radius: 6px; background: #f0fdf4; transition: all 0.2s; }
+        .prev-next-nav a:hover { background: #d1fae5; color: #047857; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <div class="logo">SL<span>Design</span></div>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../learning.html" class="active">Learning</a></li>
+                    <li><a href="../../news.html">News</a></li>
+                    <li><a href="../../games.html">Games</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a><span class="sep">/</span>
+            <a href="../../learning.html">Learning</a><span class="sep">/</span>
+            <a href="../interior-design.html">室内设计</a><span class="sep">/</span>
+            <span>Day 17</span>
+        </div>
+        <div class="lesson-header">
+            <div class="lesson-meta">
+                <span class="lesson-badge badge-week">Week 3</span>
+                <span class="lesson-badge badge-day">Day 17</span>
+            </div>
+            <h1>📖 Day 17: 软装搭配原则</h1>
+            <p class="lesson-subtitle">软装搭配原则与实战技巧</p>
+        </div>
+
+        <div class="content-body">
+            <div class="lesson-objectives"><p>学完后你能：
+- ✅ 掌握软装搭配的 5 大核心原则
+- ✅ 独立完成一个空间的软装方案设计
+- ✅ 用 AI 工具生成软装效果图验证方案</p>
+<hr /></div>
+            <div class="markdown-body">
+                <hr />
+<h2 id="15">一、知识讲解（15 分钟）</h2>
+<h3 id="11">1.1 什么是软装？</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                    室内设计构成                          │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  硬装 (Hard Finishes)          软装 (Soft Furnishings)  │
+│  • 墙面/地面/天花              • 家具                   │
+│  • 水电改造                    • 窗帘/布艺              │
+│  • 定制柜体                    • 灯具                   │
+│  • 门窗                        • 装饰品                 │
+│  • 固定装置                    • 绿植                   │
+│                                • 地毯/挂画              │
+│                                                         │
+│  硬装 = 骨架（不可移动）        软装 = 灵魂（可移动）    │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<p><strong>核心认知：</strong>
+- 硬装决定空间的功能和基础品质
+- 软装决定空间的风格和氛围
+- <strong>37㎡小户型：轻硬装、重软装</strong>（便于后期调整和升级）</p>
+<hr />
+<h3 id="12-5">1.2 软装搭配 5 大原则</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                  软装搭配五大原则                        │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│   1️⃣ 风格统一    →  选定一个主风格，不混搭              │
+│   2️⃣ 色彩协调    →  60-30-10 配色法则                   │
+│   3️⃣ 比例合适    →  家具尺寸与空间匹配                  │
+│   4️⃣ 层次分明    →  高/中/低视觉层次                    │
+│   5️⃣ 留白呼吸    →  不填满，留 30% 空白                  │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<hr />
+<h3 id="13-1">1.3 原则 1：风格统一</h3>
+<table>
+<thead>
+<tr>
+<th>常见风格</th>
+<th>核心元素</th>
+<th>适合人群</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>北欧风</strong></td>
+<td>原木色、白色、简洁线条</td>
+<td>年轻人、小户型</td>
+</tr>
+<tr>
+<td><strong>现代简约</strong></td>
+<td>黑白灰、金属、玻璃</td>
+<td>商务人士</td>
+</tr>
+<tr>
+<td><strong>日式风</strong></td>
+<td>原木、棉麻、低矮家具</td>
+<td>喜欢禅意的人</td>
+</tr>
+<tr>
+<td><strong>轻奢风</strong></td>
+<td>金属、丝绒、大理石</td>
+<td>追求品质感</td>
+</tr>
+<tr>
+<td><strong>奶油风</strong></td>
+<td>米白、圆弧、柔软材质</td>
+<td>女性、温馨偏好</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⚠️ 避坑指南：</strong>
+- ❌ 北欧 + 中式 = 不伦不类
+- ❌ 轻奢 + 日式 = 风格冲突
+- ✅ 选定一个主风格，可微调但不混搭</p>
+<hr />
+<h3 id="14-260-30-10">1.4 原则 2：色彩协调（60-30-10 法则）</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                  60-30-10 配色法则                       │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│   60% 主色（背景色）                                     │
+│   • 墙面、地面、大家具                                   │
+│   • 建议：白色/米色/浅灰（安全色）                       │
+│                                                         │
+│   30% 辅助色（配角色）                                   │
+│   • 窗帘、沙发、床品                                     │
+│   • 建议：与主色同色系或对比色                           │
+│                                                         │
+│   10% 点缀色（强调色）                                   │
+│   • 抱枕、挂画、花瓶、小摆件                             │
+│   • 建议：亮色/跳色（活跃空间）                          │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<p><strong>37㎡小户型配色建议：</strong>
+| 区域 | 主色 (60%) | 辅助色 (30%) | 点缀色 (10%) |
+|------|-----------|-------------|-------------|
+| 客厅 | 白色/米白 | 浅灰/原木 | 橙色/绿色 |
+| 卧室 | 米白/浅灰 | 浅蓝/浅粉 | 金色/铜色 |
+| 餐厅 | 白色 | 原木/黑色 | 绿植色 |</p>
+<hr />
+<h3 id="15-3">1.5 原则 3：比例合适</h3>
+<p><strong>小户型家具尺寸参考（37㎡）：</strong></p>
+<table>
+<thead>
+<tr>
+<th>家具</th>
+<th>合适尺寸</th>
+<th>避坑尺寸</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>沙发</td>
+<td>2-2.4m 双人/小三人</td>
+<td>❌ 3m+ 大 L 型</td>
+</tr>
+<tr>
+<td>茶几</td>
+<td>60-80cm 圆形/椭圆</td>
+<td>❌ 1m+ 大方形</td>
+</tr>
+<tr>
+<td>餐桌</td>
+<td>1.2-1.4m 长桌</td>
+<td>❌ 1.6m+ 大圆桌</td>
+</tr>
+<tr>
+<td>床</td>
+<td>1.5m 双人床</td>
+<td>❌ 1.8m+ 加大床</td>
+</tr>
+<tr>
+<td>衣柜</td>
+<td>通顶定制（利用层高）</td>
+<td>❌ 成品矮柜</td>
+</tr>
+</tbody>
+</table>
+<p><strong>视觉比例检查：</strong>
+- ✅ 沙发长度 ≤ 墙面长度的 2/3
+- ✅ 茶几与沙发间距 40-50cm（通行舒适）
+- ✅ 餐桌周围留 80cm 通道
+- ✅ 床两侧各留 60cm 过道</p>
+<hr />
+<h3 id="16-4">1.6 原则 4：层次分明</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                    视觉三层级                            │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│   高层 (150cm+)           中层 (80-150cm)   低层 (&lt;80cm) │
+│   • 吊灯                    • 沙发          • 茶几       │
+│   • 挂画 (高位)             • 餐桌          • 地毯       │
+│   • 高柜                    • 床头柜        • 脚凳       │
+│   • 落地灯                    • 台灯          • 矮凳     │
+│                                                         │
+│   作用：拉伸层高            作用：视觉焦点    作用：稳定感 │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<p><strong>层次搭配技巧：</strong>
+- 高低错落，避免所有家具一个高度
+- 墙面装饰也分高/中/低层次
+- 灯光设计：主灯 + 辅助灯 + 重点灯</p>
+<hr />
+<h3 id="17-5">1.7 原则 5：留白呼吸</h3>
+<p><strong>留白 = 高级感的关键</strong></p>
+<table>
+<thead>
+<tr>
+<th>留白区域</th>
+<th>建议</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>墙面</td>
+<td>至少 30% 不挂装饰</td>
+<td>避免压抑</td>
+</tr>
+<tr>
+<td>地面</td>
+<td>家具覆盖≤70%</td>
+<td>空间显大</td>
+</tr>
+<tr>
+<td>台面</td>
+<td>保持 50% 空白</td>
+<td>便于使用</td>
+</tr>
+<tr>
+<td>柜体</td>
+<td>20% 开放格</td>
+<td>展示 + 透气</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⚠️ 小户型常见错误：</strong>
+- ❌ 墙面挂满装饰画
+- ❌ 地面铺满地毯
+- ❌ 台面堆满摆件
+- ❌ 柜体全部封闭</p>
+<hr />
+<h2 id="15_1">二、案例分析（15 分钟）</h2>
+<h3 id="21-37m2">2.1 案例：37㎡客厅软装方案</h3>
+<p><strong>原始条件：</strong>
+- 面积：约 15㎡（客餐厅一体）
+- 风格：北欧简约
+- 预算：1.5 万元</p>
+<p><strong>软装清单：</strong></p>
+<table>
+<thead>
+<tr>
+<th>品类</th>
+<th>物品</th>
+<th>尺寸</th>
+<th>颜色</th>
+<th>预算</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>沙发</td>
+<td>双人布艺沙发</td>
+<td>2.2m</td>
+<td>浅灰</td>
+<td>4,500</td>
+</tr>
+<tr>
+<td>茶几</td>
+<td>圆形小茶几</td>
+<td>70cm</td>
+<td>原木 + 白</td>
+<td>800</td>
+</tr>
+<tr>
+<td>电视柜</td>
+<td>悬空简约款</td>
+<td>1.8m</td>
+<td>白色</td>
+<td>1,200</td>
+</tr>
+<tr>
+<td>窗帘</td>
+<td>遮光 + 纱帘</td>
+<td>定制</td>
+<td>浅灰 + 白</td>
+<td>1,500</td>
+</tr>
+<tr>
+<td>地毯</td>
+<td>短绒几何款</td>
+<td>1.6×2.3m</td>
+<td>灰白</td>
+<td>600</td>
+</tr>
+<tr>
+<td>灯具</td>
+<td>吸顶灯 + 落地灯</td>
+<td>-</td>
+<td>白色 + 黑</td>
+<td>1,000</td>
+</tr>
+<tr>
+<td>装饰</td>
+<td>挂画×2 + 绿植×3</td>
+<td>-</td>
+<td>多色</td>
+<td>500</td>
+</tr>
+<tr>
+<td>抱枕</td>
+<td>4 个组合</td>
+<td>-</td>
+<td>橙 + 灰</td>
+<td>300</td>
+</tr>
+<tr>
+<td><strong>合计</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td><strong>10,400</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>配色方案：</strong>
+- 60% 主色：白色（墙面、电视柜）+ 浅灰（沙发）
+- 30% 辅助色：原木色（茶几）+ 浅灰（窗帘）
+- 10% 点缀色：橙色（抱枕）+ 绿植</p>
+<hr />
+<h3 id="22-ai-prompt">2.2 AI 效果图生成 Prompt</h3>
+<p><strong>Midjourney 软装效果图 Prompt：</strong></p>
+<pre><code>北欧简约风格客厅室内设计，37 平方米小户型，
+浅灰色双人布艺沙发，圆形原木茶几，白色悬空电视柜，
+大面积白色墙面，浅灰色窗帘，几何图案地毯，
+橙色抱枕点缀，绿色盆栽植物，
+自然采光，温馨氛围，
+摄影参数：广角镜头，f/2.8，自然光，
+--ar 16:9 --v 6.0 --style raw
+</code></pre>
+<p><strong>酷家乐 AI 方案 Prompt：</strong></p>
+<pre><code>户型：37㎡一室一厅
+风格：北欧简约
+预算：1.5 万软装
+需求：客餐厅一体，需要沙发、茶几、电视柜、餐桌
+配色：白色主调，浅灰辅助，橙色点缀
+</code></pre>
+<hr />
+<h2 id="20">三、实战练习（20 分钟）</h2>
+<h3 id="31">3.1 练习：为你家客厅设计软装方案</h3>
+<p><strong>步骤 1：确定风格</strong>
+- 从以下风格中选择一个：北欧/现代简约/日式/轻奢/奶油
+- 收集 3-5 张参考图（小红书/Pinterest）</p>
+<p><strong>步骤 2：列出清单</strong>
+用以下表格规划你的软装：</p>
+<table>
+<thead>
+<tr>
+<th>品类</th>
+<th>物品</th>
+<th>尺寸</th>
+<th>颜色</th>
+<th>预算</th>
+<th>购买渠道</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>沙发</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>茶几</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>窗帘</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>灯具</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>装饰</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>合计</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>步骤 3：配色确认</strong>
+- 主色 (60%)：<strong><em>_</em></strong><strong><em>_</em>
+- 辅助色 (30%)：</strong><strong><em>_</em></strong><strong><em>
+- 点缀色 (10%)：</em></strong><strong><em>_</em></strong>__</p>
+<p><strong>步骤 4：AI 验证</strong>
+- 用 Midjourney/酷家乐生成效果图
+- 检查实际效果是否符合预期</p>
+<hr />
+<h3 id="32">3.2 练习答案参考</h3>
+<p><strong>北欧风格 37㎡客厅软装参考答案：</strong></p>
+<table>
+<thead>
+<tr>
+<th>品类</th>
+<th>物品</th>
+<th>尺寸</th>
+<th>颜色</th>
+<th>预算</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>沙发</td>
+<td>宜家 KRAMPS 双人</td>
+<td>2.1m</td>
+<td>浅灰</td>
+<td>3,999</td>
+</tr>
+<tr>
+<td>茶几</td>
+<td>宜家 LISABO</td>
+<td>79cm</td>
+<td>原木</td>
+<td>799</td>
+</tr>
+<tr>
+<td>电视柜</td>
+<td>宜家 BESTÅ</td>
+<td>1.8m</td>
+<td>白色</td>
+<td>1,500</td>
+</tr>
+<tr>
+<td>窗帘</td>
+<td>定制遮光 + 纱</td>
+<td>2.7m 高</td>
+<td>浅灰 + 白</td>
+<td>1,200</td>
+</tr>
+<tr>
+<td>地毯</td>
+<td>宜家 STOENSE</td>
+<td>1.7×2.4m</td>
+<td>米白</td>
+<td>599</td>
+</tr>
+<tr>
+<td>灯具</td>
+<td>宜家 HEKTAR 落地</td>
+<td>-</td>
+<td>黑色</td>
+<td>399</td>
+</tr>
+<tr>
+<td>装饰</td>
+<td>挂画×2 + 龟背竹×2</td>
+<td>-</td>
+<td>多色</td>
+<td>400</td>
+</tr>
+<tr>
+<td>抱枕</td>
+<td>宜家 SANELA×4</td>
+<td>-</td>
+<td>橙色</td>
+<td>200</td>
+</tr>
+<tr>
+<td><strong>合计</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td><strong>9,096</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10">四、课后作业（10 分钟）</h2>
+<h3 id="1">作业 1：完成客厅软装方案</h3>
+<p><strong>要求：</strong>
+1. 确定风格并说明理由（50 字）
+2. 填写完整软装清单表格
+3. 用 AI 生成至少 1 张效果图
+4. 总预算控制在 1-2 万元</p>
+<p><strong>提交格式：</strong></p>
+<pre><code class="language-markdown">## 我的客厅软装方案
+
+**风格：** 北欧简约
+**理由：** 小户型适合浅色显大，喜欢简洁易打理
+
+**软装清单：**
+| 品类 | 物品 | 尺寸 | 颜色 | 预算 |
+|------|------|------|------|------|
+| ... | ... | ... | ... | ... |
+
+**配色方案：**
+- 主色 (60%)：白色
+- 辅助色 (30%)：浅灰 + 原木
+- 点缀色 (10%)：橙色
+
+**AI 效果图：** [附上图片]
+</code></pre>
+<hr />
+<h3 id="2">作业 2：软装采购渠道调研</h3>
+<p><strong>任务：</strong> 调研以下渠道的软装产品，各找 3 个备选：</p>
+<table>
+<thead>
+<tr>
+<th>渠道</th>
+<th>特点</th>
+<th>适合品类</th>
+<th>备选 1</th>
+<th>备选 2</th>
+<th>备选 3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>宜家</td>
+<td>平价、自提</td>
+<td>基础家具</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>淘宝</td>
+<td>选择多、比价</td>
+<td>装饰品</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>小红书</td>
+<td>种草、搭配</td>
+<td>灵感参考</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>本地市场</td>
+<td>可触摸、定制</td>
+<td>窗帘地毯</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_1">五、明日预告</h2>
+<p><strong>Day 18：家具尺寸与空间比例</strong></p>
+<ul>
+<li>详细讲解各类家具的标准尺寸</li>
+<li>小户型家具选择技巧</li>
+<li>人体工学与家具布局</li>
+<li>实战：绘制家具布置图</li>
+</ul>
+<hr />
+<h2 id="_2">📝 本课重点总结</h2>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                  Day 17 核心要点                         │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  软装 5 大原则：                                          │
+│  1️⃣ 风格统一 → 不混搭                                    │
+│  2️⃣ 色彩协调 → 60-30-10 法则                             │
+│  3️⃣ 比例合适 → 家具尺寸匹配空间                          │
+│  4️⃣ 层次分明 → 高/中/低视觉层次                          │
+│  5️⃣ 留白呼吸 → 不填满，留 30% 空白                        │
+│                                                         │
+│  小户型软装预算参考：1-2 万元（客厅 + 卧室）               │
+│                                                         │
+│  AI 工具：Midjourney 生成效果图验证方案                  │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<hr />
+<p><em>课程生成时间：2026-04-13 20:00 HKT | 37㎡户型改造设计培训</em></p>
+            </div>
+            <div class="prev-next-nav">
+                <a href="day-16.html"><i class="fas fa-arrow-left"></i> Day 16</a>
+                <a href="../interior-design.html"><i class="fas fa-list"></i> 课程目录</a>
+                <a href="day-18.html">Day 18 <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
+                    <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 98381267</p></li>
+                    <li><i class="fas fa-envelope"></i> ivanxuag@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/SLdesignPlus" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="contact-info">
+                    <li><a href="../../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
+                    <li><a href="../interior-design.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-couch"></i> 室内设计</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 SL Design Platform. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

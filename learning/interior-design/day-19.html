@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Design - 学习 · 室内设计 · Day 19 · 💡 Day 19: 灯光与氛围营造</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .logo span { color: #e2e8f0; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
+        .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
+        footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
+        .footer-section h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: #60a5fa; }
+        .contact-info { list-style: none; }
+        .contact-info li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .contact-info i { margin-right: 0.8rem; color: #3b82f6; width: 20px; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
+        .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
+
+        .breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #94a3b8; padding: 1rem 0; flex-wrap: wrap; }
+        .breadcrumbs a { color: #10b981; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+        .breadcrumbs .sep { color: #d1d5db; }
+
+        .lesson-header { padding: 1.5rem 0; }
+        .lesson-header .lesson-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+        .lesson-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .badge-stage { background: #ecfdf5; color: #059669; }
+        .badge-week { background: #eff6ff; color: #3b82f6; }
+        .badge-day { background: #fef3c7; color: #d97706; }
+        .lesson-header h1 { font-size: 1.6rem; color: #0f172a; margin-bottom: 0.3rem; }
+        .lesson-header .lesson-subtitle { color: #64748b; font-size: 0.9rem; }
+
+        .content-body { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2rem; margin-bottom: 2rem; }
+
+        .lesson-objectives { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+        .lesson-objectives h3 { color: #059669; font-size: 1rem; margin-bottom: 0.5rem; }
+        .lesson-objectives ul { list-style: none; padding: 0; margin: 0; }
+        .lesson-objectives li { color: #047857; padding: 0.2rem 0; font-size: 0.9rem; }
+        .lesson-objectives li::before { content: '✅ '; }
+
+        .content-body h2 { font-size: 1.3rem; color: #059669; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #d1fae5; }
+        .content-body h2:first-child { margin-top: 0; }
+        .content-body h3 { font-size: 1.1rem; color: #0f172a; margin: 1.5rem 0 0.8rem; }
+        .content-body h4 { font-size: 1rem; color: #0f172a; margin: 1.2rem 0 0.6rem; }
+        .content-body p { margin-bottom: 0.8rem; color: #444; }
+        .content-body ul, .content-body ol { margin: 0.8rem 0; padding-left: 1.5rem; }
+        .content-body li { margin-bottom: 0.4rem; color: #444; }
+        .content-body strong { color: #0f172a; }
+        .content-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        .content-body th, .content-body td { border: 1px solid #e2e8f0; padding: 0.6rem 0.8rem; text-align: left; }
+        .content-body th { background-color: #f0fdf4; color: #059669; font-weight: 600; }
+        .content-body tr:nth-child(even) { background-color: #f8fafc; }
+
+        .highlight-box { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .highlight-box p { margin: 0; color: #047857; }
+
+        .tip-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .tip-box p { margin: 0; color: #92400e; }
+
+        .warning-box { background: #fee2e2; border-left: 4px solid #ef4444; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .warning-box p { margin: 0; color: #b91c1c; }
+
+        pre { background: #f1f5f9; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 1rem 0; }
+        code { background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+        pre code { background: none; padding: 0; }
+
+        .prev-next-nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; flex-wrap: wrap; }
+        .prev-next-nav a { display: inline-flex; align-items: center; gap: 0.4rem; color: #10b981; text-decoration: none; font-weight: 500; padding: 0.6rem 1rem; border-radius: 6px; background: #f0fdf4; transition: all 0.2s; }
+        .prev-next-nav a:hover { background: #d1fae5; color: #047857; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <div class="logo">SL<span>Design</span></div>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../learning.html" class="active">Learning</a></li>
+                    <li><a href="../../news.html">News</a></li>
+                    <li><a href="../../games.html">Games</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a><span class="sep">/</span>
+            <a href="../../learning.html">Learning</a><span class="sep">/</span>
+            <a href="../interior-design.html">室内设计</a><span class="sep">/</span>
+            <span>Day 19</span>
+        </div>
+        <div class="lesson-header">
+            <div class="lesson-meta">
+                <span class="lesson-badge badge-week">Week 3</span>
+                <span class="lesson-badge badge-day">Day 19</span>
+            </div>
+            <h1>💡 Day 19: 灯光与氛围营造</h1>
+            <p class="lesson-subtitle">灯光设计进阶与氛围营造</p>
+        </div>
+
+        <div class="content-body">
+            <div class="lesson-objectives"><p>学完后你能：
+- ✅ 掌握三层照明设计方法（基础 + 重点 + 装饰）
+- ✅ 根据不同场景选择合适的灯光方案
+- ✅ 用灯光营造空间氛围和情绪
+- ✅ 完成 37㎡户型的灯光设计方案</p>
+<hr /></div>
+            <div class="markdown-body">
+                <hr />
+<h2 id="15">一、知识讲解（15 分钟）</h2>
+<h3 id="11">1.1 三层照明设计法</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                   三层照明金字塔                        │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│                    🌟 装饰照明                          │
+│                   (氛围/点缀)                           │
+│                  /           \                          │
+│                 /             \                         │
+│                /               \                        │
+│               /                 \                       │
+│              /                   \                      │
+│             /                     \                     │
+│            /                       \                    │
+│           /                         \                   │
+│          /                           \                  │
+│         /                             \                 │
+│        /                               \                │
+│       /                                 \               │
+│      /                                   \              │
+│     /                                     \             │
+│    /                                       \            │
+│   /                                         \           │
+│  /                                           \          │
+│ 💡 重点照明 (任务/聚焦)                        \         │
+│  /                                             \        │
+│ /                                               \       │
+│/                                                 \      │
+│───────────────────────────────────────────────────\     │
+│ 🔆 基础照明 (环境/整体)                            \    │
+│                                                    \   │
+│                                                     \  │
+│                                                      \ │
+│                                                       \│
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>作用</th>
+<th>灯具类型</th>
+<th>照度要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>基础照明</strong></td>
+<td>提供整体环境光</td>
+<td>吸顶灯/筒灯/灯带</td>
+<td>50-100 lux</td>
+</tr>
+<tr>
+<td><strong>重点照明</strong></td>
+<td>突出工作区域</td>
+<td>射灯/台灯/吊灯</td>
+<td>300-500 lux</td>
+</tr>
+<tr>
+<td><strong>装饰照明</strong></td>
+<td>营造氛围情调</td>
+<td>灯带/壁灯/落地灯</td>
+<td>20-50 lux</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="12">1.2 色温选择指南</h3>
+<pre><code>色温 spectrum：
+
+2700K ────── 3000K ────── 4000K ────── 5000K ────── 6500K
+ 暖黄         暖白        自然白       冷白         日光
+  │            │           │           │            │
+  ▼            ▼           ▼           ▼            ▼
+卧室        客厅        厨房        书房        卫生间
+餐厅        玄关        阳台        工作区      化妆区
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>色温</th>
+<th>颜色</th>
+<th>适用空间</th>
+<th>氛围效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>2700K-3000K</strong></td>
+<td>暖黄光</td>
+<td>卧室、餐厅</td>
+<td>温馨、放松、浪漫</td>
+</tr>
+<tr>
+<td><strong>3500K-4000K</strong></td>
+<td>暖白光</td>
+<td>客厅、玄关</td>
+<td>舒适、自然、亲切</td>
+</tr>
+<tr>
+<td><strong>4500K-5000K</strong></td>
+<td>冷白光</td>
+<td>厨房、书房</td>
+<td>清爽、专注、高效</td>
+</tr>
+<tr>
+<td><strong>5500K-6500K</strong></td>
+<td>日光色</td>
+<td>卫生间、工作区</td>
+<td>明亮、清醒、精确</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⚠️ 避坑指南：</strong>
+- ❌ 同一空间色温超过 2 种 → 视觉混乱
+- ❌ 卧室用冷白光 → 影响睡眠质量
+- ❌ 厨房用暖黄光 → 看不清食材颜色
+- ✅ 全屋主色温统一，局部微调</p>
+<hr />
+<h3 id="13-crira">1.3 显色指数 (CRI/Ra)</h3>
+<p><strong>什么是显色指数？</strong>
+- 光源还原物体真实颜色的能力
+- 范围：0-100（100 为自然光）</p>
+<table>
+<thead>
+<tr>
+<th>Ra 值</th>
+<th>质量等级</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ra≥95</strong></td>
+<td>博物馆级</td>
+<td>画廊、摄影棚、化妆区</td>
+</tr>
+<tr>
+<td><strong>Ra≥90</strong></td>
+<td>优质</td>
+<td>厨房、书房、衣帽间</td>
+</tr>
+<tr>
+<td><strong>Ra≥80</strong></td>
+<td>良好</td>
+<td>客厅、卧室、餐厅</td>
+</tr>
+<tr>
+<td><strong>Ra&lt;80</strong></td>
+<td>一般</td>
+<td>走廊、储藏室、阳台</td>
+</tr>
+</tbody>
+</table>
+<p><strong>💡 建议：</strong>
+- 37㎡小户型建议全屋 Ra≥80
+- 厨房/化妆区建议 Ra≥90
+- LED 灯优先选择 Ra≥90 产品</p>
+<hr />
+<h3 id="14">1.4 常见灯光布局方案</h3>
+<h4 id="a">方案 A：客厅灯光布局</h4>
+<pre><code>┌────────────────────────────────────────────────────┐
+│                                                    │
+│   🟡                    🟡                    🟡   │
+│  射灯                  射灯                  射灯   │
+│                                                    │
+│         💡 主灯 (吸顶灯/吊灯)                      │
+│                                                    │
+│   🟢                    🟢                    🟢   │
+│  筒灯                  筒灯                  筒灯   │
+│                                                    │
+│  📺 TV                                          🛋️ │
+│                                                    │
+│        🟣 落地灯              🟣 台灯              │
+│                                                    │
+└────────────────────────────────────────────────────┘
+
+🟡 射灯 (重点照明) - 洗墙/照画
+💡 主灯 (基础照明) - 整体环境
+🟢 筒灯 (基础照明) - 补充光线
+🟣 装饰灯 (装饰照明) - 氛围营造
+</code></pre>
+<h4 id="b">方案 B：卧室灯光布局</h4>
+<pre><code>┌────────────────────────────────────────────────────┐
+│                                                    │
+│   🟢                    🟢                    🟢   │
+│  筒灯 (3000K)         筒灯 (3000K)         筒灯   │
+│                                                    │
+│              💡 主灯 (3000K, 可调光)               │
+│                                                    │
+│    🛏️🛏️🛏️🛏️🛏️🛏️🛏️🛏️🛏️🛏️🛏️🛏️             │
+│    🟣                    🟣                        │
+│   床头灯               床头灯                      │
+│  (阅读模式)           (阅读模式)                   │
+│                                                    │
+│        🟣 灯带 (起夜模式，2700K)                   │
+│                                                    │
+└────────────────────────────────────────────────────┘
+
+💡 主灯 - 基础照明 (可调光)
+🟢 筒灯 - 基础照明补充
+🟣 床头灯 - 重点照明 (阅读)
+🟣 灯带 - 装饰照明 (起夜不刺眼)
+</code></pre>
+<hr />
+<h2 id="15_1">二、案例分析（15 分钟）</h2>
+<h3 id="137m2">案例 1：37㎡小户型客厅灯光方案</h3>
+<p><strong>户型特点：</strong>
+- 面积：约 20㎡ (客餐厅一体)
+- 层高：2.7m
+- 采光：南向窗户</p>
+<p><strong>灯光方案：</strong></p>
+<table>
+<thead>
+<tr>
+<th>区域</th>
+<th>灯具类型</th>
+<th>数量</th>
+<th>功率</th>
+<th>色温</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>客厅主灯</td>
+<td>LED 吸顶灯</td>
+<td>1</td>
+<td>36W</td>
+<td>4000K</td>
+<td>可调光</td>
+</tr>
+<tr>
+<td>电视背景</td>
+<td>射灯</td>
+<td>3</td>
+<td>5W</td>
+<td>3500K</td>
+<td>洗墙</td>
+</tr>
+<tr>
+<td>沙发区</td>
+<td>筒灯</td>
+<td>3</td>
+<td>5W</td>
+<td>3500K</td>
+<td>基础照明</td>
+</tr>
+<tr>
+<td>餐厅吊灯</td>
+<td>吊灯</td>
+<td>1</td>
+<td>24W</td>
+<td>3000K</td>
+<td>餐桌正上方</td>
+</tr>
+<tr>
+<td>装饰灯带</td>
+<td>LED 灯带</td>
+<td>5m</td>
+<td>10W/m</td>
+<td>3000K</td>
+<td>电视柜下方</td>
+</tr>
+<tr>
+<td>落地灯</td>
+<td>落地灯</td>
+<td>1</td>
+<td>12W</td>
+<td>3000K</td>
+<td>沙发角落</td>
+</tr>
+</tbody>
+</table>
+<p><strong>总功率：</strong> 约 150W<br />
+<strong>预估电费：</strong> 每天 4 小时 × 30 天 = 18 度电/月</p>
+<p><strong>效果预期：</strong>
+- ✅ 基础照明充足 (100 lux)
+- ✅ 电视墙有层次感
+- ✅ 餐厅温馨用餐氛围
+- ✅ 可切换会客/观影/阅读模式</p>
+<hr />
+<h3 id="2">案例 2：灯光翻车案例</h3>
+<p><strong>❌ 错误示范：</strong></p>
+<pre><code>问题 1：射灯位置不对
+┌─────────────────┐
+│  🟡  🟡  🟡     │  → 射灯直射沙发，坐人刺眼
+│                 │
+│     🛋️🛋️🛋️    │
+│                 │
+└─────────────────┘
+
+问题 2：色温混乱
+客厅：6500K (冷白)  ← 像办公室
+餐厅：2700K (暖黄)  ← 像咖啡厅
+卧室：4000K (自然白) ← 像医院
+
+问题 3：只有主灯
+┌─────────────────┐
+│                 │
+│       💡        │  → 中间亮四周暗，阴影重
+│                 │
+│   🛋️      📺   │
+│                 │
+└─────────────────┘
+</code></pre>
+<p><strong>✅ 正确做法：</strong>
+- 射灯离墙 30-50cm，洗墙不照人
+- 全屋主色温统一 (建议 3500K-4000K)
+- 三层照明搭配，无死角</p>
+<hr />
+<h2 id="20">三、实战练习（20 分钟）</h2>
+<h3 id="1">练习 1：灯光方案设计</h3>
+<p><strong>任务：</strong> 为你的 37㎡户型设计灯光方案</p>
+<p><strong>步骤：</strong></p>
+<ol>
+<li>
+<p><strong>画出户型图</strong> (标注尺寸)
+   <code>┌─────────────────────────────────────┐
+   │                                     │
+   │                                     │
+   │                                     │
+   │                                     │
+   │                                     │
+   └─────────────────────────────────────┘</code></p>
+</li>
+<li>
+<p><strong>标注各区域功能</strong></p>
+</li>
+<li>
+<p>客厅/餐厅/卧室/厨房/卫生间</p>
+</li>
+<li>
+<p><strong>为每个区域选择灯具</strong></p>
+</li>
+<li>基础照明：___</li>
+<li>重点照明：___</li>
+<li>
+<p>装饰照明：___</p>
+</li>
+<li>
+<p><strong>确定色温和功率</strong></p>
+</li>
+<li>主色温：___K</li>
+<li>各区域功率：___W</li>
+</ol>
+<hr />
+<h3 id="2_1">练习 2：灯光场景模拟</h3>
+<p><strong>任务：</strong> 设计 3 种灯光场景</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>开启灯具</th>
+<th>色温</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>会客模式</strong></td>
+<td>主灯 + 筒灯 + 射灯</td>
+<td>4000K</td>
+<td>明亮、热情</td>
+</tr>
+<tr>
+<td><strong>观影模式</strong></td>
+<td>灯带 + 落地灯</td>
+<td>3000K</td>
+<td>柔和、沉浸</td>
+</tr>
+<tr>
+<td><strong>阅读模式</strong></td>
+<td>台灯 + 筒灯</td>
+<td>4000K</td>
+<td>专注、护眼</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10">四、课后作业（10 分钟）</h2>
+<h3 id="1_1">作业 1：灯光清单制作</h3>
+<p><strong>任务：</strong> 列出你家的灯具采购清单</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>区域</th>
+<th>灯具类型</th>
+<th>数量</th>
+<th>功率</th>
+<th>色温</th>
+<th>Ra</th>
+<th>预算</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>客厅</td>
+<td>LED 吸顶灯</td>
+<td>1</td>
+<td>36W</td>
+<td>4000K</td>
+<td>≥80</td>
+<td>¥300</td>
+</tr>
+<tr>
+<td>2</td>
+<td>客厅</td>
+<td>射灯</td>
+<td>3</td>
+<td>5W</td>
+<td>3500K</td>
+<td>≥90</td>
+<td>¥150</td>
+</tr>
+<tr>
+<td>3</td>
+<td>客厅</td>
+<td>筒灯</td>
+<td>3</td>
+<td>5W</td>
+<td>3500K</td>
+<td>≥80</td>
+<td>¥120</td>
+</tr>
+<tr>
+<td>4</td>
+<td>餐厅</td>
+<td>吊灯</td>
+<td>1</td>
+<td>24W</td>
+<td>3000K</td>
+<td>≥80</td>
+<td>¥200</td>
+</tr>
+<tr>
+<td>5</td>
+<td>卧室</td>
+<td>LED 吸顶灯</td>
+<td>1</td>
+<td>24W</td>
+<td>3000K</td>
+<td>≥80</td>
+<td>¥200</td>
+</tr>
+<tr>
+<td>6</td>
+<td>卧室</td>
+<td>床头灯</td>
+<td>2</td>
+<td>7W</td>
+<td>3000K</td>
+<td>≥80</td>
+<td>¥160</td>
+</tr>
+<tr>
+<td>7</td>
+<td>厨房</td>
+<td>平板灯</td>
+<td>1</td>
+<td>30W</td>
+<td>5000K</td>
+<td>≥90</td>
+<td>¥150</td>
+</tr>
+<tr>
+<td>8</td>
+<td>卫生间</td>
+<td>浴霸灯</td>
+<td>1</td>
+<td>24W</td>
+<td>5000K</td>
+<td>≥80</td>
+<td>¥300</td>
+</tr>
+<tr>
+<td>9</td>
+<td>玄关</td>
+<td>筒灯</td>
+<td>2</td>
+<td>5W</td>
+<td>3500K</td>
+<td>≥80</td>
+<td>¥80</td>
+</tr>
+<tr>
+<td>10</td>
+<td>-</td>
+<td>LED 灯带</td>
+<td>10m</td>
+<td>10W/m</td>
+<td>3000K</td>
+<td>≥80</td>
+<td>¥200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>总预算：</strong> 约 ¥1860</p>
+<hr />
+<h3 id="2_2">作业 2：智能灯光规划 (选做)</h3>
+<p><strong>任务：</strong> 规划智能灯光控制方案</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>实现方式</th>
+<th>设备</th>
+<th>预算</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>语音控制</td>
+<td>小爱/天猫精灵</td>
+<td>智能开关 ×5</td>
+<td>¥250</td>
+</tr>
+<tr>
+<td>场景切换</td>
+<td>无线开关</td>
+<td>场景面板 ×2</td>
+<td>¥200</td>
+</tr>
+<tr>
+<td>调光调色</td>
+<td>智能灯具</td>
+<td>智能灯泡 ×4</td>
+<td>¥320</td>
+</tr>
+<tr>
+<td>感应夜灯</td>
+<td>人体传感器</td>
+<td>传感器 ×2 + 灯带</td>
+<td>¥180</td>
+</tr>
+</tbody>
+</table>
+<p><strong>总预算：</strong> 约 ¥950</p>
+<hr />
+<h2 id="_1">五、避坑总结</h2>
+<h3 id="10_1">⚠️ 灯光设计 10 大坑</h3>
+<table>
+<thead>
+<tr>
+<th>坑</th>
+<th>表现</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1️⃣ 只有主灯</td>
+<td>中间亮四周暗</td>
+<td>增加筒灯/射灯</td>
+</tr>
+<tr>
+<td>2️⃣ 色温混乱</td>
+<td>像打翻调色盘</td>
+<td>统一主色温</td>
+</tr>
+<tr>
+<td>3️⃣ 射灯照人</td>
+<td>坐沙发刺眼</td>
+<td>离墙 30-50cm</td>
+</tr>
+<tr>
+<td>4️⃣ 显色差</td>
+<td>食物/脸色难看</td>
+<td>选 Ra≥80</td>
+</tr>
+<tr>
+<td>5️⃣ 功率不足</td>
+<td>房间昏暗</td>
+<td>按 5W/㎡计算</td>
+</tr>
+<tr>
+<td>6️⃣ 功率过大</td>
+<td>亮如白昼</td>
+<td>加调光开关</td>
+</tr>
+<tr>
+<td>7️⃣ 忽略眩光</td>
+<td>刺眼不舒服</td>
+<td>选深杯防眩</td>
+</tr>
+<tr>
+<td>8️⃣ 开关不合理</td>
+<td>来回跑</td>
+<td>双控/智能</td>
+</tr>
+<tr>
+<td>9️⃣ 忘记预留</td>
+<td>想加灯没电</td>
+<td>提前布线</td>
+</tr>
+<tr>
+<td>🔟 忽略维护</td>
+<td>坏了难换</td>
+<td>选标准接口</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_2">六、明日预告</h2>
+<p><strong>Day 20：Week 3 复习 + 软装方案实战</strong></p>
+<ul>
+<li>📚 复习 Week 3 核心知识点</li>
+<li>🛋️ 软装搭配实战演练</li>
+<li>📐 完成 37㎡户型软装方案</li>
+<li>📝 Week 3 小测验</li>
+</ul>
+<hr />
+<h2 id="_3">📋 本课要点总结</h2>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                    Day 19 核心要点                      │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  1️⃣ 三层照明：基础 + 重点 + 装饰                        │
+│                                                         │
+│  2️⃣ 色温选择：2700K(卧室) → 4000K(客厅) → 5000K(厨房)  │
+│                                                         │
+│  3️⃣ 显色指数：Ra≥80(基础) / Ra≥90(厨房化妆)            │
+│                                                         │
+│  4️⃣ 功率计算：5W/㎡ (LED)                              │
+│                                                         │
+│  5️⃣ 避坑要点：射灯离墙、色温统一、防眩光               │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<hr />
+<p><em>课程完成时间：2026-04-15 20:00 HKT</em><br />
+<em>下节课：2026-04-16 20:00 HKT (Week 3 复习 + 软装方案实战)</em></p>
+            </div>
+            <div class="prev-next-nav">
+                <a href="day-18.html"><i class="fas fa-arrow-left"></i> Day 18</a>
+                <a href="../interior-design.html"><i class="fas fa-list"></i> 课程目录</a>
+                <a href="day-20.html">Day 20 <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
+                    <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 98381267</p></li>
+                    <li><i class="fas fa-envelope"></i> ivanxuag@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/SLdesignPlus" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="contact-info">
+                    <li><a href="../../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
+                    <li><a href="../interior-design.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-couch"></i> 室内设计</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 SL Design Platform. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

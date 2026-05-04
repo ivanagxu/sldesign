@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Design - 学习 · 室内设计 · Day 16 · 📖 Day 16: 施工流程与节点验收</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .logo span { color: #e2e8f0; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
+        .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
+        footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
+        .footer-section h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: #60a5fa; }
+        .contact-info { list-style: none; }
+        .contact-info li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .contact-info i { margin-right: 0.8rem; color: #3b82f6; width: 20px; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
+        .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
+
+        .breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #94a3b8; padding: 1rem 0; flex-wrap: wrap; }
+        .breadcrumbs a { color: #10b981; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+        .breadcrumbs .sep { color: #d1d5db; }
+
+        .lesson-header { padding: 1.5rem 0; }
+        .lesson-header .lesson-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+        .lesson-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .badge-stage { background: #ecfdf5; color: #059669; }
+        .badge-week { background: #eff6ff; color: #3b82f6; }
+        .badge-day { background: #fef3c7; color: #d97706; }
+        .lesson-header h1 { font-size: 1.6rem; color: #0f172a; margin-bottom: 0.3rem; }
+        .lesson-header .lesson-subtitle { color: #64748b; font-size: 0.9rem; }
+
+        .content-body { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2rem; margin-bottom: 2rem; }
+
+        .lesson-objectives { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+        .lesson-objectives h3 { color: #059669; font-size: 1rem; margin-bottom: 0.5rem; }
+        .lesson-objectives ul { list-style: none; padding: 0; margin: 0; }
+        .lesson-objectives li { color: #047857; padding: 0.2rem 0; font-size: 0.9rem; }
+        .lesson-objectives li::before { content: '✅ '; }
+
+        .content-body h2 { font-size: 1.3rem; color: #059669; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #d1fae5; }
+        .content-body h2:first-child { margin-top: 0; }
+        .content-body h3 { font-size: 1.1rem; color: #0f172a; margin: 1.5rem 0 0.8rem; }
+        .content-body h4 { font-size: 1rem; color: #0f172a; margin: 1.2rem 0 0.6rem; }
+        .content-body p { margin-bottom: 0.8rem; color: #444; }
+        .content-body ul, .content-body ol { margin: 0.8rem 0; padding-left: 1.5rem; }
+        .content-body li { margin-bottom: 0.4rem; color: #444; }
+        .content-body strong { color: #0f172a; }
+        .content-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        .content-body th, .content-body td { border: 1px solid #e2e8f0; padding: 0.6rem 0.8rem; text-align: left; }
+        .content-body th { background-color: #f0fdf4; color: #059669; font-weight: 600; }
+        .content-body tr:nth-child(even) { background-color: #f8fafc; }
+
+        .highlight-box { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .highlight-box p { margin: 0; color: #047857; }
+
+        .tip-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .tip-box p { margin: 0; color: #92400e; }
+
+        .warning-box { background: #fee2e2; border-left: 4px solid #ef4444; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .warning-box p { margin: 0; color: #b91c1c; }
+
+        pre { background: #f1f5f9; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 1rem 0; }
+        code { background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+        pre code { background: none; padding: 0; }
+
+        .prev-next-nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; flex-wrap: wrap; }
+        .prev-next-nav a { display: inline-flex; align-items: center; gap: 0.4rem; color: #10b981; text-decoration: none; font-weight: 500; padding: 0.6rem 1rem; border-radius: 6px; background: #f0fdf4; transition: all 0.2s; }
+        .prev-next-nav a:hover { background: #d1fae5; color: #047857; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <div class="logo">SL<span>Design</span></div>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../learning.html" class="active">Learning</a></li>
+                    <li><a href="../../news.html">News</a></li>
+                    <li><a href="../../games.html">Games</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a><span class="sep">/</span>
+            <a href="../../learning.html">Learning</a><span class="sep">/</span>
+            <a href="../interior-design.html">室内设计</a><span class="sep">/</span>
+            <span>Day 16</span>
+        </div>
+        <div class="lesson-header">
+            <div class="lesson-meta">
+                <span class="lesson-badge badge-week">Week 3</span>
+                <span class="lesson-badge badge-day">Day 16</span>
+            </div>
+            <h1>📖 Day 16: 施工流程与节点验收</h1>
+            <p class="lesson-subtitle">掌握施工全流程与关键验收节点</p>
+        </div>
+
+        <div class="content-body">
+            <div class="lesson-objectives"><p>学完后你能：
+- ✅ 说出室内施工的 7 个主要阶段
+- ✅ 识别每个阶段的关键验收节点
+- ✅ 独立进行工地巡检，发现常见问题
+- ✅ 掌握验收标准和工具使用方法</p>
+<hr /></div>
+            <div class="markdown-body">
+                <hr />
+<h2 id="25">一、知识讲解（25 分钟）</h2>
+<h3 id="11">1.1 室内施工全流程概览</h3>
+<pre><code>┌──────────────────────────────────────────────────────────────────┐
+│                    室内施工 7 大阶段                               │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ①拆改 → ②水电 → ③泥工 → ④木工 → ⑤油漆 → ⑥安装 → ⑦保洁        │
+│     │       │       │       │       │       │       │           │
+│     ▼       ▼       ▼       ▼       ▼       ▼       ▼           │
+│   3-5天   5-7天   7-10天  5-7天   7-10天  3-5天   1-2天         │
+│                                                                  │
+│  总工期：30-45 天（37㎡小户型）                                   │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>工期</th>
+<th>核心工作</th>
+<th>关键验收点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>① 拆改</strong></td>
+<td>3-5 天</td>
+<td>拆墙、砌墙、铲墙皮</td>
+<td>墙体垂直度、新墙挂网</td>
+</tr>
+<tr>
+<td><strong>② 水电</strong></td>
+<td>5-7 天</td>
+<td>开槽、布管、穿线、打压</td>
+<td>水压测试、电路通断</td>
+</tr>
+<tr>
+<td><strong>③ 泥工</strong></td>
+<td>7-10 天</td>
+<td>防水、贴砖、找平</td>
+<td>闭水试验、空鼓检查</td>
+</tr>
+<tr>
+<td><strong>④ 木工</strong></td>
+<td>5-7 天</td>
+<td>吊顶、柜体、造型</td>
+<td>平整度、接缝处理</td>
+</tr>
+<tr>
+<td><strong>⑤ 油漆</strong></td>
+<td>7-10 天</td>
+<td>腻子、打磨、乳胶漆</td>
+<td>墙面平整、无色差</td>
+</tr>
+<tr>
+<td><strong>⑥ 安装</strong></td>
+<td>3-5 天</td>
+<td>灯具、开关、洁具、地板</td>
+<td>功能测试、收口精细</td>
+</tr>
+<tr>
+<td><strong>⑦ 保洁</strong></td>
+<td>1-2 天</td>
+<td>开荒保洁、家具进场</td>
+<td>最终验收</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="12">1.2 各阶段详解与验收标准</h3>
+<h4 id="1">📌 阶段 ①：拆改工程</h4>
+<p><strong>工作内容：</strong>
+- 拆除旧墙体、旧装修
+- 新建隔墙（轻钢龙骨/砖墙）
+- 门洞/窗洞改造
+- 铲墙皮（旧房改造）</p>
+<p><strong>验收标准：</strong></p>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>标准</th>
+<th>工具</th>
+<th>常见问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>墙体垂直度</td>
+<td>≤3mm/2m</td>
+<td>靠尺 + 塞尺</td>
+<td>新墙倾斜</td>
+</tr>
+<tr>
+<td>墙面平整度</td>
+<td>≤3mm/2m</td>
+<td>2m 靠尺</td>
+<td>凹凸不平</td>
+</tr>
+<tr>
+<td>新墙挂网</td>
+<td>必须满挂</td>
+<td>目测</td>
+<td>漏挂网导致开裂</td>
+</tr>
+<tr>
+<td>门洞尺寸</td>
+<td>误差≤5mm</td>
+<td>卷尺</td>
+<td>门套安装困难</td>
+</tr>
+<tr>
+<td>垃圾清运</td>
+<td>当日清理</td>
+<td>目测</td>
+<td>堆积影响施工</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⚠️ 避坑要点：</strong>
+- 承重墙绝对不能拆（看原始结构图）
+- 新砌墙必须植筋（每 500mm 高度植入钢筋）
+- 新旧墙接缝处必须挂网（防开裂）
+- 卫生间新墙必须做混凝土反坎（高 100mm）</p>
+<hr />
+<h4 id="2">📌 阶段 ②：水电工程（最关键！）</h4>
+<p><strong>工作内容：</strong>
+- 开槽（墙面/地面）
+- 铺设水管、电管
+- 穿电线、接线盒
+- 水路打压测试
+- 电路通断测试</p>
+<p><strong>验收标准：</strong></p>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>标准</th>
+<th>工具</th>
+<th>常见问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>水管间距</td>
+<td>电上水下，间距≥100mm</td>
+<td>卷尺</td>
+<td>交叉无保护</td>
+</tr>
+<tr>
+<td>电线分色</td>
+<td>火红/零蓝/地黄绿</td>
+<td>目测</td>
+<td>颜色混乱</td>
+</tr>
+<tr>
+<td>线管固定</td>
+<td>间距≤800mm</td>
+<td>目测</td>
+<td>松动脱落</td>
+</tr>
+<tr>
+<td>水路打压</td>
+<td>0.8MPa，30 分钟降≤0.05MPa</td>
+<td>打压泵</td>
+<td>渗漏</td>
+</tr>
+<tr>
+<td>电路通断</td>
+<td>全部通路，绝缘≥0.5MΩ</td>
+<td>万用表</td>
+<td>断路/短路</td>
+</tr>
+<tr>
+<td>线盒高度</td>
+<td>开关 1.3m，插座 0.3m</td>
+<td>卷尺</td>
+<td>高低不一</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⚠️ 避坑要点：</strong>
+- 水电走顶不走地（便于检修）
+- 卫生间电线必须走顶（防漏水短路）
+- 厨房插座单独回路（大功率电器）
+- 拍照留存水电走向（后期安装避免打穿）
+- 水管必须保温（防冷凝水）</p>
+<hr />
+<h4 id="3">📌 阶段 ③：泥工工程</h4>
+<p><strong>工作内容：</strong>
+- 卫生间/厨房/阳台防水
+- 闭水试验
+- 墙地砖铺贴
+- 地面找平
+- 门槛石/窗台石安装</p>
+<p><strong>验收标准：</strong></p>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>标准</th>
+<th>工具</th>
+<th>常见问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>防水高度</td>
+<td>淋浴区≥1.8m，其他≥0.3m</td>
+<td>卷尺</td>
+<td>高度不足</td>
+</tr>
+<tr>
+<td>闭水试验</td>
+<td>48 小时无渗漏</td>
+<td>目测楼下</td>
+<td>时间不足</td>
+</tr>
+<tr>
+<td>瓷砖空鼓</td>
+<td>单块≤5%，整体≤3%</td>
+<td>空鼓锤</td>
+<td>大面积空鼓</td>
+</tr>
+<tr>
+<td>平整度</td>
+<td>≤2mm/2m</td>
+<td>靠尺</td>
+<td>高低不平</td>
+</tr>
+<tr>
+<td>缝宽一致</td>
+<td>误差≤1mm</td>
+<td>塞尺</td>
+<td>宽窄不一</td>
+</tr>
+<tr>
+<td>排水坡度</td>
+<td>卫生间≥1%，地漏最低</td>
+<td>水平仪</td>
+<td>积水</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⚠️ 避坑要点：</strong>
+- 防水涂刷 2-3 遍，十字交叉涂刷
+- 闭水试验必须通知楼下邻居确认
+- 墙砖压地砖（防水效果更好）
+- 瓷砖泡水后铺贴（防吸水空鼓）
+- 留缝铺贴（热胀冷缩）</p>
+<hr />
+<h4 id="4">📌 阶段 ④：木工工程</h4>
+<p><strong>工作内容：</strong>
+- 吊顶（石膏板/铝扣板）
+- 定制柜体（现场制作）
+- 背景墙造型
+- 门套/窗套基层</p>
+<p><strong>验收标准：</strong></p>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>标准</th>
+<th>工具</th>
+<th>常见问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>吊顶平整</td>
+<td>≤3mm/2m</td>
+<td>靠尺</td>
+<td>波浪形</td>
+</tr>
+<tr>
+<td>接缝处理</td>
+<td>V 型缝，防开裂</td>
+<td>目测</td>
+<td>直缝易裂</td>
+</tr>
+<tr>
+<td>转角加固</td>
+<td>L 型整板，无拼接</td>
+<td>目测</td>
+<td>拼接易裂</td>
+</tr>
+<tr>
+<td>龙骨间距</td>
+<td>≤400mm</td>
+<td>卷尺</td>
+<td>间距过大</td>
+</tr>
+<tr>
+<td>柜体垂直</td>
+<td>≤2mm/2m</td>
+<td>靠尺</td>
+<td>倾斜</td>
+</tr>
+<tr>
+<td>收口精细</td>
+<td>无缝隙、无毛刺</td>
+<td>目测</td>
+<td>粗糙</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⚠️ 避坑要点：</strong>
+- 吊顶转角必须 L 型整板（防开裂）
+- 石膏板接缝必须 V 型槽（填缝更牢）
+- 潮湿区域用防水石膏板或铝扣板
+- 柜体背板必须封严（防甲醛释放）</p>
+<hr />
+<h4 id="5">📌 阶段 ⑤：油漆工程</h4>
+<p><strong>工作内容：</strong>
+- 墙面基层处理
+- 刮腻子（2-3 遍）
+- 打磨
+- 刷乳胶漆（底漆 1 遍 + 面漆 2 遍）</p>
+<p><strong>验收标准：</strong></p>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>标准</th>
+<th>工具</th>
+<th>常见问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>墙面平整</td>
+<td>≤3mm/2m</td>
+<td>靠尺</td>
+<td>波浪纹</td>
+</tr>
+<tr>
+<td>阴阳角方正</td>
+<td>≤3mm</td>
+<td>阴阳角尺</td>
+<td>不垂直</td>
+</tr>
+<tr>
+<td>无砂眼</td>
+<td>目测无孔洞</td>
+<td>手电筒侧照</td>
+<td>打磨不足</td>
+</tr>
+<tr>
+<td>无流坠</td>
+<td>漆面均匀</td>
+<td>目测</td>
+<td>涂刷过厚</td>
+</tr>
+<tr>
+<td>无色差</td>
+<td>同一墙面颜色一致</td>
+<td>目测</td>
+<td>兑水不均</td>
+</tr>
+<tr>
+<td>无透底</td>
+<td>覆盖均匀</td>
+<td>目测</td>
+<td>涂刷遍数不足</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⚠️ 避坑要点：</strong>
+- 腻子干透才能刷下一遍（间隔 24 小时）
+- 打磨后用手电筒侧照检查
+- 底漆不能省（防碱防霉）
+- 乳胶漆兑水≤10%（影响遮盖力）
+- 刷完关闭门窗阴干（防开裂）</p>
+<hr />
+<h4 id="6">📌 阶段 ⑥：安装工程</h4>
+<p><strong>工作内容：</strong>
+- 灯具安装
+- 开关插座安装
+- 洁具安装（马桶、花洒、浴室柜）
+- 地板安装
+- 橱柜安装
+- 门安装</p>
+<p><strong>验收标准：</strong></p>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>标准</th>
+<th>工具</th>
+<th>常见问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>灯具测试</td>
+<td>全部点亮</td>
+<td>开关测试</td>
+<td>不亮/闪烁</td>
+</tr>
+<tr>
+<td>插座测试</td>
+<td>相位正确，接地良好</td>
+<td>相位检测仪</td>
+<td>零火接反</td>
+</tr>
+<tr>
+<td>洁具下水</td>
+<td>排水顺畅，无渗漏</td>
+<td>放水测试</td>
+<td>堵塞/漏水</td>
+</tr>
+<tr>
+<td>地板平整</td>
+<td>≤2mm/2m，无起拱</td>
+<td>靠尺</td>
+<td>踩踏异响</td>
+</tr>
+<tr>
+<td>门扇开合</td>
+<td>顺畅，无阻滞</td>
+<td>手动测试</td>
+<td>摩擦地面</td>
+</tr>
+<tr>
+<td>收口打胶</td>
+<td>均匀、无断点</td>
+<td>目测</td>
+<td>粗糙发霉</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⚠️ 避坑要点：</strong>
+- 插座相位必须检测（防电器损坏）
+- 马桶法兰圈必须安装到位（防臭防漏）
+- 地板与墙边留 8-10mm 伸缩缝
+- 所有打胶用防霉硅胶（厨卫）</p>
+<hr />
+<h4 id="7">📌 阶段 ⑦：保洁与最终验收</h4>
+<p><strong>工作内容：</strong>
+- 开荒保洁
+- 家具进场
+- 家电安装
+- 通风除甲醛
+- 最终验收</p>
+<p><strong>验收清单：</strong></p>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>确认</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>所有灯具开关正常</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>所有插座有电</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>所有下水顺畅</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>所有门柜开合顺畅</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>墙面无裂缝污渍</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>地板无起拱异响</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>洁具无渗漏</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>厨卫防水无渗漏</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>甲醛检测达标</td>
+<td>☐</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="20">二、实战案例（20 分钟）</h2>
+<h3 id="1_1">案例 1：水电验收翻车现场</h3>
+<p><strong>背景：</strong> 深圳某 35㎡旧房改造</p>
+<p><strong>问题发现：</strong></p>
+<pre><code>业主巡检时发现：
+❌ 卫生间电线走地（未走顶）
+❌ 水管电管交叉无保护
+❌ 打压测试仅 10 分钟（标准 30 分钟）
+❌ 线盒高度参差不齐（误差达 50mm）
+</code></pre>
+<p><strong>处理方案：</strong>
+1. 要求卫生间电线全部改走顶
+2. 交叉处加过桥弯保护
+3. 重新打压测试 30 分钟
+4. 线盒调整至统一高度</p>
+<p><strong>教训：</strong>
+- 水电是隐蔽工程，一旦封槽难以返工
+- 必须亲自到场验收，不能只听工长说
+- 拍照留存，便于后期维修</p>
+<hr />
+<h3 id="2_1">案例 2：防水失效导致邻里纠纷</h3>
+<p><strong>背景：</strong> 上海某 40㎡公寓</p>
+<p><strong>问题发现：</strong></p>
+<pre><code>入住 3 个月后楼下天花板渗水：
+❌ 防水仅刷 1 遍（标准 2-3 遍）
+❌ 闭水试验仅 24 小时（标准 48 小时）
+❌ 门口未做止水坎
+❌ 管根未做加强处理
+</code></pre>
+<p><strong>损失：</strong>
+- 楼下天花板修复：¥8,000
+- 自家卫生间砸掉重做：¥15,000
+- 误工费 + 赔偿：¥5,000
+- <strong>总计：¥28,000</strong></p>
+<p><strong>教训：</strong>
+- 防水是泥工阶段最重要的环节
+- 闭水试验必须做足 48 小时
+- 管根、墙角必须做加强处理
+- 门口必须做混凝土止水坎</p>
+<hr />
+<h2 id="15">三、随堂练习（15 分钟）</h2>
+<h3 id="1_2">练习 1：验收工具配对</h3>
+<p>将验收工具与其用途连线：</p>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A. 空鼓锤</td>
+<td>1. 检测墙面平整度</td>
+</tr>
+<tr>
+<td>B. 靠尺 + 塞尺</td>
+<td>2. 检测电路相位</td>
+</tr>
+<tr>
+<td>C. 打压泵</td>
+<td>3. 检测瓷砖空鼓</td>
+</tr>
+<tr>
+<td>D. 相位检测仪</td>
+<td>4. 检测水路密封性</td>
+</tr>
+<tr>
+<td>E. 水平仪</td>
+<td>5. 检测地面坡度</td>
+</tr>
+</tbody>
+</table>
+<p><strong>答案：</strong> A-3, B-1, C-4, D-2, E-5</p>
+<hr />
+<h3 id="2_2">练习 2：找错误</h3>
+<p>以下施工做法哪些是错误的？（多选）</p>
+<ul>
+<li>[ ] A. 卫生间电线走地</li>
+<li>[ ] B. 新砌墙未挂网</li>
+<li>[ ] C. 防水涂刷 2 遍</li>
+<li>[ ] D. 闭水试验 24 小时</li>
+<li>[ ] E. 吊顶转角 L 型整板</li>
+<li>[ ] F. 乳胶漆兑水 20%</li>
+<li>[ ] G. 地板与墙边留 10mm 缝</li>
+</ul>
+<p><strong>答案：</strong> A、B、D、F 是错误的</p>
+<hr />
+<h3 id="3_1">练习 3：验收流程排序</h3>
+<p>将水电验收步骤按正确顺序排列：</p>
+<p>① 检查线盒高度<br />
+② 水路打压测试<br />
+③ 拍照留存走向<br />
+④ 电路通断测试<br />
+⑤ 检查水管间距  </p>
+<p><strong>正确顺序：</strong> ⑤→①→②→④→③</p>
+<hr />
+<h2 id="30">四、课后作业（30 分钟）</h2>
+<h3 id="1_3">作业 1：制作验收清单</h3>
+<p>为你的 37㎡户型制作一份详细的验收清单，包括：</p>
+<ol>
+<li>每个阶段的验收项目（至少 5 项）</li>
+<li>验收标准（具体数值）</li>
+<li>所需工具</li>
+<li>常见问题及处理方法</li>
+</ol>
+<p><strong>提交格式：</strong> 表格或清单</p>
+<hr />
+<h3 id="2_3">作业 2：模拟巡检报告</h3>
+<p>假设你正在工地巡检，发现以下问题，请写出处理方案：</p>
+<p><strong>场景：</strong> 泥工阶段，卫生间贴砖完成</p>
+<p><strong>发现问题：</strong>
+- 地砖有 3 处空鼓（每处约 5cm 直径）
+- 地漏周围瓷砖坡度不够，有积水
+- 墙砖最上面一排与吊顶间隙过大（3cm）</p>
+<p><strong>要求：</strong>
+- 分析每个问题的原因
+- 提出整改方案
+- 说明如何预防类似问题</p>
+<hr />
+<h3 id="3_2">作业 3：实地参观（可选）</h3>
+<p>如有条件，参观一处正在施工的工地：</p>
+<ul>
+<li>拍摄各阶段施工照片</li>
+<li>记录实际工期与计划工期的差异</li>
+<li>与施工师傅交流，了解常见坑点</li>
+<li>下节课分享你的发现</li>
+</ul>
+<hr />
+<h2 id="_1">五、下节预告</h2>
+<p><strong>Day 17：软装搭配原则</strong></p>
+<ul>
+<li>家具尺寸与空间比例</li>
+<li>布艺选择与搭配</li>
+<li>装饰画挂法与高度</li>
+<li>绿植摆放与选择</li>
+<li>37㎡户型软装方案实战</li>
+</ul>
+<hr />
+<h2 id="_2">📋 本日重点总结</h2>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                    Day 16 核心要点                       │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  1️⃣ 施工 7 阶段：拆改→水电→泥工→木工→油漆→安装→保洁   │
+│                                                         │
+│  2️⃣ 最关键验收节点：                                    │
+│     • 水电：打压测试、电路通断                          │
+│     • 泥工：闭水试验、空鼓检查                          │
+│     • 油漆：墙面平整、无色差                            │
+│                                                         │
+│  3️⃣ 必买验收工具：                                      │
+│     空鼓锤、靠尺、塞尺、相位检测仪、卷尺               │
+│                                                         │
+│  4️⃣ 避坑金句：                                          │
+│     • 水电走顶不走地                                    │
+│     • 防水必须 48 小时闭水                               │
+│     • 吊顶转角 L 型整板                                  │
+│     • 乳胶漆兑水≤10%                                    │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<hr />
+<p><strong>💡 设计师建议：</strong></p>
+<blockquote>
+<p>施工阶段是设计落地的关键，再好的设计方案，施工不到位也是白费。</p>
+<p>建议你：
+- 每个阶段至少到场验收 2 次（中期 + 完工）
+- 与工长建立良好沟通，但要坚持原则
+- 发现问题立即整改，不要等到完工
+- 所有变更必须书面确认（避免后期扯皮）</p>
+<p>记住：你是业主，你有权要求按标准施工！</p>
+</blockquote>
+<hr />
+<p><em>课程生成时间：2026-04-12 20:00 HKT</em><br />
+<em>下一阶段：Week 3 软装设计</em></p>
+            </div>
+            <div class="prev-next-nav">
+                <a href="day-15.html"><i class="fas fa-arrow-left"></i> Day 15</a>
+                <a href="../interior-design.html"><i class="fas fa-list"></i> 课程目录</a>
+                <a href="day-17.html">Day 17 <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
+                    <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 98381267</p></li>
+                    <li><i class="fas fa-envelope"></i> ivanxuag@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/SLdesignPlus" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="contact-info">
+                    <li><a href="../../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
+                    <li><a href="../interior-design.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-couch"></i> 室内设计</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 SL Design Platform. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>
