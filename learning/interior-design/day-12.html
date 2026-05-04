@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Design - 学习 · 室内设计 · Day 12 🏠 室内设计培训课程</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .logo span { color: #e2e8f0; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
+        .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
+        footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
+        .footer-section h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: #60a5fa; }
+        .contact-info { list-style: none; }
+        .contact-info li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .contact-info i { margin-right: 0.8rem; color: #3b82f6; width: 20px; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
+        .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
+
+        .breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #94a3b8; padding: 1rem 0; flex-wrap: wrap; }
+        .breadcrumbs a { color: #10b981; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+        .breadcrumbs .sep { color: #d1d5db; }
+
+        .lesson-header { padding: 1.5rem 0; }
+        .lesson-header .lesson-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+        .lesson-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .badge-stage { background: #ecfdf5; color: #059669; }
+        .badge-week { background: #eff6ff; color: #3b82f6; }
+        .badge-day { background: #fef3c7; color: #d97706; }
+        .lesson-header h1 { font-size: 1.6rem; color: #0f172a; margin-bottom: 0.3rem; }
+        .lesson-header .lesson-subtitle { color: #64748b; font-size: 0.9rem; }
+
+        .content-body { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2rem; margin-bottom: 2rem; }
+
+        .lesson-objectives { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+        .lesson-objectives h3 { color: #059669; font-size: 1rem; margin-bottom: 0.5rem; }
+        .lesson-objectives ul { list-style: none; padding: 0; margin: 0; }
+        .lesson-objectives li { color: #047857; padding: 0.2rem 0; font-size: 0.9rem; }
+        .lesson-objectives li::before { content: '✅ '; }
+
+        .content-body h2 { font-size: 1.3rem; color: #059669; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #d1fae5; }
+        .content-body h2:first-child { margin-top: 0; }
+        .content-body h3 { font-size: 1.1rem; color: #0f172a; margin: 1.5rem 0 0.8rem; }
+        .content-body h4 { font-size: 1rem; color: #0f172a; margin: 1.2rem 0 0.6rem; }
+        .content-body p { margin-bottom: 0.8rem; color: #444; }
+        .content-body ul, .content-body ol { margin: 0.8rem 0; padding-left: 1.5rem; }
+        .content-body li { margin-bottom: 0.4rem; color: #444; }
+        .content-body strong { color: #0f172a; }
+        .content-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        .content-body th, .content-body td { border: 1px solid #e2e8f0; padding: 0.6rem 0.8rem; text-align: left; }
+        .content-body th { background-color: #f0fdf4; color: #059669; font-weight: 600; }
+        .content-body tr:nth-child(even) { background-color: #f8fafc; }
+
+        .highlight-box { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .highlight-box p { margin: 0; color: #047857; }
+
+        .tip-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .tip-box p { margin: 0; color: #92400e; }
+
+        .warn-box { background: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .warn-box p { margin: 0; color: #991b1b; }
+
+        .case-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+        .case-box h4 { color: #0f172a; font-size: 1rem; margin-bottom: 0.8rem; }
+
+        .task-box { background: #eff6ff; border: 2px solid #93c5fd; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+        .task-box h4 { color: #1e40af; margin-bottom: 0.5rem; }
+        .task-box p { color: #1e40af; margin: 0; }
+
+        .ergo-diagram { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; text-align: center; margin: 1.5rem 0; }
+        .ergo-diagram h3 { color: #059669; margin-bottom: 1.5rem; font-size: 1.2rem; }
+        .ergo-diagram .section { text-align: left; margin: 0.8rem 0; }
+        .ergo-diagram .section strong { color: #059669; }
+        
+        .ergo-diagram pre { text-align: left; background: #fff; padding: 1rem; border-radius: 8px; overflow-x: auto; font-family: monospace; font-size: 0.85rem; margin: 0.5rem 0; }
+
+        .next-lesson { background: #f0fdf4; border: 2px solid #86efac; border-radius: 12px; padding: 1.5rem; margin-top: 2rem; display: flex; align-items: center; gap: 1rem; }
+        .next-lesson i { font-size: 1.5rem; color: #059669; }
+        .next-lesson-text h3 { font-size: 1rem; color: #059669; margin-bottom: 0.2rem; }
+        .next-lesson-text p { font-size: 0.85rem; color: #047857; margin: 0; }
+
+        .prev-next-nav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .prev-next-nav a { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.2rem; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; color: #059669; font-size: 0.9rem; transition: box-shadow 0.3s ease; }
+        .prev-next-nav a:hover { box-shadow: 0 4px 12px rgba(16,185,129,0.15); }
+
+        details { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; margin: 1rem 0; padding: 1rem; }
+        summary { cursor: pointer; font-weight: bold; color: #059669; outline: none; }
+        summary:hover { color: #047857; }
+        details p { margin-top: 0.8rem; margin-bottom: 0; color: #444; }
+        
+        code { background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px; font-family: monospace; color: #0f172a; }
+        pre { background: #f8fafc; padding: 1rem; border-radius: 8px; overflow-x: auto; font-family: monospace; font-size: 0.85rem; margin: 1rem 0; }
+
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; align-items: flex-start; }
+            .logo { margin-bottom: 1rem; }
+            nav { width: 100%; }
+            nav ul { flex-direction: column; width: 100%; display: none; }
+            nav ul.show { display: flex; }
+            nav ul li { margin: 0; width: 100%; }
+            nav ul li a { display: block; padding: 0.8rem 0; border-bottom: 1px solid #1e3a5f; }
+            .menu-toggle { display: block; position: absolute; top: 1rem; right: 20px; }
+            .content-body { padding: 1.2rem; }
+            .lesson-header h1 { font-size: 1.3rem; }
+            .footer-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" style="text-decoration:none;">
+                <div class="logo">SL <span>DESIGN</span> PLATFORM</div>
+            </a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="../../index.html"><i class="fas fa-home"></i> HOME</a></li>
+                    <li><a href="../../index.html#exhibition"><i class="fas fa-images"></i> CASES</a></li>
+                    <li><a href="../../news.html"><i class="fas fa-newspaper"></i> NEWS</a></li>
+                    <li><a href="../../games.html"><i class="fas fa-gamepad"></i> GAMES</a></li>
+                    <li><a href="../../learning.html" class="active"><i class="fas fa-graduation-cap"></i> LEARNING</a></li>
+                    <li><a href="../../index.html#contact"><i class="fas fa-address-book"></i> CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../learning.html"><i class="fas fa-graduation-cap"></i> LEARNING</a>
+            <span class="sep">›</span>
+            <a href="../interior-design.html">室内设计</a>
+            <span class="sep">›</span>
+            <span>Day 12</span>
+        </div>
+
+        <div class="lesson-header">
+            <div class="lesson-meta">
+                <span class="lesson-badge badge-stage">进阶</span>
+                <span class="lesson-badge badge-week">Week 2</span>
+                <span class="lesson-badge badge-day">Day 12</span>
+            </div>
+            <h1>🏠 🏠 室内设计培训课程</h1>
+            <p class="lesson-subtitle">** 玄关与过道设计</p>
+        </div>
+
+        <div class="content-body">
+            <h1 id="_1">🏠 室内设计培训课程</h1>
+<h2 id="day-12">Day 12：玄关与过道设计</h2>
+<p><strong>日期：</strong> 2026-04-07<br />
+<strong>周次：</strong> Week 2 - Day 5<br />
+<strong>课题：</strong> 玄关与过道设计<br />
+<strong>预计学习时间：</strong> 45-60 分钟</p>
+<hr />
+<h2 id="_2">📌 学习目标</h2>
+<ol>
+<li>理解玄关的功能定位与设计原则</li>
+<li>掌握过道空间的优化技巧</li>
+<li>学会在小户型中高效利用过渡空间</li>
+<li>能够针对 37㎡户型设计合理的玄关与过道方案</li>
+</ol>
+<hr />
+<h2 id="_3">一、玄关设计核心原则</h2>
+<h3 id="11">1.1 玄关的三大功能</h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>说明</th>
+<th>设计要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>缓冲过渡</strong></td>
+<td>室内外空间的心理过渡区</td>
+<td>视觉遮挡，避免"开门见山"</td>
+</tr>
+<tr>
+<td><strong>收纳整理</strong></td>
+<td>鞋、外套、钥匙、快递等</td>
+<td>分类收纳，就近原则</td>
+</tr>
+<tr>
+<td><strong>形象展示</strong></td>
+<td>家的第一印象</td>
+<td>灯光、装饰、整洁度</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12">1.2 玄关类型</h3>
+<p><strong>独立玄关</strong>
+- 有独立空间，可设计完整鞋柜 + 换鞋凳 + 挂衣区
+- 37㎡户型较难实现</p>
+<p><strong>入户花园式玄关</strong>
+- 利用入户门旁小空间
+- 适合狭长户型</p>
+<p><strong>开门见厅式玄关</strong>
+- 最常见于小户型
+- 需要巧妙设计隔断/屏风
+- <strong>37㎡户型首选方案</strong></p>
+<h3 id="13">1.3 玄关尺寸参考</h3>
+<pre><code>最小舒适尺寸：
+- 宽度：≥ 90cm（单人通行）
+- 深度：≥ 35cm（标准鞋柜深度）
+- 高度：通顶设计（最大化收纳）
+
+鞋柜内部尺寸：
+- 层板高度：15-20cm（平底鞋）、20-25cm（高跟鞋/靴子）
+- 活动层板：可调节，适应不同鞋型
+- 底部留空：15-20cm（常穿鞋免开门收纳）
+</code></pre>
+<hr />
+<h2 id="_4">二、玄关收纳系统设计</h2>
+<h3 id="21">2.1 鞋柜设计要点</h3>
+<p><strong>分区设计：</strong></p>
+<pre><code>┌─────────────────────────┐
+│      顶部：换季鞋盒      │  ← 不常用物品
+├─────────────────────────┤
+│      中部：挂衣区        │  ← 外套、包包
+│      + 置物台            │  ← 钥匙、快递
+├─────────────────────────┤
+│      下部：日常鞋柜      │  ← 当季鞋子
+├─────────────────────────┤
+│      底部：常穿鞋位      │  ← 免开门，直接踢入
+└─────────────────────────┘
+</code></pre>
+<p><strong>关键细节：</strong>
+- 中部留空高度：40-50cm（方便放包、小物件）
+- 挂衣区：设置挂钩或伸缩挂衣杆
+- 底部留空：15-20cm，嵌入感应灯带
+- 柜门：推荐无拉手设计（按压式/凹槽），视觉简洁</p>
+<h3 id="22">2.2 玄关附加功能</h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>实现方式</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>换鞋凳</td>
+<td>嵌入式/翻折式/独立式</td>
+<td>有老人小孩家庭必备</td>
+</tr>
+<tr>
+<td>穿衣镜</td>
+<td>柜门镜/墙面镜/独立镜</td>
+<td>出门前整理仪容</td>
+</tr>
+<tr>
+<td>雨伞收纳</td>
+<td>底部侧边预留空间</td>
+<td>多雨地区</td>
+</tr>
+<tr>
+<td>快递暂存</td>
+<td>中部置物台延伸</td>
+<td>网购频繁家庭</td>
+</tr>
+<tr>
+<td>消毒区</td>
+<td>小型紫外线消毒盒</td>
+<td>疫情后时代需求</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_5">三、过道设计优化</h2>
+<h3 id="31">3.1 过道常见问题</h3>
+<p><strong>问题 1：狭长压抑</strong>
+- 原因：宽度不足、灯光昏暗、墙面单调
+- 解决：增加照明、浅色墙面、镜面延伸</p>
+<p><strong>问题 2：浪费空间</strong>
+- 原因：仅作为通道，无功能整合
+- 解决：墙面收纳、嵌入式柜体</p>
+<p><strong>问题 3：动线冲突</strong>
+- 原因：开门方向、家具摆放不当
+- 解决：调整开门方向、优化家具布局</p>
+<h3 id="32">3.2 过道宽度标准</h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>最小宽度</th>
+<th>舒适宽度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单人通行</td>
+<td>60cm</td>
+<td>80cm</td>
+</tr>
+<tr>
+<td>双人错身</td>
+<td>90cm</td>
+<td>120cm</td>
+</tr>
+<tr>
+<td>搬运家具</td>
+<td>-</td>
+<td>≥ 100cm</td>
+</tr>
+</tbody>
+</table>
+<h3 id="33">3.3 过道收纳技巧</h3>
+<p><strong>墙面利用：</strong>
+- 薄柜：深度 15-20cm，收纳书籍、装饰品
+- 挂钩区：挂画、外套、包包
+- 壁龛：非承重墙可挖壁龛，深度 10-15cm</p>
+<p><strong>端景设计：</strong>
+- 过道尽头墙面是视觉焦点
+- 挂画、绿植、小型雕塑
+- 灯光重点照射，提升空间品质</p>
+<hr />
+<h2 id="37m2">四、37㎡户型玄关与过道实战</h2>
+<h3 id="41-37m2">4.1 典型 37㎡户型玄关类型</h3>
+<p><strong>类型 A：入户即客厅（最常见）</strong></p>
+<pre><code>┌──────────────────┐
+│                  │
+│   玄关柜 ←┌门    │
+│           │      │
+│   ┌───────┘      │
+│   │   客厅       │
+│   │              │
+└───┴──────────────┘
+</code></pre>
+<p><strong>设计策略：</strong>
+- 利用入户门一侧墙面做通顶鞋柜
+- 柜体侧面可做长虹玻璃隔断，避免开门见厅
+- 底部留空 + 感应灯，视觉轻盈</p>
+<p><strong>类型 B：入户有短过道</strong></p>
+<pre><code>┌──────────────────┐
+│  鞋柜 │  过道    │
+│  ←───→│  ←───→  │
+│  35cm │  90cm   │
+│       │   门    │
+│       │   ↓     │
+│       └─────────│
+│         客厅    │
+└─────────────────┘
+</code></pre>
+<p><strong>设计策略：</strong>
+- 单侧鞋柜 + 墙面挂钩
+- 过道尽头设置端景
+- 灯光分层：基础照明 + 重点照明</p>
+<h3 id="42-37m2">4.2 37㎡户型玄关设计禁忌</h3>
+<p>❌ <strong>忌：鞋柜过深</strong>
+- 超过 40cm 会占用过多空间
+- 标准深度 35cm 足够</p>
+<p>❌ <strong>忌：全封闭柜门</strong>
+- 小空间更显压抑
+- 中部/底部适当留空</p>
+<p>❌ <strong>忌：复杂造型</strong>
+- 简约为主，避免视觉杂乱
+- 颜色与整体空间协调</p>
+<p>❌ <strong>忌：忽视灯光</strong>
+- 玄关是回家第一盏灯
+- 建议：主灯 + 柜内灯 + 底部感应灯</p>
+<h3 id="43">4.3 推荐方案配置</h3>
+<p><strong>经济型（预算 3000-5000 元）</strong>
+- 成品鞋柜 + 墙面挂钩 + 穿衣镜
+- 优点：灵活、可移动
+- 缺点：收纳量有限</p>
+<p><strong>定制型（预算 8000-15000 元）</strong>
+- 通顶定制鞋柜 + 换鞋凳 + 挂衣区
+- 优点：最大化收纳、整体美观
+- 缺点：不可移动、工期长</p>
+<p><strong>智能型（预算 15000+ 元）</strong>
+- 定制柜体 + 智能感应 + 消毒杀菌 + 恒温恒湿
+- 优点：功能齐全、体验好
+- 缺点：成本高、维护复杂</p>
+<hr />
+<h2 id="_6">五、灯光设计要点</h2>
+<h3 id="51">5.1 玄关灯光层次</h3>
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>灯具类型</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基础照明</td>
+<td>筒灯/吸顶灯</td>
+<td>整体照亮空间</td>
+</tr>
+<tr>
+<td>功能照明</td>
+<td>柜内灯/镜前灯</td>
+<td>方便取物、整理</td>
+</tr>
+<tr>
+<td>氛围照明</td>
+<td>灯带/壁灯</td>
+<td>提升空间质感</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52">5.2 色温选择</h3>
+<ul>
+<li><strong>推荐：3000K-3500K（暖白光）</strong></li>
+<li>温馨舒适，适合回家放松氛围</li>
+<li>避免冷白光（&gt;4000K），显得生硬</li>
+</ul>
+<h3 id="53">5.3 智能感应</h3>
+<ul>
+<li><strong>人体感应灯：</strong> 进门自动亮，离开自动灭</li>
+<li><strong>柜内感应灯：</strong> 开门即亮，方便取物</li>
+<li><strong>底部感应灯带：</strong> 夜间回家不刺眼</li>
+</ul>
+<hr />
+<h2 id="_7">六、课后作业</h2>
+<h3 id="61">6.1 思考题</h3>
+<ol>
+<li>测量你家入户区域的尺寸（宽度、深度、高度）</li>
+<li>列出你目前的玄关痛点（如：鞋子没地方放、找不到钥匙等）</li>
+<li>根据今天所学，画出你理想中的玄关布局草图</li>
+</ol>
+<h3 id="62">6.2 实践题</h3>
+<p><strong>针对 37㎡户型设计一个玄关方案：</strong></p>
+<p>要求：
+- 包含鞋柜（至少容纳 20 双鞋）
+- 有挂衣区
+- 有置物台（放钥匙、快递）
+- 考虑灯光设计
+- 标注主要尺寸</p>
+<hr />
+<h2 id="_8">七、明日预告</h2>
+<p><strong>Day 13：餐厅设计详解</strong></p>
+<ul>
+<li>小户型餐厅如何布局？</li>
+<li>餐桌尺寸与座位安排</li>
+<li>餐边柜设计要点</li>
+<li>餐厅与厨房/客厅的关系处理</li>
+</ul>
+<hr />
+<h2 id="_9">📚 延伸阅读</h2>
+<ul>
+<li>《小家，越住越大》— 逯薇（玄关收纳章节）</li>
+<li>《住宅设计解剖书》— 增田奏（入户空间设计）</li>
+<li>好好住 APP：搜索"玄关设计"案例</li>
+</ul>
+<hr />
+<p><strong>学习进度：</strong> Week 2 - Day 5/7<br />
+<strong>完成时间：</strong> <strong><em>_</em></strong><strong><em>_<br />
+<strong>笔记/疑问：</strong> </em></strong><strong><em>_</em></strong>_</p>
+<hr />
+<blockquote>
+<p>💡 <strong>设计金句：</strong> 玄关是家的脸面，也是生活的起点。好的玄关设计，让每次回家都成为一种仪式。</p>
+</blockquote>
+            <div class="prev-next-nav">
+                <a href="day-11.html"><i class="fas fa-arrow-left"></i> Day 11</a>
+                <a href="../interior-design.html"><i class="fas fa-list"></i> 课程目录</a>
+                <a href="day-13.html">Day 13 <i class="fas fa-arrow-right"></i></a>
+            </div>
+        
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
+                    <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 98381267</p></li>
+                    <li><i class="fas fa-envelope"></i> ivanxuag@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/SLdesignPlus" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="contact-info">
+                    <li><a href="../../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
+                    <li><a href="../interior-design.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-couch"></i> 室内设计</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 SL Design Platform. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

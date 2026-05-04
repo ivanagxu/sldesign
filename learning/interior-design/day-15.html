@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Design - 学习 · 室内设计 · Day 15 🏠 室内设计培训课程 - Day 15</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .logo span { color: #e2e8f0; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
+        .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
+        footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
+        .footer-section h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: #60a5fa; }
+        .contact-info { list-style: none; }
+        .contact-info li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .contact-info i { margin-right: 0.8rem; color: #3b82f6; width: 20px; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
+        .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
+
+        .breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #94a3b8; padding: 1rem 0; flex-wrap: wrap; }
+        .breadcrumbs a { color: #10b981; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+        .breadcrumbs .sep { color: #d1d5db; }
+
+        .lesson-header { padding: 1.5rem 0; }
+        .lesson-header .lesson-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+        .lesson-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .badge-stage { background: #ecfdf5; color: #059669; }
+        .badge-week { background: #eff6ff; color: #3b82f6; }
+        .badge-day { background: #fef3c7; color: #d97706; }
+        .lesson-header h1 { font-size: 1.6rem; color: #0f172a; margin-bottom: 0.3rem; }
+        .lesson-header .lesson-subtitle { color: #64748b; font-size: 0.9rem; }
+
+        .content-body { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2rem; margin-bottom: 2rem; }
+
+        .lesson-objectives { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+        .lesson-objectives h3 { color: #059669; font-size: 1rem; margin-bottom: 0.5rem; }
+        .lesson-objectives ul { list-style: none; padding: 0; margin: 0; }
+        .lesson-objectives li { color: #047857; padding: 0.2rem 0; font-size: 0.9rem; }
+        .lesson-objectives li::before { content: '✅ '; }
+
+        .content-body h2 { font-size: 1.3rem; color: #059669; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #d1fae5; }
+        .content-body h2:first-child { margin-top: 0; }
+        .content-body h3 { font-size: 1.1rem; color: #0f172a; margin: 1.5rem 0 0.8rem; }
+        .content-body h4 { font-size: 1rem; color: #0f172a; margin: 1.2rem 0 0.6rem; }
+        .content-body p { margin-bottom: 0.8rem; color: #444; }
+        .content-body ul, .content-body ol { margin: 0.8rem 0; padding-left: 1.5rem; }
+        .content-body li { margin-bottom: 0.4rem; color: #444; }
+        .content-body strong { color: #0f172a; }
+        .content-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        .content-body th, .content-body td { border: 1px solid #e2e8f0; padding: 0.6rem 0.8rem; text-align: left; }
+        .content-body th { background-color: #f0fdf4; color: #059669; font-weight: 600; }
+        .content-body tr:nth-child(even) { background-color: #f8fafc; }
+
+        .highlight-box { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .highlight-box p { margin: 0; color: #047857; }
+
+        .tip-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .tip-box p { margin: 0; color: #92400e; }
+
+        .warn-box { background: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .warn-box p { margin: 0; color: #991b1b; }
+
+        .case-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+        .case-box h4 { color: #0f172a; font-size: 1rem; margin-bottom: 0.8rem; }
+
+        .task-box { background: #eff6ff; border: 2px solid #93c5fd; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+        .task-box h4 { color: #1e40af; margin-bottom: 0.5rem; }
+        .task-box p { color: #1e40af; margin: 0; }
+
+        .ergo-diagram { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; text-align: center; margin: 1.5rem 0; }
+        .ergo-diagram h3 { color: #059669; margin-bottom: 1.5rem; font-size: 1.2rem; }
+        .ergo-diagram .section { text-align: left; margin: 0.8rem 0; }
+        .ergo-diagram .section strong { color: #059669; }
+        
+        .ergo-diagram pre { text-align: left; background: #fff; padding: 1rem; border-radius: 8px; overflow-x: auto; font-family: monospace; font-size: 0.85rem; margin: 0.5rem 0; }
+
+        .next-lesson { background: #f0fdf4; border: 2px solid #86efac; border-radius: 12px; padding: 1.5rem; margin-top: 2rem; display: flex; align-items: center; gap: 1rem; }
+        .next-lesson i { font-size: 1.5rem; color: #059669; }
+        .next-lesson-text h3 { font-size: 1rem; color: #059669; margin-bottom: 0.2rem; }
+        .next-lesson-text p { font-size: 0.85rem; color: #047857; margin: 0; }
+
+        .prev-next-nav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .prev-next-nav a { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.2rem; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; color: #059669; font-size: 0.9rem; transition: box-shadow 0.3s ease; }
+        .prev-next-nav a:hover { box-shadow: 0 4px 12px rgba(16,185,129,0.15); }
+
+        details { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; margin: 1rem 0; padding: 1rem; }
+        summary { cursor: pointer; font-weight: bold; color: #059669; outline: none; }
+        summary:hover { color: #047857; }
+        details p { margin-top: 0.8rem; margin-bottom: 0; color: #444; }
+        
+        code { background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px; font-family: monospace; color: #0f172a; }
+        pre { background: #f8fafc; padding: 1rem; border-radius: 8px; overflow-x: auto; font-family: monospace; font-size: 0.85rem; margin: 1rem 0; }
+
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; align-items: flex-start; }
+            .logo { margin-bottom: 1rem; }
+            nav { width: 100%; }
+            nav ul { flex-direction: column; width: 100%; display: none; }
+            nav ul.show { display: flex; }
+            nav ul li { margin: 0; width: 100%; }
+            nav ul li a { display: block; padding: 0.8rem 0; border-bottom: 1px solid #1e3a5f; }
+            .menu-toggle { display: block; position: absolute; top: 1rem; right: 20px; }
+            .content-body { padding: 1.2rem; }
+            .lesson-header h1 { font-size: 1.3rem; }
+            .footer-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" style="text-decoration:none;">
+                <div class="logo">SL <span>DESIGN</span> PLATFORM</div>
+            </a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="../../index.html"><i class="fas fa-home"></i> HOME</a></li>
+                    <li><a href="../../index.html#exhibition"><i class="fas fa-images"></i> CASES</a></li>
+                    <li><a href="../../news.html"><i class="fas fa-newspaper"></i> NEWS</a></li>
+                    <li><a href="../../games.html"><i class="fas fa-gamepad"></i> GAMES</a></li>
+                    <li><a href="../../learning.html" class="active"><i class="fas fa-graduation-cap"></i> LEARNING</a></li>
+                    <li><a href="../../index.html#contact"><i class="fas fa-address-book"></i> CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../learning.html"><i class="fas fa-graduation-cap"></i> LEARNING</a>
+            <span class="sep">›</span>
+            <a href="../interior-design.html">室内设计</a>
+            <span class="sep">›</span>
+            <span>Day 15</span>
+        </div>
+
+        <div class="lesson-header">
+            <div class="lesson-meta">
+                <span class="lesson-badge badge-stage">入门</span>
+                <span class="lesson-badge badge-week">Week 1</span>
+                <span class="lesson-badge badge-day">Day 15</span>
+            </div>
+            <h1>🏠 🏠 室内设计培训课程 - Day 15</h1>
+            <p class="lesson-subtitle">🏠 室内设计培训课程 - Day 15</p>
+        </div>
+
+        <div class="content-body">
+            <h1 id="-day-15">🏠 室内设计培训课程 - Day 15</h1>
+<h2 id="_1">预算规划与控制</h2>
+<p><strong>日期：</strong> 2026-04-10<br />
+<strong>学员：</strong> Ivan<br />
+<strong>项目：</strong> 37㎡户型改造设计培训<br />
+<strong>阶段：</strong> Week 3 开始（Day 15/30）</p>
+<hr />
+<h2 id="_2">📋 今日学习目标</h2>
+<ol>
+<li>掌握装修预算的构成与分配原则</li>
+<li>学会制定合理的预算计划</li>
+<li>了解常见超支原因及控制方法</li>
+<li>为 37㎡户型制定初步预算方案</li>
+</ol>
+<hr />
+<h2 id="_3">💰 装修预算构成</h2>
+<h3 id="1">1. 预算五大板块</h3>
+<table>
+<thead>
+<tr>
+<th>板块</th>
+<th>占比参考</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>硬装工程</td>
+<td>40-50%</td>
+<td>拆改、水电、泥木、油漆等基础施工</td>
+</tr>
+<tr>
+<td>主材费用</td>
+<td>25-35%</td>
+<td>地板、瓷砖、橱柜、卫浴、门窗等</td>
+</tr>
+<tr>
+<td>家具软装</td>
+<td>15-20%</td>
+<td>沙发、床、桌椅、窗帘、灯具等</td>
+</tr>
+<tr>
+<td>电器设备</td>
+<td>10-15%</td>
+<td>空调、冰箱、洗衣机、厨电等</td>
+</tr>
+<tr>
+<td>预备金</td>
+<td>5-10%</td>
+<td>应对意外增项和变更</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-37m2-20">2. 37㎡小户型预算分配示例（总预算 20 万）</h3>
+<pre><code>总预算：¥200,000
+├── 硬装工程：¥90,000 (45%)
+│   ├── 拆改工程：¥8,000
+│   ├── 水电改造：¥25,000
+│   ├── 泥工工程：¥20,000
+│   ├── 木工工程：¥15,000
+│   └── 油漆工程：¥22,000
+├── 主材费用：¥60,000 (30%)
+│   ├── 地板/瓷砖：¥18,000
+│   ├── 橱柜：¥15,000
+│   ├── 卫浴洁具：¥12,000
+│   ├── 门窗：¥10,000
+│   └── 五金配件：¥5,000
+├── 家具软装：¥30,000 (15%)
+│   ├── 客厅家具：¥10,000
+│   ├── 卧室家具：¥12,000
+│   └── 软装布艺：¥8,000
+├── 电器设备：¥15,000 (7.5%)
+│   ├── 空调：¥6,000
+│   ├── 厨房电器：¥5,000
+│   └── 其他电器：¥4,000
+└── 预备金：¥5,000 (2.5%)
+</code></pre>
+<hr />
+<h2 id="_4">📊 预算控制核心原则</h2>
+<h3 id="1_1">1. 先规划后预算</h3>
+<p><strong>错误做法：</strong></p>
+<pre><code>看中了喜欢的材料 → 计算价格 → 发现超支 → 削减其他项目
+</code></pre>
+<p><strong>正确做法：</strong></p>
+<pre><code>确定总预算 → 分配各板块比例 → 在预算内选择材料 → 动态调整
+</code></pre>
+<h3 id="2">2. 抓大放小原则</h3>
+<p><strong>值得投入的方面（不建议省）：</strong>
+- ✅ 水电工程（隐蔽工程，维修成本高）
+- ✅ 防水材料（漏水损失巨大）
+- ✅ 五金配件（使用频率高，影响体验）
+- ✅ 床垫（直接影响睡眠质量）</p>
+<p><strong>可以节省的方面：</strong>
+- 💡 瓷砖品牌（广东产二线品牌性价比高）
+- 💡 灯具（网购同款 1/3 价格）
+- 💡 窗帘（网购定制，避免实体店溢价）
+- 💡 装饰画/摆件（后期慢慢添置）</p>
+<h3 id="3">3. 时间换空间策略</h3>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>必须完成</th>
+<th>可延后添置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>硬装期</td>
+<td>水电、防水、瓷砖、地板</td>
+<td>装饰性吊顶、背景墙</td>
+</tr>
+<tr>
+<td>安装期</td>
+<td>橱柜、卫浴、门窗</td>
+<td>装饰灯具、窗帘</td>
+</tr>
+<tr>
+<td>软装期</td>
+<td>床、沙发、餐桌</td>
+<td>装饰画、地毯、摆件</td>
+</tr>
+<tr>
+<td>入住后</td>
+<td>-</td>
+<td>升级电器、添置家具</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_5">⚠️ 常见超支陷阱</h2>
+<h3 id="1_2">1. 拆改阶段</h3>
+<ul>
+<li>❌ 拆墙后发现需要加固，增加结构费用</li>
+<li>❌ 旧房管线老化，需要全部更换</li>
+<li><strong>预防：</strong> 开工前请师傅全面检查，预留 10% 拆改预备金</li>
+</ul>
+<h3 id="2_1">2. 水电阶段</h3>
+<ul>
+<li>❌ 插座位置不够，后期增补</li>
+<li>❌ 水路走向变更，增加管材和人工</li>
+<li><strong>预防：</strong> 详细规划电器位置，宁可多留 2-3 个插座</li>
+</ul>
+<h3 id="3_1">3. 主材阶段</h3>
+<ul>
+<li>❌ 看到更好的材料想升级</li>
+<li>❌ 测量误差导致材料不足，补货有色差</li>
+<li><strong>预防：</strong> 确定材料后不轻易变更，测量时多订 5% 损耗</li>
+</ul>
+<h3 id="4">4. 施工阶段</h3>
+<ul>
+<li>❌ 工期延误导致人工费增加</li>
+<li>❌ 返工造成材料和人工浪费</li>
+<li><strong>预防：</strong> 签订详细合同，明确工期和违约责任</li>
+</ul>
+<hr />
+<h2 id="_6">🔧 预算控制工具</h2>
+<h3 id="1_3">1. 预算跟踪表模板</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>预算金额</th>
+<th>实际金额</th>
+<th>差额</th>
+<th>状态</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>拆改工程</td>
+<td>8,000</td>
+<td>7,500</td>
+<td>+500</td>
+<td>✅</td>
+<td>部分墙体保留</td>
+</tr>
+<tr>
+<td>水电改造</td>
+<td>25,000</td>
+<td>28,000</td>
+<td>-3,000</td>
+<td>⚠️</td>
+<td>增加插座 10 个</td>
+</tr>
+<tr>
+<td>泥工工程</td>
+<td>20,000</td>
+<td>-</td>
+<td>-</td>
+<td>📋</td>
+<td>未开始</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2_2">2. 决策检查清单</h3>
+<p>在每次可能超支的决策前问自己：
+- [ ] 这个升级是否影响核心功能？
+- [ ] 是否有更便宜的替代方案？
+- [ ] 是否可以后期再升级？
+- [ ] 超支部分从哪个板块扣除？</p>
+<hr />
+<h2 id="_7">📝 实战练习</h2>
+<h3 id="1_4">练习 1：预算分配</h3>
+<p>假设你的 37㎡户型改造总预算为 <strong>¥180,000</strong>，请按以下比例分配：</p>
+<table>
+<thead>
+<tr>
+<th>板块</th>
+<th>比例</th>
+<th>金额</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>硬装工程</td>
+<td>45%</td>
+<td>¥<strong><em>_</em></strong></td>
+</tr>
+<tr>
+<td>主材费用</td>
+<td>30%</td>
+<td>¥<strong><em>_</em></strong></td>
+</tr>
+<tr>
+<td>家具软装</td>
+<td>15%</td>
+<td>¥<strong><em>_</em></strong></td>
+</tr>
+<tr>
+<td>电器设备</td>
+<td>7%</td>
+<td>¥<strong><em>_</em></strong></td>
+</tr>
+<tr>
+<td>预备金</td>
+<td>3%</td>
+<td>¥<strong><em>_</em></strong></td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>点击查看答案</summary>
+
+| 板块 | 比例 | 金额 |
+|------|------|------|
+| 硬装工程 | 45% | ¥81,000 |
+| 主材费用 | 30% | ¥54,000 |
+| 家具软装 | 15% | ¥27,000 |
+| 电器设备 | 7% | ¥12,600 |
+| 预备金 | 3% | ¥5,400 |
+</details>
+
+<h3 id="2_3">练习 2：优先级排序</h3>
+<p>以下项目预算有限，只能选 3 个优先投入，你会选哪几个？</p>
+<ul>
+<li>[ ] 进口品牌瓷砖</li>
+<li>[ ] 全屋定制橱柜</li>
+<li>[ ] 水电全改</li>
+<li>[ ] 智能马桶</li>
+<li>[ ] 防水升级</li>
+<li>[ ] 品牌乳胶漆</li>
+<li>[ ] 系统门窗</li>
+<li>[ ] 中央软水</li>
+</ul>
+<details>
+<summary>参考答案</summary>
+
+**推荐优先：**
+1. ✅ 水电全改（隐蔽工程，维修成本最高）
+2. ✅ 防水升级（漏水损失不可控）
+3. ✅ 全屋定制橱柜（小户型收纳核心）
+
+**可延后/降级：**
+- 瓷砖选国产二线品牌即可
+- 智能马桶可后期加装
+- 乳胶漆环保达标即可，不必追求进口
+</details>
+
+<hr />
+<h2 id="_8">📚 今日作业</h2>
+<h3 id="1_5">作业 1：制定你的预算表</h3>
+<p>根据你的实际情况，制定 37㎡户型的装修预算表：</p>
+<ol>
+<li>确定总预算金额</li>
+<li>按五大板块分配比例</li>
+<li>列出每个板块的详细项目</li>
+<li>标注哪些是"必须"，哪些是"可选"</li>
+</ol>
+<h3 id="2_4">作业 2：市场调研</h3>
+<p>选择以下至少 2 项进行价格调研：
+- 本地装修公司半包报价（元/㎡）
+- 地板/瓷砖市场价格（品牌 vs 二线）
+- 全屋定制橱柜报价（延米计价）
+- 卫浴洁具套装价格</p>
+<h3 id="3_2">作业 3：风险预判</h3>
+<p>列出你最担心的 3 个超支风险点，并写出预防措施。</p>
+<hr />
+<h2 id="_9">💡 明日预告</h2>
+<p><strong>Day 16：施工流程详解</strong></p>
+<ul>
+<li>装修全流程时间节点</li>
+<li>各工种进场顺序</li>
+<li>关键验收节点</li>
+<li>如何与施工队高效沟通</li>
+</ul>
+<hr />
+<h2 id="_10">📌 核心要点总结</h2>
+<pre><code>预算控制 = 合理分配 × 严格执行 × 灵活调整
+
+记住三句话：
+1. 隐蔽工程不省钱（水电防水）
+2. 高频使用选好的（五金、床垫）
+3. 装饰性可延后（灯具、窗帘、摆件）
+</code></pre>
+<hr />
+<p><strong>课程进度：</strong> Day 15/30（50% 完成）<br />
+<strong>下周重点：</strong> 施工流程 + 材料选购实战</p>
+            <div class="prev-next-nav">
+                <a href="day-14.html"><i class="fas fa-arrow-left"></i> Day 14</a>
+                <a href="../interior-design.html"><i class="fas fa-list"></i> 课程目录</a>
+                <a href="day-16.html">Day 16 <i class="fas fa-arrow-right"></i></a>
+            </div>
+        
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
+                    <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 98381267</p></li>
+                    <li><i class="fas fa-envelope"></i> ivanxuag@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/SLdesignPlus" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="contact-info">
+                    <li><a href="../../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
+                    <li><a href="../interior-design.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-couch"></i> 室内设计</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 SL Design Platform. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

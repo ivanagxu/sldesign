@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Design - 学习 · 室内设计 · Day 13 📖 Day 13: 餐厅设计详解</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .logo span { color: #e2e8f0; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
+        .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
+        footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
+        .footer-section h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: #60a5fa; }
+        .contact-info { list-style: none; }
+        .contact-info li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .contact-info i { margin-right: 0.8rem; color: #3b82f6; width: 20px; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
+        .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
+
+        .breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #94a3b8; padding: 1rem 0; flex-wrap: wrap; }
+        .breadcrumbs a { color: #10b981; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+        .breadcrumbs .sep { color: #d1d5db; }
+
+        .lesson-header { padding: 1.5rem 0; }
+        .lesson-header .lesson-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+        .lesson-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .badge-stage { background: #ecfdf5; color: #059669; }
+        .badge-week { background: #eff6ff; color: #3b82f6; }
+        .badge-day { background: #fef3c7; color: #d97706; }
+        .lesson-header h1 { font-size: 1.6rem; color: #0f172a; margin-bottom: 0.3rem; }
+        .lesson-header .lesson-subtitle { color: #64748b; font-size: 0.9rem; }
+
+        .content-body { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2rem; margin-bottom: 2rem; }
+
+        .lesson-objectives { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+        .lesson-objectives h3 { color: #059669; font-size: 1rem; margin-bottom: 0.5rem; }
+        .lesson-objectives ul { list-style: none; padding: 0; margin: 0; }
+        .lesson-objectives li { color: #047857; padding: 0.2rem 0; font-size: 0.9rem; }
+        .lesson-objectives li::before { content: '✅ '; }
+
+        .content-body h2 { font-size: 1.3rem; color: #059669; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #d1fae5; }
+        .content-body h2:first-child { margin-top: 0; }
+        .content-body h3 { font-size: 1.1rem; color: #0f172a; margin: 1.5rem 0 0.8rem; }
+        .content-body h4 { font-size: 1rem; color: #0f172a; margin: 1.2rem 0 0.6rem; }
+        .content-body p { margin-bottom: 0.8rem; color: #444; }
+        .content-body ul, .content-body ol { margin: 0.8rem 0; padding-left: 1.5rem; }
+        .content-body li { margin-bottom: 0.4rem; color: #444; }
+        .content-body strong { color: #0f172a; }
+        .content-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        .content-body th, .content-body td { border: 1px solid #e2e8f0; padding: 0.6rem 0.8rem; text-align: left; }
+        .content-body th { background-color: #f0fdf4; color: #059669; font-weight: 600; }
+        .content-body tr:nth-child(even) { background-color: #f8fafc; }
+
+        .highlight-box { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .highlight-box p { margin: 0; color: #047857; }
+
+        .tip-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .tip-box p { margin: 0; color: #92400e; }
+
+        .warn-box { background: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .warn-box p { margin: 0; color: #991b1b; }
+
+        .case-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+        .case-box h4 { color: #0f172a; font-size: 1rem; margin-bottom: 0.8rem; }
+
+        .task-box { background: #eff6ff; border: 2px solid #93c5fd; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+        .task-box h4 { color: #1e40af; margin-bottom: 0.5rem; }
+        .task-box p { color: #1e40af; margin: 0; }
+
+        .ergo-diagram { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; text-align: center; margin: 1.5rem 0; }
+        .ergo-diagram h3 { color: #059669; margin-bottom: 1.5rem; font-size: 1.2rem; }
+        .ergo-diagram .section { text-align: left; margin: 0.8rem 0; }
+        .ergo-diagram .section strong { color: #059669; }
+        
+        .ergo-diagram pre { text-align: left; background: #fff; padding: 1rem; border-radius: 8px; overflow-x: auto; font-family: monospace; font-size: 0.85rem; margin: 0.5rem 0; }
+
+        .next-lesson { background: #f0fdf4; border: 2px solid #86efac; border-radius: 12px; padding: 1.5rem; margin-top: 2rem; display: flex; align-items: center; gap: 1rem; }
+        .next-lesson i { font-size: 1.5rem; color: #059669; }
+        .next-lesson-text h3 { font-size: 1rem; color: #059669; margin-bottom: 0.2rem; }
+        .next-lesson-text p { font-size: 0.85rem; color: #047857; margin: 0; }
+
+        .prev-next-nav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .prev-next-nav a { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.2rem; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; color: #059669; font-size: 0.9rem; transition: box-shadow 0.3s ease; }
+        .prev-next-nav a:hover { box-shadow: 0 4px 12px rgba(16,185,129,0.15); }
+
+        details { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; margin: 1rem 0; padding: 1rem; }
+        summary { cursor: pointer; font-weight: bold; color: #059669; outline: none; }
+        summary:hover { color: #047857; }
+        details p { margin-top: 0.8rem; margin-bottom: 0; color: #444; }
+        
+        code { background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px; font-family: monospace; color: #0f172a; }
+        pre { background: #f8fafc; padding: 1rem; border-radius: 8px; overflow-x: auto; font-family: monospace; font-size: 0.85rem; margin: 1rem 0; }
+
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; align-items: flex-start; }
+            .logo { margin-bottom: 1rem; }
+            nav { width: 100%; }
+            nav ul { flex-direction: column; width: 100%; display: none; }
+            nav ul.show { display: flex; }
+            nav ul li { margin: 0; width: 100%; }
+            nav ul li a { display: block; padding: 0.8rem 0; border-bottom: 1px solid #1e3a5f; }
+            .menu-toggle { display: block; position: absolute; top: 1rem; right: 20px; }
+            .content-body { padding: 1.2rem; }
+            .lesson-header h1 { font-size: 1.3rem; }
+            .footer-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" style="text-decoration:none;">
+                <div class="logo">SL <span>DESIGN</span> PLATFORM</div>
+            </a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="../../index.html"><i class="fas fa-home"></i> HOME</a></li>
+                    <li><a href="../../index.html#exhibition"><i class="fas fa-images"></i> CASES</a></li>
+                    <li><a href="../../news.html"><i class="fas fa-newspaper"></i> NEWS</a></li>
+                    <li><a href="../../games.html"><i class="fas fa-gamepad"></i> GAMES</a></li>
+                    <li><a href="../../learning.html" class="active"><i class="fas fa-graduation-cap"></i> LEARNING</a></li>
+                    <li><a href="../../index.html#contact"><i class="fas fa-address-book"></i> CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../learning.html"><i class="fas fa-graduation-cap"></i> LEARNING</a>
+            <span class="sep">›</span>
+            <a href="../interior-design.html">室内设计</a>
+            <span class="sep">›</span>
+            <span>Day 13</span>
+        </div>
+
+        <div class="lesson-header">
+            <div class="lesson-meta">
+                <span class="lesson-badge badge-stage">入门</span>
+                <span class="lesson-badge badge-week">Week 1</span>
+                <span class="lesson-badge badge-day">Day 13</span>
+            </div>
+            <h1>🏠 📖 Day 13: 餐厅设计详解</h1>
+            <p class="lesson-subtitle">** 餐厅空间规划与设计要点</p>
+        </div>
+
+        <div class="content-body">
+            <h1 id="day-13">📖 Day 13: 餐厅设计详解</h1>
+<p><strong>阶段：</strong> 进阶 → Week 2 → Day 13<br />
+<strong>主题：</strong> 餐厅空间规划与设计要点<br />
+<strong>用时：</strong> 60 分钟<br />
+<strong>日期：</strong> 2026-04-08</p>
+<hr />
+<h2 id="_1">🎯 学习目标</h2>
+<p>学完后你能：
+- ✅ 掌握餐厅空间的最小尺寸要求
+- ✅ 设计适合小户型的餐厅布局
+- ✅ 选择合适的餐桌椅组合
+- ✅ 规划餐厅照明和收纳系统</p>
+<hr />
+<h2 id="15">一、知识讲解（15 分钟）</h2>
+<h3 id="11">1.1 餐厅设计的核心问题</h3>
+<p>在小户型（如 37㎡）中，餐厅往往是最容易被牺牲的空间。但良好的餐厅设计能：
+- 提升用餐体验和仪式感
+- 增加家庭互动机会
+- 作为多功能空间使用（工作/社交）</p>
+<p><strong>常见误区：</strong>
+- ❌ 为了省空间取消餐厅
+- ❌ 餐桌尺寸过大导致动线拥挤
+- ❌ 忽视照明设计影响用餐氛围
+- ❌ 没有规划餐具收纳空间</p>
+<hr />
+<h3 id="12">1.2 餐厅空间尺寸标准</h3>
+<h4 id="_2">最小用餐空间要求</h4>
+<table>
+<thead>
+<tr>
+<th>人数</th>
+<th>餐桌尺寸 (长×宽)</th>
+<th>所需空间 (含椅子)</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1-2 人</td>
+<td>60×60cm</td>
+<td>1.2×1.2m</td>
+<td>单身/情侣</td>
+</tr>
+<tr>
+<td>2-4 人</td>
+<td>120×70cm</td>
+<td>2.0×1.5m</td>
+<td>小家庭</td>
+</tr>
+<tr>
+<td>4-6 人</td>
+<td>160×80cm</td>
+<td>2.5×2.0m</td>
+<td>大家庭</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_3">椅子活动空间</h4>
+<pre><code>┌─────────────────────────────────────────┐
+│                                         │
+│          餐桌                           │
+│     ┌───────────────┐                   │
+│     │               │                   │
+│     │               │                   │
+│     └───────────────┘                   │
+│         ↑                               │
+│    至少 75cm (椅子拉出 + 人通过)          │
+│                                         │
+└─────────────────────────────────────────┘
+</code></pre>
+<p><strong>关键尺寸：</strong>
+- 椅子拉出需要：45cm
+- 人通行需要：30cm
+- <strong>总计最小预留：75cm</strong>（从桌边到墙/障碍物）</p>
+<hr />
+<h3 id="13">1.3 小户型餐厅布局方案</h3>
+<h4 id="a-37m2">方案 A：独立餐厅（适合 37㎡）</h4>
+<pre><code>┌─────────────────────────────────────┐
+│                                     │
+│   ┌───────────┐                     │
+│   │   餐桌    │    过道 75cm+       │
+│   │ 120×70cm  │                     │
+│   └───────────┘                     │
+│                                     │
+│   靠墙卡座 (可选)                    │
+└─────────────────────────────────────┘
+</code></pre>
+<p><strong>优点：</strong> 独立用餐空间，仪式感强<br />
+<strong>缺点：</strong> 占用面积较大</p>
+<hr />
+<h4 id="b-37m2">方案 B：客餐一体（推荐 37㎡）</h4>
+<pre><code>┌─────────────────────────────────────┐
+│                                     │
+│    沙发区        餐桌区              │
+│   ┌───────┐    ┌──────┐             │
+│   │ L 型   │    │ 餐桌 │             │
+│   │ 沙发  │    │      │             │
+│   └───────┘    └──────┘             │
+│                                     │
+│         共用活动空间                 │
+└─────────────────────────────────────┘
+</code></pre>
+<p><strong>优点：</strong> 空间通透，视觉更大<br />
+<strong>缺点：</strong> 功能分区不明显</p>
+<p><strong>设计要点：</strong>
+- 用灯具/地毯划分区域
+- 餐桌与沙发距离≥1m
+- 风格统一保持视觉连贯</p>
+<hr />
+<h4 id="c">方案 C：吧台替代（超小户型）</h4>
+<pre><code>┌─────────────────────────────────────┐
+│                                     │
+│   ┌───────────────────────────┐     │
+│   │       吧台 (60cm 深)       │     │
+│   │   ○    ○    ○    ○       │     │
+│   │  吧椅  吧椅  吧椅  吧椅    │     │
+│   └───────────────────────────┘     │
+│                                     │
+│          厨房/客厅                   │
+└─────────────────────────────────────┘
+</code></pre>
+<p><strong>优点：</strong> 最省空间，可兼作工作台<br />
+<strong>缺点：</strong> 用餐舒适度较低</p>
+<p><strong>适用场景：</strong>
+- 单身/情侣
+- 很少在家正式用餐
+- 需要额外工作台</p>
+<hr />
+<h3 id="14">1.4 餐桌椅选择指南</h3>
+<h4 id="_4">餐桌形状对比</h4>
+<table>
+<thead>
+<tr>
+<th>形状</th>
+<th>优点</th>
+<th>缺点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>长方形</strong></td>
+<td>利用率高，靠墙摆放灵活</td>
+<td>角落空间难用</td>
+<td>大多数户型</td>
+</tr>
+<tr>
+<td><strong>正方形</strong></td>
+<td>适合小空间，四人均等</td>
+<td>扩展性差</td>
+<td>2 人用餐</td>
+</tr>
+<tr>
+<td><strong>圆形</strong></td>
+<td>无棱角安全，氛围好</td>
+<td>占空间，难靠墙</td>
+<td>有小孩家庭</td>
+</tr>
+<tr>
+<td><strong>椭圆形</strong></td>
+<td>兼具长方和圆形优点</td>
+<td>选择较少</td>
+<td>追求品质</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_5">椅子类型选择</h4>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>宽度</th>
+<th>特点</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>餐椅</strong></td>
+<td>45-50cm</td>
+<td>标准舒适</td>
+<td>首选</td>
+</tr>
+<tr>
+<td><strong>长凳</strong></td>
+<td>可定制</td>
+<td>省空间，可收纳</td>
+<td>一侧靠墙</td>
+</tr>
+<tr>
+<td><strong>卡座</strong></td>
+<td>定制</td>
+<td>收纳 + 座椅</td>
+<td>靠墙最优</td>
+</tr>
+<tr>
+<td><strong>吧椅</strong></td>
+<td>35-40cm</td>
+<td>高脚，省地</td>
+<td>吧台配套</td>
+</tr>
+</tbody>
+</table>
+<p><strong>计算公式：</strong></p>
+<pre><code>每人用餐宽度 = 60cm (舒适) / 50cm (紧凑)
+餐桌长度 = 人数 × 每人宽度
+</code></pre>
+<hr />
+<h2 id="37m220">二、37㎡户型餐厅设计方案（20 分钟）</h2>
+<h3 id="21">2.1 原始户型分析</h3>
+<p>假设 37㎡户型为典型一室一厅：
+- 客厅开间：3.2m
+- 餐厅位置：入户旁/客厅一侧
+- 可用餐厅空间：约 2.5×2.0m</p>
+<h3 id="22">2.2 推荐方案：客餐一体 + 卡座设计</h3>
+<pre><code>┌─────────────────────────────────────────────┐
+│  入户      卡座 (带收纳)                     │
+│   ↓      ┌──────────────────┐               │
+│         │    软包靠背       │               │
+│  鞋柜   ├──────────────────┤               │
+│         │    餐桌 120×70    │  过道          │
+│         │                   │  80cm         │
+│         └──────────────────┘               │
+│                ↑                           │
+│              餐椅×2                         │
+│                                            │
+│              客厅区                         │
+└─────────────────────────────────────────────┘
+</code></pre>
+<p><strong>设计亮点：</strong>
+1. <strong>卡座替代 2 把椅子</strong>：节省约 40cm 进深
+2. <strong>卡座下方收纳</strong>：存放餐具/杂物
+3. <strong>长凳可移动</strong>：灵活调整座位数
+4. <strong>视觉通透</strong>：不遮挡客厅光线</p>
+<h3 id="23">2.3 材料建议</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>推荐材料</th>
+<th>预算</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>餐桌</strong></td>
+<td>实木/岩板</td>
+<td>800-2000 元</td>
+<td>耐用易清洁</td>
+</tr>
+<tr>
+<td><strong>卡座</strong></td>
+<td>定制板材 + 软包</td>
+<td>1500-3000 元</td>
+<td>舒适 + 收纳</td>
+</tr>
+<tr>
+<td><strong>餐椅</strong></td>
+<td>实木/塑料</td>
+<td>200-500 元/把</td>
+<td>轻便易搬动</td>
+</tr>
+<tr>
+<td><strong>地面</strong></td>
+<td>与客厅通铺</td>
+<td>-</td>
+<td>视觉统一</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10">三、餐厅照明设计（10 分钟）</h2>
+<h3 id="31">3.1 照明层次</h3>
+<pre><code>┌─────────────────────────────────────────┐
+│                                         │
+│         基础照明 (筒灯/吸顶灯)           │
+│              ↓                          │
+│         重点照明 (吊灯/餐吊灯)           │
+│              ↓                          │
+│         氛围照明 (灯带/蜡烛)             │
+│                                         │
+└─────────────────────────────────────────┘
+</code></pre>
+<h3 id="32">3.2 餐吊灯安装标准</h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>标准值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>离桌面高度</strong></td>
+<td>70-80cm</td>
+<td>不遮挡视线</td>
+</tr>
+<tr>
+<td><strong>灯具直径</strong></td>
+<td>餐桌宽度的 1/2-2/3</td>
+<td>比例协调</td>
+</tr>
+<tr>
+<td><strong>色温</strong></td>
+<td>2700-3000K</td>
+<td>暖光增进食欲</td>
+</tr>
+<tr>
+<td><strong>照度</strong></td>
+<td>150-200 lux</td>
+<td>桌面足够亮</td>
+</tr>
+</tbody>
+</table>
+<h3 id="33">3.3 推荐配置</h3>
+<p><strong>基础配置：</strong>
+- 1 盏餐吊灯（餐桌正上方）
+- 2-3 个筒灯（周围补光）</p>
+<p><strong>进阶配置：</strong>
+- 1 盏主吊灯 + 2 盏小吊灯（长餐桌）
+- 卡座上方灯带（氛围）
+- 可调光开关（场景切换）</p>
+<hr />
+<h2 id="10_1">四、餐厅收纳系统（10 分钟）</h2>
+<h3 id="41">4.1 收纳物品清单</h3>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>物品</th>
+<th>建议位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>餐具</strong></td>
+<td>碗筷盘勺</td>
+<td>餐桌下方/餐边柜</td>
+</tr>
+<tr>
+<td><strong>杯具</strong></td>
+<td>水杯/酒杯</td>
+<td>吊柜/开放格</td>
+</tr>
+<tr>
+<td><strong>食品</strong></td>
+<td>茶叶/咖啡/零食</td>
+<td>餐边柜/抽屉</td>
+</tr>
+<tr>
+<td><strong>小电器</strong></td>
+<td>热水壶/咖啡机</td>
+<td>餐边柜台面</td>
+</tr>
+<tr>
+<td><strong>杂物</strong></td>
+<td>餐巾纸/牙签</td>
+<td>桌面收纳盒</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42">4.2 小户型收纳方案</h3>
+<h4 id="a">方案 A：卡座下方收纳</h4>
+<pre><code>┌──────────────────────┐
+│     软包坐垫        │ ← 可掀开
+├──────────────────────┤
+│  ┌────┐ ┌────┐      │
+│  │    │ │    │      │ ← 分隔收纳
+│  │    │ │    │      │
+│  └────┘ └────┘      │
+└──────────────────────┘
+</code></pre>
+<p><strong>收纳容量：</strong> 约 200L（相当于 2 个大行李箱）</p>
+<h4 id="b">方案 B：墙面薄柜</h4>
+<ul>
+<li>深度：20-25cm（不占过道）</li>
+<li>高度：到顶（最大化利用）</li>
+<li>功能：上柜放杯具，下柜放餐具</li>
+</ul>
+<h4 id="c_1">方案 C：移动推车</h4>
+<ul>
+<li>尺寸：30×40cm</li>
+<li>层数：3 层</li>
+<li>用途：临时收纳/上菜车</li>
+</ul>
+<hr />
+<h2 id="5">五、实战练习（5 分钟）</h2>
+<h3 id="131">练习 13.1：餐厅尺寸测量</h3>
+<p>测量你家的餐厅空间：
+1. 可用空间长×宽：<strong><em>_</em>_ × </strong><strong><em>_ cm
+2. 现有餐桌尺寸：</em></strong><strong><em> × </em></strong><strong><em> cm
+3. 椅子拉出后到障碍物距离：</em></strong>___ cm
+4. 是否满足 75cm 最小要求？□ 是 □ 否</p>
+<h3 id="132">练习 13.2：用餐人数分析</h3>
+<ol>
+<li>日常用餐人数：______ 人</li>
+<li>最大用餐人数（聚会）：______ 人</li>
+<li>是否需要扩展功能（工作/社交）？□ 是 □ 否</li>
+</ol>
+<h3 id="133">练习 13.3：改进方案</h3>
+<p>基于以上分析，列出 3 个可改进点：
+1. <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_
+2. </em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>_
+3. <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<hr />
+<h2 id="_6">📝 本课要点总结</h2>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>关键知识点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>空间尺寸</strong></td>
+<td>椅子活动区≥75cm，2-4 人餐桌 120×70cm</td>
+</tr>
+<tr>
+<td><strong>布局方案</strong></td>
+<td>小户型推荐客餐一体 + 卡座设计</td>
+</tr>
+<tr>
+<td><strong>桌椅选择</strong></td>
+<td>长方形桌利用率高，卡座省空间</td>
+</tr>
+<tr>
+<td><strong>照明设计</strong></td>
+<td>吊灯离桌面 70-80cm，色温 2700-3000K</td>
+</tr>
+<tr>
+<td><strong>收纳系统</strong></td>
+<td>卡座下方/墙面薄柜/移动推车</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_7">📚 课后作业</h2>
+<ol>
+<li><strong>测量作业：</strong> 完成练习 13.1-13.3</li>
+<li><strong>案例分析：</strong> 找 3 个餐厅设计案例（好/中/差各 1 个），用今日所学分析</li>
+<li><strong>方案草图：</strong> 绘制你家餐厅的改进方案草图（标注尺寸）</li>
+</ol>
+<hr />
+<h2 id="_8">🔜 下节课预告</h2>
+<p><strong>Day 14: Week 2 复习 + 空间优化实战</strong></p>
+<ul>
+<li>复习 Week 2 全部知识点（厨房/卫生间/卧室/客厅/餐厅）</li>
+<li>37㎡户型完整空间优化方案</li>
+<li>实战：综合设计一个完整户型</li>
+</ul>
+<p><strong>准备：</strong> 带上你家户型图和本周笔记</p>
+<hr />
+<p><em>课程进度：Week 2 Day 13/14 | 总进度：13/30</em><br />
+<em>下次课程：2026-04-09 20:00 HKT</em></p>
+            <div class="prev-next-nav">
+                <a href="day-12.html"><i class="fas fa-arrow-left"></i> Day 12</a>
+                <a href="../interior-design.html"><i class="fas fa-list"></i> 课程目录</a>
+                <a href="day-14.html">Day 14 <i class="fas fa-arrow-right"></i></a>
+            </div>
+        
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
+                    <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 98381267</p></li>
+                    <li><i class="fas fa-envelope"></i> ivanxuag@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/SLdesignPlus" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="contact-info">
+                    <li><a href="../../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
+                    <li><a href="../interior-design.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-couch"></i> 室内设计</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 SL Design Platform. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>
