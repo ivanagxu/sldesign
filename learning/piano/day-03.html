@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SL Design - 学习 · 钢琴 · Day 2 乐理基础上</title>
+    <title>SL Design - 学习 · 钢琴 · Day 3 乐理基础（下）</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -149,133 +149,172 @@
             <span class="sep">›</span>
             <a href="../piano.html">钢琴 · 电钢琴速成</a>
             <span class="sep">›</span>
-            <span>Day 2 · 乐理基础（上）</span>
+            <span>Day 3 · 乐理基础（下）</span>
         </div>
 
         <div class="lesson-header">
             <div class="lesson-meta">
                 <span class="lesson-badge badge-phase">Phase 1 · 基础构建</span>
-                <span class="lesson-badge badge-module">M2</span>
-                <span class="lesson-badge badge-day">Day 2</span>
+                <span class="lesson-badge badge-module">M3</span>
+                <span class="lesson-badge badge-day">Day 3</span>
             </div>
-            <h1>🎵 乐理基础（上）</h1>
-            <p class="lesson-subtitle">全音/半音 · 12 音名 · 唱名对应 · 五线谱入门 · 60 分钟</p>
+            <h1>🎵 乐理基础（下）</h1>
+            <p class="lesson-subtitle">节奏型（全音符/二分音符/四分音符） · 节拍器使用 · 60 分钟</p>
         </div>
 
         <div class="content-body">
             <div class="lesson-objectives">
                 <h3>🎯 学习目标</h3>
                 <ul>
-                    <li>区分全音和半音，在键盘上找到任意半音/全音关系</li>
-                    <li>说出 12 个音名（含升降号），理解等音概念</li>
-                    <li>将唱名（Do Re Mi）与音名（C D E）对应</li>
-                    <li>识读高音谱号五线谱上的 C4-G5 音符</li>
+                    <li>认识四种基本音符时值：全音符、二分音符、四分音符、八分音符</li>
+                    <li>理解拍号（如 4/4、3/4、2/4）的含义与用法</li>
+                    <li>学会使用节拍器，掌握稳定节奏的练习方法</li>
+                    <li>能读出简单节奏型并准确弹奏</li>
                 </ul>
             </div>
 
             <h2>一、知识讲解（20 分钟）</h2>
 
-            <h3>1.1 全音与半音 — 音乐的"最小单位"</h3>
-            <p><strong>半音（Semitone）：</strong>键盘上相邻两个键之间的最小音程距离。</p>
-            <div class="ergo-diagram">
-                <h3>半音/全音关系</h3>
-                <div class="section"><strong>全音 = 2 个半音</strong></div>
-                <div class="section">C → C# = 半音 · C → D = 全音（跳过 C#）</div>
-                <div class="section" style="margin-top:0.5rem;"><strong>⚠️ 关键：E→F 和 B→C 之间是半音</strong><br>其余白键相邻之间都是全音</div>
-            </div>
+            <h3>1.1 音符时值 — 音乐中的"时间单位"</h3>
+            <p>每个音符不仅代表一个音高，还代表一个<strong>时长</strong>。以 4/4 拍为例（每小节 4 拍），不同音符的时值关系如下：</p>
 
-            <h3>1.2 音名体系 — 12 个音的"身份证"</h3>
-            <p><strong>7 个基本音名（白键）：</strong>C D E F G A B（对应 Do Re Mi Fa Sol La Si）</p>
-            <p><strong>5 个变化音名（黑键）：</strong>C#/Db · D#/Eb · F#/Gb · G#/Ab · A#/Bb</p>
-
-            <h4>升降号规则</h4>
             <table>
-                <tr><th>符号</th><th>名称</th><th>含义</th><th>示例</th></tr>
-                <tr><td><strong>♯</strong> (sharp)</td><td>升号</td><td>升高半音</td><td>C# = C 升高半音</td></tr>
-                <tr><td><strong>♭</strong> (flat)</td><td>降号</td><td>降低半音</td><td>Db = D 降低半音</td></tr>
-                <tr><td><strong>♮</strong> (natural)</td><td>还原号</td><td>还原为基本音</td><td>C♮ = C</td></tr>
+                <tr><th>音符</th><th>时值</th><th>占几拍</th><th>图示</th></tr>
+                <tr><td><strong>全音符</strong> (Whole Note)</td><td>最长</td><td>4 拍</td><td>○ （空心椭圆，无符干）</td></tr>
+                <tr><td><strong>二分音符</strong> (Half Note)</td><td>= 1/2 全音符</td><td>2 拍</td><td>𝅗𝅥 （空心+符干）</td></tr>
+                <tr><td><strong>四分音符</strong> (Quarter Note)</td><td>= 1/4 全音符</td><td>1 拍</td><td>♩ （实心+符干）</td></tr>
+                <tr><td><strong>八分音符</strong> (Eighth Note)</td><td>= 1/8 全音符</td><td>半拍</td><td>♪ （实心+符干+一条符尾）</td></tr>
             </table>
 
             <div class="highlight-box">
-                <p>📝 <strong>等音：</strong>同一个音有两个名字。C# = Db · D# = Eb · F# = Gb · G# = Ab · A# = Bb</p>
+                <p>📝 <strong>口诀记忆：</strong>全 4 → 二 2 → 四 1 → 八 ½。每个比前一个短一半。</p>
             </div>
 
-            <h3>1.3 唱名体系 — Do Re Mi 与音名的对应</h3>
-            <p><strong>固定唱名法（Fixed-Do）：</strong>C=Do · D=Re · E=Mi · F=Fa · G=Sol · A=La · B=Si(Ti)</p>
-            <div class="highlight-box">
-                <p>📝 <strong>记忆口诀：</strong>Do Re Mi Fa Sol La Si — C D E F G A B<br>按字母顺序一一对应，永远不会变。</p>
-            </div>
-
-            <h3>C 大调音阶（全全半全全全半）</h3>
-            <table>
-                <tr><th>音名</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>A</th><th>B</th><th>C</th></tr>
-                <tr><td>唱名</td><td>Do</td><td>Re</td><td>Mi</td><td>Fa</td><td>Sol</td><td>La</td><td>Si</td><td>Do</td></tr>
-                <tr><td>音程</td><td></td><td>全</td><td>全</td><td>半</td><td>全</td><td>全</td><td>全</td><td>半</td></tr>
-            </table>
-            <div class="warn-box"><p>⚠️ <strong>重要：</strong>"全全半全全全半"公式是所有大调音阶的基础！</p></div>
-
-            <h3>1.4 五线谱入门 — 高音谱号</h3>
             <div class="ergo-diagram">
-                <h3>高音谱号 (Treble Clef)</h3>
-                <div class="section"><strong>线（从下到上）：</strong>E G B D F（Mi Sol Si Re Fa）</div>
-                <div class="section"><strong>间（从下到上）：</strong>F A C E（Fa La Do Mi）</div>
-                <div class="section" style="margin-top:0.5rem;"><strong>记忆口诀：</strong><br>线：Every Good Boy Deserves Fudge · 间：FACE（脸）</div>
+                <h3>时值关系图</h3>
+                <div class="section">
+                    <strong>1 个全音符 = 2 个二分音符 = 4 个四分音符 = 8 个八分音符</strong>
+                </div>
+                <div class="section" style="margin-top:0.5rem;">
+                    ○ = 𝅗𝅥 + 𝅗𝅥 = ♩ + ♩ + ♩ + ♩ = ♪♪ + ♪♪ + ♪♪ + ♪♪
+                </div>
             </div>
+
+            <h3>1.2 休止符 — "无声"的音符</h3>
+            <p><strong>休止符</strong>代表"不弹奏"的时值，和音符一一对应：</p>
+            <table>
+                <tr><th>休止符</th><th>时值</th><th>占几拍（4/4）</th></tr>
+                <tr><td>全休止符</td><td>整小节静止</td><td>4 拍</td></tr>
+                <tr><td>二分休止符</td><td>半小节</td><td>2 拍</td></tr>
+                <tr><td>四分休止符</td><td>1 拍</td><td>1 拍</td></tr>
+                <tr><td>八分休止符</td><td>半拍</td><td>半拍</td></tr>
+            </table>
+
+            <div class="tip-box">
+                <p>💡 <strong>乐队键盘手提示：</strong>休止不是"放假"——要数好拍子，准确进入下一个音符。乐队中"什么时候不弹"和"什么时候弹"一样重要！</p>
+            </div>
+
+            <h3>1.3 拍号 — 音乐的"节拍规则"</h3>
+            <p><strong>拍号</strong>写在五线谱开头，告诉你每小节有几拍、以什么音符为一拍：</p>
+
+            <table>
+                <tr><th>拍号</th><th>含义</th><th>常见风格</th></tr>
+                <tr><td><strong>4/4</strong>（最常见）</td><td>每小节 4 拍，以四分音符为一拍</td><td>流行、摇滚、R&B</td></tr>
+                <tr><td><strong>3/4</strong></td><td>每小节 3 拍，以四分音符为一拍</td><td>华尔兹、民谣</td></tr>
+                <tr><td><strong>2/4</strong></td><td>每小节 2 拍，以四分音符为一拍</td><td>进行曲、波尔卡</td></tr>
+                <tr><td><strong>6/8</strong></td><td>每小节 6 拍，以八分音符为一拍</td><td>布鲁斯、民谣</td></tr>
+            </table>
+
+            <div class="highlight-box">
+                <p>📝 <strong>拍号读法：</strong>上面的数字 = 每小节几拍；下面的数字 = 以什么音符为一拍（4=四分音符，8=八分音符）。<br>
+                例如 4/4 = "每小节有 4 个四分音符"。</p>
+            </div>
+
+            <h3>1.4 节拍器 — 你的"节奏教练"</h3>
+            <p><strong>节拍器（Metronome）</strong>以恒定速度发出"滴答"声，帮助你保持稳定节奏。它是乐队排练中最重要的练习工具。</p>
+
+            <div class="ergo-diagram">
+                <h3>节拍器使用步骤</h3>
+                <div class="section"><strong>步骤 1：</strong>设置速度（BPM = Beats Per Minute）</div>
+                <div class="section"><strong>步骤 2：</strong>从慢速开始（60-80 BPM），确保每个音准确</div>
+                <div class="section"><strong>步骤 3：</strong>逐步加速（每次 +5 BPM），直到达到目标速度</div>
+                <div class="section" style="margin-top:0.5rem;"><strong>⚠️ 切忌：</strong>不要一开始就快弹！慢练是快弹的前提。</div>
+            </div>
+
+            <h4>常用 BPM 参考</h4>
+            <table>
+                <tr><th>BPM 范围</th><th>意大利术语</th><th>中文含义</th></tr>
+                <tr><td>40-60</td><td>Grave / Largo</td><td>庄板 / 广板（极慢）</td></tr>
+                <tr><td>60-80</td><td>Adagio / Andante</td><td>柔板 / 行板（慢速）</td></tr>
+                <tr><td>80-120</td><td>Moderato / Allegro</td><td>中板 / 快板（中快）</td></tr>
+                <tr><td>120-160</td><td>Allegro / Vivace</td><td>快板 / 活泼板（快速）</td></tr>
+                <tr><td>160+</td><td>Presto</td><td>急板（极快）</td></tr>
+            </table>
 
             <h2>二、案例拆解（10 分钟）</h2>
 
-            <h3>为什么乐理是乐队键盘手的"地图"？</h3>
+            <h3>节奏在乐队中的决定性作用</h3>
             <div class="case-box">
-                <h4>场景：乐队排练</h4>
-                <p>吉他手说："这段用 Am 和弦。"贝斯手说："我走 A 根音。"鼓手说："从第 5 小节进。"</p>
-                <p><strong>不懂乐理：</strong>😵 他们在说什么？<br><strong>懂乐理：</strong>😊 秒懂，立刻找到 Am 和弦位置。</p>
+                <h4>场景：弹一首 4/4 拍的流行歌曲</h4>
+                <p>右手弹旋律（四分音符+八分音符），左手弹和弦（每小节一个全音符）。<br>
+                <strong>节奏不准：</strong>左手比右手快了半拍，声音糊在一起。<br>
+                <strong>节奏准确：</strong>左手"按"下去的同时右手正好弹到对应音符，和谐整齐。</p>
+            </div>
+
+            <div class="warn-box">
+                <p>⚠️ <strong>常见错误：</strong>遇到难的段落不自觉加速/减速。节拍器的意义就是"照妖镜"——让你听到自己的节奏偏差。</p>
             </div>
 
             <h2>三、实操任务（25 分钟）</h2>
 
             <div class="task-box">
-                <h4>任务 1：半音/全音找音（5 分钟）</h4>
-                <p>在键盘上弹奏 C→D · E→F · G→A# · B→C · F→F# · C→Eb，判断每个是半音还是全音。</p>
+                <h4>任务 1：时值感受（5 分钟）</h4>
+                <p>设置节拍器 60 BPM（每秒 1 拍）。弹 C 键：1 次全音符（按住 4 秒）→ 2 次二分音符（各 2 秒）→ 4 次四分音符（各 1 秒）。感受不同音符的时长差异。</p>
             </div>
 
             <div class="task-box">
-                <h4>任务 2：音名速记（5 分钟）</h4>
-                <p>在纸上画一个八度的 12 个音，标注音名：C → C# → D → D# → E → F → F# → G → G# → A → A# → B → C。遮住右半边，默写出来。</p>
+                <h4>任务 2：节奏型练习（10 分钟）</h4>
+                <p>在 C 键上练习以下节奏型，节拍器 60-80 BPM：<br>
+                <strong>型 A：</strong>♩ ♩ ♩ ♩（4 个四分音符，"1 2 3 4"）<br>
+                <strong>型 B：</strong>♩ ♩ 𝅗𝅥（2 拍 +2 拍，"1 2 3-4-"）<br>
+                <strong>型 C：</strong>♩ ♪♪ ♩（1 +½+½ +1，"1 2-and 3 4"）<br>
+                <strong>型 D：</strong>𝅗𝅥 ♪♪ ♩（2 +½+½ +1，"1-2 3-and 4"）</p>
             </div>
 
             <div class="task-box">
-                <h4>任务 3：五线谱识读（10 分钟）</h4>
-                <p>画出高音谱号 + 五线谱，标注 E4(第一线) · G4(第二线) · B4(第三线) · D5(第四线) · F5(第五线) · F4(第一间) · A4(第二间) · C5(第三间) · E5(第四间) · 中央 C(下加一线)。然后在键盘上找到这些音，逐个弹奏确认。</p>
+                <h4>任务 3：休止符练习（5 分钟）</h4>
+                <p>练习以下节奏（C 键，节拍器 60 BPM）：<br>
+                ♩ 𝄽 ♩ ♩（弹-停-弹-弹）、♩ ♩ 𝄽 ♩（弹-弹-停-弹）。<br>
+                数拍子时"1 2 3 4"不能停，休止的地方心里数拍。</p>
             </div>
 
             <div class="task-box">
-                <h4>任务 4：C 大调音阶弹奏（5 分钟）</h4>
-                <p>用右手在键盘上弹奏 C 大调音阶：C D E F G A B C。每个音间隔均匀，感受"全全半全全全半"的音程关系。</p>
+                <h4>任务 4：双手节奏配合（5 分钟）</h4>
+                <p>右手 C 大调音阶（四分音符上行），左手 C 和弦（全音符按住 4 拍）。节拍器 60 BPM。感受双手不同节奏的对齐点。</p>
             </div>
 
             <h2>四、📝 今日作业</h2>
             <div class="homework-box">
                 <h3>请提交以下内容：</h3>
                 <ul>
-                    <li>任务 1 的音程判断结果</li>
-                    <li>任务 2 的 12 音默写照片</li>
-                    <li>任务 3 的五线谱标注照片</li>
-                    <li>任务 4 的 C 大调音阶弹奏录音</li>
+                    <li>用节拍器 60 BPM 录制 4 种节奏型（型 A/B/C/D），各弹 1 小节循环</li>
+                    <li>录制双手配合练习（右手音阶 + 左手和弦）</li>
+                    <li>描述你使用节拍器时的感受：哪些节奏型容易？哪些容易抢拍/拖拍？</li>
                 </ul>
-                <p style="margin-top: 0.8rem; opacity: 0.85; font-size: 0.85rem;">完成作业后，我会给你专业点评和纠正建议！</p>
+                <p style="margin-top: 0.8rem; opacity: 0.85; font-size: 0.85rem;">明天开始学习 M4：音阶与指法，准备好你的双手！</p>
             </div>
 
             <div class="prev-next-nav">
-                <a href="day-01.html"><i class="fas fa-arrow-left"></i> Day 1 · 乐器认知</a>
+                <a href="day-02.html"><i class="fas fa-arrow-left"></i> Day 2 · 乐理（上）</a>
                 <a href="../piano.html"><i class="fas fa-map"></i> 钢琴目录</a>
-                <a href="day-03.html">Day 3 · 乐理（下） <i class="fas fa-arrow-right"></i></a>
+                <a href="#" class="disabled" style="opacity:0.4;pointer-events:none;">Day 4 · 音阶与指法 <i class="fas fa-arrow-right"></i></a>
             </div>
 
-            <div class="next-lesson" onclick="location.href='day-03.html'" style="cursor:pointer;">
+            <div class="next-lesson">
                 <i class="fas fa-arrow-right"></i>
                 <div class="next-lesson-text">
-                    <h3>下一课：Day 3 · 乐理基础（下）</h3>
-                    <p>节奏型（全音符/二分音符/四分音符） · 节拍器使用</p>
+                    <h3>明日预告：Day 4 · 音阶与指法</h3>
+                    <p>C 大调音阶 · 正确指法 · 双手配合入门</p>
                 </div>
             </div>
         </div>
