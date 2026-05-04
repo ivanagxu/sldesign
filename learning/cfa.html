@@ -3,45 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CFA Level 1 - 课程目录</title>
+    <title>SL Design - 学习 · CFA</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/style.css">
     <style>
-        body { background: #f8f9fa; color: #333; font-family: 'Segoe UI', sans-serif; }
-        .header { background: linear-gradient(135deg, #0284c7, #0369a1); color: white; padding: 2rem 0; text-align: center; }
-        .back-btn { display: inline-block; color: white; text-decoration: none; margin-bottom: 1rem; border: 1px solid white; padding: 0.5rem 1rem; border-radius: 5px; }
-        .container { max-width: 800px; margin: 0 auto; padding: 2rem; }
-        .lesson-card { background: white; border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-decoration: none; color: inherit; }
-        .lesson-card:hover { transform: translateX(5px); transition: 0.2s; }
-        .status-badge { background: #10b981; color: white; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .logo span { color: #e2e8f0; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
+        .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
+        footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
+        .footer-section h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: #60a5fa; }
+        .contact-info { list-style: none; }
+        .contact-info li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .contact-info i { margin-right: 0.8rem; color: #3b82f6; width: 20px; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
+        .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
+        .topic-header { padding: 2rem 0 1rem; display: flex; align-items: center; gap: 1rem; }
+        .topic-icon { width: 64px; height: 64px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; flex-shrink: 0; }
+        .topic-header-text h1 { font-size: 1.8rem; color: #0f172a; }
+        .topic-header-text p { color: #64748b; font-size: 0.95rem; margin-top: 0.2rem; }
+        .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #0284c7; text-decoration: none; font-size: 0.9rem; margin-bottom: 1rem; padding: 0.5rem 0; }
+        .back-link:hover { color: #0369a1; }
+        .chapter-list { max-width: 800px; margin: 1rem auto; }
+        .chapter-item { background: white; border-radius: 10px; margin-bottom: 0.8rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: box-shadow 0.3s ease, transform 0.2s ease; text-decoration: none; color: inherit; display: block; padding: 1rem 1.2rem; display: flex; align-items: center; gap: 1rem; }
+        .chapter-item:hover { box-shadow: 0 4px 16px rgba(2,132,199,0.15); transform: translateX(4px); }
+        .chapter-num { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #0284c7, #0369a1); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+        .chapter-info { flex: 1; }
+        .chapter-info h3 { font-size: 1rem; color: #0f172a; margin-bottom: 0.2rem; }
+        .chapter-info p { font-size: 0.8rem; color: #94a3b8; }
+        .chapter-arrow { color: #d1d5db; font-size: 1rem; transition: color 0.3s ease, transform 0.2s ease; }
+        .chapter-item:hover .chapter-arrow { color: #0284c7; transform: translateX(3px); }
+        .coming-soon { text-align: center; padding: 2rem; color: #94a3b8; background: white; border-radius: 10px; margin-top: 1rem; }
+        .coming-soon i { font-size: 2rem; margin-bottom: 0.5rem; color: #d1d5db; }
+        .coming-soon p { font-size: 0.95rem; }
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; align-items: flex-start; }
+            .logo { margin-bottom: 1rem; }
+            nav { width: 100%; }
+            nav ul { flex-direction: column; width: 100%; display: none; }
+            nav ul.show { display: flex; }
+            nav ul li { margin: 0; width: 100%; }
+            nav ul li a { display: block; padding: 0.8rem 0; border-bottom: 1px solid #1e3a5f; }
+            .menu-toggle { display: block; position: absolute; top: 1rem; right: 20px; }
+            .topic-header-text h1 { font-size: 1.4rem; }
+            .footer-container { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="container">
-            <a href="../learning.html" class="back-btn">← 返回学习中心</a>
-            <h1>🎓 CFA Level 1 特许金融分析师</h1>
-            <p>Ethics & Professional Standards</p>
+    <header>
+        <div class="container nav-container">
+            <a href="../index.html" style="text-decoration:none;">
+                <div class="logo">SL <span>DESIGN</span> PLATFORM</div>
+            </a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="../index.html"><i class="fas fa-home"></i> HOME</a></li>
+                    <li><a href="../index.html#exhibition"><i class="fas fa-images"></i> CASES</a></li>
+                    <li><a href="../news.html"><i class="fas fa-newspaper"></i> NEWS</a></li>
+                    <li><a href="../games.html"><i class="fas fa-gamepad"></i> GAMES</a></li>
+                    <li><a href="../learning.html" class="active"><i class="fas fa-graduation-cap"></i> LEARNING</a></li>
+                    <li><a href="../index.html#contact"><i class="fas fa-address-book"></i> CONTACT</a></li>
+                </ul>
+            </nav>
         </div>
-    </div>
+    </header>
 
-    <div class="container">
-        <a href="cfa/lesson-001.html" class="lesson-card">
-            <div>
-                <h3>Lesson 001: Ethics and Professional Standards — Introduction</h3>
-                <p>道德准则导论 | 六大组成部分 | 情景例题</p>
+    <main class="container">
+        <a href="../learning.html" class="back-link"><i class="fas fa-arrow-left"></i> 返回学习模块</a>
+        <div class="topic-header">
+            <div class="topic-icon" style="background: linear-gradient(135deg, #0284c7, #0369a1);">
+                <i class="fas fa-chart-line"></i>
             </div>
-            <span class="status-badge">最新</span>
-        </a>
-        
-        <!-- Future lessons will appear here -->
-        <div class="lesson-card" style="opacity: 0.6; cursor: default;">
-            <div>
-                <h3>Lesson 002: Code of Ethics vs. Standards of Professional Conduct</h3>
-                <p>Coming soon...</p>
+            <div class="topic-header-text">
+                <h1>CFA 特许金融分析师</h1>
+                <p>覆盖 CFA 三级考试内容：伦理、量化分析、资产估值、投资组合管理等</p>
             </div>
-            <span style="color: #999;">🔒</span>
         </div>
-    </div>
+        <div class="chapter-list">
+            <a href="cfa/lesson-001.html" class="chapter-item">
+                <div class="chapter-num">1</div>
+                <div class="chapter-info">
+                    <h3>Lesson 001 · 道德与职业准则 — 导论</h3>
+                    <p>CFA 道德准则六大组成部分 · 情景例题 · 核心原则</p>
+                </div>
+                <i class="fas fa-chevron-right chapter-arrow"></i>
+            </a>
+            
+            <div class="coming-soon">
+                <i class="fas fa-hourglass-half"></i>
+                <p>更多课程筹备中...</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
+                    <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 98381267</p></li>
+                    <li><i class="fas fa-envelope"></i> ivanxuag@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/SLdesignPlus" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="contact-info">
+                    <li><a href="../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 SL Design Platform. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+    </script>
 </body>
 </html>
