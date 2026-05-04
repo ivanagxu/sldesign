@@ -94,10 +94,10 @@
         .quiz-box { background: #fff7ed; border-left: 4px solid #f59e0b; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
         .quiz-box p { margin: 0; color: #92400e; }
 
-        .ergo-diagram { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; text-align: center; margin: 1.5rem 0; }
-        .ergo-diagram h3 { color: #0284c7; margin-bottom: 1.5rem; font-size: 1.2rem; }
-        .ergo-diagram .section { text-align: left; margin: 0.8rem 0; }
-        .ergo-diagram .section strong { color: #0284c7; }
+        details { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; margin: 1rem 0; padding: 1rem; }
+        summary { cursor: pointer; font-weight: bold; color: #0284c7; outline: none; }
+        summary:hover { color: #0369a1; }
+        details p { margin-top: 0.8rem; margin-bottom: 0; color: #444; }
 
         .case-box { background: #f0fdf4; border: 1px solid #86efac; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
         .case-box h4 { color: #047857; font-size: 1rem; margin-bottom: 0.8rem; }
@@ -211,36 +211,71 @@
                     <tr><td>6</td><td>保持并提升专业能力</td><td>永不停止学习</td></tr>
                 </table>
 
-                <h2>二、案例解析</h2>
+                <h2>二、例题解析</h2>
                 
                 <div class="case-box">
-                    <h4>案例 1：抢跑交易 (Front Running)</h4>
-                    <p><strong>情景：</strong>张分析师准备向基金客户推荐某股票，他先用个人账户买入。
-                    <div class="warn-box"><p>❌ <strong>违规：</strong> 客户订单必须优先于个人交易。这是严重违规。</p></div>
-                    </div>
-                
+                    <h4>例题 1：抢跑交易 (Front Running)</h4>
+                    <p><strong>情景：</strong>张分析师是基金经理。他发现自己的个人账户可以买入一只股票，这只股票他正准备大量推荐给基金客户。他应该怎么做？</p>
+                    <details>
+                        <summary>👉 点击查看答案</summary>
+                        <p><strong>分析：</strong>根据"客户利益至上"原则，<strong>客户订单必须优先于个人交易</strong>。张必须确保客户订单先于个人订单执行。</p>
+                        <div class="warn-box"><p>❌ <strong>答案：</strong> 张分析师不能先于客户买入</p></div>
+                    </details>
+                </div>
+            
                 <div class="case-box">
-                    <h4>案例 2：重大非公开信息 (MNPI)</h4>
-                    <p><strong>情景：</strong>李分析师在会议上无意听到 CEO 透露业绩超预期。
-                    <div class="warn-box"><p>❌ <strong>违规：</strong> 即使是无意听到的，属于内幕信息，不得使用。</p></div>
-                    </div>
+                    <h4>例题 2：重大非公开信息 (MNPI)</h4>
+                    <p><strong>情景：</strong>李分析师在一次行业会议上无意中听到某公司 CEO 透露下季度业绩超预期。她可以基于此调整研究报告吗？</p>
+                    <details>
+                        <summary>👉 点击查看答案</summary>
+                        <p><strong>分析：</strong>CEO 无意透露 = <strong>重大非公开信息（MNPI）</strong>。基于 MNPI 做决策 = <strong>内幕交易</strong>，违反"市场诚信"原则。</p>
+                        <div class="warn-box"><p>❌ <strong>答案：</strong> 不可以，这是重大非公开信息</p></div>
+                    </details>
+                </div>
 
                 <h2>三、自测练习</h2>
+                
                 <div class="quiz-box">
-                    <p><strong>Q1.</strong> 王经理给养老基金客户推荐产品，应推荐？<br>✅ B. 最适合客户风险偏好的产品</p>
-                    <hr style="border:0; border-top:1px dashed #f59e0b; margin:1rem 0;">
-                    <p><strong>Q2.</strong> 赵分析师发现朋友持有他推荐的股票，应？<br>✅ C. 主动披露利益冲突</p>
-                    <hr style="border:0; border-top:1px dashed #f59e0b; margin:1rem 0;">
-                    <p><strong>Q3.</strong> 以下哪个违反职业道德准则？<br>✅ C. 向客户保证"这只股票一定涨"</p>
+                    <p><strong>自测题 1</strong></p>
+                    <p>王经理是一家投行的高级分析师。他的客户是一家养老基金。在给客户做投资推荐时，他应该：</p>
+                    <ul>
+                        <li>A. 推荐佣金最高的产品，因为投行需要收入</li>
+                        <li>B. 推荐最适合客户风险偏好的产品 ✅</li>
+                        <li>C. 推荐自己持仓最多的产品</li>
+                        <li>D. 推荐最近表现最好的产品</li>
+                    </ul>
+                </div>
+
+                <div class="quiz-box">
+                    <p><strong>自测题 2</strong></p>
+                    <p>赵分析师发现自己的朋友持有某只股票，他正在推荐这只股票给客户。他需要：</p>
+                    <ul>
+                        <li>A. 不需要披露，这是个人关系</li>
+                        <li>B. 只在客户问起时才披露</li>
+                        <li>C. 主动披露利益冲突 ✅</li>
+                        <li>D. 等股票涨了再披露</li>
+                    </ul>
+                </div>
+
+                <div class="quiz-box">
+                    <p><strong>自测题 3</strong></p>
+                    <p>以下哪项行为违反了 CFA 道德准则？</p>
+                    <ul>
+                        <li>A. 在研究报告中使用公开数据</li>
+                        <li>B. 拒绝基于内幕信息做交易</li>
+                        <li>C. 向客户保证"这只股票一定涨" ✅</li>
+                        <li>D. 定期审查自己的投资决策</li>
+                    </ul>
                 </div>
 
                 <div class="summary-box">
                     <h3>📌 今日总结</h3>
                     <ul>
-                        <li>客户利益优先是核心</li>
-                        <li>内幕交易 / 前置交易 / 保证收益 = 三条红线</li>
-                        <li>道德模块权重最高，需要场景判断力</li>
+                        <li>CFA 道德准则的<strong>六大组成部分</strong></li>
+                        <li><strong>客户利益至上</strong>是最核心的原则</li>
+                        <li><strong>内幕交易、抢跑交易、保证收益</strong>都是明确违规</li>
                     </ul>
+                    <p style="margin-top:0.5rem; font-size:0.9rem; opacity:0.85;">参考答案：1-B · 2-C · 3-C</p>
                 </div>
 
                 <div class="prev-next-nav">
@@ -294,32 +329,67 @@
                 
                 <div class="case-box">
                     <h4>Example 1: Front Running</h4>
-                    <p><strong>Scenario:</strong> Analyst Zhang buys a stock for his personal account before recommending it to fund clients.
-                    <div class="warn-box"><p>❌ <strong>Violation:</strong> Client orders must take priority over personal trades. This is a serious violation.</p></div>
-                    </div>
-                
+                    <p><strong>Scenario:</strong> Analyst Zhang is a fund manager. He realizes his personal account can buy a stock that he is about to recommend heavily to fund clients. What should he do?</p>
+                    <details>
+                        <summary>👉 Click to reveal answer</summary>
+                        <p><strong>Analysis:</strong> Under the "clients first" principle, <strong>client orders must take priority over personal trades</strong>. Zhang must ensure client orders are executed before his personal orders.</p>
+                        <div class="warn-box"><p>❌ <strong>Answer:</strong> Zhang must NOT buy before his clients.</p></div>
+                    </details>
+                </div>
+            
                 <div class="case-box">
                     <h4>Example 2: Material Nonpublic Information (MNPI)</h4>
-                    <p><strong>Scenario:</strong> Analyst Li overhears a CEO revealing earnings data at a conference.
-                    <div class="warn-box"><p>❌ <strong>Violation:</strong> Even if overheard unintentionally, it is MNPI and cannot be used for trading.</p></div>
-                    </div>
+                    <p><strong>Scenario:</strong> Analyst Li overhears a company CEO unintentionally revealing that next quarter's earnings will beat expectations at an industry conference. Can she adjust her research report based on this?</p>
+                    <details>
+                        <summary>👉 Click to reveal answer</summary>
+                        <p><strong>Analysis:</strong> CEO's unintentional disclosure = <strong>Material Nonpublic Information (MNPI)</strong>. Trading or acting on MNPI = <strong>Insider Trading</strong>, violates "market integrity".</p>
+                        <div class="warn-box"><p>❌ <strong>Answer:</strong> No, this is material nonpublic information.</p></div>
+                    </details>
+                </div>
 
                 <h2>3. Self-Test</h2>
+                
                 <div class="quiz-box">
-                    <p><strong>Q1.</strong> Manager Wang recommends a product to a pension fund client. What should he do?<br>✅ B. Recommend the product most suitable for the client's risk profile</p>
-                    <hr style="border:0; border-top:1px dashed #f59e0b; margin:1rem 0;">
-                    <p><strong>Q2.</strong> Analyst Zhao finds his friend holds a stock he is recommending. He needs to:<br>✅ C. Proactively disclose the conflict of interest</p>
-                    <hr style="border:0; border-top:1px dashed #f59e0b; margin:1rem 0;">
-                    <p><strong>Q3.</strong> Which action violates the Code of Ethics?<br>✅ C. Guaranteeing to a client that "this stock will definitely go up"</p>
+                    <p><strong>Question 1</strong></p>
+                    <p>Manager Wang is a senior analyst at an investment bank. His client is a pension fund. When making investment recommendations to the client, he should:</p>
+                    <ul>
+                        <li>A. Recommend the product with the highest commission, because the bank needs revenue</li>
+                        <li>B. Recommend the product most suitable for the client's risk profile ✅</li>
+                        <li>C. Recommend the product he holds the most of personally</li>
+                        <li>D. Recommend the product with the best recent performance</li>
+                    </ul>
+                </div>
+
+                <div class="quiz-box">
+                    <p><strong>Question 2</strong></p>
+                    <p>Analyst Zhao discovers that his friend holds a stock that he is recommending to clients. He needs to:</p>
+                    <ul>
+                        <li>A. No disclosure needed — it's a personal relationship</li>
+                        <li>B. Only disclose if the client asks</li>
+                        <li>C. Proactively disclose the conflict of interest ✅</li>
+                        <li>D. Disclose after the stock goes up</li>
+                    </ul>
+                </div>
+
+                <div class="quiz-box">
+                    <p><strong>Question 3</strong></p>
+                    <p>Which of the following actions violates the CFA Code of Ethics?</p>
+                    <ul>
+                        <li>A. Using public data in a research report</li>
+                        <li>B. Refusing to trade based on material nonpublic information</li>
+                        <li>C. Guaranteeing to a client that "this stock will definitely go up" ✅</li>
+                        <li>D. Regularly reviewing his own investment decisions</li>
+                    </ul>
                 </div>
 
                 <div class="summary-box">
                     <h3>📌 Key Takeaways</h3>
                     <ul>
-                        <li>Clients' interests first is the core principle.</li>
-                        <li>Insider trading, front running, and guaranteeing returns are explicit violations.</li>
-                        <li>Ethics module weight is the highest; requires scenario judgment.</li>
+                        <li>The <strong>Six Components of the CFA Code of Ethics</strong></li>
+                        <li><strong>Clients' interests first</strong> is the core principle</li>
+                        <li><strong>Insider trading, front running, and guaranteeing returns</strong> are all explicit violations</li>
                     </ul>
+                    <p style="margin-top:0.5rem; font-size:0.9rem; opacity:0.85;">Answer Key: 1-B · 2-C · 3-C</p>
                 </div>
 
                 <div class="prev-next-nav">
