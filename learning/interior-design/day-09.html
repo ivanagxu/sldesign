@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Design - 学习 · 室内设计 · Day 9 卫生间设计详解</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .logo span { color: #e2e8f0; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
+        .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
+        footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
+        .footer-section h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: #60a5fa; }
+        .contact-info { list-style: none; }
+        .contact-info li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .contact-info i { margin-right: 0.8rem; color: #3b82f6; width: 20px; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
+        .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
+
+        .breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #94a3b8; padding: 1rem 0; flex-wrap: wrap; }
+        .breadcrumbs a { color: #10b981; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+        .breadcrumbs .sep { color: #d1d5db; }
+
+        .lesson-header { padding: 1.5rem 0; }
+        .lesson-header .lesson-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+        .lesson-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .badge-stage { background: #ecfdf5; color: #059669; }
+        .badge-week { background: #eff6ff; color: #3b82f6; }
+        .badge-day { background: #fef3c7; color: #d97706; }
+        .lesson-header h1 { font-size: 1.6rem; color: #0f172a; margin-bottom: 0.3rem; }
+        .lesson-header .lesson-subtitle { color: #64748b; font-size: 0.9rem; }
+
+        .content-body { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2rem; margin-bottom: 2rem; }
+
+        .lesson-objectives { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+        .lesson-objectives h3 { color: #059669; font-size: 1rem; margin-bottom: 0.5rem; }
+        .lesson-objectives ul { list-style: none; padding: 0; margin: 0; }
+        .lesson-objectives li { color: #047857; padding: 0.2rem 0; font-size: 0.9rem; }
+        .lesson-objectives li::before { content: '✅ '; }
+
+        .content-body h2 { font-size: 1.3rem; color: #059669; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #d1fae5; }
+        .content-body h2:first-child { margin-top: 0; }
+        .content-body h3 { font-size: 1.1rem; color: #0f172a; margin: 1.5rem 0 0.8rem; }
+        .content-body h4 { font-size: 1rem; color: #0f172a; margin: 1.2rem 0 0.6rem; }
+        .content-body p { margin-bottom: 0.8rem; color: #444; }
+        .content-body ul, .content-body ol { margin: 0.8rem 0; padding-left: 1.5rem; }
+        .content-body li { margin-bottom: 0.4rem; color: #444; }
+        .content-body strong { color: #0f172a; }
+        .content-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        .content-body th, .content-body td { border: 1px solid #e2e8f0; padding: 0.6rem 0.8rem; text-align: left; }
+        .content-body th { background-color: #f0fdf4; color: #059669; font-weight: 600; }
+        .content-body tr:nth-child(even) { background-color: #f8fafc; }
+
+        .highlight-box { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .highlight-box p { margin: 0; color: #047857; }
+
+        .tip-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .tip-box p { margin: 0; color: #92400e; }
+
+        .warn-box { background: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .warn-box p { margin: 0; color: #991b1b; }
+
+        .case-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+        .case-box h4 { color: #0f172a; font-size: 1rem; margin-bottom: 0.8rem; }
+
+        .task-box { background: #eff6ff; border: 2px solid #93c5fd; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+        .task-box h4 { color: #1e40af; margin-bottom: 0.5rem; }
+        .task-box p { color: #1e40af; margin: 0; }
+
+        .ergo-diagram { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; text-align: center; margin: 1.5rem 0; }
+        .ergo-diagram h3 { color: #059669; margin-bottom: 1.5rem; font-size: 1.2rem; }
+        .ergo-diagram .section { text-align: left; margin: 0.8rem 0; }
+        .ergo-diagram .section strong { color: #059669; }
+        
+        .ergo-diagram pre { text-align: left; background: #fff; padding: 1rem; border-radius: 8px; overflow-x: auto; font-family: monospace; font-size: 0.85rem; margin: 0.5rem 0; }
+
+        .next-lesson { background: #f0fdf4; border: 2px solid #86efac; border-radius: 12px; padding: 1.5rem; margin-top: 2rem; display: flex; align-items: center; gap: 1rem; }
+        .next-lesson i { font-size: 1.5rem; color: #059669; }
+        .next-lesson-text h3 { font-size: 1rem; color: #059669; margin-bottom: 0.2rem; }
+        .next-lesson-text p { font-size: 0.85rem; color: #047857; margin: 0; }
+
+        .prev-next-nav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .prev-next-nav a { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.2rem; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; color: #059669; font-size: 0.9rem; transition: box-shadow 0.3s ease; }
+        .prev-next-nav a:hover { box-shadow: 0 4px 12px rgba(16,185,129,0.15); }
+
+        details { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; margin: 1rem 0; padding: 1rem; }
+        summary { cursor: pointer; font-weight: bold; color: #059669; outline: none; }
+        summary:hover { color: #047857; }
+        details p { margin-top: 0.8rem; margin-bottom: 0; color: #444; }
+        
+        code { background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px; font-family: monospace; color: #0f172a; }
+        pre { background: #f8fafc; padding: 1rem; border-radius: 8px; overflow-x: auto; font-family: monospace; font-size: 0.85rem; margin: 1rem 0; }
+
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; align-items: flex-start; }
+            .logo { margin-bottom: 1rem; }
+            nav { width: 100%; }
+            nav ul { flex-direction: column; width: 100%; display: none; }
+            nav ul.show { display: flex; }
+            nav ul li { margin: 0; width: 100%; }
+            nav ul li a { display: block; padding: 0.8rem 0; border-bottom: 1px solid #1e3a5f; }
+            .menu-toggle { display: block; position: absolute; top: 1rem; right: 20px; }
+            .content-body { padding: 1.2rem; }
+            .lesson-header h1 { font-size: 1.3rem; }
+            .footer-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" style="text-decoration:none;">
+                <div class="logo">SL <span>DESIGN</span> PLATFORM</div>
+            </a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="../../index.html"><i class="fas fa-home"></i> HOME</a></li>
+                    <li><a href="../../index.html#exhibition"><i class="fas fa-images"></i> CASES</a></li>
+                    <li><a href="../../news.html"><i class="fas fa-newspaper"></i> NEWS</a></li>
+                    <li><a href="../../games.html"><i class="fas fa-gamepad"></i> GAMES</a></li>
+                    <li><a href="../../learning.html" class="active"><i class="fas fa-graduation-cap"></i> LEARNING</a></li>
+                    <li><a href="../../index.html#contact"><i class="fas fa-address-book"></i> CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../learning.html"><i class="fas fa-graduation-cap"></i> LEARNING</a>
+            <span class="sep">›</span>
+            <a href="../interior-design.html">室内设计</a>
+            <span class="sep">›</span>
+            <span>Day 9</span>
+        </div>
+
+        <div class="lesson-header">
+            <div class="lesson-meta">
+                <span class="lesson-badge badge-stage">进阶</span>
+                <span class="lesson-badge badge-week">Week 2</span>
+                <span class="lesson-badge badge-day">Day 9</span>
+            </div>
+            <h1>🏠 卫生间设计详解</h1>
+            <p class="lesson-subtitle">37㎡户型改造设计培训</p>
+        </div>
+
+        <div class="content-body">
+            <h1>🚿 室内设计课程 - Day 09</h1>
+<h1>卫生间设计详解</h1>
+<p><strong>学员：</strong> Ivan<br />
+<strong>课程日期：</strong> 2026-04-04<br />
+<strong>学习阶段：</strong> Week 2, Day 9 / 30 天课程<br />
+<strong>项目背景：</strong> 37㎡小户型改造设计</p>
+<hr />
+<h2>📋 今日学习目标</h2>
+<ol>
+<li>理解小空间卫生间的设计原则</li>
+<li>掌握卫生间功能分区与布局技巧</li>
+<li>学习防水、排水等关键工艺要点</li>
+<li>完成 37㎡户型卫生间设计方案</li>
+</ol>
+<hr />
+<h2>一、小户型卫生间设计核心原则</h2>
+<h3>1.1 空间最大化原则</h3>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>干湿分离</td>
+<td>淋浴区独立，保持干区干燥</td>
+<td>面积≥3㎡</td>
+</tr>
+<tr>
+<td>一体化设计</td>
+<td>洗漱+淋浴+马桶整合</td>
+<td>面积&lt;3㎡</td>
+</tr>
+<tr>
+<td>壁挂式洁具</td>
+<td>减少地面占用，便于清洁</td>
+<td>所有小户型</td>
+</tr>
+<tr>
+<td>镜柜收纳</td>
+<td>垂直空间利用</td>
+<td>所有户型</td>
+</tr>
+</tbody>
+</table>
+<h3>1.2 37㎡户型卫生间参考尺寸</h3>
+<pre><code>标准小卫生间：1.5m × 1.8m = 2.7㎡
+紧凑卫生间：1.2m × 1.5m = 1.8㎡
+最小可用尺寸：0.9m × 1.2m = 1.08㎡ (仅马桶 + 小洗手台)
+</code></pre>
+<h3>1.3 人体工学关键尺寸</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>最小尺寸</th>
+<th>舒适尺寸</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>马桶前方活动空间</td>
+<td>45cm</td>
+<td>60cm</td>
+</tr>
+<tr>
+<td>淋浴区最小尺寸</td>
+<td>80×80cm</td>
+<td>90×90cm</td>
+</tr>
+<tr>
+<td>洗手台宽度</td>
+<td>50cm</td>
+<td>60-80cm</td>
+</tr>
+<tr>
+<td>洗手台高度</td>
+<td>80-85cm</td>
+<td>85-90cm</td>
+</tr>
+<tr>
+<td>通道宽度</td>
+<td>60cm</td>
+<td>75cm+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>二、卫生间布局方案</h2>
+<h3>2.1 常见布局类型</h3>
+<h4>方案 A：一字型布局 (适合狭长空间)</h4>
+<pre><code>┌─────────────────────────┐
+│ 洗手台  │  马桶  │ 淋浴区 │
+│  60cm   │  70cm  │  90cm  │
+└─────────────────────────┘
+        总长度约 220cm
+</code></pre>
+<p><strong>优点：</strong> 动线流畅，管道集中<br />
+<strong>缺点：</strong> 需要较长墙面</p>
+<h4>方案 B：L 型布局 (适合方形空间)</h4>
+<pre><code>┌──────────────┬──────────┐
+│   淋浴区     │          │
+│   90×90cm    │   马桶   │
+│              │          │
+├──────────────┤          │
+│   洗手台     │          │
+│   60cm       │          │
+└──────────────┴──────────┘
+</code></pre>
+<p><strong>优点：</strong> 空间利用率高，干湿分离<br />
+<strong>缺点：</strong> 管道布置较复杂</p>
+<h4>方案 C：钻石型淋浴房 (最小空间方案)</h4>
+<pre><code>┌─────────────────────────┐
+│  洗手台  │    /         │
+│          │   / 淋浴区   │
+│          │  /  钻石型   │
+│   马桶   │ /           │
+└──────────┴─────────────┘
+</code></pre>
+<p><strong>优点：</strong> 节省空间，美观<br />
+<strong>缺点：</strong> 淋浴空间略小</p>
+<h3>2.2 37㎡户型推荐方案</h3>
+<p>基于 37㎡小户型，建议采用 <strong>干湿分离 + 壁挂式</strong> 组合：</p>
+<pre><code>推荐布局 (2.5㎡卫生间)
+┌──────────────────────────┐
+│     镜柜 + 洗手台        │
+│         70cm             │
+├──────────────────────────┤
+│    │              │      │
+│ 马桶 │    过道     │淋浴房│
+│ 65cm │    70cm    │90×90 │
+│    │              │      │
+└────┴──────────────┴──────┘
+</code></pre>
+<hr />
+<h2>三、关键工艺要点</h2>
+<h3>3.1 防水工程 (重中之重!)</h3>
+<table>
+<thead>
+<tr>
+<th>区域</th>
+<th>防水高度</th>
+<th>注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>淋浴区</td>
+<td>≥180cm</td>
+<td>满墙防水最佳</td>
+</tr>
+<tr>
+<td>洗手台区域</td>
+<td>≥120cm</td>
+<td>超出台面 30cm</td>
+</tr>
+<tr>
+<td>其他墙面</td>
+<td>≥30cm</td>
+<td>地面上翻</td>
+</tr>
+<tr>
+<td>地面</td>
+<td>全地面 + 上翻 30cm</td>
+<td>门口做止水坎</td>
+</tr>
+</tbody>
+</table>
+<p><strong>防水施工流程：</strong>
+1. 基层处理 (清理、找平、润湿)
+2. 节点处理 (管根、墙角做圆弧)
+3. 第一遍防水 (纵向涂刷)
+4. 第二遍防水 (横向涂刷，间隔 4-8 小时)
+5. 闭水试验 (48 小时，到楼下检查)</p>
+<h3>3.2 排水设计</h3>
+<p><strong>常见排水方式：</strong></p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>优点</th>
+<th>缺点</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>传统地漏</td>
+<td>成本低，易维修</td>
+<td>易堵塞，有异味</td>
+<td>预算有限</td>
+</tr>
+<tr>
+<td>长条形地漏</td>
+<td>排水快，美观</td>
+<td>成本高，安装要求高</td>
+<td>推荐</td>
+</tr>
+<tr>
+<td>隐藏式地漏</td>
+<td>美观一体</td>
+<td>维修困难</td>
+<td>高端设计</td>
+</tr>
+<tr>
+<td>墙排式</td>
+<td>无地面地漏，易清洁</td>
+<td>成本高，需预埋</td>
+<td>极简风格</td>
+</tr>
+</tbody>
+</table>
+<p><strong>排水坡度要求：</strong>
+- 标准坡度：1%-3% (每米下降 1-3cm)
+- 地漏位置：最低点，远离门口</p>
+<h3>3.3 通风与防潮</h3>
+<p><strong>通风方案优先级：</strong>
+1. ✅ 外窗自然通风 + 排风扇 (最佳)
+2. ✅ 排风扇 + 止逆阀 (无窗必备)
+3. ⚠️ 新风系统辅助 (成本高)</p>
+<p><strong>防潮措施：</strong>
+- 使用防水石膏板或铝扣板吊顶
+- 墙面使用瓷砖或防水涂料
+- 门套底部做防潮处理 (石材或金属)
+- 安装风暖浴霸 (兼顾取暖 + 干燥)</p>
+<hr />
+<h2>四、收纳系统设计</h2>
+<h3>4.1 垂直收纳策略</h3>
+<pre><code>墙面收纳系统 (从下到上)
+┌─────────────────────┐
+│    吊柜/镜柜        │ ← 备用物品、清洁剂
+│    (高度 60-80cm)    │
+├─────────────────────┤
+│    毛巾架/置物架    │ ← 日常用品
+│    (高度 120-150cm)  │
+├─────────────────────┤
+│    洗手台台面       │ ← 洗漱用品
+│    (高度 85cm)       │
+├─────────────────────┤
+│    台盆柜           │ ← 囤货、大件物品
+│    (高度 60-70cm)    │
+└─────────────────────┘
+</code></pre>
+<h3>4.2 镜柜设计要点</h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>推荐值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>镜柜深度</td>
+<td>12-15cm</td>
+<td>太深显得压抑</td>
+</tr>
+<tr>
+<td>镜柜高度</td>
+<td>60-80cm</td>
+<td>根据层高调整</td>
+</tr>
+<tr>
+<td>开放格比例</td>
+<td>20-30%</td>
+<td>放置常用物品</td>
+</tr>
+<tr>
+<td>镜前灯</td>
+<td>必备</td>
+<td>色温 4000K 自然光</td>
+</tr>
+</tbody>
+</table>
+<h3>4.3 淋浴区收纳</h3>
+<ul>
+<li><strong>壁龛：</strong> 装修时预埋，最美观 (推荐)</li>
+<li><strong>三角篮：</strong> 免打孔，灵活调整</li>
+<li><strong>淋浴杆置物：</strong> 多功能整合</li>
+</ul>
+<hr />
+<h2>五、材料选择建议</h2>
+<h3>5.1 瓷砖选择</h3>
+<table>
+<thead>
+<tr>
+<th>区域</th>
+<th>推荐类型</th>
+<th>规格</th>
+<th>注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>地面</td>
+<td>防滑砖</td>
+<td>300×300mm</td>
+<td>防滑系数 R10+</td>
+</tr>
+<tr>
+<td>墙面</td>
+<td>釉面砖</td>
+<td>300×600mm</td>
+<td>易清洁</td>
+</tr>
+<tr>
+<td>淋浴区</td>
+<td>马赛克/小砖</td>
+<td>100×100mm</td>
+<td>便于找坡</td>
+</tr>
+<tr>
+<td>美缝</td>
+<td>环氧彩砂</td>
+<td>-</td>
+<td>防水防霉</td>
+</tr>
+</tbody>
+</table>
+<h3>5.2 洁具选择</h3>
+<p><strong>马桶：</strong>
+- 小户型推荐：壁挂式 (节省空间，易清洁)
+- 坑距确认：305mm 或 400mm
+- 预算参考：2000-5000 元 (智能盖板另计)</p>
+<p><strong>花洒：</strong>
+- 恒温花洒：提升舒适度 (推荐)
+- 空气注入：节水且舒适
+- 预算参考：1500-4000 元</p>
+<p><strong>浴室柜：</strong>
+- 材质：多层实木/铝合金 (防水)
+- 台盆：陶瓷一体盆 (易清洁)
+- 预算参考：2000-6000 元</p>
+<hr />
+<h2>六、37㎡户型卫生间设计任务</h2>
+<h3>6.1 设计条件</h3>
+<p>假设你的 37㎡户型卫生间尺寸：<strong>1.5m × 1.8m = 2.7㎡</strong></p>
+<h3>6.2 设计要求</h3>
+<ol>
+<li><strong>必须实现干湿分离</strong></li>
+<li><strong>需要容纳：</strong> 马桶、洗手台、淋浴区、收纳空间</li>
+<li><strong>风格：</strong> 现代简约</li>
+<li><strong>预算：</strong> 3-5 万元 (含硬装 + 洁具)</li>
+</ol>
+<h3>6.3 设计输出</h3>
+<p>请绘制/描述以下内容：</p>
+<pre><code>□ 平面布局图 (标注尺寸)
+□ 立面图 (至少一面墙)
+□ 材料清单 (瓷砖、洁具、五金)
+□ 收纳系统说明
+□ 灯光设计 (主灯 + 镜前灯 + 氛围灯)
+</code></pre>
+<h3>6.4 参考案例</h3>
+<p><strong>2.7㎡卫生间成功案例要素：</strong>
+- ✅ 钻石型淋浴房 (90×90cm)
+- ✅ 壁挂马桶 + 上方吊柜
+- ✅ 镜柜延伸至马桶上方
+- ✅ 长条形地漏 + 墙排下水
+- ✅ 浅色系瓷砖 (视觉放大)</p>
+<hr />
+<h2>七、常见避坑指南</h2>
+<table>
+<thead>
+<tr>
+<th>坑点</th>
+<th>后果</th>
+<th>预防措施</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>防水没做好</td>
+<td>楼下漏水，返工成本高</td>
+<td>闭水试验 48 小时，必须检查</td>
+</tr>
+<tr>
+<td>地漏位置不当</td>
+<td>积水、排水慢</td>
+<td>贴砖前确认最低点</td>
+</tr>
+<tr>
+<td>插座没留够</td>
+<td>智能马桶/电热毛巾架无法安装</td>
+<td>马桶旁预留 1-2 个插座</td>
+</tr>
+<tr>
+<td>排风扇未装止逆阀</td>
+<td>异味倒灌</td>
+<td>必须安装止逆阀</td>
+</tr>
+<tr>
+<td>美缝剂选错</td>
+<td>发霉变黑</td>
+<td>选环氧彩砂，不要用普通填缝剂</td>
+</tr>
+<tr>
+<td>门套未防潮</td>
+<td>门套底部发黑腐烂</td>
+<td>门套底部用石材/金属</td>
+</tr>
+<tr>
+<td>收纳不足</td>
+<td>后期杂乱</td>
+<td>设计阶段预留充足收纳</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>八、今日作业</h2>
+<h3>基础题 (必做)</h3>
+<ol>
+<li>根据 37㎡户型实际尺寸，绘制卫生间平面布局图</li>
+<li>列出所需洁具清单及预算</li>
+</ol>
+<h3>进阶题 (选做)</h3>
+<ol>
+<li>设计卫生间收纳系统 (标注尺寸)</li>
+<li>选择瓷砖搭配方案 (提供色卡/效果图)</li>
+</ol>
+<h3>思考题</h3>
+<ol>
+<li>如果卫生间只有 1.5㎡，如何布局？</li>
+<li>干湿分离真的是必须的吗？什么情况下可以放弃？</li>
+</ol>
+<hr />
+<h2>📚 延伸阅读</h2>
+<ul>
+<li>《住宅精细化设计》— 卫生间章节</li>
+<li>好好住 APP — 搜索"小卫生间"案例</li>
+<li>一兜糖家居 — 卫生间避坑指南</li>
+</ul>
+<hr />
+<h2>明日预告</h2>
+<p><strong>Day 10：卧室设计详解</strong>
+- 小户型卧室布局技巧
+- 衣柜设计与收纳
+- 睡眠环境营造</p>
+<hr />
+<p><strong>学习进度：</strong> 9/30 天完成 (30%)<br />
+<strong>Week 2 进度：</strong> 2/7 天<br />
+<strong>预计完成时间：</strong> 2026-05-02</p>
+<hr />
+<p><em>课程生成时间：2026-04-04 20:00 HKT</em><br />
+<em>利利.ai 室内设计培训系列</em></p>
+            
+            <div class="prev-next-nav">
+                <a href="day-08.html"><i class="fas fa-arrow-left"></i> Day 8</a>
+                <a href="../interior-design.html"><i class="fas fa-list"></i> 课程目录</a>
+                <a href="day-10.html">Day 10 <i class="fas fa-arrow-right"></i></a>
+            </div>
+    
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
+                    <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 98381267</p></li>
+                    <li><i class="fas fa-envelope"></i> ivanxuag@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/SLdesignPlus" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="contact-info">
+                    <li><a href="../../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
+                    <li><a href="../interior-design.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-couch"></i> 室内设计</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 SL Design Platform. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

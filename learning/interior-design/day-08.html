@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Design - 学习 · 室内设计 · Day 8 厨房设计详解</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .logo span { color: #e2e8f0; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
+        .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
+        footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
+        .footer-section h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: #60a5fa; }
+        .contact-info { list-style: none; }
+        .contact-info li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .contact-info i { margin-right: 0.8rem; color: #3b82f6; width: 20px; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
+        .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
+
+        .breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #94a3b8; padding: 1rem 0; flex-wrap: wrap; }
+        .breadcrumbs a { color: #10b981; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+        .breadcrumbs .sep { color: #d1d5db; }
+
+        .lesson-header { padding: 1.5rem 0; }
+        .lesson-header .lesson-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+        .lesson-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .badge-stage { background: #ecfdf5; color: #059669; }
+        .badge-week { background: #eff6ff; color: #3b82f6; }
+        .badge-day { background: #fef3c7; color: #d97706; }
+        .lesson-header h1 { font-size: 1.6rem; color: #0f172a; margin-bottom: 0.3rem; }
+        .lesson-header .lesson-subtitle { color: #64748b; font-size: 0.9rem; }
+
+        .content-body { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2rem; margin-bottom: 2rem; }
+
+        .lesson-objectives { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+        .lesson-objectives h3 { color: #059669; font-size: 1rem; margin-bottom: 0.5rem; }
+        .lesson-objectives ul { list-style: none; padding: 0; margin: 0; }
+        .lesson-objectives li { color: #047857; padding: 0.2rem 0; font-size: 0.9rem; }
+        .lesson-objectives li::before { content: '✅ '; }
+
+        .content-body h2 { font-size: 1.3rem; color: #059669; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #d1fae5; }
+        .content-body h2:first-child { margin-top: 0; }
+        .content-body h3 { font-size: 1.1rem; color: #0f172a; margin: 1.5rem 0 0.8rem; }
+        .content-body h4 { font-size: 1rem; color: #0f172a; margin: 1.2rem 0 0.6rem; }
+        .content-body p { margin-bottom: 0.8rem; color: #444; }
+        .content-body ul, .content-body ol { margin: 0.8rem 0; padding-left: 1.5rem; }
+        .content-body li { margin-bottom: 0.4rem; color: #444; }
+        .content-body strong { color: #0f172a; }
+        .content-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        .content-body th, .content-body td { border: 1px solid #e2e8f0; padding: 0.6rem 0.8rem; text-align: left; }
+        .content-body th { background-color: #f0fdf4; color: #059669; font-weight: 600; }
+        .content-body tr:nth-child(even) { background-color: #f8fafc; }
+
+        .highlight-box { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .highlight-box p { margin: 0; color: #047857; }
+
+        .tip-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .tip-box p { margin: 0; color: #92400e; }
+
+        .warn-box { background: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .warn-box p { margin: 0; color: #991b1b; }
+
+        .case-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+        .case-box h4 { color: #0f172a; font-size: 1rem; margin-bottom: 0.8rem; }
+
+        .task-box { background: #eff6ff; border: 2px solid #93c5fd; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+        .task-box h4 { color: #1e40af; margin-bottom: 0.5rem; }
+        .task-box p { color: #1e40af; margin: 0; }
+
+        .ergo-diagram { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; text-align: center; margin: 1.5rem 0; }
+        .ergo-diagram h3 { color: #059669; margin-bottom: 1.5rem; font-size: 1.2rem; }
+        .ergo-diagram .section { text-align: left; margin: 0.8rem 0; }
+        .ergo-diagram .section strong { color: #059669; }
+        
+        .ergo-diagram pre { text-align: left; background: #fff; padding: 1rem; border-radius: 8px; overflow-x: auto; font-family: monospace; font-size: 0.85rem; margin: 0.5rem 0; }
+
+        .next-lesson { background: #f0fdf4; border: 2px solid #86efac; border-radius: 12px; padding: 1.5rem; margin-top: 2rem; display: flex; align-items: center; gap: 1rem; }
+        .next-lesson i { font-size: 1.5rem; color: #059669; }
+        .next-lesson-text h3 { font-size: 1rem; color: #059669; margin-bottom: 0.2rem; }
+        .next-lesson-text p { font-size: 0.85rem; color: #047857; margin: 0; }
+
+        .prev-next-nav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .prev-next-nav a { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.2rem; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; color: #059669; font-size: 0.9rem; transition: box-shadow 0.3s ease; }
+        .prev-next-nav a:hover { box-shadow: 0 4px 12px rgba(16,185,129,0.15); }
+
+        details { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; margin: 1rem 0; padding: 1rem; }
+        summary { cursor: pointer; font-weight: bold; color: #059669; outline: none; }
+        summary:hover { color: #047857; }
+        details p { margin-top: 0.8rem; margin-bottom: 0; color: #444; }
+        
+        code { background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px; font-family: monospace; color: #0f172a; }
+        pre { background: #f8fafc; padding: 1rem; border-radius: 8px; overflow-x: auto; font-family: monospace; font-size: 0.85rem; margin: 1rem 0; }
+
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; align-items: flex-start; }
+            .logo { margin-bottom: 1rem; }
+            nav { width: 100%; }
+            nav ul { flex-direction: column; width: 100%; display: none; }
+            nav ul.show { display: flex; }
+            nav ul li { margin: 0; width: 100%; }
+            nav ul li a { display: block; padding: 0.8rem 0; border-bottom: 1px solid #1e3a5f; }
+            .menu-toggle { display: block; position: absolute; top: 1rem; right: 20px; }
+            .content-body { padding: 1.2rem; }
+            .lesson-header h1 { font-size: 1.3rem; }
+            .footer-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" style="text-decoration:none;">
+                <div class="logo">SL <span>DESIGN</span> PLATFORM</div>
+            </a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="../../index.html"><i class="fas fa-home"></i> HOME</a></li>
+                    <li><a href="../../index.html#exhibition"><i class="fas fa-images"></i> CASES</a></li>
+                    <li><a href="../../news.html"><i class="fas fa-newspaper"></i> NEWS</a></li>
+                    <li><a href="../../games.html"><i class="fas fa-gamepad"></i> GAMES</a></li>
+                    <li><a href="../../learning.html" class="active"><i class="fas fa-graduation-cap"></i> LEARNING</a></li>
+                    <li><a href="../../index.html#contact"><i class="fas fa-address-book"></i> CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../learning.html"><i class="fas fa-graduation-cap"></i> LEARNING</a>
+            <span class="sep">›</span>
+            <a href="../interior-design.html">室内设计</a>
+            <span class="sep">›</span>
+            <span>Day 8</span>
+        </div>
+
+        <div class="lesson-header">
+            <div class="lesson-meta">
+                <span class="lesson-badge badge-stage">进阶</span>
+                <span class="lesson-badge badge-week">Week 2</span>
+                <span class="lesson-badge badge-day">Day 8</span>
+            </div>
+            <h1>🏠 厨房设计详解</h1>
+            <p class="lesson-subtitle">37㎡户型改造设计培训</p>
+        </div>
+
+        <div class="content-body">
+            <h1>📖 Day 8: 厨房设计详解</h1>
+<p><strong>阶段：</strong> 进阶 → Week 2 → Day 1<br />
+<strong>主题：</strong> 厨房空间规划与功能设计<br />
+<strong>用时：</strong> 90 分钟<br />
+<strong>日期：</strong> 2026-04-03</p>
+<hr />
+<h2>🎯 学习目标</h2>
+<p>学完后你能：
+- ✅ 掌握厨房工作三角区设计原则
+- ✅ 规划合理的厨房动线和布局
+- ✅ 为 37㎡户型设计高效厨房空间
+- ✅ 选择适合的橱柜尺寸和配置</p>
+<hr />
+<h2>一、知识讲解（20 分钟）</h2>
+<h3>1.1 厨房设计的核心：工作三角区</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│              厨房工作三角区 (Work Triangle)              │
+│                                                         │
+│                    冰箱 (储物)                           │
+│                       ●                                 │
+│                      / \                                │
+│                     /   \                               │
+│                    /     \                              │
+│                   /       \                             │
+│              4-6m /         \ 4-6m                      │
+│                 /           \                           │
+│                /             \                          │
+│               /               \                         │
+│              /                 \                        │
+│             /                   \                       │
+│            /                     \                      │
+│           /                       \                     │
+│          /                         \                    │
+│         /                           \                   │
+│        /                             \                  │
+│       /                               \                 │
+│      /                                 \                │
+│     /                                   \               │
+│    /                                     \              │
+│   /                                       \             │
+│  /                                         \            │
+│ ●───────────────────────────────────────────●           │
+│水槽 (清洗)              4-6m              炉灶 (烹饪)    │
+│                                                         │
+│  三角区总周长：12-18m (最佳 13-15m)                      │
+│  每条边：4-6m (太短拥挤，太长低效)                        │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<p><strong>设计原则：</strong>
+- ✅ 三角区总周长控制在 12-18m
+- ✅ 避免动线穿越（不要有人从三角区中间穿过）
+- ✅ 冰箱→水槽→炉灶形成流畅的"取→洗→切→炒"顺序
+- ✅ 三角区内无障碍物阻挡</p>
+<hr />
+<h3>1.2 厨房布局类型对比</h3>
+<table>
+<thead>
+<tr>
+<th>布局类型</th>
+<th>适用空间</th>
+<th>优点</th>
+<th>缺点</th>
+<th>37㎡推荐度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>一字型</strong></td>
+<td>窄长空间 (宽≥1.5m)</td>
+<td>节省空间、动线简单</td>
+<td>操作台有限</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td><strong>L 型</strong></td>
+<td>方形空间 (≥2×2m)</td>
+<td>三角区最优、操作面广</td>
+<td>转角空间难利用</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td><strong>U 型</strong></td>
+<td>较大空间 (≥2.5×2.5m)</td>
+<td>操作面最大、收纳最多</td>
+<td>占用空间大</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td><strong>走廊型</strong></td>
+<td>长条形 (宽≥1.8m)</td>
+<td>双面操作、效率高</td>
+<td>需要较宽空间</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td><strong>岛台型</strong></td>
+<td>大空间 (≥3×3m)</td>
+<td>社交互动、操作灵活</td>
+<td>❌ 37㎡不适用</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<p><strong>37㎡户型推荐：L 型布局</strong>
+- 利用两面墙，形成自然三角区
+- 操作台面充足（3-4m）
+- 转角可做拉篮/旋转架利用</p>
+<hr />
+<h3>1.3 厨房标准尺寸</h3>
+<h4>【橱柜尺寸】</h4>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>标准尺寸</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>地柜深度</strong></td>
+<td>60 cm</td>
+<td>含台面，标准尺寸</td>
+</tr>
+<tr>
+<td><strong>地柜高度</strong></td>
+<td>80-85 cm</td>
+<td>根据身高调整</td>
+</tr>
+<tr>
+<td><strong>吊柜深度</strong></td>
+<td>30-35 cm</td>
+<td>避免碰头</td>
+</tr>
+<tr>
+<td><strong>吊柜高度</strong></td>
+<td>距台面 60-70 cm</td>
+<td>方便取物</td>
+</tr>
+<tr>
+<td><strong>吊柜顶高</strong></td>
+<td>距地 220-240 cm</td>
+<td>到顶或留空</td>
+</tr>
+</tbody>
+</table>
+<p><strong>台面高度计算公式：</strong></p>
+<pre><code>舒适台面高度 = 身高 ÷ 2 + 5cm
+
+例：身高 170cm → 台面高度 = 170÷2+5 = 90cm
+例：身高 160cm → 台面高度 = 160÷2+5 = 85cm
+</code></pre>
+<p><strong>分区高度设计（进阶）：</strong>
+- 水槽区：85-90 cm（洗菜不弯腰）
+- 切菜区：85-90 cm（切菜省力）
+- 炉灶区：80-85 cm（炒菜不累臂）</p>
+<hr />
+<h4>【通道宽度】</h4>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>最小宽度</th>
+<th>舒适宽度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>单人操作</strong></td>
+<td>90 cm</td>
+<td>100-110 cm</td>
+</tr>
+<tr>
+<td><strong>双人错身</strong></td>
+<td>120 cm</td>
+<td>140-150 cm</td>
+</tr>
+<tr>
+<td><strong>柜门开启</strong></td>
+<td>90 cm</td>
+<td>100 cm</td>
+</tr>
+<tr>
+<td><strong>抽屉拉出</strong></td>
+<td>90 cm</td>
+<td>100 cm</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>1.4 厨房电器尺寸参考</h3>
+<table>
+<thead>
+<tr>
+<th>电器</th>
+<th>标准尺寸 (宽×深×高)</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>单开门冰箱</strong></td>
+<td>60×65×170 cm</td>
+<td>37㎡推荐</td>
+</tr>
+<tr>
+<td><strong>双开门冰箱</strong></td>
+<td>90×75×180 cm</td>
+<td>需较大空间</td>
+</tr>
+<tr>
+<td><strong>嵌入式烤箱</strong></td>
+<td>60×55×60 cm</td>
+<td>需预留散热</td>
+</tr>
+<tr>
+<td><strong>微波炉</strong></td>
+<td>50×40×30 cm</td>
+<td>可放吊柜</td>
+</tr>
+<tr>
+<td><strong>洗碗机</strong></td>
+<td>60×60×85 cm</td>
+<td>近水槽布置</td>
+</tr>
+<tr>
+<td><strong>油烟机</strong></td>
+<td>90×50×60 cm</td>
+<td>距炉灶 65-75cm</td>
+</tr>
+<tr>
+<td><strong>燃气灶</strong></td>
+<td>60-90×50×5 cm</td>
+<td>根据炉头数</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>二、37㎡户型厨房设计方案（25 分钟）</h2>
+<h3>2.1 典型 37㎡户型厨房条件</h3>
+<p>假设厨房尺寸：<strong>2.4m × 1.8m</strong> (约 4.3㎡)</p>
+<pre><code>┌────────────────────────────────────────────────────┐
+│                  窗 户                             │
+│                                                    │
+│  ┌──────────────────────────────────────────┐     │
+│  │  吊柜 (30cm 深)                           │     │
+│  │  ┌─────┐  ┌─────┐  ┌─────┐              │     │
+│  │  │     │  │     │  │     │              │     │
+│  │  └─────┘  └─────┘  └─────┘              │     │
+│  └──────────────────────────────────────────┘     │
+│                                                    │
+│              操作台面 (60cm 深)                     │
+│  ┌──────────────────────────────────────────┐     │
+│  │水槽│ 切菜区  │  炉灶  │  备餐区  │         │     │
+│  │ 60 │   80    │   60   │    40    │         │     │
+│  └──────────────────────────────────────────┘     │
+│                                                    │
+│  ┌──────────────────────────────────────────┐     │
+│  │  地柜 (60cm 深)                           │     │
+│  │  ┌─────┐  ┌─────┐  ┌─────┐  ┌─────┐     │     │
+│  │  │     │  │     │  │     │  │     │     │     │
+│  │  └─────┘  └─────┘  └─────┘  └─────┘     │     │
+│  └──────────────────────────────────────────┘     │
+│                                                    │
+│                    通道 (90cm)                      │
+│                                                    │
+│  ┌──────────────────────────────────────────┐     │
+│  │  冰箱 (60cm)   │   高柜/收纳              │     │
+│  │                │                          │     │
+│  └──────────────────────────────────────────┘     │
+│                                                    │
+│                      门                            │
+└────────────────────────────────────────────────────┘
+                    240 cm
+</code></pre>
+<hr />
+<h3>2.2 功能分区规划</h3>
+<table>
+<thead>
+<tr>
+<th>区域</th>
+<th>宽度</th>
+<th>功能</th>
+<th>配置建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>水槽区</strong></td>
+<td>60 cm</td>
+<td>清洗、备菜</td>
+<td>单槽/双槽、沥水篮</td>
+</tr>
+<tr>
+<td><strong>切菜区</strong></td>
+<td>80 cm</td>
+<td>切配、备餐</td>
+<td>砧板、刀具架</td>
+</tr>
+<tr>
+<td><strong>炉灶区</strong></td>
+<td>60 cm</td>
+<td>烹饪</td>
+<td>双眼灶/三眼灶</td>
+</tr>
+<tr>
+<td><strong>备餐区</strong></td>
+<td>40 cm</td>
+<td>出菜、临时放置</td>
+<td>台面保持空旷</td>
+</tr>
+<tr>
+<td><strong>冰箱区</strong></td>
+<td>60 cm</td>
+<td>储物</td>
+<td>单开门冰箱</td>
+</tr>
+</tbody>
+</table>
+<p><strong>总台面长度：</strong> 240 cm（有效利用）</p>
+<hr />
+<h3>2.3 收纳系统设计</h3>
+<h4>【地柜收纳】</h4>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>收纳方式</th>
+<th>存放物品</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>水槽下方</strong></td>
+<td>推拉门/开放式</td>
+<td>清洁剂、垃圾桶</td>
+</tr>
+<tr>
+<td><strong>切菜区下方</strong></td>
+<td>抽屉 (3 层)</td>
+<td>餐具、厨具、砧板</td>
+</tr>
+<tr>
+<td><strong>炉灶下方</strong></td>
+<td>抽屉/拉篮</td>
+<td>锅具、调味篮</td>
+</tr>
+<tr>
+<td><strong>备餐区下方</strong></td>
+<td>层板柜</td>
+<td>小家电、干货</td>
+</tr>
+</tbody>
+</table>
+<h4>【吊柜收纳】</h4>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>收纳方式</th>
+<th>存放物品</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>水槽上方</strong></td>
+<td>层板柜</td>
+<td>碗碟、杯子</td>
+</tr>
+<tr>
+<td><strong>切菜区上方</strong></td>
+<td>开放式/玻璃门</td>
+<td>常用调料、干货</td>
+</tr>
+<tr>
+<td><strong>炉灶上方</strong></td>
+<td>油烟机</td>
+<td>(不储物)</td>
+</tr>
+<tr>
+<td><strong>备餐区上方</strong></td>
+<td>层板柜</td>
+<td>小家电、备用物品</td>
+</tr>
+</tbody>
+</table>
+<h4>【墙面收纳】</h4>
+<ul>
+<li>✅ 挂杆 + S 钩：悬挂铲勺、抹布</li>
+<li>✅ 磁吸刀架：刀具收纳</li>
+<li>✅ 调料架：常用调料</li>
+<li>✅ 洞洞板：灵活收纳小工具</li>
+</ul>
+<hr />
+<h3>2.4 水电点位规划</h3>
+<h4>【给水点位】</h4>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>高度</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>水槽冷水</strong></td>
+<td>距地 45 cm</td>
+<td>水槽龙头</td>
+</tr>
+<tr>
+<td><strong>水槽热水</strong></td>
+<td>距地 45 cm</td>
+<td>水槽龙头</td>
+</tr>
+<tr>
+<td><strong>净水器</strong></td>
+<td>距地 45 cm</td>
+<td>水槽下方</td>
+</tr>
+<tr>
+<td><strong>洗碗机进水</strong></td>
+<td>距地 30 cm</td>
+<td>地柜内</td>
+</tr>
+</tbody>
+</table>
+<h4>【排水点位】</h4>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>水槽排水</strong></td>
+<td>距地 40 cm，直径 50mm</td>
+</tr>
+<tr>
+<td><strong>地漏</strong></td>
+<td>地面最低点，防臭型</td>
+</tr>
+</tbody>
+</table>
+<h4>【电路点位】</h4>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>高度</th>
+<th>用途</th>
+<th>功率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>油烟机插座</strong></td>
+<td>距地 220 cm</td>
+<td>油烟机</td>
+<td>200W</td>
+</tr>
+<tr>
+<td><strong>炉灶插座</strong></td>
+<td>距地 60 cm (侧面)</td>
+<td>燃气灶/电磁炉</td>
+<td>3000W</td>
+</tr>
+<tr>
+<td><strong>水槽下方插座</strong></td>
+<td>距地 45 cm</td>
+<td>净水器/垃圾处理器</td>
+<td>500W</td>
+</tr>
+<tr>
+<td><strong>台面插座</strong></td>
+<td>距台面 30 cm</td>
+<td>小家电 (2-3 个)</td>
+<td>2000W</td>
+</tr>
+<tr>
+<td><strong>冰箱插座</strong></td>
+<td>距地 30 cm</td>
+<td>冰箱</td>
+<td>200W</td>
+</tr>
+<tr>
+<td><strong>洗碗机插座</strong></td>
+<td>距地 30 cm (侧面)</td>
+<td>洗碗机</td>
+<td>2000W</td>
+</tr>
+</tbody>
+</table>
+<p><strong>电路安全提示：</strong>
+- ⚠️ 厨房电路需单独回路（建议 4mm²线）
+- ⚠️ 所有插座带防溅盒
+- ⚠️ 大功率电器（电磁炉、烤箱）单独回路
+- ⚠️ 水槽附近插座距水源≥60cm</p>
+<hr />
+<h2>三、实战练习（20 分钟）</h2>
+<h3>练习 8.1：评估现有厨房</h3>
+<p>如果你现在有自己的房子，请观察厨房并回答：</p>
+<ol>
+<li><strong>布局类型：</strong> 一字型 / L 型 / U 型 / 其他 ______</li>
+<li><strong>三角区周长：</strong> 约 ______ m</li>
+<li><strong>台面总长度：</strong> 约 ______ m</li>
+<li><strong>主要问题：</strong> （多选）</li>
+<li>[ ] 操作台面不够</li>
+<li>[ ] 收纳空间不足</li>
+<li>[ ] 动线不合理</li>
+<li>[ ] 电器摆放不便</li>
+<li>[ ] 采光/通风差</li>
+<li>[ ] 其他：______</li>
+</ol>
+<h3>练习 8.2：为 37㎡户型设计厨房</h3>
+<p><strong>条件：</strong> 厨房尺寸 2.4m × 1.8m</p>
+<p><strong>任务：</strong>
+1. 画出厨房平面布局图（标注尺寸）
+2. 标注工作三角区
+3. 列出所需橱柜配置
+4. 规划水电点位</p>
+<p><strong>参考方案：</strong></p>
+<pre><code>布局：L 型 + 冰箱独立位
+台面：240cm (水槽 60+ 切菜 80+ 炉灶 60+ 备餐 40)
+收纳：地柜 4 组 + 吊柜 3 组 + 墙面收纳
+电器：单开门冰箱 + 双眼灶 + 油烟机 + 微波炉
+</code></pre>
+<hr />
+<h2>四、避坑指南（10 分钟）</h2>
+<h3>❌ 常见厨房设计错误</h3>
+<table>
+<thead>
+<tr>
+<th>错误</th>
+<th>问题</th>
+<th>正确做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>冰箱离水槽太远</strong></td>
+<td>取菜洗菜来回跑</td>
+<td>冰箱→水槽≤1.5m</td>
+</tr>
+<tr>
+<td><strong>切菜区太小</strong></td>
+<td>备餐空间不足</td>
+<td>切菜区≥60cm，建议 80cm</td>
+</tr>
+<tr>
+<td><strong>炉灶靠墙角</strong></td>
+<td>炒菜时胳膊受限</td>
+<td>炉灶两侧各留≥15cm</td>
+</tr>
+<tr>
+<td><strong>吊柜太低</strong></td>
+<td>碰头、压抑</td>
+<td>吊柜底距台面≥60cm</td>
+</tr>
+<tr>
+<td><strong>插座不够</strong></td>
+<td>小家电无处插</td>
+<td>台面预留 2-3 个插座</td>
+</tr>
+<tr>
+<td><strong>灯光不足</strong></td>
+<td>切菜看不清</td>
+<td>吊柜下加装灯带</td>
+</tr>
+<tr>
+<td><strong>水槽太小</strong></td>
+<td>大锅洗不了</td>
+<td>建议单大槽 (≥60cm)</td>
+</tr>
+<tr>
+<td><strong>地柜全用层板</strong></td>
+<td>拿取不便</td>
+<td>多用抽屉/拉篮</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>✅ 厨房设计黄金法则</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│              厨房设计黄金法则                            │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  1️⃣ 顺序不能乱：冰箱 → 水槽 → 切菜 → 炉灶 → 出菜       │
+│                                                         │
+│  2️⃣ 尺寸不能省：切菜区≥60cm，通道≥90cm                 │
+│                                                         │
+│  3️⃣ 收纳要做足：台面空无一物，杂物全进柜                │
+│                                                         │
+│  4️⃣ 灯光要明亮：顶灯 + 吊柜下灯带，切菜不背光           │
+│                                                         │
+│  5️⃣ 插座要预留：台面 2-3 个，大功率单独回路             │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<hr />
+<h2>五、今日作业（15 分钟）</h2>
+<h3>必做作业</h3>
+<ol>
+<li><strong>绘制厨房平面图</strong></li>
+<li>标注尺寸（长×宽×高）</li>
+<li>标注工作三角区</li>
+<li>
+<p>标注水电点位</p>
+</li>
+<li>
+<p><strong>列出橱柜配置清单</strong></p>
+</li>
+<li>地柜：<strong><em> 组（类型：</em></strong>___）</li>
+<li>吊柜：<strong><em> 组（类型：</em></strong>___）</li>
+<li>
+<p>高柜：<strong><em> 组（类型：</em></strong>___）</p>
+</li>
+<li>
+<p><strong>列出电器清单</strong></p>
+</li>
+<li>必备：冰箱、炉灶、油烟机、水槽</li>
+<li>选备：洗碗机、烤箱、微波炉、净水器</li>
+</ol>
+<h3>选做作业</h3>
+<ul>
+<li>研究 3 个厨房收纳神器（如转角拉篮、升降吊柜等）</li>
+<li>收集 5 张喜欢的厨房设计图片（标注喜欢的原因）</li>
+</ul>
+<hr />
+<h2>📝 明日预告</h2>
+<p><strong>Day 9: 卫生间设计详解</strong></p>
+<ul>
+<li>卫生间干湿分离设计</li>
+<li>卫浴设备尺寸与布局</li>
+<li>防水与排水要点</li>
+<li>小卫生间空间优化技巧</li>
+</ul>
+<hr />
+<h2>💡 金句总结</h2>
+<blockquote>
+<p>"厨房是家的心脏，好厨房让烹饪变成享受，坏厨房让做饭变成折磨。"</p>
+<p>"设计厨房不是塞进最多的东西，而是让每个动作都流畅自然。"</p>
+</blockquote>
+<hr />
+<p><strong>课程进度：</strong> Week 2 Day 1 / 30 天<br />
+<strong>累计完成：</strong> 8/30 (27%)<br />
+<strong>下次课程：</strong> 2026-04-04 20:00 HKT (卫生间设计详解)</p>
+<hr />
+<p><em>利利.ai 室内设计培训 · 37㎡户型改造专项课程</em></p>
+            
+            <div class="prev-next-nav">
+                <a href="day-07.html"><i class="fas fa-arrow-left"></i> Day 7</a>
+                <a href="../interior-design.html"><i class="fas fa-list"></i> 课程目录</a>
+                <a href="day-09.html">Day 9 <i class="fas fa-arrow-right"></i></a>
+            </div>
+    
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
+                    <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 98381267</p></li>
+                    <li><i class="fas fa-envelope"></i> ivanxuag@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/SLdesignPlus" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="contact-info">
+                    <li><a href="../../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
+                    <li><a href="../interior-design.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-couch"></i> 室内设计</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 SL Design Platform. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Design - 学习 · 室内设计 · Day 6 色彩搭配进阶</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPNTNEW4GH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SPNTNEW4GH');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #0f172a; color: #e2e8f0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(15,23,42,0.3); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .logo span { color: #e2e8f0; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { color: #e2e8f0; text-decoration: none; font-weight: 500; padding: 0.5rem 0.8rem; border-radius: 4px; transition: all 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { background-color: #1e3a5f; color: #60a5fa; }
+        .menu-toggle { display: none; background: none; border: none; color: #e2e8f0; font-size: 1.5rem; cursor: pointer; }
+        footer { background-color: #0f172a; color: #e2e8f0; padding: 2rem 0; margin-top: 3rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { font-size: 1.3rem; margin-bottom: 1.2rem; color: #3b82f6; position: relative; padding-bottom: 0.5rem; }
+        .footer-section h3:after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: #60a5fa; }
+        .contact-info { list-style: none; }
+        .contact-info li { margin-bottom: 0.8rem; display: flex; align-items: center; }
+        .contact-info i { margin-right: 0.8rem; color: #3b82f6; width: 20px; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1e3a5f; color: #e2e8f0; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { background-color: #60a5fa; color: #0f172a; transform: translateY(-3px); }
+        .copyright { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #1e3a5f; color: #94a3b8; font-size: 0.9rem; }
+
+        .breadcrumbs { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #94a3b8; padding: 1rem 0; flex-wrap: wrap; }
+        .breadcrumbs a { color: #10b981; text-decoration: none; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+        .breadcrumbs .sep { color: #d1d5db; }
+
+        .lesson-header { padding: 1.5rem 0; }
+        .lesson-header .lesson-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+        .lesson-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .badge-stage { background: #ecfdf5; color: #059669; }
+        .badge-week { background: #eff6ff; color: #3b82f6; }
+        .badge-day { background: #fef3c7; color: #d97706; }
+        .lesson-header h1 { font-size: 1.6rem; color: #0f172a; margin-bottom: 0.3rem; }
+        .lesson-header .lesson-subtitle { color: #64748b; font-size: 0.9rem; }
+
+        .content-body { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2rem; margin-bottom: 2rem; }
+
+        .lesson-objectives { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+        .lesson-objectives h3 { color: #059669; font-size: 1rem; margin-bottom: 0.5rem; }
+        .lesson-objectives ul { list-style: none; padding: 0; margin: 0; }
+        .lesson-objectives li { color: #047857; padding: 0.2rem 0; font-size: 0.9rem; }
+        .lesson-objectives li::before { content: '✅ '; }
+
+        .content-body h2 { font-size: 1.3rem; color: #059669; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #d1fae5; }
+        .content-body h2:first-child { margin-top: 0; }
+        .content-body h3 { font-size: 1.1rem; color: #0f172a; margin: 1.5rem 0 0.8rem; }
+        .content-body h4 { font-size: 1rem; color: #0f172a; margin: 1.2rem 0 0.6rem; }
+        .content-body p { margin-bottom: 0.8rem; color: #444; }
+        .content-body ul, .content-body ol { margin: 0.8rem 0; padding-left: 1.5rem; }
+        .content-body li { margin-bottom: 0.4rem; color: #444; }
+        .content-body strong { color: #0f172a; }
+        .content-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        .content-body th, .content-body td { border: 1px solid #e2e8f0; padding: 0.6rem 0.8rem; text-align: left; }
+        .content-body th { background-color: #f0fdf4; color: #059669; font-weight: 600; }
+        .content-body tr:nth-child(even) { background-color: #f8fafc; }
+
+        .highlight-box { background: #f0fdf4; border-left: 4px solid #059669; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .highlight-box p { margin: 0; color: #047857; }
+
+        .tip-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .tip-box p { margin: 0; color: #92400e; }
+
+        .warn-box { background: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.2rem 0; }
+        .warn-box p { margin: 0; color: #991b1b; }
+
+        .case-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+        .case-box h4 { color: #0f172a; font-size: 1rem; margin-bottom: 0.8rem; }
+
+        .task-box { background: #eff6ff; border: 2px solid #93c5fd; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+        .task-box h4 { color: #1e40af; margin-bottom: 0.5rem; }
+        .task-box p { color: #1e40af; margin: 0; }
+
+        .ergo-diagram { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; text-align: center; margin: 1.5rem 0; }
+        .ergo-diagram h3 { color: #059669; margin-bottom: 1.5rem; font-size: 1.2rem; }
+        .ergo-diagram .section { text-align: left; margin: 0.8rem 0; }
+        .ergo-diagram .section strong { color: #059669; }
+        
+        .ergo-diagram pre { text-align: left; background: #fff; padding: 1rem; border-radius: 8px; overflow-x: auto; font-family: monospace; font-size: 0.85rem; margin: 0.5rem 0; }
+
+        .next-lesson { background: #f0fdf4; border: 2px solid #86efac; border-radius: 12px; padding: 1.5rem; margin-top: 2rem; display: flex; align-items: center; gap: 1rem; }
+        .next-lesson i { font-size: 1.5rem; color: #059669; }
+        .next-lesson-text h3 { font-size: 1rem; color: #059669; margin-bottom: 0.2rem; }
+        .next-lesson-text p { font-size: 0.85rem; color: #047857; margin: 0; }
+
+        .prev-next-nav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .prev-next-nav a { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.2rem; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; color: #059669; font-size: 0.9rem; transition: box-shadow 0.3s ease; }
+        .prev-next-nav a:hover { box-shadow: 0 4px 12px rgba(16,185,129,0.15); }
+
+        details { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; margin: 1rem 0; padding: 1rem; }
+        summary { cursor: pointer; font-weight: bold; color: #059669; outline: none; }
+        summary:hover { color: #047857; }
+        details p { margin-top: 0.8rem; margin-bottom: 0; color: #444; }
+        
+        code { background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px; font-family: monospace; color: #0f172a; }
+        pre { background: #f8fafc; padding: 1rem; border-radius: 8px; overflow-x: auto; font-family: monospace; font-size: 0.85rem; margin: 1rem 0; }
+
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; align-items: flex-start; }
+            .logo { margin-bottom: 1rem; }
+            nav { width: 100%; }
+            nav ul { flex-direction: column; width: 100%; display: none; }
+            nav ul.show { display: flex; }
+            nav ul li { margin: 0; width: 100%; }
+            nav ul li a { display: block; padding: 0.8rem 0; border-bottom: 1px solid #1e3a5f; }
+            .menu-toggle { display: block; position: absolute; top: 1rem; right: 20px; }
+            .content-body { padding: 1.2rem; }
+            .lesson-header h1 { font-size: 1.3rem; }
+            .footer-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" style="text-decoration:none;">
+                <div class="logo">SL <span>DESIGN</span> PLATFORM</div>
+            </a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="../../index.html"><i class="fas fa-home"></i> HOME</a></li>
+                    <li><a href="../../index.html#exhibition"><i class="fas fa-images"></i> CASES</a></li>
+                    <li><a href="../../news.html"><i class="fas fa-newspaper"></i> NEWS</a></li>
+                    <li><a href="../../games.html"><i class="fas fa-gamepad"></i> GAMES</a></li>
+                    <li><a href="../../learning.html" class="active"><i class="fas fa-graduation-cap"></i> LEARNING</a></li>
+                    <li><a href="../../index.html#contact"><i class="fas fa-address-book"></i> CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../learning.html"><i class="fas fa-graduation-cap"></i> LEARNING</a>
+            <span class="sep">›</span>
+            <a href="../interior-design.html">室内设计</a>
+            <span class="sep">›</span>
+            <span>Day 6</span>
+        </div>
+
+        <div class="lesson-header">
+            <div class="lesson-meta">
+                <span class="lesson-badge badge-stage">入门</span>
+                <span class="lesson-badge badge-week">Week 1</span>
+                <span class="lesson-badge badge-day">Day 6</span>
+            </div>
+            <h1>🏠 色彩搭配进阶</h1>
+            <p class="lesson-subtitle">37㎡户型改造设计培训</p>
+        </div>
+
+        <div class="content-body">
+            <h1>🎨 室内设计课程 - Day 06</h1>
+<h2>色彩搭配进阶</h2>
+<p><strong>日期：</strong> 2026-04-01<br />
+<strong>周次：</strong> Week 1, Day 6<br />
+<strong>学员：</strong> Ivan<br />
+<strong>项目：</strong> 37㎡户型改造设计培训</p>
+<hr />
+<h2>📋 今日学习目标</h2>
+<ol>
+<li>理解色彩心理学在室内设计中的应用</li>
+<li>掌握 60-30-10 配色法则</li>
+<li>学习小空间的色彩放大技巧</li>
+<li>为 37㎡户型制定色彩方案</li>
+</ol>
+<hr />
+<h2>🧠 核心概念</h2>
+<h3>1. 色彩心理学基础</h3>
+<table>
+<thead>
+<tr>
+<th>色系</th>
+<th>心理效果</th>
+<th>适用空间</th>
+<th>注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>冷色系</strong> (蓝/绿/灰)</td>
+<td>冷静、放松、视觉收缩</td>
+<td>卧室、书房、卫生间</td>
+<td>小空间慎用深冷色</td>
+</tr>
+<tr>
+<td><strong>暖色系</strong> (红/橙/黄)</td>
+<td>温暖、活跃、视觉膨胀</td>
+<td>客厅、餐厅、儿童房</td>
+<td>大面积使用易疲劳</td>
+</tr>
+<tr>
+<td><strong>中性色</strong> (白/米/灰)</td>
+<td>平衡、百搭、空间延伸</td>
+<td>全屋通用</td>
+<td>需搭配点缀色避免单调</td>
+</tr>
+<tr>
+<td><strong>大地色</strong> (棕/咖/米黄)</td>
+<td>自然、稳定、温馨</td>
+<td>客厅、卧室</td>
+<td>适合营造高级感</td>
+</tr>
+</tbody>
+</table>
+<h3>2. 60-30-10 配色法则</h3>
+<pre><code>60% 主色 —— 墙面、地面、大型家具（奠定空间基调）
+30% 辅助色 —— 窗帘、中型家具、地毯（增加层次）
+10% 点缀色 —— 抱枕、装饰画、小摆件（活跃气氛）
+</code></pre>
+<p><strong>37㎡户型应用示例：</strong>
+- 60% 主色：浅灰色墙面 + 原木色地板
+- 30% 辅助色：白色家具 + 米色沙发
+- 10% 点缀色：墨绿色抱枕 + 金色灯具</p>
+<h3>3. 小空间色彩放大技巧</h3>
+<h4>✅ 推荐做法</h4>
+<table>
+<thead>
+<tr>
+<th>技巧</th>
+<th>说明</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>墙面浅于地面</strong></td>
+<td>上浅下深，视觉重心稳定</td>
+<td>空间更显高</td>
+</tr>
+<tr>
+<td><strong>天花板纯白</strong></td>
+<td>反射光线，减少压迫感</td>
+<td>层高显高 10-15cm</td>
+</tr>
+<tr>
+<td><strong>同色系延伸</strong></td>
+<td>相邻空间使用相近色调</td>
+<td>视觉连贯，空间显大</td>
+</tr>
+<tr>
+<td><strong>单面强调墙</strong></td>
+<td>仅一面墙使用深色/亮色</td>
+<td>制造焦点，不压缩空间</td>
+</tr>
+<tr>
+<td><strong>镜面+浅色</strong></td>
+<td>镜子反射浅色墙面</td>
+<td>双倍空间感</td>
+</tr>
+</tbody>
+</table>
+<h4>❌ 避免做法</h4>
+<ul>
+<li>四面墙都深色 → 盒子感</li>
+<li>天花板深色 → 压迫感</li>
+<li>过多对比色 → 空间割裂</li>
+<li>高饱和度大面积使用 → 视觉疲劳</li>
+</ul>
+<hr />
+<h2>📐 37㎡户型色彩方案建议</h2>
+<h3>整体基调：北欧简约 + 日式温暖</h3>
+<pre><code>┌─────────────────────────────────────────────────────┐
+│  空间色彩规划表                                      │
+├─────────────┬───────────────┬───────────────────────┤
+│  区域       │  主色调       │  点缀色               │
+├─────────────┼───────────────┼───────────────────────┤
+│  玄关       │  浅灰 + 原木  │  黑色挂钩/绿植        │
+│  客厅       │  米白 + 浅木  │  墨绿/焦糖色抱枕      │
+│  餐厅       │  延续客厅     │  暖黄灯光             │
+│  卧室       │  浅灰蓝       │  粉色/金色床品        │
+│  厨房       │  白色 + 浅灰  │  黑色五金             │
+│  卫生间     │  浅灰大理石   │  金色龙头/绿植        │
+└─────────────┴───────────────┴───────────────────────┘
+</code></pre>
+<h3>色彩流动设计</h3>
+<pre><code>玄关 (浅灰) → 客厅 (米白) → 餐厅 (米白) → 卧室 (灰蓝)
+     ↓              ↓            ↓           ↓
+  过渡自然    视觉统一    功能分区    私密空间
+</code></pre>
+<p><strong>设计逻辑：</strong>
+- 公共区域（玄关/客厅/餐厅）使用相近暖色调，增强空间连贯性
+- 私密区域（卧室）使用冷色调，营造安静氛围
+- 厨房/卫生间使用中性色，便于清洁且视觉干净</p>
+<hr />
+<h2>🎯 实战练习</h2>
+<h3>练习 1: 分析你家的现状色彩</h3>
+<ol>
+<li>拍照记录每个房间的主色、辅助色、点缀色</li>
+<li>估算比例是否符合 60-30-10</li>
+<li>找出色彩不协调的区域</li>
+</ol>
+<h3>练习 2: 为 37㎡户型选择点缀色</h3>
+<p><strong>场景：</strong> 客厅已确定主色为浅灰色，沙发为米白色</p>
+<p><strong>任务：</strong> 从以下组合中选择最适合的点缀色方案，并说明理由</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>点缀色组合</th>
+<th>适合风格</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>墨绿色 + 黄铜金</td>
+<td>复古轻奢</td>
+</tr>
+<tr>
+<td>B</td>
+<td>珊瑚粉 + 玫瑰金</td>
+<td>温馨浪漫</td>
+</tr>
+<tr>
+<td>C</td>
+<td>海军蓝 + 黑色</td>
+<td>现代简约</td>
+</tr>
+<tr>
+<td>D</td>
+<td>橄榄绿 + 原木色</td>
+<td>自然北欧</td>
+</tr>
+</tbody>
+</table>
+<p><strong>参考答案：</strong> 均可，取决于个人偏好。小户型推荐 A 或 D，视觉层次更丰富。</p>
+<hr />
+<h2>💡 避坑指南</h2>
+<h3>常见色彩错误</h3>
+<table>
+<thead>
+<tr>
+<th>错误</th>
+<th>后果</th>
+<th>修正方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全屋大白墙</td>
+<td>单调、像出租屋</td>
+<td>加入 1-2 面强调墙</td>
+</tr>
+<tr>
+<td>每个房间颜色不同</td>
+<td>空间割裂、显小</td>
+<td>公共区域统一基调</td>
+</tr>
+<tr>
+<td>家具颜色太深</td>
+<td>空间压抑</td>
+<td>选浅色系或细腿家具</td>
+</tr>
+<tr>
+<td>忽略灯光色温</td>
+<td>色彩失真</td>
+<td>统一 3000-3500K 暖白光</td>
+</tr>
+<tr>
+<td>样品与大面积色差</td>
+<td>实际效果不符</td>
+<td>先刷小样观察 24 小时</td>
+</tr>
+</tbody>
+</table>
+<h3>灯光对色彩的影响</h3>
+<pre><code>3000K 暖黄光 → 暖色更暖，冷色发灰
+3500K 暖白光 → 色彩还原最佳（推荐）
+4000K 自然光 → 冷色更冷，暖色偏白
+5000K+ 冷白光 → 空间清冷，不适合居家
+</code></pre>
+<hr />
+<h2>📚 延伸学习</h2>
+<h3>推荐工具</h3>
+<ol>
+<li><strong>ColorHunt</strong> (colorhunt.co) — 现成配色方案参考</li>
+<li><strong>Adobe Color</strong> — 自定义配色轮工具</li>
+<li><strong>住小帮/好好住</strong> — 真实案例色彩参考</li>
+</ol>
+<h3>推荐案例</h3>
+<ul>
+<li>《小家，越住越大》— 逯薇（色彩章节）</li>
+<li>《室内设计色彩搭配手册》— 专业工具书</li>
+</ul>
+<hr />
+<h2>✅ 今日作业</h2>
+<ol>
+<li><strong>观察任务：</strong> 找出 3 个你喜欢的室内空间案例，分析其配色比例</li>
+<li><strong>实践任务：</strong> 为 37㎡户型客厅选择 10% 点缀色，并说明理由</li>
+<li><strong>思考任务：</strong> 现有住房中，哪个空间色彩最不舒服？为什么？</li>
+</ol>
+<hr />
+<h2>📊 学习进度</h2>
+<table>
+<thead>
+<tr>
+<th>周次</th>
+<th>天数</th>
+<th>主题</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Week 1</td>
+<td>Day 1</td>
+<td>什么是好设计</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Week 1</td>
+<td>Day 2</td>
+<td>人体工学基础</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Week 1</td>
+<td>Day 3</td>
+<td>收纳系统设计</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Week 1</td>
+<td>Day 4</td>
+<td>照明设计基础</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Week 1</td>
+<td>Day 5</td>
+<td>材料选择与搭配</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Week 1</td>
+<td>Day 6</td>
+<td><strong>色彩搭配进阶</strong></td>
+<td>📝 今日</td>
+</tr>
+<tr>
+<td>Week 1</td>
+<td>Day 7</td>
+<td>周复习与实践</td>
+<td>⏳</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>明日预告：</strong> Day 07 — Week 1 复习 + 37㎡户型综合方案设计</p>
+<p><strong>课程疑问？</strong> 随时记录，周末统一解答。</p>
+<hr />
+<p><em>利利.ai 🐱 | 室内设计培训计划 | 2026-04-01</em></p>
+            
+            <div class="prev-next-nav">
+                <a href="day-05.html"><i class="fas fa-arrow-left"></i> Day 5</a>
+                <a href="../interior-design.html"><i class="fas fa-list"></i> 课程目录</a>
+                <a href="day-07.html">Day 7 <i class="fas fa-arrow-right"></i></a>
+            </div>
+    
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> 1703 SOLO TAI KOK TSUI KLN HK</li>
+                    <li><i class="fas fa-phone"></i><p style="color:#e2e8f0"> +852 98381267</p></li>
+                    <li><i class="fas fa-envelope"></i> ivanxuag@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Mon to Fri 9:00-18:00</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/SLdesignPlus" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="contact-info">
+                    <li><a href="../../index.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../learning.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-graduation-cap"></i> Learning</a></li>
+                    <li><a href="../interior-design.html" style="color:#e2e8f0;text-decoration:none;"><i class="fas fa-couch"></i> 室内设计</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 SL Design Platform. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>
